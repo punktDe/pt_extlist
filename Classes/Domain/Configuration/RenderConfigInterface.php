@@ -49,7 +49,7 @@ interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface
     
     /**
      * Returns a configuration array for user functions
-     * 
+     *    
      * @return array userFunctions Configuration
      */
     public function getRenderUserFunctions();
@@ -57,7 +57,7 @@ interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface
     
     /**
      * Returns a path to a fluid template file
-     * 
+     *    
      * @returns string template
      */
     public function getRenderTemplate();

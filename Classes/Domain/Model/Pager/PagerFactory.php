@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Pager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements factory for pager classes for pt_extlist
  *
@@ -34,7 +37,7 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerFactory implements \TYPO3\CMS\Core\SingletonInterface
+class PagerFactory implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
@@ -56,15 +59,15 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerFactory implements \TYPO3\CMS\Core\Si
     /**
      * Returns an instance of pager for a given configuration builder and a pager configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig $pagerConfiguration
+     * @return \PunktDe\PtExtlist\Domain\Model\Pager\PagerInterface
      */
-    public function getInstance(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration)
+    public function getInstance(\PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig $pagerConfiguration)
     {
         $pagerClassName = $pagerConfiguration->getPagerClassName();
 
         $pager = $this->objectManager->get($pagerClassName, $pagerConfiguration);
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), ['message' => 'Given pager class does not implement pager interface! 1279541488']);
+        PunktDe_PtExtbase_Assertions_Assert::isTrue(is_a($pager, 'Tx_PtExtlist_Domain_Model_Pager_PagerInterface'), ['message' => 'Given pager class does not implement pager interface! 1279541488']);
 
         return $pager;
     }

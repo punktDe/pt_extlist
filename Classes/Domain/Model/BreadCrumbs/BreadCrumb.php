@@ -34,7 +34,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbTest
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_State_IdentifiableInterface
+class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements PunktDe_PtExtbase_State_IdentifiableInterface
 {
     /**
      * The listIdentifier for which this pager is active.
@@ -107,7 +107,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_S
 
 
     /**
-     * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
+     * @see PunktDe_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
      *
      * @return String
      */

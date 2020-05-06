@@ -37,7 +37,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-    implements Tx_PtExtbase_State_IdentifiableInterface
+    implements PunktDe_PtExtbase_State_IdentifiableInterface
 {
     const PTEXTLIST_BOOKMARK_PUBLIC = 1;
     const PTEXTLIST_BOOKMARK_PRIVATE = 2;
@@ -126,7 +126,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     
     
     /**
-     * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
+     * @see PunktDe_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
      *
      * @return String
      */

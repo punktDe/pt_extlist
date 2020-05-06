@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ExtlistContext;
 /***************************************************************
  *  Copyright notice
  *
@@ -36,7 +37,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_ExtlistContext_ExtlistContextFactoryTest
  */
-class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Core\SingletonInterface
+class ExtlistContextFactory implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
@@ -53,7 +54,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 
 
     /**
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -101,9 +102,9 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 
 
     /**
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -226,7 +227,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
      * @param array $customTSArray
      * @param $listIdentifier
      * @param boolean $resetConfigurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      */
     protected static function buildConfigurationBuilder(array $customTSArray, $listIdentifier, $resetConfigurationBuilder = false)
     {
@@ -248,7 +249,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
     /**
      * Build the extbaseContext
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
      * @return Tx_PtExtlist_ExtlistContext_ExtlistContext $extbaseContext
      */
     protected static function buildContext(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
@@ -271,8 +272,8 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
         // TODO use DI here once refactoring is finished
 
         $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-        $lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
-        $sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+        $lifecycleManager = $objectManager->get('\PunktDe\PtExtbase\Lifecycle\Manager'); /* @var $lifecycleManager \PunktDe\PtExtbase\Lifecycle\Manager */
+        $sessionPersistenceManagerBuilder = $objectManager->get('PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
         $sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
         $getPostVarAdapterFactory = $objectManager->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
         $getPostVarAdapter = $getPostVarAdapterFactory->getInstance();
@@ -321,7 +322,6 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContextFactory implements \TYPO3\CMS\Co
 
     /**
      * Get current typoscript settings for pt_extlist plugin
-     *
      */
     protected static function getCurrentTyposcript()
     {

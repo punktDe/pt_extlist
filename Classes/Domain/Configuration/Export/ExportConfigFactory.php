@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Export;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements factory for export configuration
  *
@@ -33,19 +36,18 @@
  * @subpackage Configuration\Export
  * @author Daniel Lienert 
  */
-
-class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory
+class ExportConfigFactory
 {
     /**
      * Returns a instance of a export configuration.
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $exportSettings = self::getExportSettingsForCurrentView($configurationBuilder);
-        $exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($configurationBuilder, $exportSettings);
+        $exportConfig = new \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig($configurationBuilder, $exportSettings);
         
         return $exportConfig;
     }
@@ -53,11 +55,11 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory
     
     /**
      * Get the settings 
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @return array
      */
-    protected static function getExportSettingsForCurrentView(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    protected static function getExportSettingsForCurrentView(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $allExportSettings = $configurationBuilder->getSettingsForConfigObject('export');
         $controllerSettings = $configurationBuilder->getSettings('controller');

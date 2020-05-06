@@ -69,7 +69,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_Time
 
     public function testType()
     {
-        $this->assertInstanceOf('Tx_PtExtbase_Collection_SortableObjectCollection', $this->proxy);
+        $this->assertInstanceOf('PunktDe_PtExtbase_Collection_SortableObjectCollection', $this->proxy);
     }
 
 

@@ -44,8 +44,8 @@ interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $mapperConfiguration
      * @return void
      */
-    public function _injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration);
+    public function _injectMapperConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $mapperConfiguration);
 }

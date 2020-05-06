@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Base;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements basic configuration parameters
  *
@@ -34,7 +37,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class BaseConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
 {
     /**
      * Session storage adapter for a uncached plugin
@@ -46,7 +49,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
     
     /**
      * Session storage adapter for a cached plugin
-     * 
+     *  
      * @var string
      */
     protected $cachedSessionStorageAdapter;
@@ -55,7 +58,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 
     /**
      * True, if we want to reset session data on empty submit
-     * 
+     *  
      * @var bool
      */
     protected $resetOnEmptySubmit = false;
@@ -79,7 +82,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
     /**
      * Template method for initializing this config object by injected
      * TypoScript settings.
-     * 
+     *  
      * @return void
      */
     protected function init()
@@ -125,7 +128,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 
     /**
      * Returns true, if we want to reset session on empty submit
-     * 
+     *  
      * @return bool
      */
     public function getResetOnEmptySubmit()

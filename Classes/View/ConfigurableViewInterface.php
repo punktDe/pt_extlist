@@ -38,8 +38,8 @@ interface Tx_PtExtlist_View_ConfigurableViewInterface extends \TYPO3\CMS\Extbase
     /**
      * Injects configuration builder via setter.
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @return mixed
      */
-    public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder);
+    public function setConfigurationBuilder(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder);
 }

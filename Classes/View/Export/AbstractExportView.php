@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\View\Export;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Abstract view for exports. This class acts as a base class for
  * all exports. It handles settings for export and header generation etc.
@@ -36,12 +39,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest
  */
-abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_View_BaseView
+abstract class AbstractExportView extends \PunktDe\PtExtlist\View\BaseView
 {
     /**
      * Export configuration object
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig
      */
     protected $exportConfiguration;
 
@@ -62,9 +65,9 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Export_ExportConfig $exportConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig $exportConfiguration
      */
-    public function setExportConfiguration(Tx_PtExtlist_Domain_Configuration_Export_ExportConfig $exportConfiguration)
+    public function setExportConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig $exportConfiguration)
     {
         $this->exportConfiguration = $exportConfiguration;
     }
@@ -95,7 +98,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
     /**
      * Helper method for generating file name from TS config
      *
-     * @return  string      File name of Export File
+     * @return   string      File name of Export File
      */
     protected function getFilenameFromTs()
     {
@@ -125,7 +128,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
     {
         switch ($this->exportConfiguration->getDownloadType()) {
 
-            case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::OPEN_IN_BROWSER:
+            case \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig::OPEN_IN_BROWSER:
 
                 if ($this->exportConfiguration->getContentType()) {
                     header('Content-Type: ' . $this->exportConfiguration->getContentType());
@@ -138,7 +141,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
                 header('Content-disposition: inline; filename="' . $this->getFilenameFromTs() . '"');
                 break;
 
-            case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
+            case \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig::FORCE_DOWNLOAD:
 
                 if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
                     header('Content-Type: application/force-download, charset=' . $this->exportConfiguration->getSettings('outputEncoding'));

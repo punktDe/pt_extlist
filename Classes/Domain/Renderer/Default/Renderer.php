@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Renderer\Default;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,17 +29,16 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Default renderer for list data
- * 
+ *  
  * @package Domain
  * @subpackage Renderer\Default
  * @author Daniel Lienert
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest
  */
-class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer
+class Renderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
 {
     /**
      * The Strategy for rendering cells.
@@ -58,7 +61,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     /**
      * Holds an instance of a row renderer
      *
-     * @var Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
+     * @var \PunktDe\PtExtlist\Domain\Renderer\Default\RowRenderer
      */
     protected $rowRenderer;
     
@@ -67,9 +70,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     /**
      * Injector for configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration
      */
-    public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration)
+    public function _injectConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration)
     {
         // TODO remove this after refactoring!
         parent::_injectConfiguration($rendererConfiguration);
@@ -84,9 +87,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
      */
     protected function initRowRenderer()
     {
-        $this->rowRenderer = new Tx_PtExtlist_Domain_Renderer_Default_RowRenderer();
+        $this->rowRenderer = new \PunktDe\PtExtlist\Domain\Renderer\Default\RowRenderer();
         $this->rowRenderer->injectRendererConfiguration($this->rendererConfiguration);
-        $this->rowRenderer->injectCellRenderer(new Tx_PtExtlist_Domain_Renderer_Default_CellRenderer($this->rendererConfiguration));
+        $this->rowRenderer->injectCellRenderer(new \PunktDe\PtExtlist\Domain\Renderer\Default\CellRenderer($this->rendererConfiguration));
     }
     
     
@@ -96,7 +99,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
      */
     protected function initCaptionRenderer()
     {
-        $this->captionRenderer = new Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer();
+        $this->captionRenderer = new \PunktDe\PtExtlist\Domain\Renderer\Default\CaptionRenderer();
     }
     
 
@@ -104,7 +107,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     /**
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
      */
-    public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    public function renderCaptions(\PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader $listHeader)
     {
         return $this->captionRenderer->renderCaptions($listHeader);
     }
@@ -114,12 +117,12 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     /**
      * Renders list data
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListData $listData
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
-    public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData)
+    public function renderList(\PunktDe\PtExtlist\Domain\Model\Lists\ListData $listData)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotNull($listData, ['message' => 'No list data found in list. 1280405145']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotNull($listData, ['message' => 'No list data found in list. 1280405145']);
 
         // We could get another type of list data here, so we have to instantiate this class
         $listDataClassName = get_class($listData);
@@ -143,11 +146,11 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_Row $row
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Row $row
      * @param $rowIndex
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row
      */
-    public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex)
+    public function renderSingleRow(\PunktDe\PtExtlist\Domain\Model\Lists\Row $row, $rowIndex)
     {
         return $this->rowRenderer->renderRow($row, $rowIndex);
     }
@@ -157,16 +160,16 @@ class Tx_PtExtlist_Domain_Renderer_Default_Renderer extends Tx_PtExtlist_Domain_
     /**
      * Returns a rendered aggregate list for a given row of aggregates
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
-     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListData $aggregateListData
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData Rendererd List of aggregate rows
      */
-    public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData)
+    public function renderAggregateList(\PunktDe\PtExtlist\Domain\Model\Lists\ListData $aggregateListData)
     {
         if ($aggregateListData->count() == 0) {
             return $aggregateListData;
         }
         
-        $renderedAggregateList = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $renderedAggregateList = new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
         
         $aggregateRowsConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildAggregateRowsConfig();
         $aggregateDataRow = $aggregateListData->getItemByIndex(0);

@@ -33,7 +33,7 @@
  * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection extends Tx_PtExtbase_Collection_SortableObjectCollection
+class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection extends PunktDe_PtExtbase_Collection_SortableObjectCollection
 {
     /**
      * Restricted class name

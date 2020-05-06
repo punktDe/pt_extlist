@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\View\Export;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements a view for rendering CSV values
  *
@@ -35,7 +38,7 @@
  * @subpackage Export
  * @see Tx_PtExtlist_Tests_View_List_CsvListViewTest
  */
-class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_AbstractExportView
+class CsvListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
 {
     /**
      * @var string sets the output encoding
@@ -97,7 +100,7 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
     /**
      * Overwriting the render method to generate a CSV output
      *
-     * @return  void (never returns)
+     * @return   void (never returns)
      */
     public function render($actionName = null)
     {

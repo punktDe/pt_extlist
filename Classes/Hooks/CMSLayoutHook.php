@@ -48,7 +48,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
     
     /**
      * Render the Plugin Info
-     * 
+     *  
      * @param unknown_type $params
      * @param unknown_type $pObj
      */
@@ -94,7 +94,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
     
     /**
      * Init some values
-     * 
+     *  
      * @param array $data
      */
     protected function init($data)

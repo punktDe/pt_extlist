@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +29,15 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements field aggregator
  *
  * @author Daniel Lienert
  * @package Domain
- * @subpackage Model\List\Aggregates
+ * @subpackage Model\Lists\Aggregates
  * @see Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+class ArrayAggregator
 {
     /**
      * Array of fielddata by column
@@ -48,16 +51,16 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
     /**
      * Reference to the data Backend
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
      */
     protected $dataBackend;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
      */
-    public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    public function injectDataBackend(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend)
     {
         $this->dataBackend = $dataBackend;
     }
@@ -67,11 +70,11 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
     /**
      * Return a aggregated column by method
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig $aggregateConfig
      * @throws Exception
      * @return number
      */
-    public function getAggregateByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig)
+    public function getAggregateByConfig(\PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig $aggregateConfig)
     {
         $fieldIdentifier = $aggregateConfig->getFieldIdentifier()->getIdentifier();
 

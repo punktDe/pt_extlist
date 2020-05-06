@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements data provider for explicit defined data in typoscript
  *
@@ -36,11 +39,11 @@
  * @subpackage Model\Filter\DataProvider
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+class ExplicitData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\AbstractDataProvider
 {
     /**
      * array of options defined in typoscript
-     * 
+     *  
      * @var array
      */
     protected $tsOptions;
@@ -73,7 +76,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
                 }
             }
 
-            $renderedOptions[$optionKey] = ['value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
+            $renderedOptions[$optionKey] = ['value' => \PunktDe\PtExtlist\Utility\RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
                                                      'selected' => false];
         }
         
@@ -95,12 +98,12 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
     
     /**
      * Init the dataProvider by TS-conifg
-     * 
+     *  
      * @param array $filterSettings
      */
     protected function initDataProviderByTsConfig($filterSettings)
     {
         $this->tsOptions = $this->filterConfig->getSettings('options');
-        Tx_PtExtbase_Assertions_Assert::isArray($this->tsOptions, ['message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006']);
+        PunktDe_PtExtbase_Assertions_Assert::isArray($this->tsOptions, ['message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006']);
     }
 }

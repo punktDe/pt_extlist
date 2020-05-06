@@ -36,8 +36,8 @@
  * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionTest
  */
 class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
-    implements  Tx_PtExtbase_State_IdentifiableInterface,
-                Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
+    implements  PunktDe_PtExtbase_State_IdentifiableInterface,
+                PunktDe_PtExtbase_State_GpVars_GpVarsInjectableInterface
 {
     /**
      * Restrict collection to breadcrumb class
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends \PunktD
 
 
     /**
-     * @see Tx_PtExtbase_State_IdentifiableInterface
+     * @see PunktDe_PtExtbase_State_IdentifiableInterface
      */
     public function getObjectNamespace()
     {

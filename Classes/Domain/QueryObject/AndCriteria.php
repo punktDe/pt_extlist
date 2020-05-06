@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\QueryObject;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * AND criteria
  *
@@ -34,77 +37,77 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_AndCriteriaTest
  */
- class Tx_PtExtlist_Domain_QueryObject_AndCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
- {
-     /**
-     * Holds first criteria to be used with and conjunction
-     *
-     * @var Tx_PtExtlist_Domain_QueryObject_Criteria
-     */
-    protected $firstCriteria;
-    
-    
-    
+class AndCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+{
     /**
-     * Holds second criteria to be used with conjunction
-     *
-     * @var Tx_PtExtlist_Domain_QueryObject_Criteria
-     */
-    protected $secondCriteria;
-    
-    
-    
-    /**
-     * Constructor takes two criterias to be conjuncted with AND
-     *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria
-     */
-    public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria, Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria)
-    {
-        $this->firstCriteria = $firstCriteria;
-        $this->secondCriteria = $secondCriteria;
-    }
-    
-    
-    
-    /**
-     * Returns true, if given criteria is equal to this object
-     *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
-     * @return bool
-     */
-    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
-    {
-        if (is_a($criteria, __CLASS__)) {
-            if ($this->firstCriteria->isEqualTo($criteria->firstCriteria) && $this->secondCriteria->isEqualTo($criteria->secondCriteria)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    
-    
-    /**
-     * Return first criteria of and criteria
-     *
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-     */
-    public function getFirstCriteria()
-    {
-        return $this->firstCriteria;
-    }
-    
-    
-    
-    /**
-     * Returns second criteria of and criteria
-     *
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
-     */
-    public function getSecondCriteria()
-    {
-        return $this->secondCriteria;
-    }
- }
+    * Holds first criteria to be used with and conjunction
+    *
+    * @var \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+    */
+   protected $firstCriteria;
+   
+   
+   
+   /**
+    * Holds second criteria to be used with conjunction
+    *
+    * @var \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+    */
+   protected $secondCriteria;
+   
+   
+   
+   /**
+    * Constructor takes two criterias to be conjuncted with AND
+    *
+    * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $firstCriteria
+    * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $secondCriteria
+    */
+   public function __construct(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $firstCriteria, \PunktDe\PtExtlist\Domain\QueryObject\Criteria $secondCriteria)
+   {
+       $this->firstCriteria = $firstCriteria;
+       $this->secondCriteria = $secondCriteria;
+   }
+   
+   
+   
+   /**
+    * Returns true, if given criteria is equal to this object
+    *
+    * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be compared with this object
+    * @return bool
+    */
+   public function isEqualTo(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
+   {
+       if (is_a($criteria, __CLASS__)) {
+           if ($this->firstCriteria->isEqualTo($criteria->firstCriteria) && $this->secondCriteria->isEqualTo($criteria->secondCriteria)) {
+               return true;
+           }
+       }
+       return false;
+   }
+   
+   
+   
+   /**
+    * Return first criteria of and criteria
+    *
+    * @return \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+    */
+   public function getFirstCriteria()
+   {
+       return $this->firstCriteria;
+   }
+   
+   
+   
+   /**
+    * Returns second criteria of and criteria
+    *
+    * @return \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+    */
+   public function getSecondCriteria()
+   {
+       return $this->secondCriteria;
+   }
+}

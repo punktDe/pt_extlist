@@ -25,27 +25,26 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implementing container for all list elements, e.g. listData, filters, column descriptions...
- * 
+ *  
  * @author Michael Knoll 
  * @author Christoph Ehscheidt 
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_List
+class Lists
 {
     /**
      * Holds a reference of the list data object holding all list data
-     * @var Tx_PtExtlist_Domain_Model_List_ListData
+     * @var \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
     protected $listData = null;
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+     * @var \PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface
      */
     protected $iterationListData = null;
 
@@ -127,7 +126,7 @@ class Tx_PtExtlist_Domain_Model_List_List
     
     
     /**
-     * 
+     *  
      * Setter for list header.
      * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
      */
@@ -139,7 +138,7 @@ class Tx_PtExtlist_Domain_Model_List_List
     
     
     /**
-     * 
+     *  
      * Getter for list header.
      * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
      */

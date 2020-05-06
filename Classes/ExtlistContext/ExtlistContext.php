@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\ExtlistContext;
 /***************************************************************
  *  Copyright notice
  *
@@ -34,10 +35,10 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_ExtlistContext_ExtlistContextTest
  */
-class Tx_PtExtlist_ExtlistContext_ExtlistContext
+class ExtlistContext
 {
     /**
-     * @var Tx_PtExtlist_Extbase_ExtbaseContext
+     * @var \PunktDe\PtExtlist\Extbase\ExtbaseContext
      */
     protected $extBaseContext;
 
@@ -72,7 +73,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
     /**
      * Holds data backend for list identifier
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
      */
     protected $dataBackend = null;
 
@@ -81,7 +82,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
     /**
      * Holds an instance of renderer chain for this list
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChain
      */
     protected $rendererChain = null;
 
@@ -254,7 +255,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
      * @param string $sortingColumn Column identifier of column by which list should be sorted.
      * @param integer $sortingDirection Sorting direction (one of Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE)
      * @param bool $rebuildListCache If set to false, the list cache has to be re-calculated manually (e.g. by calling $extlistcontext->getList(TRUE))
-     * @throws Exception, if given column identifier does not exist in this list
+     * @throws Exception , if given column identifier does not exist in this list
      */
     public function setSortingColumn($sortingColumn, $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $rebuildListCache = true)
     {
@@ -405,7 +406,7 @@ class Tx_PtExtlist_ExtlistContext_ExtlistContext
      * @param string $filterIdentifier Identifier of filter for which we want to set a value
      * @param mixed $filterValue Filter value to be set in filter
      * @param bool $resetListCache If set to FALSE, list cache must be re-calculated manually
-     * @throws Exception, if addressed filter object does not have a setValue method (this is not part of the filter interface!)
+     * @throws Exception , if addressed filter object does not have a setValue method (this is not part of the filter interface!)
      */
     public function setFilterValue($filterboxIdentifier, $filterIdentifier, $filterValue, $resetListCache = true)
     {

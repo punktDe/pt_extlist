@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\DataBackend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Factory class for data backend config objects
  *
@@ -33,11 +36,11 @@
  * @subpackage Configuration\DataBackend
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory
+class DataBackendConfigurationFactory
 {
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        $dataBackendConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration($configurationBuilder);
+        $dataBackendConfig = new \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfiguration($configurationBuilder);
 
         return $dataBackendConfig;
     }

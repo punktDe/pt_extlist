@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,17 +29,16 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Interpreter for MySql queries
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Michael Knoll 
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreterTest
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+class MySqlInterpreter extends \PunktDe\PtExtlist\Domain\DataBackend\AbstractQueryInterpreter
 {
     /**
      * Holds class names for translating different types of criterias
@@ -55,10 +58,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Translates query's criterias into SQL string (without "WHERE")
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      * @return string
      */
-    public static function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getCriterias(\PunktDe\PtExtlist\Domain\QueryObject\Query $query)
     {
         $criteriaArray = [];
         foreach ($query->getCriterias() as $criteria) {
@@ -74,11 +77,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Translates given criteria into  SQL WHERE string (without 'WHERE')
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria
      * @throws Exception
      * @return string
      */
-    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         $criteriaString = '';
         $criteriaClass = get_class($criteria);
@@ -96,10 +99,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Returns SQL limit string without "LIMIT"
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      * @return string
      */
-    public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getLimit(\PunktDe\PtExtlist\Domain\QueryObject\Query $query)
     {
         $limit = $query->getLimit();
         $limitString = preg_replace('/:/', ',', $limit);
@@ -111,13 +114,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Returns SQL sortings string without "ORDER BY"
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      * @return string
      */
-    public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getSorting(\PunktDe\PtExtlist\Domain\QueryObject\Query $query)
     {
-        $directionMap = [Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC => 'ASC',
-                              Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC => 'DESC'];
+        $directionMap = [\PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_ASC => 'ASC',
+                              \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_DESC => 'DESC'];
         
         $sortingsArray = [];
         foreach ($query->getSortings() as $field => $direction) {
@@ -133,10 +136,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Returns translated select part of query without 'SELECT'
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query Query to be translated
      * @return string Translated SELECT part of query without 'SELECT'
      */
-    public static function getSelectPart(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getSelectPart(\PunktDe\PtExtlist\Domain\QueryObject\Query $query)
     {
         $columnsArray = $query->getFields();
         $selectString = '';
@@ -149,10 +152,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Returns translated from part of query without 'FROM'
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query Query to be translated
      * @return string Translated FROM part of query without 'FROM'
      */
-    public static function getFromPart(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getFromPart(\PunktDe\PtExtlist\Domain\QueryObject\Query $query)
     {
         $fromArray = $query->getFrom();
         $fromString = '';
@@ -163,11 +166,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
 
     /**
      * Returns translated group by fields with out the 'GROUP BY'
-     * 
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     *  
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      * @return string group by part
      */
-    public static function getGroupBy(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getGroupBy(\PunktDe\PtExtlist\Domain\QueryObject\Query $query)
     {
         $groupByString = implode(', ', $query->getGroupBy());
         return $groupByString;
@@ -178,10 +181,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Translates whole query with all keywords (SELECT, WHERE, FROM...)
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query Query to be translated
      * @return string Translated query with all keywords
      */
-    public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function interpretQuery(\PunktDe\PtExtlist\Domain\QueryObject\Query $query)
     {
         $sqlString = '';
         

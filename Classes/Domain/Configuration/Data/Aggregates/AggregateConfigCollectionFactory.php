@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,9 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
-
 /**
  *  AggregateConfigCollection Factory
  *
@@ -36,15 +37,15 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory
+class AggregateConfigCollectionFactory
 {
     /**
      * Returns an instance of a aggregate config collection for given aggregate settings
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $aggregateConfigCollection = self::buildAggregateConfigCollection($configurationBuilder);
         return $aggregateConfigCollection;
@@ -55,16 +56,16 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
     /**
      * Builds a collection of aggregate config objects for a given settings array
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      */
-    protected static function buildAggregateConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    protected static function buildAggregateConfigCollection(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        $aggregateConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection();
+        $aggregateConfigCollection = new \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection();
         $aggregateSettingsArray = $configurationBuilder->getSettingsForConfigObject('aggregateData');
         
         foreach ($aggregateSettingsArray as $aggregateIdentifier => $aggregateSettings) {
-            $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig($aggregateIdentifier, $aggregateSettings, $configurationBuilder);
+            $aggregateConfig = new \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig($aggregateIdentifier, $aggregateSettings, $configurationBuilder);
             $aggregateConfigCollection->addAggregateConfig($aggregateConfig);
         }
         return $aggregateConfigCollection;

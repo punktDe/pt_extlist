@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Data\Fields;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a collection of field configurations.
  *
@@ -34,7 +37,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
@@ -48,9 +51,9 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
     /**
      * Adds a field configuration object to collection
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfig
      */
-    public function addFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfig)
+    public function addFieldConfig(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfig)
     {
         $this->addItem($fieldConfig, $fieldConfig->getIdentifier());
     }
@@ -61,7 +64,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
      * Returns a field configuration object for a given identifier
      *
      * @param string $identifier
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
      * @throws Exception
      */
     public function getFieldConfigByIdentifier($identifier)
@@ -79,7 +82,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
      * get part of the collection with entrys selected by the array
      *
      * @param array $fieldIdentifierList
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection;
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection ;
      */
     public function extractCollectionByIdentifierList(array $fieldIdentifierList)
     {
@@ -87,7 +90,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection extend
             return $this;
         }
 
-        $collection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $collection = new \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection();
         foreach ($fieldIdentifierList as $fieldIdentifier) {
             $collection->addFieldConfig($this->getFieldConfigByIdentifier($fieldIdentifier));
         }

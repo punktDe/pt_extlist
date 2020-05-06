@@ -205,7 +205,7 @@ class Tx_PtExtlist_Domain_Model_Filter_ProxyFilter extends Tx_PtExtlist_Domain_M
     protected function initFilterByTsConfig()
     {
         $filterSettings = $this->filterConfig->getSettings();
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterSettings['proxyPath'], ['message' => 'No proxy path to the proxy filter set.', 1288033657]);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($filterSettings['proxyPath'], ['message' => 'No proxy path to the proxy filter set.', 1288033657]);
 
         $this->setProxyConfigFromProxyPath(trim($filterSettings['proxyPath']));
     }

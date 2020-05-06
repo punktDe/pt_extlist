@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,32 +29,31 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Mapper for domain object data
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\Mapper
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper
+class DomainObjectMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\AbstractMapper
 {
     /**
-     * Returns list data structure for given domain objects.
-     * Uses configuration currently set in mapper.
-     *
-     * @param mixed $domainObjects
-     * @return Tx_PtExtlist_Domain_Model_List_ListData List data generated for given mapping configuration
-     */
-    public function getMappedListData($domainObjects)
+				 * Returns list data structure for given domain objects.
+				 * Uses configuration currently set in mapper.
+				 *
+				 * @param mixed $domainObjects
+				 * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData List data generated for given mapping configuration
+				 */
+				public function getMappedListData($domainObjects)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotNull($this->fieldConfigurationCollection, ['message' => 'No mapper configuration has been set for domain object mapper! 1281635601']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotNull($this->fieldConfigurationCollection, ['message' => 'No mapper configuration has been set for domain object mapper! 1281635601']);
         
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
         
         foreach ($domainObjects as $domainObject) {
-            $listDataRow = new Tx_PtExtlist_Domain_Model_List_Row();
+            $listDataRow = new \PunktDe\PtExtlist\Domain\Model\Lists\Row();
             foreach ($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
                 $property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
                 
@@ -72,15 +75,15 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
     
     
     /**
-     * Returns property name for given fieldConfiguration
-     * 
-     * If __self__ is referenced, only field name is returned. 
-     * If another domain object is referenced, domain object name (table) is prepended
-     *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
-     * @return string
-     */
-    protected function getPropertyNameByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration)
+				 * Returns property name for given fieldConfiguration
+				 *  
+				 * If __self__ is referenced, only field name is returned. 
+				 * If another domain object is referenced, domain object name (table) is prepended
+				 *
+				 * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfiguration
+				 * @return string
+				 */
+				protected function getPropertyNameByFieldConfig(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfiguration)
     {
         if ($fieldConfiguration->getTable() != '__self__') {  // __self__ references current domain object
             $property = $fieldConfiguration->getTableFieldCombined();
@@ -93,14 +96,14 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
     
     
     /**
-     * Returns value of a property for a given domain object and property name.
-     * Requires properties to be accessible via getters
-     *
-     * @param mixed $domainObject Object to get property value from
-     * @param string $property Name of property to get value from
-     * @return mixed Value of property
-     */
-    public function getObjectPropertyValueByProperty($domainObject, $property)
+				 * Returns value of a property for a given domain object and property name.
+				 * Requires properties to be accessible via getters
+				 *
+				 * @param mixed $domainObject Object to get property value from
+				 * @param string $property Name of property to get value from
+				 * @return mixed Value of property
+				 */
+				public function getObjectPropertyValueByProperty($domainObject, $property)
     {
         // if property is aggregated object, resolve object path
         $resolvedObject = $this->resolveObjectPath($domainObject, $property);
@@ -130,15 +133,15 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper extends Tx_PtExt
 
 
     /**
-     * Returns property value for given object and property name.
-     * Throws exception on non-existing getter method for property.
-     *
-     * @param mixed $object
-     * @param string $property
-     * @throws Exception if trying to call a non-existing method on the object to be mapped
-     * @return mixed
-     */
-    protected function getPropertyValueSafely($object, $property)
+				 * Returns property value for given object and property name.
+				 * Throws exception on non-existing getter method for property.
+				 *
+				 * @param mixed $object
+				 * @param string $property
+				 * @throws Exception if trying to call a non-existing method on the object to be mapped
+				 * @return mixed
+				 */
+				protected function getPropertyValueSafely($object, $property)
     {
         $getterMethodName = 'get' . ucfirst($property);
 

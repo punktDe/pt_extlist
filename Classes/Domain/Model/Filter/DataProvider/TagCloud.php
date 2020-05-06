@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements data provider for grouped list data
  *
@@ -34,12 +37,12 @@
  * @subpackage Model\Filter\DataProvider
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData
+class TagCloud extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\GroupData
 {
     /**
      * ElementCountField is either a rowcount or an explicitly defined count field
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
      */
     protected $elementCountField = null;
 
@@ -64,14 +67,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends Tx_PtExtlis
      * Build the group data query to retrieve the group data
      *
      * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
-     * @return \Tx_PtExtlist_Domain_QueryObject_Query
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\Query
      */
     protected function buildGroupDataQuery($fields)
     {
-        $groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $groupDataQuery = new \PunktDe\PtExtlist\Domain\QueryObject\Query();
 
         foreach ($fields as $selectField) {
-            $groupDataQuery->addField(Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($selectField));
+            $groupDataQuery->addField(\PunktDe\PtExtlist\Utility\DbUtils::getAliasedSelectPartByFieldConfig($selectField));
         }
 
         if ($this->additionalTables != '') {
@@ -79,7 +82,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud extends Tx_PtExtlis
         }
 
 
-        $groupDataQuery->addSorting('elementCount', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC);
+        $groupDataQuery->addSorting('elementCount', \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_DESC);
 
 
         if ($this->elementCountField !== null) {

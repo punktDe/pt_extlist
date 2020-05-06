@@ -71,9 +71,9 @@ class Tx_PtExtlist_Tests_View_TestView extends Tx_PtExtlist_View_BaseView
     /**
      * Overwriting the render method to generate a CSV output
      *
-     * @return  void (never returns)
+     * @return   void (never returns)
      */
-    public function render()
+    public function render($actionName = NULL)
     {
         $templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
 

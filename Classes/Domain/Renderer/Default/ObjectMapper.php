@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Renderer\Default;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,25 +29,24 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Maps data to a domain object
- * 
+ *  
  * @package Domain
  * @subpackage Renderer\Default
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements \TYPO3\CMS\Core\SingletonInterface
+class ObjectMapper implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
-     * @var Tx_Extbase_Property_Mapper
+     * @var PunktDe_Extbase_Property_Mapper
      */
     protected $mapper;
 
 
 
     /**
-     * @param Tx_Extbase_Property_Mapper $mapper
+     * @param PunktDe_Extbase_Property_Mapper $mapper
      */
     public function injectMapper(\TYPO3\CMS\Extbase\Property\Mapper $mapper)
     {
@@ -53,7 +56,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper implements \TYPO3\CMS\Co
 
     /**
      * @param $data
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig $configuration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper\ObjectMapperConfig $configuration
      * @return object
      */
     public function convert($data, $configuration)

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Utility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class contains utility functions concerning database related stuff
  *
@@ -34,7 +37,7 @@
  * @package Utility
  * @see Tx_PtExtlist_Tests_Utility_DbUtilsTest
  */
-class Tx_PtExtlist_Utility_DbUtils
+class DbUtils
 {
     /**
      * Creates an aliased select part for given field config
@@ -44,10 +47,10 @@ class Tx_PtExtlist_Utility_DbUtils
      * Or: if a special mysql string is given
      * <special mysql string> as <fieldIdentifier>
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfiguration
      * @return string
      */
-    public static function getAliasedSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration)
+    public static function getAliasedSelectPartByFieldConfig(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfiguration)
     {
         return self::getSelectPartByFieldConfig($fieldConfiguration) . ' AS ' . $fieldConfiguration->getIdentifier();
     }
@@ -62,10 +65,10 @@ class Tx_PtExtlist_Utility_DbUtils
      * Or: if a special mysql string is given
      * <special mysql string>
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfiguration
      * @return string
      */
-    public static function getSelectPartByFieldConfig(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldConfiguration)
+    public static function getSelectPartByFieldConfig(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfiguration)
     {
         if ($fieldConfiguration->getSpecial()) {
             $selectPart = '(' . $fieldConfiguration->getSpecial() . ')';
@@ -82,10 +85,10 @@ class Tx_PtExtlist_Utility_DbUtils
      * Turns a fieldConfigCollection into a list of comma separated selectParts
      *
      * @static
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fieldConfigCollection
      * @return string
      */
-    public static function getSelectPartByFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection)
+    public static function getSelectPartByFieldConfigCollection(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fieldConfigCollection)
     {
         $selectParts = [];
 

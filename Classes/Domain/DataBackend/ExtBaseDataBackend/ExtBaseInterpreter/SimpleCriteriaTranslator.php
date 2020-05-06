@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Translator class for simple criteria for extbase data backend interpreter
  *
@@ -34,16 +37,16 @@
  * @author Michael Knoll
  * @see
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator
-    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface
+class SimpleCriteriaTranslator
+    implements \PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter\ExtBaseCriteriaTranslatorInterface
 {
     /**
      * Translates a query an manipulates given query object
-     * 
+     *  
      * TODO check, if there is already a constraint added to extbase query and use AND constraint then
      * TODO use AND to connect more than one constraint
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be translated
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
      * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
      *
@@ -52,11 +55,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
      * @throws \Exception
      */
     public static function translateCriteria(
-            Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
+            \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria,
             \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
             \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository)
     {
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
+        PunktDe_PtExtbase_Assertions_Assert::isTrue(is_a($criteria, 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria'),
               ['message' => 'Criteria is not a simple criteria! 1281724991']);
           /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
               
@@ -127,10 +130,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_Simp
     /**
      * Returns field name for a given criteria object
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria $criteria
      * @return string Fieldname
      */
-    protected static function getPropertyNameByCriteria(Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria)
+    protected static function getPropertyNameByCriteria(\PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria $criteria)
     {
         list($predot, $postdot) = explode('.', $criteria->getField());
         return $postdot != '' ? $postdot : $predot;

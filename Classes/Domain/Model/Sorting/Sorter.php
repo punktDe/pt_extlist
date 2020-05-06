@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Sorting;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,10 +29,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements sorter for handling all kinds of sorting.
- * 
+ *  
  * Object that influence sorting can register here and get sorting
  * states and reset commands if necessary.
  *
@@ -37,7 +40,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest
  */
-class Tx_PtExtlist_Domain_Model_Sorting_Sorter
+class Sorter
 {
     /**
      * Array that holds sorters to be observerd by sorter
@@ -51,7 +54,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Holds sorter configuration
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig
      */
     protected $sorterConfiguration;
     
@@ -60,7 +63,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Holds a collection of sorting states that are used for sorting
      *
-     * @var Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     * @var \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection
      */
     protected $sortingStateCollection;
     
@@ -69,9 +72,9 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Registers sorter that can influence sorting.
      *
-     * @param Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver
+     * @param \PunktDe\PtExtlist\Domain\Model\Sorting\SortingObserverInterface $sortingObserver
      */
-    public function registerSortingObserver(Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver)
+    public function registerSortingObserver(\PunktDe\PtExtlist\Domain\Model\Sorting\SortingObserverInterface $sortingObserver)
     {
         $this->sortingObservers[] = $sortingObserver;
         $sortingObserver->registerSorter($this);
@@ -93,9 +96,9 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Injector for sorter configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig $sorterConfiguration
      */
-    public function _injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration)
+    public function _injectSorterConfig(\PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig $sorterConfiguration)
     {
         $this->sorterConfiguration = $sorterConfiguration;
     }
@@ -104,7 +107,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Returns current sorting state collection of this sorter
      *
-     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection
      */
     public function getSortingStateCollection()
     {
@@ -150,7 +153,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
      */
     protected function buildSortingStateCollection()
     {
-        $this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+        $this->sortingStateCollection = new \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection();
 
         // Gather sorting states from registered sorting observers
         if (is_array($this->sortingObservers)) {

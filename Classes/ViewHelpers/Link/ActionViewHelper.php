@@ -26,10 +26,9 @@ namespace PunktDe\PtExtlist\ViewHelpers\Link;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * ActionViewhelper for Action Links
- * 
+ *  
  * @author Daniel Lienert 
  * @package ViewHelpers
  * @subpackage Link
@@ -39,7 +38,7 @@ class  ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelp
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -48,9 +47,9 @@ class  ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelp
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(\PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }

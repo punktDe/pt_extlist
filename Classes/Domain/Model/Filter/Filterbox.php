@@ -37,7 +37,7 @@
  */
 class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     extends \PunktDe\PtExtbase\Collection\ObjectCollection
-    implements Tx_PtExtbase_State_IdentifiableInterface, Tx_PtExtbase_State_Session_SessionPersistableInterface
+    implements PunktDe_PtExtbase_State_IdentifiableInterface, PunktDe_PtExtbase_State_Session_SessionPersistableInterface
 {
     /**
      * Holds a constant added to object namespace to

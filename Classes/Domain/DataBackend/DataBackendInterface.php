@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\DataBackend;
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +35,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+interface DataBackendInterface
 {
     /**
      * Returns list identifier of list to which this backend belongs to.
@@ -48,16 +49,16 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
     /**
      * Creates an instance of data source object to be used with current backend
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      */
-    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder);
+    public static function createDataSource(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder);
     
     
     
     /**
      * Returns mapped List structure
-     * 
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     *  
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
     public function getListData();
 
@@ -65,7 +66,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
 
     /**
      * @abstract
-     * @return Tx_PtExtlist_Domain_Model_List_IterationListData
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\IterationListData
      */
     public function getIterationListData();
 
@@ -73,7 +74,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
     
     /**
      * Returns the list header
-     * 
+     *  
      * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
      */
     public function getListHeader();
@@ -82,7 +83,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
     
     /**
      * Returns th aggregate data
-     * 
+     *  
      * @return Tx_PtExtlist_Domain_Model_List_ListData
      */
     public function getAggregateListData();
@@ -91,7 +92,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
     
     /**
      * Returns raw data for all filters excluding given filters. 
-     * 
+     *  
      * Result is given as associative array with fields given in query object.
      *
      * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
@@ -174,12 +175,9 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
      * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
      */
     #public function _injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
-
-
-
     /**
      * Injector for sorter
-     * 
+     *  
      * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
      * @return void
      */
@@ -225,7 +223,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
     
     /**
      * Returns associated filterbox collection
-     * 
+     *  
      * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection Associated filterbox collection
      */
     public function getFilterboxCollection();
@@ -234,7 +232,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
     
     /**
      * Returns associated pager collection
-     * 
+     *  
      * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
     public function getPagerCollection();
@@ -242,7 +240,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
     
     
     /**
-     * 
+     *  
      * Reset the List Data Cache
      */
     public function resetListDataCache();
@@ -251,7 +249,7 @@ interface Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
     
     /**
      * Returns sorter for this data backend
-     * 
+     *  
      * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
      */
     public function getSorter();

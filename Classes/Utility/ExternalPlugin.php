@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Utility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -30,24 +33,24 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Class contains utility functions to access extlist objects
  * form external dependent plugins
- * 
+ *  
  * DEPRECATED!
- * 
+ *  
  * @author Daniel Lienert 
  * @package Utility
  * @deprecated
  */
-class Tx_PtExtlist_Utility_ExternalPlugin
+class ExternalPlugin
 {
     /**
      * Initialize and return a DataBackend with the given listIndentifier
      *
      * @param string $listIdentifier
-     * @return Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+     * @return \PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend
      */
     public static function getDataBackend($listIdentifier)
     {
-        $extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
+        $extListBackend = \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory::getInstanceByListIdentifier($listIdentifier, false);
 
         if ($extListBackend == null) {
             $extListTs = self::getExtListTyposcriptSettings($listIdentifier);
@@ -59,7 +62,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin
             $configurationBuilderFactory->setSettings($extListTs);
             $configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
 
-            $extListBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+            $extListBackend = \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory::createDataBackend($configurationBuilder);
         }
 
         return $extListBackend;
@@ -73,7 +76,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin
      *
      * @param array $customTSArray Custom typoscript list configuration in extBase format
      * @param string $listIdentifier a listIdentifier to identify the custom list
-     * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
      */
     public static function getDataBackendByCustomConfiguration(array $customTSArray, $listIdentifier)
     {
@@ -92,7 +95,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin
             $configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
         }
 
-        return  Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($configurationBuilder);
+        return  \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory::createDataBackend($configurationBuilder);
     }
 
 
@@ -100,10 +103,10 @@ class Tx_PtExtlist_Utility_ExternalPlugin
     /**
      * Return the list object by listIdentifier
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-     * @return \Tx_PtExtlist_Domain_Model_List_List
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\List
      */
-    public static function getListByDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    public static function getListByDataBackend(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend)
     {
         return GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
                 ->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
@@ -121,14 +124,14 @@ class Tx_PtExtlist_Utility_ExternalPlugin
         // TODO use DI here once refactoring is finished
 
         $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-        $lifecycleManager = $objectManager->get('Tx_PtExtbase_Lifecycle_Manager'); /* @var $lifecycleManager Tx_PtExtbase_Lifecycle_Manager */
+        $lifecycleManager = $objectManager->get('\PunktDe\PtExtbase\Lifecycle\Manager'); /* @var $lifecycleManager \PunktDe\PtExtbase\Lifecycle\Manager */
 
-        $sessionPersistenceManagerBuilder = $objectManager->get('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+        $sessionPersistenceManagerBuilder = $objectManager->get('PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder'); /* @var $sessionPersistenceManagerBuilder PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
         $sessionPersistenceManager = $sessionPersistenceManagerBuilder->getInstance();
         $lifecycleManager->register($sessionPersistenceManager);
 
         // SET LIFECYCLE TO START -> read session data into cache
-        $lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::START);
+        $lifecycleManager->updateState(\PunktDe\PtExtbase\Lifecycle\Manager::START);
     }
 
 
@@ -143,7 +146,7 @@ class Tx_PtExtlist_Utility_ExternalPlugin
      */
     protected static function getExtListTyposcriptSettings($listIdentifier, $customTSArray = null)
     {
-        $extListTS = Tx_PtExtbase_Div::getTS('plugin.tx_ptextlist.settings.');
+        $extListTS = PunktDe_PtExtbase_Div::getTS('plugin.tx_ptextlist.settings.');
         $extListTSArray = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($extListTS);
 
         if (!is_array($extListTSArray['listConfig'])) {

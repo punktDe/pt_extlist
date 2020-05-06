@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Factory for Configuration Builder
  *
@@ -35,10 +38,10 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTests
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
+class ConfigurationBuilderFactory
 {
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer
+     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderInstancesContainer
      */
     private $configurationBuilderInstancesContainer;
 
@@ -46,7 +49,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
     
     /**
      * Holds an array of all extList settings
-     * 
+     *  
      * @var array
      */
     private $settings = null;
@@ -56,7 +59,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
     /**
      * Holds extbase context to determine FE / BE usage
      *
-     * @var Tx_PtExtlist_Extbase_ExtbaseContext
+     * @var \PunktDe\PtExtlist\Extbase\ExtbaseContext
      */
     private $extbaseContext;
 
@@ -75,9 +78,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer $instancesContainer
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderInstancesContainer $instancesContainer
      */
-    public function injectConfigurationBuilderInstancesContainer(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer $instancesContainer)
+    public function injectConfigurationBuilderInstancesContainer(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderInstancesContainer $instancesContainer)
     {
         $this->configurationBuilderInstancesContainer = $instancesContainer;
     }
@@ -106,9 +109,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
     /**
      * Injects extbase context (for determine FE / BE usage) for usage with DI
      *
-     * @param Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext
+     * @param \PunktDe\PtExtlist\Extbase\ExtbaseContext $extbaseContext
      */
-    public function injectExtbaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext)
+    public function injectExtbaseContext(\PunktDe\PtExtlist\Extbase\ExtbaseContext $extbaseContext)
     {
         $this->extbaseContext = $extbaseContext;
     }
@@ -121,7 +124,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
      * @static
      * @param string $listIdentifier the listidentifier of the list
      * @param boolean $resetConfigurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      * @throws Exception
      */
     public function getInstance($listIdentifier = null, $resetConfigurationBuilder = false)
@@ -147,7 +150,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
             }
 
             // TODO use object manager to instantiate the configuration builder object
-            $this->configurationBuilderInstancesContainer->add(new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->settings, $listIdentifier));
+            $this->configurationBuilderInstancesContainer->add(new \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder($this->settings, $listIdentifier));
         }
 
         return $this->configurationBuilderInstancesContainer->get($listIdentifier);

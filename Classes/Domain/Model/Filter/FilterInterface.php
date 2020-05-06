@@ -36,8 +36,8 @@
  * @author Michael Knoll
  */
 interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
-    Tx_PtExtbase_State_Session_SessionPersistableInterface,
-    Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
+    PunktDe_PtExtbase_State_Session_SessionPersistableInterface,
+    PunktDe_PtExtbase_State_GpVars_GpVarsInjectableInterface
 {
     /**
      * Injector for filter configuration
@@ -51,9 +51,9 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
     /**
      * Injector for get / post vars adapter
      *
-     * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter
+     * @param PunktDe_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter
      */
-    public function _injectGpVarsAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter);
+    public function _injectGpVarsAdapter(PunktDe_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter);
 
 
 

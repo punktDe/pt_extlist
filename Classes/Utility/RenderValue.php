@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Utility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -35,7 +38,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Utility_RenderValueTest
  */
-class Tx_PtExtlist_Utility_RenderValue
+class RenderValue
 {
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -91,11 +94,11 @@ class Tx_PtExtlist_Utility_RenderValue
      * Render the given Data by configuration from the configuration object
      *
      * @param array $data data to be rendered
-     * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface $renderConfig
      * @param bool $caching Set to true if you want to get caching for cell rendering. Default is FALSE
      * @return string
      */
-    public static function renderByConfigObject(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig, $caching = false)
+    public static function renderByConfigObject(array $data, \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface $renderConfig, $caching = false)
     {
         if ($caching) {
             return self::render($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
@@ -110,10 +113,10 @@ class Tx_PtExtlist_Utility_RenderValue
      * Render the given Data by configuration from the configuration object uncached
      *
      * @param array $data data to be rendered
-     * @param Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface $renderConfig
      * @return string
      */
-    public static function renderByConfigObjectUncached(array $data, Tx_PtExtlist_Domain_Configuration_RenderConfigInterface $renderConfig)
+    public static function renderByConfigObjectUncached(array $data, \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface $renderConfig)
     {
         return self::renderUncached($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
     }
@@ -162,13 +165,13 @@ class Tx_PtExtlist_Utility_RenderValue
     public static function renderDefault($data)
     {
         $renderedFields = [];
-        
+
         foreach ($data as $fieldIdentifier => $field) {
-            
+
             // If $data is an object - print all accessible attributes
             if (is_object($field)) {
                 $renderedFields[] = self::renderDefaultObject($field);
-                
+
             // If $data is an array of key/values write a key/value list
             } elseif (is_array($field)) {
                 $renderedFields[] = self::renderDefaultArray($field);
@@ -176,44 +179,44 @@ class Tx_PtExtlist_Utility_RenderValue
                 $renderedFields[] = $field;
             }
         }
-        
+
         if (count($renderedFields) > 1) {
             foreach ($renderedFields as $key => $renderField) {
                 if (is_object($renderField)) {
                     $renderedFields[$key] = get_class($renderField);
                 }
             }
-            
+
             return implode(', ', $renderedFields);
         } else {
             return current($renderedFields);
         }
     }
 
-    
-    
+
+
     /**
      * Print the given array as key-value list
-     * 
+     *  
      * @param array $array
      * @return string
      */
     protected static function renderDefaultArray(array $array)
     {
         $renderedFields = [];
-        
+
         foreach ($array as $label => $field) {
             $renderedFields[] = $label . ' : ' . $field;
         }
 
         return implode(', ', $renderedFields);
     }
-    
-    
-    
+
+
+
     /**
      * Render a key value list of the given object
-     * 
+     *  
      * @param object $object
      * @return string
      */
@@ -221,25 +224,25 @@ class Tx_PtExtlist_Utility_RenderValue
     {
         return $object;
         $renderedFields = [];
-        
+
         $objectMethods = get_class_methods(get_class($object));
-        
+
         foreach ($objectMethods as $objectMethod) {
             if (substr($objectMethod, 0, 3) == 'get') {
                 $key = substr($objectMethod, 3);
                 $value = $object->$objectMethod();
-                
+
                 if (is_object($value)) {
                     $value = $key . ' (OBJECT)';
                 }
                 $renderedFields[] = $key . ' : ' . $value;
             }
         }
-        
+
         return implode(', ', $renderedFields);
     }
 
-    
+
 
     /**
      * Render the given dataValues with cObj and data
@@ -253,24 +256,24 @@ class Tx_PtExtlist_Utility_RenderValue
     {
         $renderObjectConfig['renderObj.']['setCurrent'] = $currentData;
 
-        Tx_PtExtbase_Div::getCobj()->start($data);
-        return Tx_PtExtbase_Div::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
+        PunktDe_PtExtbase_Div::getCobj()->start($data);
+        return PunktDe_PtExtbase_Div::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
     }
-    
-    
-    
+
+
+
     /**
      * Renders given data by a given configuration array
-     * 
+     *  
      * Configuration for rendering has to be in the following form:
-     * 
+     *  
      * array {
      *    "dataWrap"=> "{field:label} equals {field:value}",
      *    "_typoScriptNodeValue"=>"TEXT"
      * }
-     * 
+     *  
      * Which is the result of the following TS:
-     * 
+     *  
      * whateverKey = TEXT
      * whateverKey {
      *     dataWrap = {field:label} equals {field:value}
@@ -282,8 +285,8 @@ class Tx_PtExtlist_Utility_RenderValue
      */
     public static function renderDataByConfigArray($data, $configArray)
     {
-        Tx_PtExtbase_Div::getCobj()->start($data);
-        return Tx_PtExtbase_Div::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
+        PunktDe_PtExtbase_Div::getCobj()->start($data);
+        return PunktDe_PtExtbase_Div::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
     }
 
 
@@ -327,7 +330,7 @@ class Tx_PtExtlist_Utility_RenderValue
             $params['currentContent'] = $content;
 
             $params['conf'] = $rendererUserFuncConfig;
-            
+
             $rendererUserFunc = is_array($rendererUserFuncConfig) && array_key_exists('_typoScriptNodeValue', $rendererUserFuncConfig) ? $rendererUserFuncConfig['_typoScriptNodeValue'] : $rendererUserFuncConfig;
 
             $content = GeneralUtility::callUserFunction($rendererUserFunc, $params, $dummRef, null);
@@ -342,7 +345,7 @@ class Tx_PtExtlist_Utility_RenderValue
      * return the cObj object
      *
      * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     * @deprecated Use Tx_PtExtbase_Div::getCobj instead
+     * @deprecated Use PunktDe_PtExtbase_Div::getCobj instead
      */
     public static function getCobj()
     {
@@ -375,7 +378,7 @@ class Tx_PtExtlist_Utility_RenderValue
             $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 
             self::$fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\TemplateView');
-            
+
             $controllerContext = $objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getControllerContext();
             self::$fluidRenderer->setControllerContext($controllerContext);
         }
@@ -400,13 +403,13 @@ class Tx_PtExtlist_Utility_RenderValue
         }
 
         $tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray(['tsConfigArray' => $tsConfigValue]);
-        $content = Tx_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['tsConfigArray'], $tsArray['tsConfigArray.']);
+        $content = PunktDe_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['tsConfigArray'], $tsArray['tsConfigArray.']);
 
         return $content;
     }
-    
-    
-    
+
+
+
     /**
      * Render the given dataValues with cObj
      *
@@ -418,9 +421,9 @@ class Tx_PtExtlist_Utility_RenderValue
         if (!is_array($tsConfigValue) && array_key_exists('cObject', $tsConfigValue)) {
             return $tsConfigValue;
         }
-        
+
         $tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray($tsConfigValue);
 
-        return Tx_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
+        return PunktDe_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
     }
 }

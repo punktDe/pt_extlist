@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class FilterboxConfig Collection
  *
@@ -34,7 +37,7 @@
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class FilterboxConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     protected $listIdentifier;
 
@@ -45,9 +48,9 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
     }
@@ -56,10 +59,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 
     /**
      * Add a filterbox config
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig $filterBox
      * @param string $filterBoxIdentifier
      */
-    public function addFilterBoxConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterBox, $filterBoxIdentifier)
+    public function addFilterBoxConfig(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig $filterBox, $filterBoxIdentifier)
     {
         $this->addItem($filterBox, $filterBoxIdentifier);
     }
@@ -68,7 +71,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection extend
 
     /**
      * @param $filterBoxIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig
      */
     public function getFilterBoxConfig($filterBoxIdentifier)
     {

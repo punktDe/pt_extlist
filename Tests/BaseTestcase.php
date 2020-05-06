@@ -60,16 +60,16 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
         enableAutomaticCacheClearing = 1
         updateReferenceIndex = 0
         classes {
-            Tx_Extbase_Domain_Model_FrontendUser {
+            PunktDe_Extbase_Domain_Model_FrontendUser {
                 mapping {
                     tableName = fe_users
-                    recordType = Tx_Extbase_Domain_Model_FrontendUser
+                    recordType = PunktDe_Extbase_Domain_Model_FrontendUser
                     columns {
                         lockToDomain.mapOnProperty = lockToDomain
                     }
                 }
             }
-            Tx_Extbase_Domain_Model_FrontendUserGroup {
+            PunktDe_Extbase_Domain_Model_FrontendUserGroup {
                 mapping {
                     tableName = fe_groups
                     recordType =

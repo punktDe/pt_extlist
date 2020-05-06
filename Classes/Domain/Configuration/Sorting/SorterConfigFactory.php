@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Sorting;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Factory to create config object for sorter
  *
@@ -33,21 +36,21 @@
  * @subpackage Configuration\Pager
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory
+class SorterConfigFactory
 {
     /**
      * Returns a instance of a sorter configuration.
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $sorterSettings = $configurationBuilder->getSettings('sorter');
         if (!is_array($sorterSettings)) {
             $sorterSettings = [];
         }
-        $sorterConfig = new Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig($configurationBuilder, $sorterSettings);
+        $sorterConfig = new \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig($configurationBuilder, $sorterSettings);
         return $sorterConfig;
     }
 }

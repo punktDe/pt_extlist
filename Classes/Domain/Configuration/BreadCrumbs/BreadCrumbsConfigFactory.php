@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Factory to create configs for list defaults
  *
@@ -33,17 +36,16 @@
  * @subpackage Configuration\BreadCrumbs
  * @author Michael Knoll
  */
-
-class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory
+class BreadCrumbsConfigFactory
 {
     /**
      * Returns a instance of the breadcrumbs configuration.
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfig
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        return new Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('breadCrumbs'));
+        return new \PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('breadCrumbs'));
     }
 }

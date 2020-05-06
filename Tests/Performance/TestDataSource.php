@@ -25,14 +25,12 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Test DataSource for generating test data
- * 
+ *  
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Tests\Performance\TestDataBackend
- *
  */
 class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
 {

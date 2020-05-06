@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,60 +29,59 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * TODO why is this an abstract class and not an interface?
  * TODO this should be an interface!
- * 
+ *  
  * Interface for query interpreters
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+abstract class AbstractQueryInterpreter
 {
     /**
      * Returns translated criteria(s)
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      */
-    abstract public static function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract public static function getCriterias(\PunktDe\PtExtlist\Domain\QueryObject\Query $query);
     
     
     
     /**
      * Returns translated sortings
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      */
-    abstract public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract public static function getSorting(\PunktDe\PtExtlist\Domain\QueryObject\Query $query);
     
     
     
     /**
      * Returns translated limit
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      */
-    abstract public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract public static function getLimit(\PunktDe\PtExtlist\Domain\QueryObject\Query $query);
     
     
     
      /**
      * Returns translated group by
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      */
-    abstract public static function getGroupBy(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract public static function getGroupBy(\PunktDe\PtExtlist\Domain\QueryObject\Query $query);
     
     
     
     /**
      * Translates whole query with all keywords etc.
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query Query to be translated
      */
-    abstract public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query);
+    abstract public static function interpretQuery(\PunktDe\PtExtlist\Domain\QueryObject\Query $query);
 }

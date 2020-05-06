@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a listData that iterates through a data source
  *
@@ -34,17 +37,17 @@
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest
  */
-class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+class IterationListData implements \PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface
+     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDatasourceInterface
      */
     protected $dataSource;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_Row
+     * @var \PunktDe\PtExtlist\Domain\Model\Lists\Row
      */
     protected $currentRow = null;
 
@@ -58,23 +61,23 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 
 
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
+     * @var \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface
      */
     protected $dataMapper;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChain
      */
     protected $renderChain;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDatasourceInterface $dataSource
      */
-    public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface $dataSource)
+    public function _injectDataSource(\PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDataSourceInterface $dataSource)
     {
         $this->dataSource = $dataSource;
     }
@@ -82,9 +85,9 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 
 
     /**
-     * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface $dataMapper
      */
-    public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper)
+    public function _injectDataMapper(\PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface $dataMapper)
     {
         $this->dataMapper = $dataMapper;
     }
@@ -92,9 +95,9 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
+     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain
      */
-    public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain)
+    public function _injectRenderChain(\PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain)
     {
         $this->renderChain = $renderChain;
     }
@@ -128,7 +131,7 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
      *    1. build a row data structure
      *  2. render this data structure using the row renderer of the default renderer
      *
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row
      */
     protected function getProcessedCurrentRow()
     {
@@ -144,8 +147,6 @@ class Tx_PtExtlist_Domain_Model_List_IterationListData implements Tx_PtExtlist_D
     /**
      * Iterator Interface
      ***********************************************************************/
-
-
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Return the current element

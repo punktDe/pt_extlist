@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\QueryObject;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements an or criteria
  *
@@ -35,12 +38,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_OrCriteriaTest
  */
-class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
+class OrCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
 {
     /**
      * Holds first criteria for or conjunction
      *
-     * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @var \PunktDe\PtExtlist\Domain\QueryObject\Criteria
      */
     protected $firstCriteria;
     
@@ -49,18 +52,18 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
     /**
      * Holds second criteria for or conjunction
      *
-     * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @var \PunktDe\PtExtlist\Domain\QueryObject\Criteria
      */
     protected $secondCriteria;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria
-     * @return \Tx_PtExtlist_Domain_QueryObject_OrCriteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $firstCriteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $secondCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\OrCriteria
      */
-    public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $firstCriteria, Tx_PtExtlist_Domain_QueryObject_Criteria $secondCriteria)
+    public function __construct(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $firstCriteria, \PunktDe\PtExtlist\Domain\QueryObject\Criteria $secondCriteria)
     {
         $this->firstCriteria = $firstCriteria;
         $this->secondCriteria = $secondCriteria;
@@ -71,10 +74,10 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
     /**
      * Returns true, if criteria is equal to this criteria
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this criteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be compared with this criteria
      * @return bool
      */
-    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public function isEqualTo(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         if (!is_a($criteria, __CLASS__)) {
             return false;
@@ -91,7 +94,7 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
     
     
     /**
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\Criteria
      */
     public function getFirstCriteria()
     {
@@ -101,7 +104,7 @@ class Tx_PtExtlist_Domain_QueryObject_OrCriteria extends Tx_PtExtlist_Domain_Que
     
     
     /**
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\Criteria
      */
     public function getSecondCriteria()
     {

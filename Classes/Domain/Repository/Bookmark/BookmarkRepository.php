@@ -81,7 +81,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
     public function findPrivateBookmarksByFeUserAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $listIdentifier)
     {
         $feUserUid = $feUser->getUid();
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117065']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117065']);
         if ($feUserUid > 0) {
             $query = $this->createQuery();
             $query->setOrderings(['name' => 'ASC']);
@@ -106,7 +106,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      */
     public function findPublicBookmarksByListIdentifier($listIdentifier)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117066']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117066']);
         $query = $this->createQuery();
         $query->setOrderings(['name'=>'ASC']);
         $query->matching($query->logicalAnd(
@@ -127,7 +127,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      */
     public function findGroupBookmarksByFeUserAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $listIdentifier)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117068']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117068']);
         $groupBookmarks = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $feUserGroups = $feUser->getUsergroup();
         foreach ($feUserGroups as $feUserGroup) { /* @var $feUserGroup \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup */
@@ -147,7 +147,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      */
     public function findGroupBookmarksByFeGroupAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup, $listIdentifier)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117067']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117067']);
         $query = $this->createQuery();
         $query->setOrderings(['name'=>'ASC']);
         $query->matching($query->logicalAnd(
@@ -190,7 +190,7 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      */
     public function findBookmarksByFeUserGroupIdsAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $groupIds, $listIdentifier)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117069']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117069']);
         if (!is_array($groupIds)) {
             $groupIds = explode(',', $groupIds);
         }

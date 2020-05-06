@@ -37,7 +37,7 @@
 class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
 {
     /**
-     * @var Tx_PtExtbase_Tree_Tree
+     * @var PunktDe_PtExtbase_Tree_Tree
      */
     protected $tree;
 
@@ -100,7 +100,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
     /**
-     * @var Tx_PtExtbase_Tree_TreeContext
+     * @var PunktDe_PtExtbase_Tree_TreeContext
      */
     protected $treeContext;
 
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
     public function initFilter()
     {
         $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $this->treeContext = $this->objectManager->get('Tx_PtExtbase_Tree_TreeContext');
+        $this->treeContext = $this->objectManager->get('PunktDe_PtExtbase_Tree_TreeContext');
         $this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
         $this->buildTree();
     }
@@ -232,7 +232,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
     {
         if ($this->treeRootNode) {
             $subTreeRootNode = $this->tree->getNodeByUid($this->treeRootNode);
-            $this->tree = Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($subTreeRootNode);
+            $this->tree = PunktDe_PtExtbase_Tree_Tree::getInstanceByRootNode($subTreeRootNode);
         }
 
 
@@ -242,13 +242,13 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
         }
 
 
-        $arrayWriterVisitor = $this->objectManager->get('Tx_PtExtbase_Tree_ExtJsJsonWriterVisitor');
+        $arrayWriterVisitor = $this->objectManager->get('PunktDe_PtExtbase_Tree_ExtJsJsonWriterVisitor');
         $arrayWriterVisitor->registerFirstVisitCallback($this, 'alterNodeArrayOnFirstVisit');
         $arrayWriterVisitor->registerLastVisitCallBack($this, 'alterNodeArrayOnLastVisit');
         $arrayWriterVisitor->setMultipleSelect($this->getMultiple());
         $arrayWriterVisitor->setSelection($this->filterValues);
 
-        $jsonTreeWriter = $this->objectManager->get('Tx_PtExtbase_Tree_JsonTreeWriter', [$arrayWriterVisitor], $arrayWriterVisitor);
+        $jsonTreeWriter = $this->objectManager->get('PunktDe_PtExtbase_Tree_JsonTreeWriter', [$arrayWriterVisitor], $arrayWriterVisitor);
 
         return $jsonTreeWriter->writeTree($this->tree);
     }
@@ -256,11 +256,11 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
     /**
-     * @return Tx_PtExtbase_Tree_Tree
+     * @return PunktDe_PtExtbase_Tree_Tree
      */
     protected function buildTree()
     {
-        $treeRepositoryBuilder = Tx_PtExtbase_Tree_TreeRepositoryBuilder::getInstance();
+        $treeRepositoryBuilder = PunktDe_PtExtbase_Tree_TreeRepositoryBuilder::getInstance();
         $treeRepositoryBuilder->setNodeRepositoryClassName($this->treeNodeRepository);
 
         $treeRepository = $treeRepositoryBuilder->buildTreeRepository();
@@ -276,7 +276,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
     /**
-     * @param Tx_PtExtbase_Tree_Node $node
+     * @param PunktDe_PtExtbase_Tree_Node $node
      * @param array $nodeArray
      * @return array
      */
@@ -290,7 +290,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
     /**
-     * @param Tx_PtExtbase_Tree_Node $node
+     * @param PunktDe_PtExtbase_Tree_Node $node
      * @param array $currentNode
      * @return array
      */
@@ -347,7 +347,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
         foreach ($this->filterValues as $value) {
             $node = $this->tree->getNodeByUid($value);
-            if ($node instanceof Tx_PtExtbase_Tree_Node) {
+            if ($node instanceof PunktDe_PtExtbase_Tree_Node) {
                 $displayValues[] = $node->getLabel();
             }
         }
@@ -369,12 +369,12 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
         $treeNode = $this->tree->getNodeByUid($nodeUid);
 
-        if ($treeNode instanceof Tx_PtExtbase_Tree_Node) {
+        if ($treeNode instanceof PunktDe_PtExtbase_Tree_Node) {
             $subTreeNodes = $treeNode->getSubNodes();
             $subtreeNodeIdArray = [];
 
             foreach ($subTreeNodes as $subTreeNode) {
-                /** @var Tx_PtExtbase_Tree_Node $subTreeNode */
+                /** @var PunktDe_PtExtbase_Tree_Node $subTreeNode */
                 $subtreeNodeIdArray[] = $subTreeNode->getUid();
             }
         } else {

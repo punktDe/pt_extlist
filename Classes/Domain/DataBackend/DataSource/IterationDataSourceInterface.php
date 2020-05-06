@@ -25,10 +25,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements data source for typo3 databases
- * 
+ *  
  * @author Daniel Lienert
  * @package Domain
  * @subpackage DataBackend\DataSource

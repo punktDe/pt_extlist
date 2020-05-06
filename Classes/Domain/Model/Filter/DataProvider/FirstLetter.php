@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements data provider for grouped list data
  *
@@ -34,7 +37,7 @@
  * @subpackage Model\Filter\DataProvider
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData
+class FirstLetter extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\GroupData
 {
     /**
      * Build the group data query to retrieve the group data
@@ -44,7 +47,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
      */
     protected function buildGroupDataQuery($fields)
     {
-        $groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $groupDataQuery = new \PunktDe\PtExtlist\Domain\QueryObject\Query();
 
         $displayField = $this->displayFields->getItemByIndex(0);
 
@@ -54,7 +57,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
 
         //TODO only works with SQL!
         $groupDataQuery->addField(sprintf('UPPER(LEFT(%1$s,1)) as firstLetter', $displayField->getTableFieldCombined()));
-        $groupDataQuery->addSorting('firstLetter', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+        $groupDataQuery->addSorting('firstLetter', \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_ASC);
 
         if ($this->showRowCount) {
             // TODO only works with SQL!
@@ -147,7 +150,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
      */
     protected function renderOptionData($optionData)
     {
-        $option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+        $option = \PunktDe\PtExtlist\Utility\RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
         return $option;
     }
 }

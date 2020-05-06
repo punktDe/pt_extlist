@@ -38,12 +38,12 @@ interface Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_
     /**
      * Translates a query an manipulates given query object
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be translated
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
      * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
      */
     public static function translateCriteria(
-           Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
+           \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria,
            \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
            \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository);
 }

@@ -38,7 +38,7 @@
  * @see Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionTest
  */
 class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends PunktDe\PtExtbase\Collection\Collection
-    implements Tx_PtExtbase_State_Session_SessionPersistableInterface, Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
+    implements PunktDe_PtExtbase_State_Session_SessionPersistableInterface, PunktDe_PtExtbase_State_GpVars_GpVarsInjectableInterface
 {
     /**
      * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
@@ -69,7 +69,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends PunktDe\PtExtbase\
     /**
      * Holds a instance of the persitence manager.
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
+     * @var PunktDe_PtExtbase_State_Session_SessionPersistenceManager
      */
     protected $sessionPersistenceManager;
 
@@ -86,9 +86,9 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends PunktDe\PtExtbase\
 
 
     /**
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
+     * @param PunktDe_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
      */
-    public function injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager)
+    public function injectSessionPersistenceManager(PunktDe_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager)
     {
         $this->sessionPersistenceManager = $sessionPersistenceManager;
     }
@@ -196,7 +196,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends PunktDe\PtExtbase\
     /**
      * (non-PHPdoc)
      *
-     * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
+     * @see PunktDe_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
      */
     public function getObjectNamespace()
     {
@@ -230,7 +230,7 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollection extends PunktDe\PtExtbase\
     /**
      * (non-PHPdoc)
      *
-     * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
+     * @see PunktDe_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
      */
     public function _persistToSession()
     {

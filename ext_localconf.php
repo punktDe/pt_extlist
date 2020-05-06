@@ -7,11 +7,10 @@ if (!defined('TYPO3_MODE')) {
  * Configure the Plugin to call the
  * right combination of Controller and Action according to
  * the user input (default settings, FlexForm, URL etc.)
- * 
+ *  
  * By default, first Action of first Controller is called
  * if no other settings are given.
  */
-
 $controllerActions = [                                                            // An array holding the controller-action-combinations that are accessible
     'List' => 'list,sort', // The first controller and its first action will be the default
     'Export'=>'showLink,download',

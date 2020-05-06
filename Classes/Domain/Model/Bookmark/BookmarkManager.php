@@ -1,4 +1,5 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Bookmark;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +34,7 @@
  * @subpackage Model\Bookmark
  * @author David Vogt
  */
-class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+class BookmarkManager
 {
     /**
      * Holds identifier of list
@@ -47,7 +48,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
     /**
      * Holds an instance of a session persistence manager
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
+     * @var PunktDe_PtExtbase_State_Session_SessionPersistenceManager
      */
     protected $sessionPersistenceManager;
     
@@ -121,9 +122,9 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
     /**
      * Injector for session persistence manager
      *
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
+     * @param PunktDe_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
      */
-    public function _injectSessionPersistenceManager(Tx_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager)
+    public function _injectSessionPersistenceManager(PunktDe_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager)
     {
         $this->sessionPersistenceManager = $sessionPersistenceManager;
     }

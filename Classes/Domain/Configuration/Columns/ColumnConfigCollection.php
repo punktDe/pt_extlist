@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * column config collection
  * @author Daniel Lienert
@@ -33,7 +36,7 @@
  * @subpackage 	Configuration\Columns
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class ColumnConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * @var string
@@ -50,10 +53,10 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends \
 
     /**
      * @param $columnNumber
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
      * @return void
      */
-    public function addColumnConfig($columnNumber, Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig)
+    public function addColumnConfig($columnNumber, \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig)
     {
         $this->addItem($columnConfig, $columnNumber);
         $this->identifierToIdMap[$columnConfig->getColumnIdentifier()] = $columnNumber;
@@ -64,7 +67,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends \
     /**
      * @param integer $id
      * @throws Exception
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig
      */
     public function getColumnConfigById($id)
     {
@@ -92,7 +95,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection extends \
     /**
      * @param string $identifier
      * @throws Exception
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig
      */
     public function getColumnConfigByIdentifier($identifier)
     {

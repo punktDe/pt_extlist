@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -30,24 +33,24 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 
 /**
  * Class implements data source for typo3 databases
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory
+class Typo3DataSourceFactory
 {
     /**
      * Create instance of typo3 data source
      *
      * @static
      * @param string $dataSourceClassName
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
+     * @param \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource
      */
-    public static function createInstance($dataSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    public static function createInstance($dataSourceClassName, \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
-        $dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource $dataSource */
+        $dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource $dataSource */
         $dataSource->injectDbObject(self::createDataObject());
         $dataSource->initialize();
         return $dataSource;

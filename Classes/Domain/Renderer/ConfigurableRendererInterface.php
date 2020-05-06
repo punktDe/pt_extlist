@@ -35,14 +35,14 @@
  * @subpackage Renderer
  * @author Michael Knoll 
  */
-interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends Tx_PtExtlist_Domain_Renderer_RendererInterface
+interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends \PunktDe\PtExtlist\Domain\Renderer\RendererInterface
 {
     /**
      * Injecotr for render configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration
      */
-    public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration);
+    public function _injectConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration);
 
 
 

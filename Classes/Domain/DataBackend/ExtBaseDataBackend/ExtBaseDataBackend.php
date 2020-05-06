@@ -58,8 +58,8 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
     {
         $dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], ['message' => 'No repository class name is given for extBase backend. 1281546327']);
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), ['message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], ['message' => 'No repository class name is given for extBase backend. 1281546327']);
+        PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), ['message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328']);
         $repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get($dataBackendSettings['repositoryClassName']);
         return $repository;
     }
@@ -123,10 +123,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
             $fromArray = $groupDataQuery->getFrom();
 
             $repositoryClassName = $fromArray[0];
-            Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), ['message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744']);
+            PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), ['message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744']);
 
             $repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($repositoryClassName);
-            Tx_PtExtbase_Assertions_Assert::isTrue($repository instanceof \TYPO3\CMS\Extbase\Persistence\Repository, ['message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository']);
+            PunktDe_PtExtbase_Assertions_Assert::isTrue($repository instanceof \TYPO3\CMS\Extbase\Persistence\Repository, ['message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository']);
         } else {
             $repository = $this->repository;
         }
@@ -190,7 +190,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      */
     public function _injectQueryInterpreter($queryInterpreter)
     {
-        Tx_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
+        PunktDe_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
         parent::_injectQueryInterpreter($queryInterpreter);
     }
 
@@ -385,7 +385,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      */
     public function _injectDataSource($dataSource)
     {
-        Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, '\TYPO3\CMS\Extbase\Persistence\Repository', ['message' => 'Given data source must implement \TYPO3\CMS\Extbase\Persistence\Repository but did not! 1281545172']);
+        PunktDe_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, '\TYPO3\CMS\Extbase\Persistence\Repository', ['message' => 'Given data source must implement \TYPO3\CMS\Extbase\Persistence\Repository but did not! 1281545172']);
         $this->repository = $dataSource;
     }
 

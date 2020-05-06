@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\View\Export;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements a view for rendering a export with fluid
  *
@@ -33,7 +36,7 @@
  * @package View
  * @subpackage Export
  */
-class Tx_PtExtlist_View_Export_FluidListView extends Tx_PtExtlist_View_Export_AbstractExportView
+class FluidListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
 {
     /**
      * Path to fluid template
@@ -49,7 +52,7 @@ class Tx_PtExtlist_View_Export_FluidListView extends Tx_PtExtlist_View_Export_Ab
     public function initConfiguration()
     {
         $this->templatePath = $this->exportConfiguration->getSettings('templatePath');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, ['message' => 'No template path given for fluid export!', 1284621481]);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, ['message' => 'No template path given for fluid export!', 1284621481]);
         $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->templatePath));
     }
 
@@ -58,7 +61,7 @@ class Tx_PtExtlist_View_Export_FluidListView extends Tx_PtExtlist_View_Export_Ab
     /**
      * Overwriting the render method to generate a downloadable output
      *
-     * @return  void (never returns)
+     * @return   void (never returns)
      */
     public function render($actionName = null)
     {

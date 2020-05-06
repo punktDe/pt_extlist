@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Pager;
+
 /***************************************************************
  * Copyright notice
  *
@@ -22,9 +26,6 @@
  *
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
-
 /**
  * Class implements a new delta pager for pt_extlist
  *
@@ -49,7 +50,7 @@
  * @author Michael Lihs <lihs@punkt.de>
  * @see Tx_PtExtlist_Tests_Domain_Model_Pager_DeltaPagerTest
  */
-class Tx_PtExtlist_Domain_Model_Pager_DeltaPager extends Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+class DeltaPager extends \PunktDe\PtExtlist\Domain\Model\Pager\DefaultPager
 {
     /**
      * How many pages before and after the current page should be displayed?

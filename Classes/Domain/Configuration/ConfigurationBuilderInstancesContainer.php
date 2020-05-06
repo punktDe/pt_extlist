@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,8 +27,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
 /**
  * Class implements an instances container for configuration builder instances.
  *
@@ -37,7 +39,7 @@
  * @subpackage  Configuration
  * @see
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\SingletonInterface
+class ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
      * Holds an array of data backend instances as list-identifier based singletons
@@ -53,10 +55,10 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer i
      *
      * Use set() if you want to overwrite existing instances.
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @throws Exception if a configuration builder for this list identifier has already been added to this container.
      */
-    public function add(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function add(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         if (empty($this->instances[$configurationBuilder->getListIdentifier()])) {
             $this->instances[$configurationBuilder->getListIdentifier()] = $configurationBuilder;
@@ -70,9 +72,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer i
     /**
      * Sets a given configuration builder as instance. Overwrites already set instance.
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      */
-    public function set(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function set(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $this->instances[$configurationBuilder->getListIdentifier()] = $configurationBuilder;
     }
@@ -110,7 +112,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer i
      * Returns instance of configuration builder for given list identifier
      *
      * @param $listIdentifier
-     * @return null|Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return null|\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      */
     public function get($listIdentifier)
     {

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,17 +29,16 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a cell of a row of list data
- * 
+ *  
  * @package Domain
  * @subpackage Model\List
  * @author Michael Knoll 
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Model_List_CellTest
  */
-class Tx_PtExtlist_Domain_Model_List_Cell
+class Cell
 {
     /**
      * Holds value of cell
@@ -75,7 +78,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell
     
     /**
      * Individual cell class
-     * 
+     *  
      * @var string
      */
     protected $cssClass;
@@ -212,7 +215,7 @@ class Tx_PtExtlist_Domain_Model_List_Cell
     
     /**
      * set the individual cell CSS class
-     * 
+     *  
      * @param string $cssClass
      */
     public function setCSSClass($cssClass)

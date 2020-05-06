@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,24 +29,23 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Translator for AND criteria
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+class FullTextCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface
 {
     /**
      * translate fullText criteria
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria
      * @return string
      */
-    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         $connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
 
@@ -64,7 +67,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullText
         $searchString = $connection->fullQuoteStr($searchString, '');
 
         return sprintf('MATCH (%s) AGAINST (%s%s)',
-                                Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
+                                \PunktDe\PtExtlist\Utility\DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
                                 $searchString,
                                 $booleanMode
                         );

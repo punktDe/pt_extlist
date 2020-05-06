@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -30,14 +33,14 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 
 /**
  * Class implements data source for TYPO3 databases
- * 
+ *  
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\DataSource
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_Typo3DataSourceTest
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
-    implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+class Typo3DataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource
+    implements \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDataSourceInterface
 {
     /**
      * Holds an instance of typo3 db object
@@ -53,7 +56,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
     protected $resource;
 
 
-    
+
     /**
      * Injector for database connection object
      *
@@ -65,11 +68,11 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource extends Tx_PtEx
     }
 
     /**
-     * @param $query
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
-     * @throws Exception
-     */
-    public function executeQuery($query)
+				 * @param $query
+				 * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource
+				 * @throws Exception
+				 */
+				public function executeQuery($query)
     {
         try {
             $this->startTimeMeasure();

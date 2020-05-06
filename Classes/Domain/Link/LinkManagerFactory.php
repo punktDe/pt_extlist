@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Link;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a factory for the link manager
  *
@@ -33,12 +36,12 @@
  * @subpackage Link
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Link_LinkManagerFactory
+class LinkManagerFactory
 {
     /**
      * Array of singleton instance of link manager object
      *
-     * @var Tx_PtExtlist_Domain_Link_LinkManager
+     * @var \PunktDe\PtExtlist\Domain\Link\LinkManager
      */
     private static $instances;
     
@@ -46,9 +49,9 @@ class Tx_PtExtlist_Domain_Link_LinkManagerFactory
     
     /**
      * Factory method for link manager 
-     * 
+     *  
      * @param string listIdentifier
-     * @return Tx_PtExtlist_Domain_Link_LinkManager 
+     * @return \PunktDe\PtExtlist\Domain\Link\LinkManager 
      */
     public static function getInstance($listIdentifier)
     {
@@ -60,7 +63,7 @@ class Tx_PtExtlist_Domain_Link_LinkManagerFactory
             $configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
             $getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 
-            self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Link_LinkManager();
+            self::$instances[$listIdentifier] = new \PunktDe\PtExtlist\Domain\Link\LinkManager();
             self::$instances[$listIdentifier]->injectGetPostVarAdapater($getPostVarsAdapterFactory->getInstance());
             self::$instances[$listIdentifier]->injectListConfiguration($configurationBuilder->buildListConfiguration());
         }

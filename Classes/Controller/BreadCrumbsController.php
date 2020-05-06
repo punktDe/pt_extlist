@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,12 +36,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest
  */
-class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Controller_AbstractController
+class BreadCrumbsController extends AbstractController
 {
     /**
      * Holds an instance of filterbox collection processed by this controller
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     * @var \PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection
      */
     protected $filterboxCollection;
     
@@ -47,7 +49,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
     
     /**
      * Holds a pagerCollection.
-     * 
+     *  
      * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
      */
     protected $pagerCollection = null;

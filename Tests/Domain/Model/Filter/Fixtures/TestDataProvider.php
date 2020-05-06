@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Tests\Domain\Model\Filter\Fixture;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,19 +29,18 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Test Data Provider
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Tests_Domain_Model_Filter_Fixture_TestDataProvider
+class TestDataProvider
 {
     /**
      * array of options
-     * 
+     *  
      * @var array
      */
     protected $options;

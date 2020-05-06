@@ -390,7 +390,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilterTest extends Tx_PtExtli
             $this->configurationBuilderMock,
             $settings, 'test'));
 
-        $gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', ['injectParametersInObject'], [], '', false);
+        $gpVarAdapterMock = $this->getMock('PunktDe_PtExtbase_State_GpVars_GpVarsAdapter', ['injectParametersInObject'], [], '', false);
 
         // TODO why is this method called more than once?!?
         $gpVarAdapterMock->expects($this->any())->method('injectParametersInObject');

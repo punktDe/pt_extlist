@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,17 +29,16 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements data source for mysql databases
- * 
+ *  
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\DataSource
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
-    implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+class MySqlDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource
+    implements \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDataSourceInterface
 {
     /**
      * Holds an instance of PDO for database connection
@@ -55,9 +58,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
     /**
      * Constructor for datasource
      *
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $configuration
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $configuration)
     {
         $this->dataSourceConfiguration = $configuration;
     }
@@ -79,7 +82,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
      * Executes a query using current database connection
      *
      * @param $query
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource
      * @throws Exception
      */
     public function executeQuery($query)

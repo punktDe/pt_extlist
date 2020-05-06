@@ -28,9 +28,6 @@
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-require_once ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Div.php';
-require_once ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Assertions/Assert.php';
-
 /**
  * Utilitty to get selectable options from typoscript
  *
@@ -226,7 +223,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider
     protected function loadExtListTyposcriptArray()
     {
         if (is_null($this->extListTypoScript)) {
-            $extListTS = Tx_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
+            $extListTS = PunktDe_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
             $this->extListTypoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($extListTS);
         }
     }

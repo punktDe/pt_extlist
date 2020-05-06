@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Renderer\Default;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,18 +29,17 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Maps data to a domain object
- * 
+ *  
  * @package Domain
  * @subpackage Renderer\Default
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Renderer_Default_ObjectMapperFactory
+class ObjectMapperFactory
 {
     /**
-     * @var Tx_PtExtlist_Domain_Renderer_Default_ObjectMapper
+     * @var \PunktDe\PtExtlist\Domain\Renderer\Default\ObjectMapper
      */
     protected static $instance;
 

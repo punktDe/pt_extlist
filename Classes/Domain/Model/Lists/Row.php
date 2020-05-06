@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,18 +29,17 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a row for a list data structure. Row contains
  * cells addressed by a identifier (column name).
- * 
+ *  
  * @author Daniel Lienert 
  * @author Michael Knoll
  * @package Domain
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_RowTest
  */
-class Tx_PtExtlist_Domain_Model_List_Row extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class Row extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Special values for multiple purpose. Values are stored as key=>value pair
@@ -59,12 +62,12 @@ class Tx_PtExtlist_Domain_Model_List_Row extends \PunktDe\PtExtbase\Collection\O
 
     /**
      * Add a new cell to row identified by a given column name
-     * 
+     *  
      * @param string $columnName
-     * @param Tx_PtExtlist_Domain_Model_List_Cell $cell
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Cell $cell
      * @return void
      */
-    public function addCell(Tx_PtExtlist_Domain_Model_List_Cell $cell, $columnName)
+    public function addCell(\PunktDe\PtExtlist\Domain\Model\Lists\Cell $cell, $columnName)
     {
         $this->addItem($cell, $columnName);
     }
@@ -73,20 +76,20 @@ class Tx_PtExtlist_Domain_Model_List_Row extends \PunktDe\PtExtbase\Collection\O
     
     /**
      * Create a new Cell with the Content and add it
-     * 
+     *  
      * @param string $cellContent
      * @param string $columnIdentifier
      */
     public function createAndAddCell($cellContent, $columnIdentifier)
     {
-        $this->addItem(new Tx_PtExtlist_Domain_Model_List_Cell($cellContent), $columnIdentifier);
+        $this->addItem(new \PunktDe\PtExtlist\Domain\Model\Lists\Cell($cellContent), $columnIdentifier);
     }
 
 
 
     /**
      * @param $columnIdentifier
-     * @return Tx_PtExtlist_Domain_Model_List_Cell
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Cell
      * @throws Exception
      */
     public function getCell($columnIdentifier)
@@ -156,7 +159,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends \PunktDe\PtExtbase\Collection\O
     
     
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_Cell $cell
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Cell $cell
      */
     public function getFirstCell()
     {
@@ -197,7 +200,7 @@ class Tx_PtExtlist_Domain_Model_List_Row extends \PunktDe\PtExtbase\Collection\O
                 $cell = array_pop($this->itemsArr); /**  @var $cell Tx_PtExtlist_Domain_Model_List_Cell */
                 $cell->setByArray($cellData);
             } else {
-                $cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+                $cell = new \PunktDe\PtExtlist\Domain\Model\Lists\Cell();
                 $cell->setByArray($cellData);
             }
 

@@ -1,9 +1,13 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2010-2011 punkt.de GmbH - Karlsruhe, Germany - http://www.punkt.de
- *  Authors: Daniel Lienert, Michael Knoll
+ *  Authors: Daniel Lienert, Michael Knoll, Christoph Ehscheidt
  *  All rights reserved
  *
  *  For further information: http://extlist.punkt.de <extlist@punkt.de>
@@ -25,37 +29,26 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
- * Interface for listData structure
- *
- * @author Daniel Lienert
+ * Class implements factory for array aggregator
+ *  
+ * @author Daniel Lienert 
  * @package Domain
- * @subpackage Model\List
+ * @subpackage Model\Lists\Aggregates
  */
-interface Tx_PtExtlist_Domain_Model_List_ListDataInterface
+class ArrayAggregatorFactory
 {
     /**
-     * @param integer $id
-     * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
+     *  build the arrayAgregator
+     *  
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Aggregates\ArrayAggregator
      */
-    public function getRow($id);
-
-
-
-    /**
-     * @return Tx_PtExtlist_Domain_Model_List_Row $row   Row to be added to list data
-     */
-    public function getFirstRow();
-
-
-
-    /**
-     * Getter for count of items in list data
-     *
-     * (Fluid-compatible getter for count() method in collection)
-     *
-     * @return integer Count of objects in list data
-     */
-    public function getCount();
+    public static function createInstance(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend)
+    {
+        $arrayAgregator = new \PunktDe\PtExtlist\Domain\Model\Lists\Aggregates\ArrayAggregator();
+        $arrayAgregator->injectDataBackend($dataBackend);
+    
+        return $arrayAgregator;
+    }
 }

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,14 +29,13 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * aggregate row config - collection of aggregate column configs
  *
  * @package Domain
  * @subpackage Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class AggregateRowConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * @var string
@@ -42,7 +45,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig extends \P
     
     
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig $aggregateColumnConfig 
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateColumnConfig $aggregateColumnConfig 
      * @param string $columnIdentifier
      */
     public function addAggregateColumnConfig($aggregateColumnConfig, $columnIdentifier)
@@ -54,7 +57,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig extends \P
     
     /** 
      * @param string $identifier
-     * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateColumnConfig
      */
     public function getAggregateColumnConfigByIdentifier($columnIdentifier)
     {

@@ -49,16 +49,16 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(\PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -67,12 +67,12 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
      * render build key/value GET/POST-array within the namespace of the given object
      *
      * @param string $arguments : list of arguments
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \PunktDe_PtExtbase_State_IdentifiableInterface $object
      *    either as list of 'key : value' pairs
      *  or as list of properties wich are then recieved from the object
      * @param string $nameSpace
      * @return array GPArray of objects namespace
-     * @throws \Tx_PtExtbase_Exception_Assertion
+     * @throws \PunktDe_PtExtbase_Exception_Assertion
      */
     public function render($arguments, $object = null, $nameSpace = '')
     {
@@ -99,15 +99,15 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
     /**
      * Use the objects getter to get the value
      *
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \PunktDe_PtExtbase_State_IdentifiableInterface $object
      * @param string $property
      * @return mixed value
-     * @throws \Tx_PtExtbase_Exception_Assertion
+     * @throws \PunktDe_PtExtbase_Exception_Assertion
      */
-    protected function getObjectValue(\Tx_PtExtbase_State_IdentifiableInterface $object, $property)
+    protected function getObjectValue(\PunktDe_PtExtbase_State_IdentifiableInterface $object, $property)
     {
         $getterMethod = 'get'.ucfirst($property);
-        \Tx_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), ['message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630']);
+        \PunktDe_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), ['message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630']);
         
         return $object->$getterMethod();
     }
@@ -139,16 +139,16 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
     /**
      * Get the valueArray with the right objectNamespace
      *
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \PunktDe_PtExtbase_State_IdentifiableInterface $object
      * @param string $key
      * @param string $value
      * @return array
-     * @throws \Tx_PtExtbase_Exception_Assertion
+     * @throws \PunktDe_PtExtbase_Exception_Assertion
      */
-    public function buildObjectValueArray(\Tx_PtExtbase_State_IdentifiableInterface $object, $key, $value)
+    public function buildObjectValueArray(\PunktDe_PtExtbase_State_IdentifiableInterface $object, $key, $value)
     {
         $nameSpace = $object->getObjectNamespace();
-        \Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
+        \PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
         
         return $this->buildNamespaceValueArray($nameSpace, $key, $value);
     }

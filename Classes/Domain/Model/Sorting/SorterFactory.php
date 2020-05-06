@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Sorting;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a factory for sorter.
  *
@@ -35,7 +38,7 @@
  * @subpackage Domain\Model\Sorting
  * @see Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory implements \TYPO3\CMS\Core\SingletonInterface
+class SorterFactory implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
@@ -66,10 +69,10 @@ class Tx_PtExtlist_Domain_Model_Sorting_SorterFactory implements \TYPO3\CMS\Core
     /**
      * Factory method for returning a singleton instance of sorter
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\Sorter
      */
-    public function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $listIdentifier = $configurationBuilder->getListIdentifier();
 

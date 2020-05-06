@@ -34,12 +34,12 @@
  * 
  * @author Daniel Lienert 
  * @package Domain
- * @subpackage Model\List\Header
+ * @subpackage Model\Lists\Header
  * @see Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderTest
  */
 class Tx_PtExtlist_Domain_Model_List_Header_ListHeader
     extends Tx_PtExtlist_Domain_Model_List_Row
-    implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
+    implements PunktDe_PtExtbase_State_GpVars_GpVarsInjectableInterface
 {
     /**
      * ListIdentifier of the current list

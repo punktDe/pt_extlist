@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,23 +29,22 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * This class implements a dummy data backend for generating
  * some output for testing and development.
- * 
+ *  
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend
  */
-class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+class DummyDataBackend extends \PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend
 {
     /**
      * Constructor for dummy data backend
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         parent::__construct($configurationBuilder);
     }
@@ -51,7 +54,7 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
     /**
      * Generates dummy list data
      *
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
     public function buildListData()
     {
@@ -86,12 +89,12 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
     /**
      * Factory method for data source
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\DummyDataSource
      */
-    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function createDataSource(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        return new Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
+        return new \PunktDe\PtExtlist\Domain\DataBackend\DataSource\DummyDataSource($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
     }
     
     
@@ -113,13 +116,13 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
      *
      * Result is given as associative array with fields given in query object.
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = [],
-                                 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null)
+    public function getGroupData(\PunktDe\PtExtlist\Domain\QueryObject\Query $groupDataQuery, $excludeFilters = [],
+                                 \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig = null)
     {
         // TODO implement me!
     }
@@ -129,13 +132,13 @@ class Tx_PtExtlist_Domain_DataBackend_DummyDataBackend extends Tx_PtExtlist_Doma
      * (non-PHPdoc)
      * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregatesByConfigCollection()
      */
-    public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection)
+    public function getAggregatesByConfigCollection(\PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection $aggregateDataConfigCollection)
     {
         // TODO implement me!
     }
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface
      */
     public function getIterationListData()
     {

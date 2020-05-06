@@ -25,10 +25,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Interface for criteria interpreters
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend
  * @author Michael Knoll 
@@ -39,7 +38,7 @@ interface Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
     /**
      * Translates given criteria into current query language
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be translated
      */
-    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria);
+    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria);
 }

@@ -84,7 +84,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
                 'fieldIdentifier' => 'field1',
                 'filterField' => 'field2',
                 'displayFields' => 'field1',
-                'treeNodeRepository' => 'Tx_PtExtbase_Tree_NodeRepository',
+                'treeNodeRepository' => 'PunktDe_PtExtbase_Tree_NodeRepository',
                 'multiple' => 1
             ], 'test');
 
@@ -200,7 +200,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
 
 
     /**
-     * @return Tx_PtExtbase_Tree_Tree
+     * @return PunktDe_PtExtbase_Tree_Tree
      *
      * A tree like
      * . node1
@@ -212,12 +212,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
      */
     protected function createDemoTree()
     {
-        $node1 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('1', 0, 0, 1, '1');
-        $node2 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('2', 0, 0, 1, '2');
-        $node3 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('3', 0, 0, 1, '3');
-        $node4 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('4', 0, 0, 1, '4');
-        $node5 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('5', 0, 0, 1, '5');
-        $node6 = Tx_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('6', 0, 0, 1, '6');
+        $node1 = PunktDe_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('1', 0, 0, 1, '1');
+        $node2 = PunktDe_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('2', 0, 0, 1, '2');
+        $node3 = PunktDe_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('3', 0, 0, 1, '3');
+        $node4 = PunktDe_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('4', 0, 0, 1, '4');
+        $node5 = PunktDe_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('5', 0, 0, 1, '5');
+        $node6 = PunktDe_PtExtbase_Tests_Unit_Tree_NodeMock::createNode('6', 0, 0, 1, '6');
 
         $node1->addChild($node2);
         $node2->setParent($node1);
@@ -230,7 +230,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
         $node5->addChild($node6);
         $node6->setParent($node5);
 
-        return Tx_PtExtbase_Tree_Tree::getInstanceByRootNode($node1);
+        return PunktDe_PtExtbase_Tree_Tree::getInstanceByRootNode($node1);
     }
 
 
@@ -259,7 +259,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
             $this->configurationBuilderMock,
             $settings, 'test'));
 
-        $gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', ['injectParametersInObject'], [], '', false);
+        $gpVarAdapterMock = $this->getMock('PunktDe_PtExtbase_State_GpVars_GpVarsAdapter', ['injectParametersInObject'], [], '', false);
 
         // TODO why is this method called more than once?!?
         $gpVarAdapterMock->expects($this->any())->method('injectParametersInObject');

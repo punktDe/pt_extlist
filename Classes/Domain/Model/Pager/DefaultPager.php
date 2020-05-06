@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Pager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,9 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
-
 /**
  * Class implements default pager for pt_extlist
  *
@@ -36,7 +37,7 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+class DefaultPager implements \PunktDe\PtExtlist\Domain\Model\Pager\PagerInterface
 {
     /**
      * The pager identifier.
@@ -87,7 +88,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
     /**
      * Holds pager configuration for this pager
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig
      */
     protected $pagerConfiguration;
 
@@ -114,9 +115,9 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
     /**
      * Constructor for pager
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration Configuration to be used for pager
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig $pagerConfiguration Configuration to be used for pager
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig $pagerConfiguration)
     {
         $this->pagerConfiguration = $pagerConfiguration;
         $this->enabled = $pagerConfiguration->getEnabled();
@@ -232,7 +233,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
     /**
      * Returns pager configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig
      */
     public function getPagerConfiguration()
     {

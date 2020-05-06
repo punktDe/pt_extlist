@@ -37,13 +37,13 @@ namespace PunktDe\PtExtlist\ViewHelpers\Form;
 class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
 {
     /**
-     * @var \Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer
+     * @var \PunktDe\PtExtlist\Domain\Renderer\Default\CaptionRenderer
      */
     protected $captionRenderer;
 
 
     /**
-     * @var \Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig
      */
     protected $columnSelectorConfig;
 

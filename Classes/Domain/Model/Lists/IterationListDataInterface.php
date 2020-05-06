@@ -38,22 +38,22 @@ interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface extends Iter
     /**
      * Set the datasource
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDatasourceInterface $dataSource
      */
-    public function _injectDataSource(Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDatasourceInterface $dataSource);
+    public function _injectDataSource(\PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDatasourceInterface $dataSource);
 
 
     /**
-     * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface $mapper
      */
-    public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper);
+    public function _injectDataMapper(\PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface $mapper);
 
 
     /**
      * @abstract
-     * @param Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain
+     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain
      */
-    public function _injectRenderChain(Tx_PtExtlist_Domain_Renderer_RendererChain $renderChain);
+    public function _injectRenderChain(\PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain);
 
 
     /**

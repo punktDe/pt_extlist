@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\QueryObject;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a 'not' operator for criterias
  *
@@ -34,12 +37,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_NotCriteriaTest
  */
-class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
+class NotCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
 {
     /**
      * Criteria to be negated
      *
-     * @var Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @var \PunktDe\PtExtlist\Domain\QueryObject\Criteria
      */
     protected $criteria;
     
@@ -48,9 +51,9 @@ class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_Qu
     /**
      * Constructor for not criteria. Takes a criteria as parameter
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria
      */
-    public function __construct(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public function __construct(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         $this->criteria = $criteria;
     }
@@ -60,10 +63,10 @@ class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_Qu
     /**
      * Returns true, if given criteria is equal to this object
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be compared with this object
      * @return bool
      */
-    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public function isEqualTo(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         if (is_a($criteria, __CLASS__)) {
             if ($this->criteria->isEqualTo($criteria)) {
@@ -78,7 +81,7 @@ class Tx_PtExtlist_Domain_QueryObject_NotCriteria extends Tx_PtExtlist_Domain_Qu
     /**
      * Returns criteria to be negated
      *
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\Criteria
      */
     public function getCriteria()
     {

@@ -61,8 +61,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
                              'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
                              'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                              'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
-                             'dataSourceClass' => 'Tx_Extbase_Persistence_Repository',
-                             'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
+                             'dataSourceClass' => 'PunktDe_Extbase_Persistence_Repository',
+                             'repositoryClassName' => 'PunktDe_Extbase_Domain_Repository_FrontendUserGroupRepository'
 
                          ],
                         
@@ -193,11 +193,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         $extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
         
         // create fake query settings
-        $querySettingsMock = $this->getMock('Tx_Extbase_Persistence_Typo3QuerySettings', array('setRespectStoragePage'), array(), '', FALSE);
+        $querySettingsMock = $this->getMock('PunktDe_Extbase_Persistence_Typo3QuerySettings', array('setRespectStoragePage'), array(), '', FALSE);
         $querySettingsMock->expects($this->any())->method('setRespectStoragePage');
         
         // overwrite datasource to return fake query object
-        $queryObjectMock = $this->getMock('Tx_Extbase_Persistence_Query', array('count', 'getQuerySettings'), array(), '', FALSE);
+        $queryObjectMock = $this->getMock('PunktDe_Extbase_Persistence_Query', array('count', 'getQuerySettings'), array(), '', FALSE);
         $queryObjectMock->expects($this->any())->method('count')->will($this->returnValue(10));
         $queryObjectMock->expects($this->any())->method('getQuerySettings')->will($this->returnValue($querySettingsMock));
 
@@ -208,7 +208,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
 
         $queryObjectMock->setQuerySettings($querySettingsMock); // Set this here, as getQuerySettings() will check on query settings to be existing!
         
-        $repositoryMock = $this->getMock('Tx_Extbase_Domain_Repository_FrontendUserGroupRepository', array(), array('createQuery'), '', FALSE);
+        $repositoryMock = $this->getMock('PunktDe_Extbase_Domain_Repository_FrontendUserGroupRepository', array(), array('createQuery'), '', FALSE);
         $repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($queryObjectMock));
         
         $extBaseDataBackend->_injectDataSource($repositoryMock);

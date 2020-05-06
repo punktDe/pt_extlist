@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements data source for mysql databases
  *
@@ -33,17 +36,17 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory
+class MysqlDataSourceFactory
 {
     /**
      * Create instance of mysql data source
      *
      * @static
      * @param string $datSourceClassName
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+     * @param \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource
      */
-    public static function createInstance($datSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    public static function createInstance($datSourceClassName, \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
         $dataSource = new $datSourceClassName($dataSourceConfiguration);
         $dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
@@ -55,11 +58,11 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory
      * Create Database Object
      *
      * @static
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration
      * @return PDO
      * @throws Exception
      */
-    protected static function createDataObject(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    protected static function createDataObject(\PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
         $dsn = sprintf('mysql:dbname=%s;host=%s;port=%s',
                 $dataSourceConfiguration->getDatabaseName(),

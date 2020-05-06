@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements configuration for list defaults
  *
@@ -34,7 +37,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class ListDefaultConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
 {
     /**
      * ListIdentifier of the default sorting column
@@ -47,7 +50,7 @@ class Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig extends Tx_PtExtl
     
     /**
      * The sorting direction of default sorting column
-     * 
+     *  
      * @var integer
      */
     protected $sortingDirection;

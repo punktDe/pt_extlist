@@ -37,14 +37,14 @@
 #require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Classes/Domain/Renderer/RendererInterface.php';
 #require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Classes/Domain/Renderer/ConfigurableRendererInterface.php';
 #require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist') . 'Classes/Domain/Renderer/AbstractRenderer.php';
-class Tx_PtExtlist_Tests_Domain_Renderer_DummyRenderer extends Tx_PtExtlist_Domain_Renderer_AbstractRenderer
+class DummyRenderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
 {
     /**
      * @see Tx_PtExtlist_Domain_Renderer_AbstractRenderer::injectConfiguration()
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration
      */
-    public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration)
+    public function _injectConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration)
     {
     }
     

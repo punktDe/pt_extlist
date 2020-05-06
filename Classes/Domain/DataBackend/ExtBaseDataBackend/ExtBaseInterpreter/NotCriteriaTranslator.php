@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Translator for or criteria for extbase data backend interpreter
  *
@@ -34,25 +37,25 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslatorTest
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator
-    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface
+class NotCriteriaTranslator
+    implements \PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter\ExtBaseCriteriaTranslatorInterface
 {
     /**
      * Translates a query an manipulates given query object
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be translated
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
      * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
      * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
      */
     public static function translateCriteria(
-           Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
+           \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria,
            \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
            \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository)
     {
 
         // translate NOT criteria by creating a new extbase query
-        $tmpQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria(
+        $tmpQuery = \PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter\ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria(
             $criteria->getCriteria(),
             $extbaseRepository->createQuery(),
             $extbaseRepository

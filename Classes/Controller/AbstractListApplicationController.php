@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,11 +28,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
+use PunktDe\PtExtbase\Utility\HeaderInclusion;
+use PunktDe\PtExtlist\ExtlistContext\ExtlistContextFactory;
 
 /**
  * This controller is meant to be used in a backend module, as in backend context we have only one controller
  */
-abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends Tx_PtExtlist_Controller_AbstractController
+abstract class AbstractListApplicationController extends AbstractController
 {
     /**
      * @var string relative path under settings of this extension to the extlist typoScript configuration
@@ -65,12 +70,10 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     /******************************************************
      * End of configuration section
      */
-
-
     /**
      * Holds an instance of filterbox collection for processed list
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     * @var \PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection
      */
     protected $filterboxCollection = null;
 
@@ -100,47 +103,50 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
 
     /**
-     * @var Tx_PtExtbase_Utility_HeaderInclusion
+     * @var HeaderInclusion
      */
     protected $headerInclusionUtility;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     * @var ListFactory
      */
     protected $listFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_ExtlistContext_ExtlistContextFactory
+     * @var ExtlistContextFactory
      */
     protected $extlistContextFactory;
 
 
+   # /**
+   #  * @param ExtlistContextFactory $extlistContextFactory
+   #  */
+   # public function injectExtlistContextFactory(ExtlistContextFactory $extlistContextFactory)
+   # {
+   #     $this->extlistContextFactory = $extlistContextFactory;
+   # }
 
     /**
-     * @param Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility
+     * @param HeaderInclusion $headerInclusionUtility
      */
-    public function injectHeaderInclusionUtility(Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility)
+    public function injectHeaderInclusionUtility(HeaderInclusion $headerInclusionUtility)
     {
         $this->headerInclusionUtility = $headerInclusionUtility;
     }
 
 
 
-    public function injectExtlistContextFactory(Tx_PtExtlist_ExtlistContext_ExtlistContextFactory $extlistContextFactory)
-    {
-        $this->extlistContextFactory = $extlistContextFactory;
-    }
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     * @param ListFactory $listFactory
      */
-    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    public function injectListFactory(ListFactory $listFactory)
     {
         $this->listFactory = $listFactory;
     }
@@ -206,7 +212,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     /**
      * Build the configuration builder with settings from the given extlistTypoScriptConfigurationPath
      *
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return ConfigurationBuilder
      * @throws Exception
      */
     protected function buildConfigurationBuilder()
@@ -336,7 +342,6 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
     /**
      * Reset all pagers for this list.
-     *
      */
     protected function resetPagers()
     {

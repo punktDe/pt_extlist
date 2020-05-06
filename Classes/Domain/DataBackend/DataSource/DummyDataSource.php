@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +29,15 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a dummy data source that is mainly used for testing
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\DataSource
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSourceTest
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+class DummyDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource
 {
     /**
      * Some dummy data to be returned
@@ -57,10 +60,10 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
     /**
      * Returns some dummy data on an executed query
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
      * @return array
      */
-    public function execute(Tx_PtExtlist_Domain_QueryObject_Query $query = null)
+    public function execute(\PunktDe\PtExtlist\Domain\QueryObject\Query $query = null)
     {
         return $this->dummyArray;
     }
@@ -81,7 +84,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource extends Tx_PtEx
     
     /**
      * TODO remove function!
-     * 
+     *  
      * Returns some dummy data, requested between a range.
      * @param integer $start The start index of the requested data.
      * @param integer $end The end index of the requested data.

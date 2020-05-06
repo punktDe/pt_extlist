@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +29,15 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a factory for a data mapper
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\Mapper
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements \TYPO3\CMS\Core\SingletonInterface
+class MapperFactory implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
@@ -56,19 +59,19 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory implements \TYPO3\CMS
     /**
      * Returns an instance of a data mapper for a given data mapper class name.
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @return mixed
      */
-    public function createDataMapper(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function createDataMapper(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
         $dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
 
-        $dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder); /** @var Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper $dataMapper */
+        $dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder); /** @var \PunktDe\PtExtlist\Domain\DataBackend\Mapper\AbstractMapper $dataMapper */
         $mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 
         // Check whether mapper implements interface
-        Tx_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface, ['message' => 'Data mapper must implement data mapper interface! 1280415471']);
+        PunktDe_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface, ['message' => 'Data mapper must implement data mapper interface! 1280415471']);
 
         $dataMapper->_injectConfigurationBuilder($configurationBuilder);
         $dataMapper->_injectMapperConfiguration($mapperConfiguration);

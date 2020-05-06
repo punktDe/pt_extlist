@@ -25,10 +25,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Interface for objects that can be registered at sorter.
- * 
+ *  
  * @author Michael Knoll
  * @package pt_extlist
  * @subpackage Domain\Model\Sorting
@@ -38,16 +37,16 @@ interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface
     /**
      * Registers a sorter which observes implementing object.
      *
-     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+     * @param \PunktDe\PtExtlist\Domain\Model\Sorting\Sorter $sorter
      */
-    public function registerSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
+    public function registerSorter(\PunktDe\PtExtlist\Domain\Model\Sorting\Sorter $sorter);
     
     
     
     /**
      * Returns sorting of implementing object.
-     * 
-     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection Collection of sorting states
+     *  
+     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection Collection of sorting states
      */
     public function getSortingStateCollection();
     

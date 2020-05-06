@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -23,8 +27,6 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-
-
 /**
  * Class implements a container for data backend instances which is a singleton.
  *
@@ -35,7 +37,7 @@
  * @subpackage DataBackend
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendInstancesContainerTest
  */
-class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements \TYPO3\CMS\Core\SingletonInterface
+class DataBackendInstancesContainer implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
      * Holds an array of data backend instances as list-identifier based singletons
@@ -51,10 +53,10 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements \
      *
      * Use set() if you want to overwrite existing instances.
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
      * @throws Exception if a databackend for this list identifier has already been added to this container.
      */
-    public function add(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    public function add(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend)
     {
         if (empty($this->instances[$dataBackend->getListIdentifier()])) {
             $this->instances[$dataBackend->getListIdentifier()] = $dataBackend;
@@ -68,9 +70,9 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements \
     /**
      * Sets a given data backend as instance. Overwrites already set instance.
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
      */
-    public function set(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    public function set(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend)
     {
         $this->instances[$dataBackend->getListIdentifier()] = $dataBackend;
     }
@@ -94,7 +96,7 @@ class Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer implements \
      * Returns instance of data backend for given list identifier
      *
      * @param $listIdentifier
-     * @return null|Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @return null|\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
      */
     public function get($listIdentifier)
     {

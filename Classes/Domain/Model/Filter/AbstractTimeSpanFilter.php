@@ -111,7 +111,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
      */
     protected function initGenericFilterByTSConfig()
     {
-        Tx_PtExtbase_Assertions_Assert::isString($this->filterConfig->getSettings('dbTimeFormat'), ['message' => 'No dbTimeFormat defined for filter ' . $this->filterIdentifier . ' 1314579114']);
+        PunktDe_PtExtbase_Assertions_Assert::isString($this->filterConfig->getSettings('dbTimeFormat'), ['message' => 'No dbTimeFormat defined for filter ' . $this->filterIdentifier . ' 1314579114']);
         ;
         $this->dbTimeFormat = $this->filterConfig->getSettings('dbTimeFormat');
 

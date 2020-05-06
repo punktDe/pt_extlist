@@ -178,7 +178,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
             $filterSettings = $this->defaultFilterSettings;
         }
 
-        $gpVarsAdapgerMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarsAdapter Tx_PtExtbase_State_GpVars_GpVarsAdapter */
+        $gpVarsAdapgerMock = $this->getMock('PunktDe_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarsAdapter PunktDe_PtExtbase_State_GpVars_GpVarsAdapter */
 
         $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter');
         $abstractTimeSpanFilter = $this->getMockForAbstractClass($accessibleClassName); /* @var $abstractTimeSpanFilter Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter */

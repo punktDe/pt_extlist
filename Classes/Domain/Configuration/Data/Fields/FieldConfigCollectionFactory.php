@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Data\Fields;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  *  FieldConfigCollection Factory
  *
@@ -34,15 +37,15 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
+class FieldConfigCollectionFactory
 {
     /**
      * Returns an instance of a field config collection for given field settings
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $fieldsSettings = $configurationBuilder->getSettingsForConfigObject('fields');
         $fieldConfigCollection = self::buildFieldConfigCollection($configurationBuilder, $fieldsSettings);
@@ -54,15 +57,15 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
     /**
      * Builds a collection of field config objects for a given settings array
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @param array $fieldSettingsArray
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
      */
-    protected static function buildFieldConfigCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $fieldSettingsArray = null)
+    protected static function buildFieldConfigCollection(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $fieldSettingsArray = null)
     {
-        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection = new \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection();
         foreach ($fieldSettingsArray as $fieldIdentifier => $fieldSettings) {
-            $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($configurationBuilder, $fieldIdentifier, $fieldSettings);
+            $fieldConfig = new \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig($configurationBuilder, $fieldIdentifier, $fieldSettings);
             //$fieldConfigCollection->addItem($fieldConfig, $fieldConfig->getIdentifier());
             $fieldConfigCollection->addFieldConfig($fieldConfig);
         }

@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +37,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+class ExplicitSQLQuery extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\AbstractDataProvider
 {
     /**
      * @var string
@@ -116,31 +119,31 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
         }
 
         if ($sqlQuerySettings['select']) {
-            $this->selectPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
+            $this->selectPart = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
         }
         if ($sqlQuerySettings['from']) {
-            $this->fromPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']);
+            $this->fromPart = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']);
         }
         if ($sqlQuerySettings['where']) {
-            $this->wherePart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']);
+            $this->wherePart = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']);
         }
         if ($sqlQuerySettings['orderBy']) {
-            $this->orderByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['orderBy']);
+            $this->orderByPart = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($sqlQuerySettings['orderBy']);
         }
         if ($sqlQuerySettings['groupBy']) {
-            $this->groupByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['groupBy']);
+            $this->groupByPart = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($sqlQuerySettings['groupBy']);
         }
         if ($sqlQuerySettings['limit']) {
-            $this->limitPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['limit']);
+            $this->limitPart = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($sqlQuerySettings['limit']);
         }
 
 
         $this->filterField = trim($this->filterConfig->getSettings('filterField'));
         $this->displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('displayFields'));
 
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, ['info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957']);
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, ['info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958']);
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fromPart, ['info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, ['info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, ['info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->fromPart, ['info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959']);
     }
 
 
@@ -181,7 +184,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
             }
         }
         $optionData['allDisplayFields'] = implode(' ', $values);
-        $option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+        $option = \PunktDe\PtExtlist\Utility\RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
         return $option;
     }
 
@@ -195,7 +198,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
     {
         $query = $this->dbObj->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
 
-        $dataSource = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
+        $dataSource = \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
 
         if (!method_exists($dataSource, 'executeQuery')) {
             throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider!', 1315216209);

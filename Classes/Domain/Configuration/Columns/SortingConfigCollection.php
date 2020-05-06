@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,21 +29,20 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Collection of sorting field configurations
  *
  * @package 		Domain
  * @subpackage 		Configuration\Columns  
  * @author         	Daniel Lienert
- * @author          Michael Knoll
+ * @author         	Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class SortingConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Class name to which this collection should be restricted to.
      * Collection accepts only items of this class.
-     * 
+     *  
      * @var string
      */
     protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig';
@@ -74,7 +77,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends 
     /**
      * Adds a sorting field by given fieldIdentifier
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $sortingField
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfig $sortingField
      * @param string $fieldIdentifier
      * @return void
      */
@@ -87,7 +90,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection extends 
 
     /**
      * Returns true, if column can only be sorted as a whole
-     * 
+     *  
      * @return bool
      */
     public function getColumnSorting()

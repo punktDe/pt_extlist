@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\Typo3DataBackend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Data backend for TYPO3 database
  *
@@ -35,23 +38,23 @@
  * @subpackage DataBackend\Typo3DataBackend
  *
  * TODO implement T3 db object methods for query (hidden fields, deleted rows etc...)
- *  
+ *    
  */
-class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
+class Typo3DataBackend extends \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlDataBackend
 {
     /**
      * Factory method for data source
-     * 
+     *  
      * Only DataBackend knows, which data source to use and how to instantiate it.
      * So there cannot be a generic factory for data sources and data backend factory cannot instantiate it either!
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource Data source object for this data backend
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource Data source object for this data backend
      */
-    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function createDataSource(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        $dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
-        $dataSource =  Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
+        $dataSourceConfiguration = new \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
+        $dataSource =  \PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
         return $dataSource;
     }
     
@@ -85,7 +88,7 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
     /**
      * Build and return whereClause part with TYPO3 enablefields criterias
      * for all tables which are defined in backendConfig.tables and in TCA
-     * 
+     *  
      * @return string whereClause part with TYPO3 enablefields criterias
      */
     protected function getTypo3SpecialFieldsWhereClause()
@@ -98,7 +101,7 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
             $alias = trim($alias);
 
             if (is_array($GLOBALS['TCA'][$table])) {
-                $specialFieldsWhereClauseSnippet = Tx_PtExtbase_Div::getCobj()->enableFields($table);
+                $specialFieldsWhereClauseSnippet = PunktDe_PtExtbase_Div::getCobj()->enableFields($table);
 
                 if ($alias) {
                     // Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after

@@ -34,8 +34,6 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extbase') . 'Classes/Utility/AjaxDispatcher.php';
-
 $TSFE = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController', $TYPO3_CONF_VARS, 0, 0); /* @var $TSFE \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController */
 $TSFE->config['config'] = [];
 $TSFE->renderCharset = 'utf-8';
@@ -44,7 +42,6 @@ $GLOBALS['TSFE'] = $TSFE;
 
 $typoscriptInclude = '<INCLUDE_TYPOSCRIPT:source="FILE:EXT:pt_extlist/Configuration/TypoScript/setup.txt">';
 
-require_once(PATH_t3lib . 'class.t3lib_tsparser.php');
 $tsParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser'); /* @var $tsParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
 $externalTSFileContent = $tsParser->checkIncludeLines($typoscriptInclude);
 $tsParser->parse($externalTSFileContent);
@@ -53,7 +50,7 @@ $GLOBALS['TSFE']->tmpl->setup = $tsParser->setup;
 
 $GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtbase_Utility_AjaxDispatcher'); /* @var $dispatcher Tx_PtExtbase_Utility_AjaxDispatcher */
+$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('PunktDe_PtExtbase_Utility_AjaxDispatcher'); /* @var $dispatcher PunktDe_PtExtbase_Utility_AjaxDispatcher */
 $dispatcher->setExtensionName('PtExtlist');
 $dispatcher->setPluginName('');
 $dispatcher->setControllerName('');

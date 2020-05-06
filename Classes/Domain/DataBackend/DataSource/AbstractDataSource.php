@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * The base class for all data source objects.
  *
@@ -35,12 +38,12 @@
  * @subpackage DataBackend\DataSource
  * @author Daniel Lienert
  */
-abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+abstract class AbstractDataSource
 {
     /**
      * Holds a data source configuration object
      *
-     * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
+     * @var \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration
      */
     protected $dataSourceConfiguration;
 
@@ -60,9 +63,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
     /**
      * Constructor for typo3 data source
      *
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
         $this->dataSourceConfiguration = $dataSourceConfiguration;
     }

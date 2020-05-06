@@ -34,8 +34,8 @@
  * @author Daniel Lienert
  */
 class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
-    implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface,
-    Tx_PtExtbase_State_Session_SessionPersistableInterface
+    implements PunktDe_PtExtbase_State_GpVars_GpVarsInjectableInterface,
+    PunktDe_PtExtbase_State_Session_SessionPersistableInterface
 {
     /**
      * Holds configuration

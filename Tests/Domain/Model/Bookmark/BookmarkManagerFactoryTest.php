@@ -199,11 +199,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
             ->method('_injectConfigurationBuilder')
             ->with($configurationBuilderMock);
 
-        $sessionPersistenceManagerMock = $this->getMockBuilder('Tx_PtExtbase_State_Session_SessionPersistenceManager')
+        $sessionPersistenceManagerMock = $this->getMockBuilder('PunktDe_PtExtbase_State_Session_SessionPersistenceManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $sessionPersistenceManagerBuilderMock = $this->getMockBuilder('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder')
+        $sessionPersistenceManagerBuilderMock = $this->getMockBuilder('PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder')
             ->setMethods(['getInstance'])
             ->disableOriginalConstructor()
             ->getMock();

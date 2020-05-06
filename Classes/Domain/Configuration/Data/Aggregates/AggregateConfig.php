@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class aggregateField config
  *
@@ -34,7 +37,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+class AggregateConfig
 {
     /**
      * aggregate field Identifier
@@ -45,14 +48,14 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
     
     /**
      * configobject of the field that will be aggregated
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
      */
     protected $fieldIdentifier;
     
     
     /**
      * Either 'page' or 'query'
-     * 
+     *  
      * @var string
      */
     protected $scope = 'query';
@@ -73,15 +76,15 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
     
     
     /**
-     * 
+     *  
      * @param string $identifier aggregate identifier 
      * @param array $aggregateSettings
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @throws Exception
      */
-    public function __construct($identifier, $aggregateSettings, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function __construct($identifier, $aggregateSettings, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($identifier, ['message' => 'No aggregate identifier specified. 1282891490']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($identifier, ['message' => 'No aggregate identifier specified. 1282891490']);
         $this->identifier = $identifier;
         
         if (!trim($aggregateSettings['fieldIdentifier'])) {
@@ -118,7 +121,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
     
     
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
      */
     public function getFieldIdentifier()
     {

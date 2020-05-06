@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage StateAdapter\Storage
  */
-class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_PtExtbase_State_Session_Storage_AdapterInterface
+class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements PunktDe_PtExtbase_State_Session_Storage_AdapterInterface
 {
     /**
      * @var t3lib_cache_frontend_Cache

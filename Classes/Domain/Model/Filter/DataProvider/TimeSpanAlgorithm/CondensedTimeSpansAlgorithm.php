@@ -39,14 +39,14 @@
 class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm
 {
     /**
-     * @var Tx_PtExtbase_Collection_SortableObjectCollection
+     * @var PunktDe_PtExtbase_Collection_SortableObjectCollection
      */
     protected $timeSpans;
 
 
 
     /**
-     * @var Tx_PtExtbase_Collection_SortableObjectCollection
+     * @var PunktDe_PtExtbase_Collection_SortableObjectCollection
      */
     protected $condensedTimeSpans;
 
@@ -93,7 +93,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
 
     
     /**
-     * @param \Tx_PtExtbase_Collection_SortableObjectCollection $timeSpans
+     * @param \PunktDe_PtExtbase_Collection_SortableObjectCollection $timeSpans
      * @return void
      */
     public function setTimeSpans($timeSpans)
@@ -104,7 +104,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
 
 
     /**
-     * @return \Tx_PtExtbase_Collection_SortableObjectCollection
+     * @return \PunktDe_PtExtbase_Collection_SortableObjectCollection
      */
     public function getTimeSpans()
     {
@@ -114,7 +114,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
 
 
     /**
-     * @return \Tx_PtExtbase_Collection_SortableObjectCollection
+     * @return \PunktDe_PtExtbase_Collection_SortableObjectCollection
      */
     public function getCondensedTimeSpans()
     {

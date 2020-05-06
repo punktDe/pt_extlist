@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Translator class for translating and criterias for extbase data backend
  *
@@ -34,39 +37,39 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslatorTest
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator
-    implements Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface
+class AndCriteriaTranslator
+    implements \PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter\ExtBaseCriteriaTranslatorInterface
 {
     /**
      * Translates a query an manipulates given query object
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be translated
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be translated
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query to add criteria to
      * @param \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository Associated repository
      * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
      */
     public static function translateCriteria(
-           Tx_PtExtlist_Domain_QueryObject_Criteria $criteria,
+           \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria,
            \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery,
            \TYPO3\CMS\Extbase\Persistence\Repository $extbaseRepository)
     {
                
         /**
          * This is a little ugly here:
-         * 
+         *  
          * As we do not create Extbase criterias from our generic pt_extlist criterias
          * but set the criterias directly on the created extbase query, we have to cheat
          * here and generate two helper queries, whenever a AND query has to be translated.
-         * 
+         *  
          * After having translated the two criterias of the generic AND criteria, we
          * put them together again in a single extbase query. 
          */
         $tmpQuery1 = $extbaseRepository->createQuery();
         $tmpQuery2 = $extbaseRepository->createQuery();
         // translate first AND criteria by creating a new extbase query
-        $tmpQuery1 = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria->getFirstCriteria(), $tmpQuery1, $extbaseRepository);
+        $tmpQuery1 = \PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter\ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria->getFirstCriteria(), $tmpQuery1, $extbaseRepository);
         // translate second AND criteria by creating a new extbase query
-        $tmpQuery2 = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria->getSecondCriteria(), $tmpQuery2, $extbaseRepository);
+        $tmpQuery2 = \PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter\ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria->getSecondCriteria(), $tmpQuery2, $extbaseRepository);
         // put both translated criterias together again in a single extbase query
         if ($extbaseQuery->getConstraint()) {
             $extbaseQuery->matching($extbaseQuery->logicalAnd($extbaseQuery->getConstraint(),

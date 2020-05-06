@@ -110,7 +110,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
                 ]
             )
         );
-        $extbaseQueryMock = new \TYPO3\CMS\Extbase\Persistence\Generic\Query('any');#$this->getMock('Tx_Extbase_Persistence_Query', array(), array(), '', FALSE);
+        $extbaseQueryMock = new \TYPO3\CMS\Extbase\Persistence\Generic\Query('any');#$this->getMock('PunktDe_Extbase_Persistence_Query', array(), array(), '', FALSE);
         Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setSortingOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
         $extBaseOrderings = $extbaseQueryMock->getOrderings();
         $this->assertEquals($extbaseQueryMock->getOrderings(), ['fieldName1' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING, 'fieldName2' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING]);

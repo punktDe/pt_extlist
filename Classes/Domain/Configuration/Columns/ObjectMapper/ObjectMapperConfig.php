@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,8 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
 /**
  * Class implementing configuration for the objectMapper
  *
@@ -34,7 +36,7 @@
  * @subpackage Configuration\Column
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class ObjectMapperConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
 {
     /**
      * The class of the target object

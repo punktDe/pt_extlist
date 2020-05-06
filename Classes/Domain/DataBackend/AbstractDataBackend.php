@@ -35,12 +35,12 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest
  */
-abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
 {
     /**
      * Holds backend configuration for current backend
      *
-     * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration
+     * @var \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfiguration
      */
     protected $backendConfiguration;
 
@@ -53,13 +53,13 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 
     /**
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
+     * @var \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface
      */
     protected $dataMapper;
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      */
     protected $configurationBuilder;
 
@@ -71,7 +71,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     * @var \PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection
      */
     protected $filterboxCollection;
 
@@ -185,7 +185,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 
     /**
      * Init method
-     *
      */
     public function init()
     {
@@ -197,7 +196,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
     /**
      * Init method to be overwritten in the
      * concrete backends
-     *
      */
     protected function initBackend()
     {
@@ -206,7 +204,6 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 
     /**
      * Init the backend specific configuration from TS config
-     *
      */
     protected function initBackendByTsConfig()
     {
@@ -337,7 +334,7 @@ abstract class Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend implements Tx
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder;
+     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder ;
      */
     public function getConfigurationBuilder()
     {

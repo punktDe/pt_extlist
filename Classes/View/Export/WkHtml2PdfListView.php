@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\View\Export;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,9 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
-
 /**
  * Class implements a view for rendering PDF using the WKHTML2PDF rendering engine.
  *
@@ -45,7 +46,7 @@
  * @package View
  * @subpackage Export
  */
-class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Export_AbstractExportView
+class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
 {
     /**
      * Force the client to download PDF file when finish() is called.
@@ -207,7 +208,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
      * Overwriting the render method to generate a PDF output
      *
      * @throws Exception if wkhtml command did not succeed.
-     * @return  void (never returns)
+     * @return   void (never returns)
      *
      * Partly taken from https://code.google.com/p/wkhtmltopdf/wiki/IntegrationWithPhp
      */
@@ -404,22 +405,22 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
     private function initTypoScriptSettings()
     {
         $this->fluidTemplatePath = $this->exportConfiguration->getSettings('templatePath');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fluidTemplatePath, ['message' => 'No template path given for fluid export! 1284621481']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->fluidTemplatePath, ['message' => 'No template path given for fluid export! 1284621481']);
         $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->fluidTemplatePath));
 
         // TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further information on parameters!
         // --page-size	<Size>	Set paper size to: A4, Letter, etc. (default A4)
         $this->size = strtolower($this->exportConfiguration->getSettings('paperSize'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->size, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->size, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
 
         // TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further informatoin on parameters
         // --orientation	<orientation>	Set orientation to Landscape or Portrait (default Portrait)
         $this->orient = $this->exportConfiguration->getSettings('paperOrientation');
-        Tx_PtExtbase_Assertions_Assert::isInArray($this->orient, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
+        PunktDe_PtExtbase_Assertions_Assert::isInArray($this->orient, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
 
 
         $this->cssFilePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
+        PunktDe_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
 
         $this->additionalWkhtmlParams = $this->exportConfiguration->getSettings('additionalWkhtmlParams');
 

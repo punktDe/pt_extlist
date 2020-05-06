@@ -42,13 +42,13 @@ class FormElementNameViewHelper extends AbstractViewHelper
     /**
      * render a key/value GET/POST-string within the namespace of the given object
      *
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \PunktDe_PtExtbase_State_IdentifiableInterface $object
      * @param string $property , single property or propertyPath separated by '.'
      * @param boolean $addExtPrefix
      * @return string
-     * @throws \Tx_PtExtbase_Exception_Assertion
+     * @throws \PunktDe_PtExtbase_Exception_Assertion
      */
-    public function render(\Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix = false)
+    public function render(\PunktDe_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix = false)
     {
         $formElementNameSpace = '';
 
@@ -84,14 +84,14 @@ class FormElementNameViewHelper extends AbstractViewHelper
 
 
     /**
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \PunktDe_PtExtbase_State_IdentifiableInterface $object
      * @return String
-     * @throws \Tx_PtExtbase_Exception_Assertion
+     * @throws \PunktDe_PtExtbase_Exception_Assertion
      */
-    public function getObjectNameSpace(\Tx_PtExtbase_State_IdentifiableInterface $object)
+    public function getObjectNameSpace(\PunktDe_PtExtbase_State_IdentifiableInterface $object)
     {
         $nameSpace = $object->getObjectNamespace();
-        \Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
+        \PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
 
         return $nameSpace;
     }

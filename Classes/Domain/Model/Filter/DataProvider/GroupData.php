@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements data provider for grouped list data
  *
@@ -33,7 +36,7 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\AbstractDataProvider
 {
     /**
      * Show the group row count
@@ -56,7 +59,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
     /**
      * Holds the filter value to be used when filter is submitted
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
      */
     protected $filterField;
 
@@ -65,7 +68,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
     /**
      * Holds an collection of fieldconfigs to be used as displayed values for the filter (the options that can be selected)
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
      */
     protected $displayFields = null;
 
@@ -130,7 +133,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
     /**
      * Get the raw data from the database
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fields
      * @return array
      */
     protected function getOptionsByFields($fields)
@@ -146,14 +149,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
      * Build the group data query to retrieve the group data
      *
      * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
-     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\Query
      */
     protected function buildGroupDataQuery($fields)
     {
-        $groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $groupDataQuery = new \PunktDe\PtExtlist\Domain\QueryObject\Query();
 
         foreach ($fields as $selectField) {
-            $groupDataQuery->addField(Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($selectField));
+            $groupDataQuery->addField(\PunktDe\PtExtlist\Utility\DbUtils::getAliasedSelectPartByFieldConfig($selectField));
         }
 
         if ($this->additionalTables != '') {
@@ -161,7 +164,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
         }
 
         foreach ($this->displayFields as $displayField) { /* @var $displayField Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
-            $groupDataQuery->addSorting($displayField->getIdentifier(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+            $groupDataQuery->addSorting($displayField->getIdentifier(), \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_ASC);
         }
 
         if ($this->showRowCount) {
@@ -261,7 +264,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
      * Get the field config object by fieldIdentifier string
      *
      * @param string $fieldIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
      */
     protected function resolveFieldConfig($fieldIdentifier)
     {

@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,37 +27,36 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Factory to put all parts of a list together.
- * 
+ *  
  * @author Michael Knoll
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\List
  */
-class Tx_PtExtlist_Domain_Model_List_ListFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactory
+class ListFactory
+    extends \PunktDe\PtExtlist\Domain\AbstractComponentFactory
     implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
+     * @var \PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory
      */
     protected $listHeaderFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory
      */
     protected $rendererChainFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory $listHeaderFactory
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory $listHeaderFactory
      */
-    public function injectListHeaderFactory(Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory $listHeaderFactory)
+    public function injectListHeaderFactory(\PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory $listHeaderFactory)
     {
         $this->listHeaderFactory = $listHeaderFactory;
     }
@@ -63,9 +64,9 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory $rendererChainFactory
      */
-    public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
+    public function injectRendererChainFactory(\PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory $rendererChainFactory)
     {
         $this->rendererChainFactory = $rendererChainFactory;
     }
@@ -75,14 +76,14 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory
     /**
      * Returns a full featured list object.
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @param boolean $resetList
-     * @return Tx_PtExtlist_Domain_Model_List_List
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Lists
      */
-    public function createList(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetList = false)
+    public function createList(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $resetList = false)
     {
-        $list = new Tx_PtExtlist_Domain_Model_List_List();
+        $list = new \PunktDe\PtExtlist\Domain\Model\Lists\Lists();
 
         // We have to build headers here, as they are no longer created by data backend
         $listHeader = $this->listHeaderFactory->createInstance($configurationBuilder, $resetList);
@@ -110,16 +111,16 @@ class Tx_PtExtlist_Domain_Model_List_ListFactory
     /**
      * Build the aggregate list data if any aggregates are defined
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
-    public function buildAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function buildAggregateListData(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         if ($configurationBuilder->buildAggregateDataConfig()->count() > 0) {
             return $dataBackend->getAggregateListData();
         } else {
-            return new Tx_PtExtlist_Domain_Model_List_ListData();
+            return new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
         }
     }
 }

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * AggregateRowConfigFactory for Aggregate config collection Objects 
  *
@@ -33,16 +36,16 @@
  * @subpackage Configuration\Aggregates
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigFactory
+class AggregateRowConfigFactory
 {
     /**
      * Build and return AggregateRowConfigObject
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @param array $aggregateRowSettings
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection
      */
-    public static function getAggregateRowConfig(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $aggregateRowSettings)
+    public static function getAggregateRowConfig(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $aggregateRowSettings)
     {
         return self::buildAggregateRowConfigObject($configurationBuilder, $aggregateRowSettings);
     }
@@ -50,16 +53,16 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigFactory
     
     
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @param array $aggregateRowSettings
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection
      */
-    protected static function buildAggregateRowConfigObject(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $aggregateRowSettings)
+    protected static function buildAggregateRowConfigObject(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $aggregateRowSettings)
     {
-        $aggregateRowConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig();
+        $aggregateRowConfig = new \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfig();
         
         foreach ($aggregateRowSettings as $columnIdentifier => $aggregateColumnSettings) {
-            $aggregateColumnConfig = new Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig($configurationBuilder, $aggregateColumnSettings, $columnIdentifier);
+            $aggregateColumnConfig = new \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateColumnConfig($configurationBuilder, $aggregateColumnSettings, $columnIdentifier);
             $aggregateRowConfig->addAggregateColumnConfig($aggregateColumnConfig, $columnIdentifier);
         }
         

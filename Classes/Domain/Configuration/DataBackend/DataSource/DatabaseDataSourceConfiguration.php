@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,11 +29,10 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Database Datasource configuration class. Holds configuration parameters for database data sources as MySql
  */
-class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
+class DatabaseDataSourceConfiguration
 {
     /**
      * @var array
@@ -124,7 +127,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns database name to connect to
-     * 
+     *  
      * @return string
      */
     public function getDatabaseName()
@@ -136,7 +139,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns host name or ip address to connect to
-     * 
+     *  
      * @return string
      */
     public function getHost()
@@ -148,7 +151,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns password for db connection
-     * 
+     *  
      * @return string
      */
     public function getPassword()
@@ -160,7 +163,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns port to connect to
-     * 
+     *  
      * @return string
      */
     public function getPort()
@@ -172,7 +175,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns username for db connection
-     * 
+     *  
      * @return string
      */
     public function getUsername()

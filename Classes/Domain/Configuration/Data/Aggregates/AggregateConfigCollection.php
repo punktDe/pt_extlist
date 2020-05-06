@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +29,15 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a collection of aggregate configurations.
- * 
+ *  
  * @package Domain
  * @subpackage Configuration\Data\Aggregates
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class AggregateConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
@@ -48,9 +51,9 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
     /**
      * Adds a aggregate configuration object to collection
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig $aggregateConfig
      */
-    public function addAggregateConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig)
+    public function addAggregateConfig(\PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig $aggregateConfig)
     {
         $this->addItem($aggregateConfig, $aggregateConfig->getIdentifier());
     }
@@ -62,7 +65,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
      *
      * @param string $identifier
      * @throws Exception
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig
      */
     public function getAggregateConfigByIdentifier($identifier)
     {
@@ -76,13 +79,13 @@ class Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectio
     
     /**
      * Extract the items with the given scope
-     * 
+     *  
      * @param string $scope
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection
      */
     public function extractCollectionByScope($scope)
     {
-        $collection = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection;
+        $collection = new \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
         foreach ($this->itemsArr as $itemKey => $item) {
             if ($item->getScope() == $scope) {
                 $collection->addAggregateConfig($item, $itemKey);

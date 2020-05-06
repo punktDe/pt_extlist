@@ -25,10 +25,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Interface for list renderers
- * 
+ *  
  * @package Domain
  * @subpackage Renderer
  * @author Christoph Ehscheidt 
@@ -40,19 +39,19 @@ interface Tx_PtExtlist_Domain_Renderer_RendererInterface
     /**
      * Renders the given list through TypoScript.
      * Also uses the column definitions.
-     * 
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListData $listData
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
-    public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData);
+    public function renderList(\PunktDe\PtExtlist\Domain\Model\Lists\ListData $listData);
     
     
     
     /**
      * Renders the column captions out of the TS definition
-     * 
+     *  
      * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader 
+     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
      */
     public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
     

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\ColumnSelector;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Factory to create configs for column selector
  *
@@ -33,17 +36,16 @@
  * @subpackage Configuration\ColumnSelector
  * @author Daniel Lienert
  */
-
-class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory
+class ColumnSelectorConfigFactory
 {
     /**
      * Returns a instance of the columnSelector configuration.
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        return new Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('columnSelector'));
+        return new \PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('columnSelector'));
     }
 }

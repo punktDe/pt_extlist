@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Tests\Domain\Configuration\Filters\Stubs;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,17 +29,16 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
-  * Mock class for filterbox configuration
-  * 
-  * @package Typo3
-  * @subpackage pt_extlist
-  * @author Michael Knoll 
-  */
-class Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationMock extends Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+ * Mock class for filterbox configuration
+ *  
+ * @package Typo3
+ * @subpackage pt_extlist
+ * @author Michael Knoll 
+ */
+class FilterboxConfigurationMock extends \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig
 {
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier = null, $settings = null)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $filterboxIdentifier = null, $settings = null)
     {
         if ($filterboxIdentifier == null) {
             $filterboxIdentifier = 'test';

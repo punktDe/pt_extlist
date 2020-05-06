@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,14 +29,13 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * collection of aggregate row configs
  *
  * @package Domain
  * @subpackage Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class AggregateRowConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * @var string
@@ -43,11 +46,11 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection 
     
     /**
      * Add rowconfig to collection
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfig $aggregateRowConfig
      * @param integer $rowId
      */
-    public function addAggregateRowConfig(Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig, $rowId)
+    public function addAggregateRowConfig(\PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfig $aggregateRowConfig, $rowId)
     {
         $this->addItem($aggregateRowConfig, $rowId);
     }
@@ -56,7 +59,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection 
     
     /** 
      * @param integer $rowId
-     * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfig
      */
     public function getAggregateRowConfig($rowId)
     {

@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +27,14 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
 /**
  * Class implementing ajax filterData controller.
- * 
+ *  
  * @package Controller
  * @author Daniel Lienert
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controller_AbstractController
+class AjaxFilterController extends AbstractController
 {
     /**
      * @param string $fullQualifiedFilterIdentifier
@@ -51,7 +51,7 @@ class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controll
 
     /**
      * @param $fullQualifiedFilterIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig
      */
     protected function getFilterConfigByFullQualifiedFilterIdentifier($fullQualifiedFilterIdentifier)
     {

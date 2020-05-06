@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Renderer;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements renderer chain configuration as a collection of renderer
  *
@@ -33,7 +36,7 @@
  * @subpackage Configuration\Renderer
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class RendererChainConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
      * Holds TS settings for rendering chain
@@ -72,16 +75,16 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends \Pu
     /**
      * Holds an instance of configuration builder
      *
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      */
     protected $configurationBuilder;
     
     
     
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $rendererChainSettings)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $rendererChainSettings)
     {
         $this->configurationBuilder = $configurationBuilder;
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
@@ -105,11 +108,11 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends \Pu
     
     /**
      * Add renderConfig to list
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfig
+     *  
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfig
      * @param string $rendererConfigIdentifier
      */
-    public function addRendererConfig(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfig, $rendererConfigIdentifier)
+    public function addRendererConfig(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfig, $rendererConfigIdentifier)
     {
         $this->addItem($rendererConfig, $rendererConfigIdentifier);
     }
@@ -119,7 +122,7 @@ class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig extends \Pu
     /**
      * Getter for configuration builder
      *
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      */
     public function getConfigurationBuilder()
     {

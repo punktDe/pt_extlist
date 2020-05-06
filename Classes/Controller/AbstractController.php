@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +28,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
+use PunktDe\PtExtbase\Controller\AbstractActionController;
+use PunktDe\PtExtbase\Lifecycle\Manager;
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManager;
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory;
+use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
 
 /**
  * Abstract controller for all pt_extlist controllers
@@ -35,10 +44,10 @@
  * @author Daniel Lienert
  * @package Controller
  */
-abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_Controller_AbstractActionController
+abstract class AbstractController extends AbstractActionController
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+     * @var \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager
      */
     protected $bookmarkManager;
 
@@ -56,7 +65,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Holds instance of lifecycle manager
      *
-     * @var Tx_PtExtbase_Lifecycle_Manager
+     * @var Manager
      */
     protected $lifecycleManager;
 
@@ -65,7 +74,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -74,22 +83,21 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Holds instance of configuration builder factory
      *
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
+     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory
      */
     protected $configurationBuilderFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     *
      */
     protected $configurationBuilder;
 
-
-
     /**
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
      */
     protected $dataBackend;
 
@@ -116,28 +124,28 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
+     * @var SessionPersistenceManager
      */
     protected $sessionPersistenceManager;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory
      */
     protected $dataBackendFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+     * @var \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory
      */
     protected $getPostVarsAdapterFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+     * @var \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory
      */
     protected $bookmarkManagerFactory;
 
@@ -153,7 +161,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+     * @var \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory
      */
     protected $getPostVarAdapterFactory;
 
@@ -162,10 +170,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Constructor for all plugin controllers
      *
-     * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager Lifecycle manager to be injected via DI
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder Session persistence manager to be injected via DI
+     * @param Manager $lifecycleManager Lifecycle manager to be injected via DI
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder Session persistence manager to be injected via DI
      */
-    public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager, Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function __construct(Manager $lifecycleManager, SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
         parent::__construct($lifecycleManager);
@@ -174,9 +182,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory $dataBackendFactory
      */
-    public function injectDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory)
+    public function injectDataBackendFactory(DataBackendFactory $dataBackendFactory)
     {
         $this->dataBackendFactory = $dataBackendFactory;
     }
@@ -184,9 +192,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory $configurationBuilderFactory
      */
-    public function injectConfigurationBuilderFactory(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory)
+    public function injectConfigurationBuilderFactory(ConfigurationBuilderFactory $configurationBuilderFactory)
     {
         $this->configurationBuilderFactory = $configurationBuilderFactory;
     }
@@ -194,9 +202,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory
+     * @param \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory $getPostVarsAdapterFactory
      */
-    public function injectGetPostVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory)
+    public function injectGetPostVarsAdapterFactory(GetPostVarAdapterFactory $getPostVarsAdapterFactory)
     {
         $this->getPostVarsAdapterFactory = $getPostVarsAdapterFactory;
     }
@@ -204,9 +212,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory
+     * @param \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory $bookmarkManagerFactory
      */
-    public function injectBookmarkManagerFactory(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory)
+    public function injectBookmarkManagerFactory(BookmarkManagerFactory $bookmarkManagerFactory)
     {
         $this->bookmarkManagerFactory = $bookmarkManagerFactory;
     }
@@ -224,9 +232,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager
+     * @param Manager $lifecycleManager
      */
-    public function injectLifecycleManager(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager)
+    public function injectLifecycleManager(Manager $lifecycleManager)
     {
         $this->lifecycleManager = $lifecycleManager;
     }
@@ -234,9 +242,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory
+     * @param \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory $getPostVarAdapterFactory
      */
-    public function injectGetPostVarAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory)
+    public function injectGetPostVarAdapterFactory(GetPostVarAdapterFactory $getPostVarAdapterFactory)
     {
         $this->getPostVarAdapterFactory = $getPostVarAdapterFactory;
     }
@@ -244,7 +252,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
     /**
      * @return void
-     * @throws Exception
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -265,7 +273,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Sets list identifier for this controller
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function initListIdentifier()
     {
@@ -279,8 +287,8 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     * @throws Exception
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @throws \Exception
      */
     protected function buildConfigurationBuilder()
     {
@@ -336,7 +344,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @return Tx_PtExtbase_State_Session_SessionPersistenceManager
+     * @return PunktDe_PtExtbase_State_Session_SessionPersistenceManager
      */
     protected function buildSessionPersistenceManager()
     {
@@ -346,7 +354,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
                 ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter() // We are in cached mode
                 : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter(); // We are in uncached mode
         } else {
-            $sessionPersistenceStorageAdapterClassName = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
+            $sessionPersistenceStorageAdapterClassName = PunktDe_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
         }
         // Instantiate session storage for determined class name
         $sessionStorageAdapter = call_user_func($sessionPersistenceStorageAdapterClassName . '::getInstance');
@@ -440,7 +448,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
         parent::processRequest($request, $response);
         if (TYPO3_MODE === 'BE') {
             // if we are in BE mode, this ist the last line called
-            $this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
+            $this->lifecycleManager->updateState(Manager::END);
         }
     }
 
@@ -484,7 +492,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
      */
     protected function redirect($actionName, $controllerName = null, $extensionName = null, array $arguments = null, $pageUid = null, $delay = 0, $statusCode = 303)
     {
-        $this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
+        $this->lifecycleManager->updateState(Manager::END);
         parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
     }
 

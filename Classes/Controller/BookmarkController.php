@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -35,12 +37,12 @@
  * @author David "Dex" Vogt
  * @see Tx_PtExtlist_Tests_Controller_BookmarkControllerTest
  */
-class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller_AbstractController
+class BookmarkController extends AbstractController
 {
     /**
      * Holds an instance of bookmarks repository
      *
-     * @var Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository
+     * @var \PunktDe\PtExtlist\Domain\Repository\Bookmark\BookmarkRepository
      */
     protected $bookmarkRepository;
     
@@ -58,7 +60,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds an instance of bookmark manager
      *
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+     * @var \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager
      */
     protected $bookmarkManager;
 
@@ -67,7 +69,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds an instance of bookmark manager factory
      *
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+     * @var \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory
      */
     protected $bookmarkManagerFactory;
 
@@ -76,7 +78,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds configuration object for bookmark settings
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig
      */
     protected $bookmarkConfiguration;
 
@@ -92,7 +94,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository $bookmarkRepository
+     * @param \PunktDe\PtExtlist\Domain\Repository\Bookmark\BookmarkRepository $bookmarkRepository
      */
     public function injectBookmarkRepository(Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository $bookmarkRepository)
     {
@@ -123,7 +125,6 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
     /**
      * Initializes and sets dependent objects
-     *
      */
     public function initializeAction()
     {
@@ -136,7 +137,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     
     /**
      * Renders show action for bookmark controller
-     * 
+     *  
      * @return string The rendered HTML source for this action
      */
     public function showAction()

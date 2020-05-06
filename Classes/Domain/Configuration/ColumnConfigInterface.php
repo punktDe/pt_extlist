@@ -33,28 +33,28 @@
  * @subpackage Configuration
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtExtlist_Domain_Configuration_RenderConfigInterface
+interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface
 {
     /**
      * Returns the identifier for the column
      * @return string
      */
     public function getColumnIdentifier();
-    
-    
+
+
     /**
      * Returns an array of field identifiers, the datafields assigned to this collumn
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection fieldIdentifier
      */
     public function getFieldIdentifier();
-    
-    
+
+
     /**
      * @abstract
      * @return void
      */
     public function getSpecialCell();
-    
+
 
     /**
      * @abstract

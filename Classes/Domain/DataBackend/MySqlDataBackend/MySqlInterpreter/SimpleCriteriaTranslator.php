@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Translator for AND criteria
  *
@@ -33,15 +36,15 @@
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+class SimpleCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface
 {
     /**
      * translate simple criteria
      *
-     * @param \Tx_PtExtlist_Domain_QueryObject_Criteria|\Tx_PtExtlist_Domain_QueryObject_SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria|\PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
      * @return string
      */
-    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria);
     }
@@ -52,10 +55,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCr
      * Wraps an array in ("<array[0]>",...,"<array[n]>") and escapes values.
      * Returns string as escaped string if no array is given
      *
-     * @param \Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria
      * @return integer|mixed|string
      */
-    public static function wrapArrayInBrackets(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public static function wrapArrayInBrackets(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         $connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
 

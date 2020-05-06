@@ -183,7 +183,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
         ->disableOriginalClone()
          ->getMock();
 
-        $sessionPersistenceManagerMock = $this->getMockBuilder('Tx_PtExtbase_State_Session_SessionPersistenceManager')
+        $sessionPersistenceManagerMock = $this->getMockBuilder('PunktDe_PtExtbase_State_Session_SessionPersistenceManager')
             ->setMethods(['init', 'getSessionData', 'setSessionData'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -425,7 +425,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
             ->disableOriginalClone()
             ->getMock();
 
-        $sessionPersistenceManagerMock = $this->getMockBuilder('Tx_PtExtbase_State_Session_SessionPersistenceManager')
+        $sessionPersistenceManagerMock = $this->getMockBuilder('PunktDe_PtExtbase_State_Session_SessionPersistenceManager')
             ->setMethods(['getSessionData'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -454,8 +454,8 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerTest extends Tx_Pt
      */
     public function injectSessionPersistenceManagerInjectsSessionPersistenceManager()
     {
-        $sessionAdapterMock = new Tx_PtExtbase_Tests_Unit_State_Stubs_SessionAdapterMock();
-        $sessionPersistenceManagerMock = $this->getMockBuilder('Tx_PtExtbase_State_Session_SessionPersistenceManager')
+        $sessionAdapterMock = new PunktDe_PtExtbase_Tests_Unit_State_Stubs_SessionAdapterMock();
+        $sessionPersistenceManagerMock = $this->getMockBuilder('PunktDe_PtExtbase_State_Session_SessionPersistenceManager')
             ->disableOriginalConstructor()
             ->getMock();
         

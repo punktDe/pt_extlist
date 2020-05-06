@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +35,7 @@
  * @package Controller
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_AbstractController
+class ExportController extends AbstractController
 {
     /**
      * Reset ConfigurationBuilder for actions in this Controller
@@ -52,21 +54,21 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     * @var \PunktDe\PtExtlist\Domain\Model\Lists\ListFactory
      */
     protected $listFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_View_Export_AbstractExportView
+     * @var \PunktDe\PtExtlist\View\Export\AbstractExportView
      */
     protected $view;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListFactory $listFactory
      */
     public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
     {
@@ -86,7 +88,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
         if (!$this->exportListIdentifier) {
             $this->exportListIdentifier = $this->listIdentifier;
         }
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, ['message' => 'No export list identifier set.', 1316446015]);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, ['message' => 'No export list identifier set.', 1316446015]);
     }
 
 

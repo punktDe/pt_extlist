@@ -60,7 +60,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
                                 'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
                                 'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 
-                                'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
+                                'repositoryClassName' => 'PunktDe_Extbase_Domain_Repository_FrontendUserGroupRepository'
 
                         ],
                         

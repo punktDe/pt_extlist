@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Extbase;
+
 /***************************************************************
 * Copyright notice
 *
@@ -22,7 +26,6 @@
 *
 * This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-
 /**
 * Holds the extbaseContext of the current plugin instance
 *
@@ -30,7 +33,7 @@
 * @author Daniel Lienert
 * @author Michael Knoll
 */
-class Tx_PtExtlist_Extbase_ExtbaseContext extends Tx_PtExtbase_Extbase_AbstractExtbaseContext
+class ExtbaseContext extends PunktDe_PtExtbase_Extbase_AbstractExtbaseContext
 {
     // This class is empty, we extend abstract base class to still have singleton
 }

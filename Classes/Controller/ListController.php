@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,12 +36,12 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController
+class ListController extends AbstractController
 {
     /**
      * Holds an instance of list renderer
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChain
      */
     protected $rendererChain;
 
@@ -48,21 +50,21 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
     /**
      * Holds an instance of the renderer chain factory
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory
      */
     protected $rendererChainFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     * @var \PunktDe\PtExtlist\Domain\Model\Lists\ListFactory
      */
     protected $listFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListFactory $listFactory
      */
     public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
     {
@@ -72,7 +74,7 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory $rendererChainFactory
      */
     public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
     {

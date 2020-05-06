@@ -34,7 +34,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_Renderer_RendererInterface
+class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterface
 {
     /**
      * Holds an array of renderers
@@ -47,7 +47,7 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
     
     /**
      * Holds an instance of renderer chain configuration
-     * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig
      */
     protected $rendererChainConfiguration;
 
@@ -55,9 +55,9 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
     
     /**
      * Constructor for rendering chain
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig $rendererChainConfiguration
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig $rendererChainConfiguration)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig $rendererChainConfiguration)
     {
         $this->rendererChainConfiguration = $rendererChainConfiguration;
     }
@@ -120,7 +120,7 @@ class Tx_PtExtlist_Domain_Renderer_RendererChain implements Tx_PtExtlist_Domain_
 
     /**
      * Renders aggregated list data
-     * 
+     *  
      * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
      *
      * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData Row to be rendered

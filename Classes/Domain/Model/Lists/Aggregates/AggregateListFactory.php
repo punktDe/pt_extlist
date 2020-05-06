@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,28 +29,27 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements factory the aggregate list builder
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
- * @subpackage Model\List\Aggregates
+ * @subpackage Model\Lists\Aggregates
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory
+class AggregateListFactory
 {
     /**
      * Get defined aggregate rows as list data structure
      * if no aggregate Rows are defined return an empty list structure
-     * 
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     *  
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
-    public static function getAggregateListData(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getAggregateListData(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        $aggregateListBuilder = new Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder($configurationBuilder);
-        $aggregateListBuilder->injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregatorFactory::createInstance($dataBackend));
+        $aggregateListBuilder = new \PunktDe\PtExtlist\Domain\Model\Lists\Aggregates\AggregateListBuilder($configurationBuilder);
+        $aggregateListBuilder->injectArrayAggregator(\PunktDe\PtExtlist\Domain\Model\Lists\Aggregates\ArrayAggregatorFactory::createInstance($dataBackend));
         // TODO make this class non-static and use injection for rendererChainFactory here
         // $rendererChainFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Renderer_RendererChainFactory'); /* @var $rendererChainFactory Tx_PtExtlist_Domain_Renderer_RendererChainFactory */
         // $aggregateListBuilder->injectRenderer($rendererChainFactory->getRendererChain($configurationBuilder->buildRendererChainConfiguration()));

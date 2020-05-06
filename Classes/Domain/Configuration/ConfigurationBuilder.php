@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Configuration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -38,7 +40,7 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
  * @author Christoph Ehscheidt
  * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConfigurationBuilder
+class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConfigurationBuilder
 {
     /**
      * Holds settings to build configuration objects
@@ -131,7 +133,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
      */
     protected function setPrototypeSettings($settings)
     {
-        Tx_PtExtbase_Assertions_Assert::isArray($settings['prototype'], ['message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089']);
+        PunktDe_PtExtbase_Assertions_Assert::isArray($settings['prototype'], ['message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089']);
         $this->prototypeSettings = $settings['prototype'];
     }
 
@@ -200,11 +202,11 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
      * Returns configuration object for filterbox identifier
      *
      * @param string $filterboxIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'Filterbox identifier must not be empty! 1277889453']);
+        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'Filterbox identifier must not be empty! 1277889453']);
         return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
     }
 
@@ -212,7 +214,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
 
     /**
      * Returns a singleton instance of databackend configuration
-     * @return Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration
+     * @return \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DatabackendConfiguration
      */
     public function buildDataBackendConfiguration()
     {
@@ -224,7 +226,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
      */
     public function buildFieldsConfiguration()
     {
@@ -236,7 +238,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a singleton instance of a aggregateData configuration collection for current list configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection
      */
     public function buildAggregateDataConfig()
     {
@@ -248,7 +250,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * return a singelton instance of aggregate row collection
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfigCollection
      */
     public function buildAggregateRowsConfig()
     {
@@ -259,7 +261,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
 
     /**
      * return a singleton instance of export configuratrion
-     * @return Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig
      */
     public function buildExportConfiguration()
     {
@@ -271,7 +273,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a singleton instance of columns configuration collection for current list configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection
      */
     public function buildColumnsConfiguration()
     {
@@ -283,7 +285,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a singleton instance of a filter configuration collection for current list configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfigCollection
      */
     public function buildFilterConfiguration()
     {
@@ -295,7 +297,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a singleton instance of the renderer chain configuration object.
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig
      */
     public function buildRendererChainConfiguration()
     {
@@ -307,7 +309,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns base configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Base_BaseConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Base\BaseConfig
      */
     public function buildBaseConfiguration()
     {
@@ -319,7 +321,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns bookmark configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig
      */
     public function buildBookmarkConfiguration()
     {
@@ -329,7 +331,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Lists\ListDefaultConfig
      */
     public function buildListDefaultConfig()
     {
@@ -341,7 +343,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns configuration object for pager
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection Configuration object for pager
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfigCollection Configuration object for pager
      */
     public function buildPagerConfiguration()
     {
@@ -353,7 +355,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a list configuration object
      *
-     * @return Tx_PtExtlist_Domain_Configuration_List_ListConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig
      */
     public function buildListConfiguration()
     {
@@ -365,7 +367,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a breadcrumbs configuration object
      *
-     * @return Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfig
      */
     public function buildBreadCrumbsConfiguration()
     {
@@ -377,7 +379,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a sorter configuration object
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig
      */
     public function buildSorterConfiguration()
     {
@@ -389,7 +391,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder extends \PunktDe\Pt
     /**
      * Returns a columnSelector configuration object
      *
-     * @return Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig
      */
     public function buildColumnSelectorConfiguration()
     {

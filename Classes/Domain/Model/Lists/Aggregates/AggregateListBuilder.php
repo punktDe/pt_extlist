@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,26 +29,25 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements factory the list of aggregate rows
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
- * @subpackage Model\List\Aggregates
+ * @subpackage Model\Lists\Aggregates
  * @see Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_AggregateListBuilderTest
  */
-class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
+class AggregateListBuilder
 {
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      */
     protected $configurationBuilder;
     
     
     
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
      */
     protected $dataBackend;
     
@@ -52,8 +55,8 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     
     /**
      * Aggregator for aggregating listData
-     * 
-     * @var Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+     *  
+     * @var \PunktDe\PtExtlist\Domain\Model\Lists\Aggregates\ArrayAggregator
      */
     protected $arrayAggregator;
     
@@ -61,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     
     /**
      * Holds the aggregated data
-     * @var Tx_PtExtlist_Domain_Model_List_Row
+     * @var \PunktDe\PtExtlist\Domain\Model\Lists\Row
      */
     protected $aggregatedDataRow;
     
@@ -69,24 +72,24 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     
     /**
      * Reference to the configured renderer
-     * 
-     * @var Tx_PtExtlist_Domain_Renderer_RendererInterface
+     *  
+     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererInterface
      */
     protected $renderer;
     
     
     
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection
      */
     protected $aggregateDataConfiguration;
     
     
     
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $this->configurationBuilder = $configurationBuilder;
         $this->aggregateDataConfiguration = $configurationBuilder->buildAggregateDataConfiguration();
@@ -95,9 +98,9 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     
     
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $arrayAggregator
+     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Aggregates\ArrayAggregator $arrayAggregator
      */
-    public function injectArrayAggregator(Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator $arrayAggregator)
+    public function injectArrayAggregator(\PunktDe\PtExtlist\Domain\Model\Lists\Aggregates\ArrayAggregator $arrayAggregator)
     {
         $this->arrayAggregator = $arrayAggregator;
     }
@@ -105,9 +108,9 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     
     
     /**
-     * @param Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer
+     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererInterface $renderer
      */
-    public function injectRenderer(Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer)
+    public function injectRenderer(\PunktDe\PtExtlist\Domain\Renderer\RendererInterface $renderer)
     {
         $this->renderer = $renderer;
     }
@@ -115,9 +118,9 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     
     
     /**
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
      */
-    public function injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    public function injectDataBackend(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend)
     {
         $this->dataBackend = $dataBackend;
     }
@@ -135,11 +138,11 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     
     /**
      * Build the aggregate list
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
     public function buildAggregateListData()
     {
-        $aggreagteListData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $aggreagteListData = new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
         $aggreagteListData->addRow($this->buildAggregateDataRow());
         return $aggreagteListData;
     }
@@ -148,12 +151,12 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     
     /**
      * Build the aggregate data by configuration
-     * 
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     *  
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row
      */
     protected function buildAggregateDataRow()
     {
-        $dataRow = new Tx_PtExtlist_Domain_Model_List_Row();
+        $dataRow = new \PunktDe\PtExtlist\Domain\Model\Lists\Row();
         $aggregateDataConfigCollection = $this->configurationBuilder->buildAggregateDataConfig();
         
         $aggregatesForPage = $this->getAggregatesForPage($aggregateDataConfigCollection->extractCollectionByScope('page'));
@@ -171,10 +174,10 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     /**
      * Get Aggregate data for Page
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection $aggregateDataConfigCollection
      * @return array
      */
-    protected function getAggregatesForPage(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection)
+    protected function getAggregatesForPage(\PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection $aggregateDataConfigCollection)
     {
         $aggregates = [];
     
@@ -189,10 +192,10 @@ class Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListBuilder
     /**
      * Get aggregate data for the whole query
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection $aggregateDataConfigCollection
      * @return array
      */
-    protected function getAggregatesForQuery(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection)
+    protected function getAggregatesForQuery(\PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection $aggregateDataConfigCollection)
     {
         if ($aggregateDataConfigCollection->count() > 0) {
             $aggregates = $this->dataBackend->getAggregatesByConfigCollection($aggregateDataConfigCollection);

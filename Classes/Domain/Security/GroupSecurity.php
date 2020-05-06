@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Security;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * @author Christoph Ehscheidt
  *
@@ -33,7 +36,7 @@
  * @subpackage Security
  * @see Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest
  */
-class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_Security_SecurityInterface, \TYPO3\CMS\Core\SingletonInterface
+class GroupSecurity implements \PunktDe\PtExtlist\Domain\Security\SecurityInterface, \TYPO3\CMS\Core\SingletonInterface
 {
     /**
      * Comma separated list of user groups
@@ -54,11 +57,11 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
     /**
      * Evaluates if a column is accessable by the FE-User(-Group).
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig
      *
      * @return bool
      */
-    public function isAccessableColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig)
+    public function isAccessableColumn(\PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig)
     {
 
         // FAIL if one of this tests are failing.
@@ -76,7 +79,7 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 
 
 
-    protected function checkColumn(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig)
+    protected function checkColumn(\PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig)
     {
         $groups = $columnConfig->getAccessGroups();
 
@@ -95,12 +98,12 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
     /**
      * Evaluates if a filter is accessable by the FE-User(-Group).
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configBuilder
      *
      * @return bool
      */
-    public function isAccessableFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configBuilder)
+    public function isAccessableFilter(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configBuilder)
     {
         $fieldConfigCollection = $filterConfig->getFieldIdentifier();
 
@@ -123,10 +126,10 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
     /**
      * Check field access
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fieldConfigCollection
      * @return bool
      */
-    protected function checkFields(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection)
+    protected function checkFields(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fieldConfigCollection)
     {
         foreach ($fieldConfigCollection as $fieldConfig) { /* @var $fieldConfig Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
             $ident = $fieldConfig->getAccessGroups();
@@ -144,7 +147,7 @@ class Tx_PtExtlist_Domain_Security_GroupSecurity implements Tx_PtExtlist_Domain_
 
 
 
-    protected function checkFilter(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filter)
+    protected function checkFilter(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filter)
     {
         $groups = $filter->getAccessGroups();
         if (!is_array($groups)) {

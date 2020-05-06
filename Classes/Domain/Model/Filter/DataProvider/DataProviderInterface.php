@@ -25,10 +25,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Interface for filterData provider
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\Filter\DataProvider
@@ -38,20 +37,20 @@ interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
     /**
      * inject the filterconfig
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig
      */
-    public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+    public function _injectFilterConfig(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig);
 
 
 
     /**
      * inject databackend
-     * 
+     *  
      * @abstract
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
      * @return void
      */
-    public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
+    public function _injectDataBackend(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend);
 
     
     
@@ -64,7 +63,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
     
     /**
      * Return the rendered filteroptions
-     * 
+     *  
      * @return array filter options
      */
     public function getRenderedOptions();
