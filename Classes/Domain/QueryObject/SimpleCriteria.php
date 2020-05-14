@@ -85,8 +85,8 @@ class SimpleCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
      */
     public function __construct($field = '', $value, $operator, $treatValueAsString = false)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1282849697']);
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($operator, ['message' => 'Operator must not be empty! 1282849699']);
+        Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1282849697']);
+        Assert::isNotEmptyString($operator, ['message' => 'Operator must not be empty! 1282849699']);
         $this->field = $field;
         $this->value = $value;
         $this->operator = $operator;

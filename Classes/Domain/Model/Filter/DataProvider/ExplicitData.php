@@ -52,7 +52,7 @@ class ExplicitData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\A
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::getRenderedOptions()
      */
     public function getRenderedOptions()
     {
@@ -87,7 +87,7 @@ class ExplicitData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\A
     
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::init()
      */
     public function init()
     {
@@ -104,6 +104,6 @@ class ExplicitData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\A
     protected function initDataProviderByTsConfig($filterSettings)
     {
         $this->tsOptions = $this->filterConfig->getSettings('options');
-        PunktDe_PtExtbase_Assertions_Assert::isArray($this->tsOptions, ['message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006']);
+        Assert::isArray($this->tsOptions, ['message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006']);
     }
 }

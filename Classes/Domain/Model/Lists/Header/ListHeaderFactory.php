@@ -1,4 +1,9 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists\Header;
+
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\AbstractComponentFactoryWithState;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Model\ColumnSelector\ColumnSelectorFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * Class implements factory for list header
  * 
@@ -35,9 +46,9 @@
  * @subpackage Model\Lists\Header
  * @see Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderfactoryTest
  */
-class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-    implements \TYPO3\CMS\Core\SingletonInterface
+class ListHeaderFactory
+    extends AbstractComponentFactoryWithState
+    implements SingletonInterface
 {
     /**
      * Holds an array of singleton instances for each list identifier
@@ -49,23 +60,23 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory
+     * @var HeaderColumnFactory
      */
     private $headerColumnFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
+     * @var ColumnSelectorFactory
      */
     private $columnSelectorFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory $headerColumnFactory
+     * @param HeaderColumnFactory $headerColumnFactory
      */
-    public function injectHeaderColumnFactory(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory $headerColumnFactory)
+    public function injectHeaderColumnFactory(HeaderColumnFactory $headerColumnFactory)
     {
         $this->headerColumnFactory = $headerColumnFactory;
     }
@@ -73,9 +84,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory
+     * @param ColumnSelectorFactory $columnSelectorFactory
      */
-    public function injectColumnSelectorFactory(Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory)
+    public function injectColumnSelectorFactory(ColumnSelectorFactory $columnSelectorFactory)
     {
         $this->columnSelectorFactory = $columnSelectorFactory;
     }
@@ -85,11 +96,11 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
     /**
      * Build singleton instance of listHeader, a collection of header column objects
      * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param boolean $resetListHeader
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     * @return ListHeader
      */
-    public function createInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $resetListHeader = false)
+    public function createInstance(ConfigurationBuilder $configurationBuilder, $resetListHeader = false)
     {
         $listIdentifier = $configurationBuilder->getListIdentifier();
 
@@ -97,10 +108,10 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
         if (!array_key_exists($listIdentifier, $this->instances) || $this->instances[$listIdentifier] === null || $resetListHeader) {
             $defaultSortingColumn = $configurationBuilder->buildListDefaultConfig()->getSortingColumn();
             $columnConfigurationCollection = $configurationBuilder->buildColumnsConfiguration();
-            $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($configurationBuilder->getListIdentifier());
+            $listHeader = new ListHeader($configurationBuilder->getListIdentifier());
             $listIsSorted = false;
 
-            foreach ($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) { /* @var $singleColumnConfiguration Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig */
+            foreach ($columnConfigurationCollection as $columnIdentifier => $singleColumnConfiguration) { /* @var $singleColumnConfiguration ColumnConfig */
                 $headerColumn = $this->headerColumnFactory->createInstance($singleColumnConfiguration);
 
                 if ($singleColumnConfiguration->isAccessable()) {
@@ -138,10 +149,10 @@ class Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
 
     /**
      * @static
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     * @param ConfigurationBuilder $configurationBuilder
+     * @param ListHeader $listHeader
      */
-    protected function setVisibilityByColumnSelector(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    protected function setVisibilityByColumnSelector(ConfigurationBuilder $configurationBuilder, ListHeader $listHeader)
     {
         if ($configurationBuilder->buildColumnSelectorConfiguration()->getEnabled()) {
             $this->columnSelectorFactory->getInstance($configurationBuilder)->setVisibilityOnListHeader($listHeader);

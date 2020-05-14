@@ -29,6 +29,10 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Pager;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
+
 /**
  * Class implements configuration for pager
  *
@@ -102,7 +106,7 @@ class PagerConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlis
      * @param array $pagerIdentifier
      * @param array $settings
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $settings)
+    public function __construct(ConfigurationBuilder $configurationBuilder, array $pagerIdentifier,  array $settings)
     {
         $settings['pagerIdentifier'] = $pagerIdentifier;
         parent::__construct($configurationBuilder, $settings);

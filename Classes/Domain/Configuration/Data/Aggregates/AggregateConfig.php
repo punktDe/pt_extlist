@@ -84,7 +84,7 @@ class AggregateConfig
      */
     public function __construct($identifier, $aggregateSettings, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($identifier, ['message' => 'No aggregate identifier specified. 1282891490']);
+        Assert::isNotEmptyString($identifier, ['message' => 'No aggregate identifier specified. 1282891490']);
         $this->identifier = $identifier;
         
         if (!trim($aggregateSettings['fieldIdentifier'])) {

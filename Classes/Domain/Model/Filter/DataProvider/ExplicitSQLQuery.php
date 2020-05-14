@@ -141,9 +141,9 @@ class ExplicitSQLQuery extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvid
         $this->filterField = trim($this->filterConfig->getSettings('filterField'));
         $this->displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('displayFields'));
 
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, ['info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957']);
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, ['info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958']);
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->fromPart, ['info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959']);
+        Assert::isNotEmptyString($this->filterField, ['info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957']);
+        Assert::isNotEmptyString($this->selectPart, ['info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958']);
+        Assert::isNotEmptyString($this->fromPart, ['info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959']);
     }
 
 

@@ -37,7 +37,7 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class MySqlProfilingDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource
+class MySqlProfilingDataSource extends MySqlDataSource
 {
     private static $queryCounter = 1;
 

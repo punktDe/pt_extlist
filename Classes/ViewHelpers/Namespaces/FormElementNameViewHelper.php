@@ -91,7 +91,7 @@ class FormElementNameViewHelper extends AbstractViewHelper
     public function getObjectNameSpace(\PunktDe_PtExtbase_State_IdentifiableInterface $object)
     {
         $nameSpace = $object->getObjectNamespace();
-        \PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
+        \Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
 
         return $nameSpace;
     }

@@ -72,7 +72,7 @@ class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelp
         }
 
         $filterValue = $filter->getValue();
-        $filterField = $filterField ? $filterField : \Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
+        $filterField = $filterField ? $filterField : \DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
 
         if (is_array($filterValue)) {
             return sprintf('%s in (%s)', $filterField, implode(', ', $filterValue));

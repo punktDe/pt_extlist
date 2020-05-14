@@ -45,7 +45,7 @@ class SortingConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollec
      *  
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig';
+    protected $restrictedClassName = SortingConfig::class;
 
 
 

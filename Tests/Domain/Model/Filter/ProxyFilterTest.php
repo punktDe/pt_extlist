@@ -119,7 +119,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_ProxyFilterTest extends Tx_PtExtlis
                 ->method('getConfigurationBuilderForRealList')
                 ->will($this->returnValue($this->configurationBuilderMock));
 
-        $proxyFilterMock->injectConfigurationBuilderFactory($this->objectManager->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'));
+        $proxyFilterMock->injectConfigurationBuilderFactory($this->objectManager->get('ConfigurationBuilderFactory'));
         $filterFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterFactory');
         $filterFactory->setDataBackendFactory($this->getDataBackendFactoryMockForListConfigurationAndListIdentifier($this->configurationBuilderMock->getSettings(), $this->configurationBuilderMock->getListIdentifier()));
         $proxyFilterMock->injectFilterFactory($filterFactory);

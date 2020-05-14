@@ -1,7 +1,9 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\StateAdapter;
+
+use PunktDe\PtExtbase\State\GpVars\GpVarsAdapter;
+use PunktDe\PtExtbase\State\GpVars\GpVarsAdapterFactory;
+use TYPO3\CMS\Core\SingletonInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -37,10 +39,10 @@ namespace PunktDe\PtExtlist\Domain\StateAdapter;
  * @package Domain
  * @subpackage StateAdapter
  */
-class GetPostVarAdapterFactory implements \TYPO3\CMS\Core\SingletonInterface
+class GetPostVarAdapterFactory implements SingletonInterface
 {
     /**
-     * @var PunktDe_PtExtbase_State_GpVars_GpVarsAdapterFactory
+     * @var GpVarsAdapterFactory
      */
     protected $gpVarsAdapterFactory;
 
@@ -53,9 +55,9 @@ class GetPostVarAdapterFactory implements \TYPO3\CMS\Core\SingletonInterface
 
 
     /**
-     * @param PunktDe_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory
+     * @param GpVarsAdapterFactory $gpVarsAdapterFactory
      */
-    public function injectGpVarsAdapterFactory(PunktDe_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory)
+    public function injectGpVarsAdapterFactory(GpVarsAdapterFactory $gpVarsAdapterFactory)
     {
         $this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
     }
@@ -74,7 +76,7 @@ class GetPostVarAdapterFactory implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Factory method for GET/POST Var Adapter.
      *  
-     * @return PunktDe_PtExtbase_State_GpVars_GpVarsAdapter Singleton instance of GET/POST Var Adapter.
+     * @return GpVarsAdapter Singleton instance of GET/POST Var Adapter.
      */
     public function getInstance()
     {

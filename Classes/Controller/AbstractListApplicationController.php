@@ -28,8 +28,13 @@ namespace PunktDe\PtExtlist\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
 use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
 use PunktDe\PtExtbase\Utility\HeaderInclusion;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+use PunktDe\PtExtlist\ExtlistContext\ExtlistContext;
 use PunktDe\PtExtlist\ExtlistContext\ExtlistContextFactory;
 
 /**
@@ -73,7 +78,7 @@ abstract class AbstractListApplicationController extends AbstractController
     /**
      * Holds an instance of filterbox collection for processed list
      *
-     * @var \PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection
+     * @var FilterboxCollection
      */
     protected $filterboxCollection = null;
 
@@ -82,21 +87,21 @@ abstract class AbstractListApplicationController extends AbstractController
     /**
      * Holds an instance of filterbox processed by this controller
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @var Filterbox
      */
     protected $filterbox = null;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @var PagerCollection
      */
     protected $pagerCollection = null;
 
 
 
     /**
-     * @var Tx_PtExtlist_ExtlistContext_ExtlistContext
+     * @var ExtlistContext
      */
     protected $extListContext;
 
@@ -122,13 +127,13 @@ abstract class AbstractListApplicationController extends AbstractController
     protected $extlistContextFactory;
 
 
-   # /**
-   #  * @param ExtlistContextFactory $extlistContextFactory
-   #  */
-   # public function injectExtlistContextFactory(ExtlistContextFactory $extlistContextFactory)
-   # {
-   #     $this->extlistContextFactory = $extlistContextFactory;
-   # }
+   /**
+    * @param ExtlistContextFactory $extlistContextFactory
+    */
+   public function injectExtlistContextFactory(ExtlistContextFactory $extlistContextFactory)
+   {
+       $this->extlistContextFactory = $extlistContextFactory;
+   }
 
     /**
      * @param HeaderInclusion $headerInclusionUtility
@@ -137,11 +142,6 @@ abstract class AbstractListApplicationController extends AbstractController
     {
         $this->headerInclusionUtility = $headerInclusionUtility;
     }
-
-
-
-
-
 
     /**
      * @param ListFactory $listFactory
@@ -192,14 +192,14 @@ abstract class AbstractListApplicationController extends AbstractController
     /**
      * Sets list identifier for this controller
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function initListIdentifier()
     {
         $settings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
 
         if (!$this->extlistTypoScriptSettingsPath) {
-            throw new Exception('No extlist typoscript settings path given', 1330188161);
+            throw new \Exception('No extlist typoscript settings path given', 1330188161);
         }
         $this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
         $this->extListContext = $this->extlistContextFactory->getContextByCustomConfigurationNonStatic($settings, $this->listIdentifier);
@@ -213,7 +213,7 @@ abstract class AbstractListApplicationController extends AbstractController
      * Build the configuration builder with settings from the given extlistTypoScriptConfigurationPath
      *
      * @return ConfigurationBuilder
-     * @throws Exception
+     * @throws \Exception
      */
     protected function buildConfigurationBuilder()
     {

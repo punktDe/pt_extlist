@@ -1,4 +1,9 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -35,7 +40,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FullTextFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+class FullTextFilter extends AbstractSingleValueFilter
 {
     /**
      * @var integer
@@ -58,7 +63,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
     /**
      * Build the filterCriteria for filter
      *
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @return Criteria
      */
     protected function buildFilterCriteriaForAllFields()
     {
@@ -68,7 +73,7 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
             return null;
         }
 
-        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue, $this->getSearchParameterArray());
+        $criteria = Criteria::fullText($this->fieldIdentifierCollection, $this->filterValue, $this->getSearchParameterArray());
 
         return $criteria;
     }
@@ -111,10 +116,10 @@ class Tx_PtExtlist_Domain_Model_Filter_FullTextFilter extends Tx_PtExtlist_Domai
 
     /**
      * Not called
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+     * @param FieldConfig $fieldIdentifier
      * @return void
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
     }
 }

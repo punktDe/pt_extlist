@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Hooks;
+
+
 /***************************************************************
 *  Copyright notice
 *
@@ -30,7 +33,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Hooks
  * @author Daniel Lienert <daniel@lienert.cc>
  */
-class user_Tx_PtExtlist_Hooks_CMSLayoutHook
+class CMSLayoutHook
 {
     /**
      * Plugin mode determined from switchableControllerAction
@@ -40,7 +43,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
     
     
     /**
-     * @var unknown_type
+     * @var
      */
     protected $fluidRenderer;
     
@@ -49,8 +52,8 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
     /**
      * Render the Plugin Info
      *  
-     * @param unknown_type $params
-     * @param unknown_type $pObj
+     * @param  $params
+     * @param  $pObj
      */
     public function getExtensionSummary($params, &$pObj)
     {

@@ -74,30 +74,30 @@ class DateIterator extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\A
     protected function initByTsConfig()
     {
         $this->dateIteratorStart = (int) \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('dateIteratorStart'));
-        PunktDe_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorStart, false, ['message' => 'The Value dateIteratorStart is not given. 1314608757']);
+        Assert::isPositiveInteger($this->dateIteratorStart, false, ['message' => 'The Value dateIteratorStart is not given. 1314608757']);
 
         $this->dateIteratorEnd = (int) \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('dateIteratorEnd'));
-        PunktDe_PtExtbase_Assertions_Assert::isPositiveInteger($this->dateIteratorEnd, false, ['message' => 'The Value dateIteratorEnd is not given. 1314608758']);
+        Assert::isPositiveInteger($this->dateIteratorEnd, false, ['message' => 'The Value dateIteratorEnd is not given. 1314608758']);
 
         $this->dateIteratorFormat = $this->filterConfig->getSettings('dateIteratorFormat');
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->dateIteratorFormat, ['message' => 'The Value dateIteratorFormat is not given. 1314608759']);
+        Assert::isNotEmptyString($this->dateIteratorFormat, ['message' => 'The Value dateIteratorFormat is not given. 1314608759']);
 
         $this->dateIteratorIncrement = strtolower(trim($this->filterConfig->getSettings('dateIteratorIncrement')));
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->dateIteratorIncrement, ['message' => 'The Value dateIteratorIncrement is not given. 1314608760']);
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(in_array($this->dateIteratorIncrement, ['s', 'i', 'h', 'd', 'm', 'y']), ['message' => "The parameter dateIteratorIncrement has to be out of 's', 'i', 'h', 'd', 'm', 'y'"]);
+        Assert::isNotEmptyString($this->dateIteratorIncrement, ['message' => 'The Value dateIteratorIncrement is not given. 1314608760']);
+        Assert::isTrue(in_array($this->dateIteratorIncrement, ['s', 'i', 'h', 'd', 'm', 'y']), ['message' => "The parameter dateIteratorIncrement has to be out of 's', 'i', 'h', 'd', 'm', 'y'"]);
 
-        PunktDe_PtExtbase_Assertions_Assert::isTrue($this->dateIteratorStart < $this->dateIteratorEnd, ['message' => 'The Value dateIteratorStart ('.$this->dateIteratorStart.') is higher than dateIteratorEnd ('.$this->dateIteratorEnd.')']);
+        Assert::isTrue($this->dateIteratorStart < $this->dateIteratorEnd, ['message' => 'The Value dateIteratorStart ('.$this->dateIteratorStart.') is higher than dateIteratorEnd ('.$this->dateIteratorEnd.')']);
     }
 
 
 
     /****************************************************************************************************************
-     * Methods implementing "Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface"
+     * Methods implementing "DataProvider_DataProviderInterface"
      *****************************************************************************************************************/
     
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::init()
      */
     public function init()
     {
@@ -108,7 +108,7 @@ class DateIterator extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\A
     
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::getRenderedOptions()
      */
     public function getRenderedOptions()
     {

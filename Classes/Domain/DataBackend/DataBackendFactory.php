@@ -1,7 +1,6 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\DataBackend;
+
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +28,19 @@ namespace PunktDe\PtExtlist\Domain\DataBackend;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\AbstractComponentFactory;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperFactory;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollectionFactory;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollectionFactory;
+use PunktDe\PtExtlist\Domain\Model\Sorting\SorterFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
+
 /**
  * Factory for data backend objects
  *
@@ -41,7 +53,7 @@ namespace PunktDe\PtExtlist\Domain\DataBackend;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest
  */
-class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFactory
+class DataBackendFactory extends AbstractComponentFactory
 {
     // NO SINGLETON!!! see comment above!
     /**
@@ -49,7 +61,7 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
      *
      * TODO remove later!
      *
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory
+     * @var DataBackendFactory
      * @deprecated for deprecated static use. Remove this, once we remove static functions.
      */
     private static $dataBackendFactoryInstance = null;
@@ -60,21 +72,21 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
      * Holds an associative array of instances of data backend objects
      * Each list identifier holds its own data backend object
      *
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInstancesContainer
+     * @var DataBackendInstancesContainer
      */
     private $instancesContainer;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory
+     * @var ConfigurationBuilderFactory
      */
     private $configurationBuilderFactory;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollectionFactory
+     * @var FilterboxCollectionFactory
      */
     private $filterboxCollectionFactory;
 
@@ -88,21 +100,21 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperFactory
+     * @var MapperFactory
      */
     private $dataMapperFactory;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Pager\PagerCollectionFactory
+     * @var PagerCollectionFactory
      */
     private $pagerCollectionFactory;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Sorting\SorterFactory
+     * @var SorterFactory
      */
     private $sorterFactory;
 
@@ -115,21 +127,21 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
      *
      * @deprecated Remove this method, once all factories are non-static and properly use DI.
      * @param array $settings
-     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory
+     * @return DataBackendFactory
      */
     public static function getInstance(array $settings = null)
     {
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $instance = $objectManager->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory'); /* @var $instance Tx_PtExtlist_Domain_DataBackend_DataBackendFactory */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class);
+        $instance = $objectManager->get(DataBackendFactory::class); /* @var $instance DataBackendFactory */
         return $instance;
     }
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory $configurationBuilderFactory
+     * @param ConfigurationBuilderFactory $configurationBuilderFactory
      */
-    public function injectConfigurationBuilderFactory(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory $configurationBuilderFactory)
+    public function injectConfigurationBuilderFactory(ConfigurationBuilderFactory $configurationBuilderFactory)
     {
         $this->configurationBuilderFactory = $configurationBuilderFactory;
     }
@@ -137,9 +149,9 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInstancesContainer $instancesContainer
+     * @param DataBackendInstancesContainer $instancesContainer
      */
-    public function injectInstancesContainer(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInstancesContainer $instancesContainer)
+    public function injectInstancesContainer(DataBackendInstancesContainer $instancesContainer)
     {
         $this->instancesContainer = $instancesContainer;
     }
@@ -147,9 +159,9 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollectionFactory $filterboxCollectionFactory
+     * @param FilterboxCollectionFactory $filterboxCollectionFactory
      */
-    public function injectFilterboxCollectionFactory(\PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollectionFactory $filterboxCollectionFactory)
+    public function injectFilterboxCollectionFactory(FilterboxCollectionFactory $filterboxCollectionFactory)
     {
         $this->filterboxCollectionFactory = $filterboxCollectionFactory;
     }
@@ -157,9 +169,9 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperFactory $mapperFactory
+     * @param Mapper\MapperFactory $mapperFactory
      */
-    public function injectMapperFactory(\PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperFactory $mapperFactory)
+    public function injectMapperFactory(Mapper\MapperFactory $mapperFactory)
     {
         $this->dataMapperFactory = $mapperFactory;
     }
@@ -167,9 +179,9 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Model\Pager\PagerCollectionFactory $pagerCollectionFactory
+     * @param PagerCollectionFactory $pagerCollectionFactory
      */
-    public function injectPagerCollectionFactory(\PunktDe\PtExtlist\Domain\Model\Pager\PagerCollectionFactory $pagerCollectionFactory)
+    public function injectPagerCollectionFactory(PagerCollectionFactory $pagerCollectionFactory)
     {
         $this->pagerCollectionFactory = $pagerCollectionFactory;
     }
@@ -177,9 +189,9 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Model\Sorting\SorterFactory $sorterFactory
+     * @param SorterFactory $sorterFactory
      */
-    public function injectSorterFactory(\PunktDe\PtExtlist\Domain\Model\Sorting\SorterFactory $sorterFactory)
+    public function injectSorterFactory(SorterFactory $sorterFactory)
     {
         $this->sorterFactory = $sorterFactory;
     }
@@ -202,8 +214,8 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
      *
      * @param string $listIdentifier
      * @param bool $throwExceptionOnNonExistingListIdentifier
-     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
-     * @throws Exception
+     * @return DataBackendInterface
+     * @throws \Exception
      * @deprecated Use non-static method!
      */
     public static function getInstanceByListIdentifier($listIdentifier, $throwExceptionOnNonExistingListIdentifier = true)
@@ -213,7 +225,7 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
             return self::$dataBackendFactoryInstance->instancesContainer->get($listIdentifier);
         } else {
             if ($throwExceptionOnNonExistingListIdentifier) {
-                throw new Exception('No data backend found for list identifier ' . $listIdentifier, 1280770617);
+                throw new \Exception('No data backend found for list identifier ' . $listIdentifier, 1280770617);
             } else {
                 return null;
             }
@@ -225,12 +237,12 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
     /**
      * Create new data backend object for given configuration
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param boolean $resetDataBackend
-     * @return \PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend
+     * @return AbstractDataBackend
      * @deprecated Use non-static method getDataBackendInstanceByListIdentifier() instead!
      */
-    public static function createDataBackend(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $resetDataBackend = false)
+    public static function createDataBackend(ConfigurationBuilder $configurationBuilder, $resetDataBackend = false)
     {
         self::createStaticInstance();
         return self::$dataBackendFactoryInstance->getDataBackendInstanceByListIdentifier($configurationBuilder->getListIdentifier(), $resetDataBackend);
@@ -243,7 +255,7 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
      *
      * @param $listIdentifier
      * @param bool $resetDataBackend
-     * @return \PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend
+     * @return AbstractDataBackend
      */
     public function getDataBackendInstanceByListIdentifier($listIdentifier, $resetDataBackend = false)
     {
@@ -259,10 +271,10 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
     /**
      * Returns data backend instance for given configuration builder
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return AbstractDataBackend
      */
-    public function getDataBackendInstanceByConfigurationBuilder(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function getDataBackendInstanceByConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         $listIdentifier = $configurationBuilder->getListIdentifier();
         return $this->getDataBackendInstanceByListIdentifier($listIdentifier);
@@ -273,7 +285,7 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
     private static function createStaticInstance()
     {
         if (self::$dataBackendFactoryInstance === null) {
-            self::$dataBackendFactoryInstance = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_DataBackend_DataBackendFactory');
+            self::$dataBackendFactoryInstance = GeneralUtility::makeInstance(ObjectManager::class)->get(DataBackendFactory::class);
         }
     }
 
@@ -287,18 +299,18 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
 
-    private function buildDataBackendForConfigurationBuilder(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    private function buildDataBackendForConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         $dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration(); /* @var $dataBackendClassName string */
         $dataBackendClassName = $dataBackendConfiguration->getDataBackendClass();
 
-        $dataBackend = $this->objectManager->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend */
+        $dataBackend = $this->objectManager->get($dataBackendClassName, $configurationBuilder); /* @var $dataBackend AbstractDataBackend */
 
         // The reference has to be set here because otherwise every filter will create the databackend again -> recursion!
         $this->instancesContainer->set($dataBackend);
 
         // Check whether backend class implements backend interface
-        PunktDe_PtExtbase_Assertions_Assert::isTrue($dataBackend instanceof \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface, ['message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement Tx_PtExtlist_Domain_DataBackend_DataBackendInterface 1280400022']);
+        Assert::isTrue($dataBackend instanceof DataBackendInterface, ['message' => 'Data Backend class ' . $dataBackendClassName . ' does not implement DataBackendInterface 1280400022']);
 
         $dataBackend->_injectBackendConfiguration($configurationBuilder->buildDataBackendConfiguration());
         $dataBackend->_injectFieldConfigurationCollection($configurationBuilder->buildFieldsConfiguration());
@@ -318,7 +330,7 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
 
-    private function getDataSource($dataBackendClassName, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    private function getDataSource($dataBackendClassName, ConfigurationBuilder $configurationBuilder)
     {
         // Use data backend class to create data source, as only backend knows which data source to use and how to configure it!
         $dataSource = call_user_func($dataBackendClassName . '::createDataSource', $configurationBuilder);
@@ -327,7 +339,7 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
 
-    private function getDataMapper(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    private function getDataMapper(ConfigurationBuilder $configurationBuilder)
     {
         $dataMapper = $this->dataMapperFactory->createDataMapper($configurationBuilder);
         return $dataMapper;
@@ -335,7 +347,7 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
 
-    private function getFilterboxCollection(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    private function getFilterboxCollection(ConfigurationBuilder $configurationBuilder)
     {
         $filterboxCollection = $this->filterboxCollectionFactory->createInstance($configurationBuilder, $this->resetDataBackend);
         return $filterboxCollection;
@@ -343,14 +355,14 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
 
-    private function getPagerCollection(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    private function getPagerCollection(ConfigurationBuilder $configurationBuilder)
     {
         return $this->pagerCollectionFactory->getInstance($configurationBuilder);
     }
 
 
 
-    private function getQueryInterpreter(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    private function getQueryInterpreter(ConfigurationBuilder $configurationBuilder)
     {
         $backendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
         $queryInterpreterClassName = $backendConfiguration->getQueryInterpreterClass();
@@ -361,7 +373,7 @@ class DataBackendFactory extends \PunktDe\PtExtlist\Domain\AbstractComponentFact
 
 
 
-    private function getSorter(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    private function getSorter(ConfigurationBuilder $configurationBuilder)
     {
         return $this->sorterFactory->getInstance($configurationBuilder);
     }

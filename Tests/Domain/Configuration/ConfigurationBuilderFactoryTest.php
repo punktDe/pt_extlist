@@ -32,7 +32,7 @@
  * @package pt_extlist
  * @subpackage Tests\Unit\Domain\Configuration
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
+ * @see ConfigurationBuilderFactory
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
@@ -42,7 +42,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
         'prototype' => [
             'pager' => [
                 'default' => [
-                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                    'pagerClassName' => 'DefaultPager',
                     'pagerProperty' => 'pagerValue'
                 ]
             ],
@@ -92,7 +92,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
                     ]
                 ],
                 'pager' => [
-                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager'
+                    'pagerClassName' => 'DefaultPager'
                 ],
 
                 'aggregateData' => [
@@ -161,7 +161,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     /** @test */
     public function makeSureClassExists()
     {
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
     }
 
 
@@ -170,7 +170,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     public function configurationManagerCanBeInjected()
     {
         $configurationManagerMock = $this->getSimpleMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager'); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
         $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
     }
 
@@ -179,7 +179,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     /** @test */
     public function settingsCanBeSet()
     {
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
         $configurationBuilderFactory->setSettings($this->settings);
     }
 
@@ -189,7 +189,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     public function extbaseContextCanBeInjected()
     {
         $extbaseContextMock = $this->getSimpleMock('Tx_PtExtlist_Extbase_ExtbaseContext'); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
         $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
     }
 
@@ -200,7 +200,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     {
         $extbaseContextMock = $this->getMock('Tx_PtExtlist_Extbase_ExtbaseContext', ['getCurrentListIdentifier'], [], '', false);
         $extbaseContextMock->expects($this->any())->method('getCurrentListIdentifier')->will($this->returnValue(null)); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
         $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
         try {
             $configurationBuilderFactory->getInstance();
@@ -215,14 +215,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     /** @test */
     public function getInstanceReturnsExceptedConfigurationBuilderInstance()
     {
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
         $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
         $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
-        $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
+        $configurationBuilderInstancesContainer = new ConfigurationBuilderInstancesContainer();
         $configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
         $configurationBuilder = $configurationBuilderFactory->getInstance('test');
-        $this->assertTrue(is_a($configurationBuilder, 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder'));
+        $this->assertTrue(is_a($configurationBuilder, 'ConfigurationBuilder'));
     }
 
 
@@ -230,7 +230,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     /** @test */
     public function getInstanceAsksInjectedExtbaseContextForListIdentifierIfNoneIsGivenInSettings()
     {
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
         unset($this->settings['listIdentifer']);
         $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
@@ -238,10 +238,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
         $extbaseContextMock->expects($this->any())->method('getCurrentListIdentifier')->will($this->returnValue('test')); /* @var $extbaseContextMock Tx_PtExtlist_Extbase_ExtbaseContext */
         $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
         $configurationBuilderFactory->injectExtbaseContext($extbaseContextMock);
-        $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
+        $configurationBuilderInstancesContainer = new ConfigurationBuilderInstancesContainer();
         $configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
         $configurationBuilder = $configurationBuilderFactory->getInstance();
-        $this->assertTrue(is_a($configurationBuilder, 'Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder'));
+        $this->assertTrue(is_a($configurationBuilder, 'ConfigurationBuilder'));
     }
 
 
@@ -249,11 +249,11 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTest ex
     /** @test */
     public function getInstanceReturnsSingletonInstanceForSameListIdentifier()
     {
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
         $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($this->settings)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
         $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
-        $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
+        $configurationBuilderInstancesContainer = new ConfigurationBuilderInstancesContainer();
         $configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
         $firstInstance = $configurationBuilderFactory->getInstance('test');
         $secondInstance = $configurationBuilderFactory->getInstance('test');

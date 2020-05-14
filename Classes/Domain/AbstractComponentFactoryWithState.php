@@ -3,6 +3,9 @@
 
 namespace PunktDe\PtExtlist\Domain;
 
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -36,7 +39,7 @@ namespace PunktDe\PtExtlist\Domain;
 abstract class AbstractComponentFactoryWithState extends \PunktDe\PtExtlist\Domain\AbstractComponentFactory
 {
     /**
-     * @var PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -50,9 +53,9 @@ abstract class AbstractComponentFactoryWithState extends \PunktDe\PtExtlist\Doma
 
 
     /**
-     * @param PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -60,9 +63,9 @@ abstract class AbstractComponentFactoryWithState extends \PunktDe\PtExtlist\Doma
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory $getPostVarAdapterFactory
+     * @param GetPostVarAdapterFactory $getPostVarAdapterFactory
      */
-    public function injectGetPostVarAdapterFactory(\PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory $getPostVarAdapterFactory)
+    public function injectGetPostVarAdapterFactory(GetPostVarAdapterFactory $getPostVarAdapterFactory)
     {
         $this->getPostVarsAdapterFactory = $getPostVarAdapterFactory;
     }

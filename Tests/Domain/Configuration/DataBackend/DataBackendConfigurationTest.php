@@ -36,7 +36,7 @@
 class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurationTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration
+     * @var DataBackendConfiguration
      */
     protected $dataBackendConfiguration = null;
     
@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
         if (is_null($this->dataBackendConfiguration)) {
             $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
             
-            $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration');
+            $accessibleClassName = $this->buildAccessibleProxy('DataBackendConfiguration');
             $this->dataBackendConfiguration = new $accessibleClassName($configurationBuilderMock);
         }
     }
@@ -53,13 +53,13 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
     public function testGetDataBackendSettingsAsArray()
     {
         $dataBackendSettings = $this->dataBackendConfiguration->getDataBackendSettings();
-        $this->assertEquals($dataBackendSettings['dataBackendClass'], 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend');
+        $this->assertEquals($dataBackendSettings['dataBackendClass'], 'Typo3DataBackend_Typo3DataBackend');
     }
     
     public function testGetDataBackendSettingsWithKey()
     {
         $dataBackendClass = $this->dataBackendConfiguration->getDataBackendSettings('dataBackendClass');
-        $this->assertEquals($dataBackendClass, 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend');
+        $this->assertEquals($dataBackendClass, 'Typo3DataBackend_Typo3DataBackend');
     }
     
     public function testGetDataSourceSettings()
@@ -70,17 +70,17 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
     
     public function testGetDataBackendClass()
     {
-        $this->assertEquals($this->dataBackendConfiguration->getDataBackendClass(), 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend');
+        $this->assertEquals($this->dataBackendConfiguration->getDataBackendClass(), 'Typo3DataBackend_Typo3DataBackend');
     }
     
     public function testGetDataMapperClass()
     {
-        $this->assertEquals($this->dataBackendConfiguration->getDataMapperClass(), 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper');
+        $this->assertEquals($this->dataBackendConfiguration->getDataMapperClass(), 'Mapper_ArrayMapper');
     }
     
     public function testGetQueryInterpreterClass()
     {
-        $this->assertEquals($this->dataBackendConfiguration->getQueryInterpreterClass(), 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter');
+        $this->assertEquals($this->dataBackendConfiguration->getQueryInterpreterClass(), 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter');
     }
     
     public function testCheckAndSetDataBackendClass()

@@ -50,7 +50,7 @@ class TagCloud extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Group
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData::initDataProviderByTsConfig()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_GroupData::initDataProviderByTsConfig()
      */
     protected function initDataProviderByTsConfig($filterSettings)
     {
@@ -66,7 +66,7 @@ class TagCloud extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Group
     /**
      * Build the group data query to retrieve the group data
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+     * @param array FieldConfig $fields
      * @return \PunktDe\PtExtlist\Domain\QueryObject\Query
      */
     protected function buildGroupDataQuery($fields)

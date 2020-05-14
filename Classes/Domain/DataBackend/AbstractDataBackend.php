@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\DataBackend;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,17 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfiguration;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+use PunktDe\PtExtlist\Domain\Model\Sorting\Sorter;
+
 /**
  * Abstract class as base class for all data backends
  *
@@ -35,12 +49,12 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendTest
  */
-abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
+abstract class AbstractDataBackend implements DataBackendInterface
 {
     /**
      * Holds backend configuration for current backend
      *
-     * @var \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfiguration
+     * @var DataBackendConfiguration
      */
     protected $backendConfiguration;
 
@@ -53,7 +67,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
 
     /**
      *
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface
+     * @var MapperInterface
      */
     protected $dataMapper;
 
@@ -65,37 +79,31 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Query_QueryBuilderInterface
-     */
-    protected $queryBuilder;
-
-
-    /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection
+     * @var FilterboxCollection
      */
     protected $filterboxCollection;
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     * @var ListHeader
      */
     protected $listHeader;
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListData
+     * @var ListData
      */
     protected $listData = null;
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListData
+     * @var ListData
      */
     protected $aggregateListData;
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @var PagerCollection
      */
     protected $pagerCollection;
 
@@ -108,7 +116,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Holds an instance for data source
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+     * @var AbstractDataSource
      */
     protected $dataSource;
 
@@ -116,7 +124,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Holds an instance of a field collection where field configurations can be found
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var FieldConfigCollection
      */
     protected $fieldConfigurationCollection = [];
 
@@ -127,7 +135,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
      *
      * TODO using abstract class as type here makes no sense!
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+     * @var AbstractQueryInterpreter
      */
     protected $queryInterpreter;
 
@@ -135,7 +143,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Holds an instance of bookmark manager
      *
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+     * @var BookmarkManager
      */
     protected $bookmarkManager;
 
@@ -143,7 +151,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Holds an instance of a sorter
      *
-     * @var Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     * @var Sorter
      */
     protected $sorter;
 
@@ -151,9 +159,9 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Constructor for data backend
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function __construct(ConfigurationBuilder $configurationBuilder)
     {
         $this->configurationBuilder = $configurationBuilder;
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
@@ -163,10 +171,10 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Per default, a data backend does not require a data source, so we return null here
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @return unknown
      */
-    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function createDataSource(ConfigurationBuilder $configurationBuilder)
     {
         return null;
     }
@@ -175,9 +183,9 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Injects backend configuration for current backend
      *
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration
+     * @param DataBackendConfiguration $backendConfiguration
      */
-    public function _injectBackendConfiguration(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration)
+    public function _injectBackendConfiguration(DataBackendConfiguration $backendConfiguration)
     {
         $this->backendConfiguration = $backendConfiguration;
     }
@@ -225,9 +233,9 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Injector for data mapper
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper
+     * @param MapperInterface $mapper
      */
-    public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $mapper)
+    public function _injectDataMapper(MapperInterface $mapper)
     {
         $this->dataMapper = $mapper;
     }
@@ -236,9 +244,9 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Injector for field configuration collection
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigurationCollection
+     * @param FieldConfigCollection $fieldConfigurationCollection
      */
-    public function _injectFieldConfigurationCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigurationCollection)
+    public function _injectFieldConfigurationCollection(FieldConfigCollection $fieldConfigurationCollection)
     {
         $this->fieldConfigurationCollection = $fieldConfigurationCollection;
     }
@@ -247,9 +255,9 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Injector for filter box collection
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection
+     * @param FilterboxCollection $filterboxCollection
      */
-    public function _injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection)
+    public function _injectFilterboxCollection(FilterboxCollection $filterboxCollection)
     {
         $this->filterboxCollection = $filterboxCollection;
     }
@@ -258,9 +266,9 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Injector for pager collection
      *
-     * @param Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection
+     * @param PagerCollection $pagerCollection
      */
-    public function _injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection)
+    public function _injectPagerCollection(PagerCollection $pagerCollection)
     {
         $this->pagerCollection = $pagerCollection;
     }
@@ -280,9 +288,9 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Injector for List Header
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     * @param ListHeader $listHeader
      */
-    public function _injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    public function _injectListHeader(ListHeader $listHeader)
     {
         $this->listHeader = $listHeader;
     }
@@ -302,9 +310,9 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Injector for bookmark manager
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager
+     * @param BookmarkManager $bookmarkManager
      */
-    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager)
+    public function _injectBookmarkManager(BookmarkManager $bookmarkManager)
     {
         $this->bookmarkManager = $bookmarkManager;
     }
@@ -313,10 +321,10 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Injector for sorter
      *
-     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+     * @param Sorter $sorter
      * @return void
      */
-    public function _injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter)
+    public function _injectSorter(Sorter $sorter)
     {
         $this->sorter = $sorter;
     }
@@ -334,7 +342,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder ;
+     * @return ConfigurationBuilder ;
      */
     public function getConfigurationBuilder()
     {
@@ -343,7 +351,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
 
 
     /**
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
+     * @return AbstractDataSource
      */
     public function getDataSource()
     {
@@ -354,7 +362,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Returns filterbox collection attached to this data backend
      *
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection Filterbox collection attached to this data backend
+     * @return FilterboxCollection Filterbox collection attached to this data backend
      */
     public function getFilterboxCollection()
     {
@@ -365,7 +373,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Returns the pager collection attached to this data backend.
      *
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection The pager collection attached to this data backend.
+     * @return PagerCollection The pager collection attached to this data backend.
      */
     public function getPagerCollection()
     {
@@ -375,7 +383,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
 
     /**
      * Returns the listHeader with sorting informations
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     * @return ListHeader
      */
     public function getListHeader()
     {
@@ -386,7 +394,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Returns raw list data
      *
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return ListData
      */
     public function getListData()
     {
@@ -418,19 +426,19 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregateListData()
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @see Classes/Domain/DataBackend/DataBackendInterface::getAggregateListData()
+     * @return ListData
      */
     public function getAggregateListData()
     {
-        return Tx_PtExtlist_Domain_Model_List_Aggregates_AggregateListFactory::getAggregateListData($this, $this->configurationBuilder);
+        returnAggregateListFactory::getAggregateListData($this, $this->configurationBuilder);
     }
 
 
     /**
      * Returns associated field config collection
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @return FieldConfigCollection
      */
     public function getFieldConfigurationCollection()
     {
@@ -441,7 +449,7 @@ abstract class AbstractDataBackend implements \PunktDe\PtExtlist\Domain\DataBack
     /**
      * Returns sorter registered for this data backend
      *
-     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     * @return Sorter
      */
     public function getSorter()
     {

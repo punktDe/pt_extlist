@@ -1,5 +1,7 @@
 <?php
 namespace PunktDe\PtExtlist\Domain\DataBackend;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,6 +29,21 @@ namespace PunktDe\PtExtlist\Domain\DataBackend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\IterationListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+use PunktDe\PtExtlist\Domain\Model\Sorting\Sorter;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+
+
 /**
  * Interface for all data backends
  *
@@ -49,16 +66,16 @@ interface DataBackendInterface
     /**
      * Creates an instance of data source object to be used with current backend
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public static function createDataSource(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder);
+    public static function createDataSource(ConfigurationBuilder $configurationBuilder);
     
     
     
     /**
      * Returns mapped List structure
      *  
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
+     * @return ListData
      */
     public function getListData();
 
@@ -66,7 +83,7 @@ interface DataBackendInterface
 
     /**
      * @abstract
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\IterationListData
+     * @return IterationListData
      */
     public function getIterationListData();
 
@@ -75,7 +92,7 @@ interface DataBackendInterface
     /**
      * Returns the list header
      *  
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     * @return ListHeader
      */
     public function getListHeader();
     
@@ -84,7 +101,7 @@ interface DataBackendInterface
     /**
      * Returns th aggregate data
      *  
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return ListData
      */
     public function getAggregateListData();
     
@@ -95,20 +112,20 @@ interface DataBackendInterface
      *  
      * Result is given as associative array with fields given in query object.
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
+     * @param Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = [],
-                                 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null);
+    public function getGroupData(Query $groupDataQuery, $excludeFilters = [],
+                                 FilterConfig $filterConfig = null);
     
     
     
     /**
      * Returns field configuraiton collection
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @return FieldConfigCollection
      */
     public function getFieldConfigurationCollection();
     
@@ -117,18 +134,19 @@ interface DataBackendInterface
     /**
      * Injector for field config collection
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fieldConfigCollection
+     * @param FieldConfigCollection $fieldConfigCollection
      */
-    public function _injectFieldConfigurationCollection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection  $fieldConfigCollection);
+    public function _injectFieldConfigurationCollection(FieldConfigCollection  $fieldConfigCollection);
     
   
     
     /**
      * Injector for pager collection.
      *
-     * @param Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection
+     * @param PagerCollection $pagerCollection
+     *
      */
-    public function _injectPagerCollection(Tx_PtExtlist_Domain_Model_Pager_PagerCollection $pagerCollection);
+    public function _injectPagerCollection(PagerCollection $pagerCollection);
     
     
     
@@ -144,19 +162,19 @@ interface DataBackendInterface
     /**
      * Return an aggregate for a field and with a method defined in the given config
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection
+     * @param AggregateConfigCollection $aggregateDataConfigCollection
      * @return
      */
-    public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfigCollection);
+    public function getAggregatesByConfigCollection(AggregateConfigCollection $aggregateDataConfigCollection);
     
     
     
     /**
      * Injector for data mapper
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper
+     * @param MapperInterface $dataMapper
      */
-    public function _injectDataMapper(Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface $dataMapper);
+    public function _injectDataMapper(MapperInterface $dataMapper);
     
     
     
@@ -172,34 +190,34 @@ interface DataBackendInterface
     /**
      * Injector for list header
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     * @param ListHeader $listHeader
      */
-    #public function _injectListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
+    #public function _injectListHeader(ListHeader $listHeader);
     /**
      * Injector for sorter
      *  
-     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+     * @param Sorter $sorter
      * @return void
      */
-    public function _injectSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter);
+    public function _injectSorter(Sorter $sorter);
 
     
     
     /**
      * Injector for filterbox collection
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterBoxCollection $filterboxCollection
+     * @param FilterBoxCollection $filterboxCollection
      */
-    public function _injectFilterboxCollection(Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection);
+    public function _injectFilterboxCollection(FilterboxCollection $filterboxCollection);
     
     
     
     /**
      * Injector for backend configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration
+     * @param DataBackendConfiguration $backendConfiguration
      */
-    public function _injectBackendConfiguration(Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration $backendConfiguration);
+    public function _injectBackendConfiguration(DataBackendConfiguration $backendConfiguration);
     
     
     
@@ -215,16 +233,16 @@ interface DataBackendInterface
     /**
      * Injector for bookmark manager
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager
+     * @param BookmarkManager $bookmarkManager
      */
-    public function _injectBookmarkManager(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager $bookmarkManager);
+    public function _injectBookmarkManager(BookmarkManager $bookmarkManager);
     
     
     
     /**
      * Returns associated filterbox collection
      *  
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection Associated filterbox collection
+     * @return FilterboxCollection Associated filterbox collection
      */
     public function getFilterboxCollection();
 
@@ -233,7 +251,7 @@ interface DataBackendInterface
     /**
      * Returns associated pager collection
      *  
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @return PagerCollection
      */
     public function getPagerCollection();
     
@@ -250,7 +268,7 @@ interface DataBackendInterface
     /**
      * Returns sorter for this data backend
      *  
-     * @return Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     * @return Sorter
      */
     public function getSorter();
 
@@ -273,7 +291,7 @@ interface DataBackendInterface
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return ConfigurationBuilder
      */
     public function getConfigurationBuilder();
 }

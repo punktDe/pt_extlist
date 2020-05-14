@@ -405,22 +405,22 @@ class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportVi
     private function initTypoScriptSettings()
     {
         $this->fluidTemplatePath = $this->exportConfiguration->getSettings('templatePath');
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->fluidTemplatePath, ['message' => 'No template path given for fluid export! 1284621481']);
+        Assert::isNotEmptyString($this->fluidTemplatePath, ['message' => 'No template path given for fluid export! 1284621481']);
         $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->fluidTemplatePath));
 
         // TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further information on parameters!
         // --page-size	<Size>	Set paper size to: A4, Letter, etc. (default A4)
         $this->size = strtolower($this->exportConfiguration->getSettings('paperSize'));
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->size, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
+        Assert::isNotEmptyString($this->size, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
 
         // TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further informatoin on parameters
         // --orientation	<orientation>	Set orientation to Landscape or Portrait (default Portrait)
         $this->orient = $this->exportConfiguration->getSettings('paperOrientation');
-        PunktDe_PtExtbase_Assertions_Assert::isInArray($this->orient, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
+        Assert::isInArray($this->orient, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
 
 
         $this->cssFilePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
+        Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
 
         $this->additionalWkhtmlParams = $this->exportConfiguration->getSettings('additionalWkhtmlParams');
 

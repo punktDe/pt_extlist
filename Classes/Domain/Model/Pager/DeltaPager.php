@@ -1,6 +1,4 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\Model\Pager;
 
 /***************************************************************
@@ -50,7 +48,7 @@ namespace PunktDe\PtExtlist\Domain\Model\Pager;
  * @author Michael Lihs <lihs@punkt.de>
  * @see Tx_PtExtlist_Tests_Domain_Model_Pager_DeltaPagerTest
  */
-class DeltaPager extends \PunktDe\PtExtlist\Domain\Model\Pager\DefaultPager
+class DeltaPager extends DefaultPager
 {
     /**
      * How many pages before and after the current page should be displayed?

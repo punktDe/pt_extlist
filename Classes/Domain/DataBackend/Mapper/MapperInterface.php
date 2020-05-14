@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +37,7 @@
  * @package Domain
  * @subpackage DataBackend\Mapper
  */
-interface Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
+interface MapperInterface
 {
     /**
      * This method is called frm the factory to init the mapper

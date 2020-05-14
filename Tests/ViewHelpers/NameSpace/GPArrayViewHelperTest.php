@@ -99,7 +99,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Pun
         $linkViewHelper = new GPArrayViewHelper();
         $linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
         
-        $object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', ['getObjectNamespace', 'getLabel']);
+        $object = $this->getMock('HeaderColumn', ['getObjectNamespace', 'getLabel']);
         $object->expects($this->once())
             ->method('getObjectNamespace')
             ->will($this->returnValue('listName.objectType.objectName'));
@@ -128,7 +128,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Pun
 
         $linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
         
-        $object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', ['getObjectNamespace']);
+        $object = $this->getMock('HeaderColumn', ['getObjectNamespace']);
         $object->expects($this->once())
             ->method('getObjectNamespace')
             ->will($this->returnValue('listName.objectType.objectName'));

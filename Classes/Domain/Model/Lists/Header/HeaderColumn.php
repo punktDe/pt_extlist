@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Lists\Header;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,12 +29,23 @@
  ***************************************************************/
 
 
+use PunktDe\PtExtbase\State\GpVars\GpVarsInjectableInterface;
+use PunktDe\PtExtbase\State\Session\SessionPersistableInterface;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfigCollection;
+use PunktDe\PtExtlist\Domain\Model\Sorting\Sorter;
+use PunktDe\PtExtlist\Domain\Model\Sorting\SortingObserverInterface;
+use PunktDe\PtExtlist\Domain\Model\Sorting\SortingState;
+use PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+
 
 /**
  * Class implements a single column
  *
  * HeaderColumn is not the right name any more - this class represents the column and its properties
- * TODO: Rename this class to Tx_PtExtlist_Domain_Model_List_Columns_Column
+ * TODO: Rename this class to Columns_Column
  *
  * @author Daniel Lienert
  * @author Michael Knoll
@@ -40,13 +53,13 @@
  * @subpackage Model\Lists\Header
  * @see Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnTest
  */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
-    implements PunktDe_PtExtbase_State_GpVars_GpVarsInjectableInterface,
-    PunktDe_PtExtbase_State_Session_SessionPersistableInterface,
-    Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface
+class HeaderColumn
+    implements GpVarsInjectableInterface,
+    SessionPersistableInterface,
+    SortingObserverInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+     * @var ColumnConfig
      */
     protected $columnConfig;
 
@@ -98,7 +111,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     * @var SortingConfigCollection
      */
     protected $sortingFieldConfig;
 
@@ -118,7 +131,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     /**
      * Array with the actual sorting state
      *
-     * @var Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     * @var SortingStateCollection
      */
     protected $sortingStateCollection;
 
@@ -127,7 +140,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     /**
      * Holds instance of sorter
      *
-     * @var Tx_PtExtlist_Domain_Model_Sorting_Sorter
+     * @var Sorter
      */
     protected $sorter;
 
@@ -136,9 +149,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     /**
      * Det the Columnheader Configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig
+     * @param ColumnConfig $columnConfig
      */
-    public function injectColumnConfig(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfig)
+    public function injectColumnConfig(ColumnConfig $columnConfig)
     {
         $this->columnConfig = $columnConfig;
         $this->listIdentifier = $this->columnConfig->getListIdentifier();
@@ -171,12 +184,12 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      *
      * @param integer $sortingDirection One of  Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE
      */
-    public function setSorting($sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC)
+    public function setSorting($sortingDirection = Query::SORTINGSTATE_ASC)
     {
         $this->sortedFields = [];
         $sortingConfig = $this->columnConfig->getSortingConfig();
         foreach ($sortingConfig as $fieldConfig) {
-            /* @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig $fieldConfig */
+            /* @var SortingConfig $fieldConfig */
             if ($fieldConfig->getForceDirection()) {
                 $this->sortedFields[$fieldConfig->getField()] = $fieldConfig->getDirection();
             } else {
@@ -229,15 +242,15 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
      */
     protected function buildSortingStateCollection()
     {
-        $this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+        $this->sortingStateCollection = new SortingStateCollection();
         if (count($this->sortedFields) > 0) {
             foreach ($this->sortedFields as $fieldIdentifier => $sortingDirection) {
                 if ($this->sortingFieldConfig->hasItem($fieldIdentifier)) {
                     $fieldConfig = $this->sortingFieldConfig->getItemById($fieldIdentifier);
                     if ($fieldConfig->getForceDirection()) {
-                        $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $fieldConfig->getDirection());
+                        $sortingState = SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $fieldConfig->getDirection());
                     } else {
-                        $sortingState = Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $sortingDirection);
+                        $sortingState = SortingState::getInstanceByFieldIdentifierAndSortingDirection($this->columnConfig->getConfigurationBuilder(), $fieldConfig->getField(), $sortingDirection);
                     }
                     $this->sortingStateCollection->addSortingState($sortingState);
                 }
@@ -259,7 +272,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
         $fieldsAndDirections = explode(';', $sortingFields);
         foreach ($fieldsAndDirections as $fieldAndSortingDirection) {
             list($fieldIdentifier, $sortingDirection) = explode(':', $fieldAndSortingDirection);
-            if (in_array($sortingDirection, [Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC])
+            if (in_array($sortingDirection, [Query::SORTINGSTATE_ASC, Query::SORTINGSTATE_DESC])
                 && $this->sortingFieldConfig->hasItem($fieldIdentifier)
             ) {
                 $this->sortedFields[$fieldIdentifier] = $sortingDirection;
@@ -292,7 +305,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     /**
      * Return an array with sorting definitions for this column
      *
-     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     * @return SortingStateCollection
      */
     public function getSortingStateCollection()
     {
@@ -321,7 +334,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     /**
      * Return the column configuration.
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+     * @return ColumnConfig
      */
     public function getColumnConfig()
     {
@@ -333,7 +346,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     /**
      * Returns sorting config of attached column config
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     * @return SortingConfigCollection
      */
     public function getSortingConfig()
     {
@@ -426,9 +439,9 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     /**
      * Registers a sorter which observes implementing object.
      *
-     * @param Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter
+     * @param Sorter $sorter
      */
-    public function registerSorter(Tx_PtExtlist_Domain_Model_Sorting_Sorter $sorter)
+    public function registerSorter(Sorter $sorter)
     {
         $this->sorter = $sorter;
     }
@@ -477,7 +490,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
     public function setDefaultSorting($sortingDirection)
     {
         foreach ($this->sortingFieldConfig as $sortingField) {
-            /* @var $sortingField Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+            /* @var $sortingField SortingConfig */
             $this->sortedFields[$sortingField->getField()] = $sortingField->getForceDirection() ? $sortingField->getDirection() : $sortingDirection;
         }
     }

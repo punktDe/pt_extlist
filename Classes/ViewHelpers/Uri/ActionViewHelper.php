@@ -1,5 +1,7 @@
 <?php
 namespace PunktDe\PtExtlist\ViewHelpers\Uri;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,9 @@ namespace PunktDe\PtExtlist\ViewHelpers\Uri;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+
 /**
  * ActionViewHelper, adds state hash to every link
  *  
@@ -38,7 +43,7 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -47,9 +52,9 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(\PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }

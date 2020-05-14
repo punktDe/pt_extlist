@@ -37,12 +37,12 @@ namespace PunktDe\PtExtlist\Domain\QueryObject;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_AndCriteriaTest
  */
-class AndCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+class AndCriteria extends Criteria
 {
     /**
     * Holds first criteria to be used with and conjunction
     *
-    * @var \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+    * @var Criteria
     */
    protected $firstCriteria;
    
@@ -51,7 +51,7 @@ class AndCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
    /**
     * Holds second criteria to be used with conjunction
     *
-    * @var \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+    * @var Criteria
     */
    protected $secondCriteria;
    
@@ -60,10 +60,10 @@ class AndCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
    /**
     * Constructor takes two criterias to be conjuncted with AND
     *
-    * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $firstCriteria
-    * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $secondCriteria
+    * @param Criteria $firstCriteria
+    * @param Criteria $secondCriteria
     */
-   public function __construct(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $firstCriteria, \PunktDe\PtExtlist\Domain\QueryObject\Criteria $secondCriteria)
+   public function __construct(Criteria $firstCriteria, Criteria $secondCriteria)
    {
        $this->firstCriteria = $firstCriteria;
        $this->secondCriteria = $secondCriteria;
@@ -74,10 +74,10 @@ class AndCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
    /**
     * Returns true, if given criteria is equal to this object
     *
-    * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be compared with this object
+    * @param Criteria $criteria Criteria to be compared with this object
     * @return bool
     */
-   public function isEqualTo(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
+   public function isEqualTo(Criteria $criteria)
    {
        if (is_a($criteria, __CLASS__)) {
            if ($this->firstCriteria->isEqualTo($criteria->firstCriteria) && $this->secondCriteria->isEqualTo($criteria->secondCriteria)) {
@@ -92,7 +92,7 @@ class AndCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
    /**
     * Return first criteria of and criteria
     *
-    * @return \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+    * @return Criteria
     */
    public function getFirstCriteria()
    {
@@ -104,7 +104,7 @@ class AndCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
    /**
     * Returns second criteria of and criteria
     *
-    * @return \PunktDe\PtExtlist\Domain\QueryObject\Criteria
+    * @return Criteria
     */
    public function getSecondCriteria()
    {

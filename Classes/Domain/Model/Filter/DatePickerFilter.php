@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,19 +35,19 @@
  * @subpackage Model\Filter
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter
+class DatePickerFilter extends DateSelectListFilter
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+     * @var DataProvider_DataProviderFactory
      */
     protected $dataProviderFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory
+     * @param DataProvider_DataProviderFactory $dataProviderFactory
      */
-    public function injectDataProviderFactory(Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory)
+    public function injectDataProviderFactory(DataProvider_DataProviderFactory $dataProviderFactory)
     {
         $this->dataProviderFactory = $dataProviderFactory;
     }
@@ -92,7 +94,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter extends Tx_PtExtlist_Dom
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::getOptions()
+     * @see Classes/Domain/Model/Filter/AbstractOptionsFilter::getOptions()
      */
     public function getOptions()
     {

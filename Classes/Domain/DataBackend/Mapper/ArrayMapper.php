@@ -138,7 +138,7 @@ class ArrayMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\AbstractM
     {
         $mappedRow = new \PunktDe\PtExtlist\Domain\Model\Lists\Row();
         foreach ($this->fieldConfigurationCollection as $mapping) {
-            /* @var $mapping Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+            /* @var $mapping FieldConfig */
             $mappedCellValue = $this->getMappedCellValue($mapping, $row);
             $mappedRow->createAndAddCell($mappedCellValue, $mapping->getIdentifier());
         }

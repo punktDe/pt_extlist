@@ -1,6 +1,4 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
 
 /***************************************************************
@@ -29,24 +27,30 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+
+
 /**
  * aggregate row config - collection of aggregate column configs
  *
  * @package Domain
  * @subpackage Configuration\Aggregates
  */
-class AggregateRowConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class AggregateRowConfig extends ObjectCollection
 {
     /**
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig';
+    protected $restrictedClassName = AggregateColumnConfig::class;
     
     
     
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateColumnConfig $aggregateColumnConfig 
+     * @param AggregateColumnConfig $aggregateColumnConfig
      * @param string $columnIdentifier
+     * @throws InternalException
      */
     public function addAggregateColumnConfig($aggregateColumnConfig, $columnIdentifier)
     {
@@ -57,14 +61,20 @@ class AggregateRowConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
     
     /** 
      * @param string $identifier
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateColumnConfig
+     * @return AggregateColumnConfig
+     */
+    /**
+     * @param $columnIdentifier
+     * @return mixed
+     * @throws InternalException
+     * @throws \Exception
      */
     public function getAggregateColumnConfigByIdentifier($columnIdentifier)
     {
         if ($this->hasItem($columnIdentifier)) {
             return $this->getItemById($columnIdentifier);
         } else {
-            throw new Exception('The aggregate column with id ' . $columnIdentifier . ' does not exist! 1282919033');
+            throw new \Exception('The aggregate column with id ' . $columnIdentifier . ' does not exist! 1282919033');
         }
     }
 }

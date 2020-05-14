@@ -27,6 +27,7 @@ namespace PunktDe\PtExtlist\ViewHelpers\Link;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
 use PunktDe\PtExtlist\ViewHelpers\Namespaces\GPArrayViewHelper;
 use \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 
@@ -45,7 +46,7 @@ class  SortingFieldsViewHelper extends ActionViewHelper
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -53,9 +54,9 @@ class  SortingFieldsViewHelper extends ActionViewHelper
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(\PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -66,7 +67,7 @@ class  SortingFieldsViewHelper extends ActionViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('header', 'Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', 'Header', true);
+        $this->registerArgument('header', 'HeaderColumn', 'Header', true);
         $this->registerArgument('fieldAndDirection', 'array', 'Field and Direction', true);
     }
 

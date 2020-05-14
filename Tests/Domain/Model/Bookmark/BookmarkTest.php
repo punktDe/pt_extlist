@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage Domain\Model\Bookmark
  * @author Christiane Helmchen
- * @see Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
+ * @see Bookmark
  */
 class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
+     * @var Bookmark
      */
     protected $proxy;
 
@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
 
     public function setUp()
     {
-        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark');
+        $this->proxyClass = $this->buildAccessibleProxy('Bookmark');
         $this->proxy = new $this->proxyClass;
     }
 
@@ -71,7 +71,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
      */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark'));
+        $this->assertTrue(class_exists('Bookmark'));
     }
 
 
@@ -81,7 +81,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest extends Tx_PtExtlist
      */
     public function canAccessConstants()
     {
-        $className = 'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark';
+        $className = 'Bookmark';
         $constantName = 'PTEXTLIST_BOOKMARK_PUBLIC';
         $expected = 1;
         $actual = constant(sprintf('%s::%s', $className, $constantName));

@@ -71,7 +71,7 @@ class MapperFactory implements \TYPO3\CMS\Core\SingletonInterface
         $mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 
         // Check whether mapper implements interface
-        PunktDe_PtExtbase_Assertions_Assert::isTrue($dataMapper instanceof \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface, ['message' => 'Data mapper must implement data mapper interface! 1280415471']);
+        Assert::isTrue($dataMapper instanceof \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface, ['message' => 'Data mapper must implement data mapper interface! 1280415471']);
 
         $dataMapper->_injectConfigurationBuilder($configurationBuilder);
         $dataMapper->_injectMapperConfiguration($mapperConfiguration);

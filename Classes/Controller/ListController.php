@@ -1,6 +1,7 @@
 <?php
 namespace PunktDe\PtExtlist\Controller;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,10 @@ namespace PunktDe\PtExtlist\Controller;
  ***************************************************************/
 
 
+use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory;
+
 /**
  * Controller for all list actions
  *
@@ -41,7 +46,7 @@ class ListController extends AbstractController
     /**
      * Holds an instance of list renderer
      *
-     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChain
+     * @var RendererChain
      */
     protected $rendererChain;
 
@@ -50,23 +55,23 @@ class ListController extends AbstractController
     /**
      * Holds an instance of the renderer chain factory
      *
-     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory
+     * @var RendererChainFactory
      */
     protected $rendererChainFactory;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Lists\ListFactory
+     * @var ListFactory
      */
     protected $listFactory;
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListFactory $listFactory
+     * @param ListFactory $listFactory
      */
-    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    public function injectListFactory(ListFactory $listFactory)
     {
         $this->listFactory = $listFactory;
     }
@@ -74,9 +79,9 @@ class ListController extends AbstractController
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory $rendererChainFactory
+     * @param RendererChainFactory $rendererChainFactory
      */
-    public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
+    public function injectRendererChainFactory(RendererChainFactory $rendererChainFactory)
     {
         $this->rendererChainFactory = $rendererChainFactory;
     }
@@ -85,6 +90,8 @@ class ListController extends AbstractController
 
     /**
      * Initializes controller
+     *
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     public function initializeAction()
     {

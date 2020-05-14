@@ -1,5 +1,5 @@
 <?php
-namespace PunktDe\PtExtlist\ExtlistContext;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +26,22 @@ namespace PunktDe\PtExtlist\ExtlistContext;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace PunktDe\PtExtlist\ExtlistContext;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
+use PunktDe\PtExtlist\Domain\Model\Lists\Lists;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory;
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class implements ExtListContext
@@ -100,53 +116,53 @@ class ExtlistContext
     /**
      * Cached pager collection
      *
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @var PagerCollection
      */
     protected $pagerCollection;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_List
+     * @var Lists
      */
-    protected $list = null;
+    protected $lists = null;
 
 
 
     /**
      * Holds an instance of the renderer chain factory
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     * @var RendererChainFactory
      */
     protected $rendererChainFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     * @var ListFactory
      */
     protected $listFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+     * @var BookmarkManagerFactory
      */
     protected $bookmarkManagerFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+     * @var BookmarkManager
      */
     protected $bookmarkManager;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     * @param ListFactory $listFactory
      */
-    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    public function injectListFactory(ListFactory $listFactory)
     {
         $this->listFactory = $listFactory;
     }
@@ -154,9 +170,9 @@ class ExtlistContext
 
 
     /**
-     * @param Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext
+     * @param ExtbaseContext $extBaseContext
      */
-    public function injectExtBaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext)
+    public function injectExtBaseContext(ExtbaseContext $extBaseContext)
     {
         $this->extBaseContext = $extBaseContext;
     }
@@ -164,9 +180,9 @@ class ExtlistContext
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+     * @param RendererChainFactory $rendererChainFactory
      */
-    public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
+    public function injectRendererChainFactory(RendererChainFactory $rendererChainFactory)
     {
         $this->rendererChainFactory = $rendererChainFactory;
     }
@@ -174,9 +190,9 @@ class ExtlistContext
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory
+     * @param BookmarkManagerFactory $bookmarkManagerFactory
      */
-    public function injectBookmarkManagerFactory(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory)
+    public function injectBookmarkManagerFactory(BookmarkManagerFactory $bookmarkManagerFactory)
     {
         $this->bookmarkManagerFactory = $bookmarkManagerFactory;
     }
@@ -186,9 +202,9 @@ class ExtlistContext
     /**
      * Inject the Databackend
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param DataBackendInterface $dataBackend
      */
-    public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    public function _injectDataBackend(DataBackendInterface $dataBackend)
     {
         $this->dataBackend = $dataBackend;
     }
@@ -206,7 +222,7 @@ class ExtlistContext
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return ConfigurationBuilder
      */
     public function getConfigurationBuilder()
     {
@@ -218,7 +234,8 @@ class ExtlistContext
     /**
      * Returns renderer chain
      *
-     * @return Tx_PtExtlist_Domain_Renderer_RendererChain
+     * @return RendererChain
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     public function getRendererChain()
     {
@@ -234,7 +251,7 @@ class ExtlistContext
     /**
      * Returns data backend of list context
      *
-     * @return Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @return DataBackendInterface
      */
     public function getDataBackend()
     {
@@ -257,7 +274,7 @@ class ExtlistContext
      * @param bool $rebuildListCache If set to false, the list cache has to be re-calculated manually (e.g. by calling $extlistcontext->getList(TRUE))
      * @throws Exception , if given column identifier does not exist in this list
      */
-    public function setSortingColumn($sortingColumn, $sortingDirection = Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC, $rebuildListCache = true)
+    public function setSortingColumn($sortingColumn, $sortingDirection = Query::SORTINGSTATE_ASC, $rebuildListCache = true)
     {
         if (!$this->getList()->getListHeader()->hasItem($sortingColumn)) {
             throw new Exception('The column with column identifier ' . $sortingColumn . ' does not exist in this list (' . $this->getConfigurationBuilder()->getListIdentifier() . '1359373245) ');
@@ -277,7 +294,7 @@ class ExtlistContext
     /**
      * Returns pager collection fo databacken for this list context
      *
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @return PagerCollection
      */
     public function getPagerCollection()
     {
@@ -303,7 +320,7 @@ class ExtlistContext
      * Get a pager object - if pagerIdentifier is null, get default pager
      *
      * @param string $pagerIdentifier
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     * @return PagerInterface
      */
     public function getPager($pagerIdentifier = '')
     {
@@ -317,7 +334,7 @@ class ExtlistContext
      * Returns list object of this list context
      *
      * @param boolean $buildNew
-     * @return Tx_PtExtlist_Domain_Model_List_List
+     * @return Lists
      */
     public function getList($buildNew = false)
     {
@@ -333,7 +350,7 @@ class ExtlistContext
     /**
      * Returns list data for this list context
      *
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return ListData
      */
     public function getListData()
     {
@@ -343,7 +360,7 @@ class ExtlistContext
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return ListData
      */
     public function getIterationListData()
     {
@@ -356,7 +373,7 @@ class ExtlistContext
      * Returns rendered list data for this list context
      *
      * @param bool $buildNew If set to TRUE, the list data is rebuild
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return ListData
      */
     public function getRenderedListData($buildNew = false)
     {
@@ -422,7 +439,7 @@ class ExtlistContext
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return Row
      */
     public function getRenderedCaptions()
     {
@@ -432,7 +449,7 @@ class ExtlistContext
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return ListData
      */
     public function getRenderedAggregateRows()
     {
@@ -487,7 +504,7 @@ class ExtlistContext
 
 
     /**
-     * @return \Tx_PtExtlist_Extbase_ExtbaseContext
+     * @return \ExtbaseContext
      */
     public function getExtBaseContext()
     {
@@ -497,9 +514,9 @@ class ExtlistContext
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark Bookmark to be stored to database(This bookmark does not contain session data yet)
+     * @param Bookmark $bookmark Bookmark to be stored to database(This bookmark does not contain session data yet)
      */
-    public function storeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function storeBookmark(Bookmark $bookmark)
     {
         $this->bookmarkManager->storeBookmark($bookmark);
     }
@@ -531,9 +548,9 @@ class ExtlistContext
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Bookmark $bookmark
      */
-    public function removeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function removeBookmark(Bookmark $bookmark)
     {
         $this->bookmarkManager->removeBookmark($bookmark);
     }

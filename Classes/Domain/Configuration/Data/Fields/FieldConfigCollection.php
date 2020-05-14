@@ -40,11 +40,11 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Data\Fields;
 class FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
 {
     /**
-     * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * This collection is restricted to objects of type FieldConfig
      *
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig';
+    protected $restrictedClassName = 'FieldConfig';
 
 
 

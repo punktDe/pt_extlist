@@ -1,4 +1,12 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,12 +42,12 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+class TreeSelectFilter extends AbstractOptionsFilter
 {
-    /**
-     * @var PunktDe_PtExtbase_Tree_Tree
-     */
-    protected $tree;
+//    /**
+//     * @var PunktDe_PtExtbase_Tree_Tree
+//     */
+//    protected $tree;
 
 
 
@@ -99,10 +107,10 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
     protected $objectManager;
 
 
-    /**
-     * @var PunktDe_PtExtbase_Tree_TreeContext
-     */
-    protected $treeContext;
+//    /**
+//     * @var PunktDe_PtExtbase_Tree_TreeContext
+//     */
+//    protected $treeContext;
 
 
     /**
@@ -110,6 +118,8 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
      */
     public function initFilter()
     {
+        ###TODO
+        new \Exception('Is not available', 1589383569);
         $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
         $this->treeContext = $this->objectManager->get('PunktDe_PtExtbase_Tree_TreeContext');
         $this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
@@ -119,7 +129,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
+     * @see AbstractFilter::initFilterByTsConfig()
      *
      */
     protected function initFilterByTsConfig()
@@ -132,7 +142,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
         $this->treeNodeRepository = $this->filterConfig->getSettings('treeNodeRepository');
         if (!$this->treeNodeRepository || !class_exists($this->treeNodeRepository)) {
-            throw new Exception('The treeNodeRepository with className ' . $this->treeRepository . ' could no be found. ', 1328459171);
+            throw new \Exception('The treeNodeRepository with className ' . $this->treeRepository . ' could no be found. ', 1328459171);
         }
 
         $this->treeNamespace = trim($this->filterConfig->getSettings('treeNamespace'));
@@ -156,15 +166,15 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
     /**
      * Build the criteria for a single field
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @param FieldConfig $fieldIdentifier
+     * @return SimpleCriteria
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
-        $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+        $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
         $singleCriteria = null;
 
-        $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->getFilterNodeUIds());
+        $singleCriteria = Criteria::in($fieldName, $this->getFilterNodeUIds());
 
         return $singleCriteria;
     }
@@ -189,13 +199,13 @@ class Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter extends Tx_PtExtlist_Dom
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByGpVars()
+     * @see AbstractFilter::initFilterByGpVars()
      *
      */
     protected function initFilterByGpVars()
     {
         if (array_key_exists('filterValues', $this->gpVarFilterData)) {
-            $this->filterValues = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->gpVarFilterData['filterValues']);
+            $this->filterValues = GeneralUtility::trimExplode(',', $this->gpVarFilterData['filterValues']);
         }
     }
 

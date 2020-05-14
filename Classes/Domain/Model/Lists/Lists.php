@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,6 +28,10 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
+
 /**
  * Class implementing container for all list elements, e.g. listData, filters, column descriptions...
  *  
@@ -38,33 +45,33 @@ class Lists
 {
     /**
      * Holds a reference of the list data object holding all list data
-     * @var \PunktDe\PtExtlist\Domain\Model\Lists\ListData
+     * @var ListData
      */
     protected $listData = null;
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface
+     * @var IterationListDataInterface
      */
     protected $iterationListData = null;
 
 
     /**
      * A reference to the header data.
-     * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     * @var ListHeader
      */
     protected $listHeader;
 
     
     /**
      * A List Data Object holding the aggregate rows
-     * @var Tx_PtExtlist_Domain_Model_List_ListData
+     * @var ListData
      */
     protected $aggregateListData;
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     * @var RendererChain
      */
     protected $rendererChain;
 
@@ -78,7 +85,7 @@ class Lists
     /**
      * Getter for list data. 
      *
-     * @return Tx_PtExtlist_Domain_Model_List_ListData      Returns list data of this list
+     * @return ListData      Returns list data of this list
      */
     public function getListData()
     {
@@ -87,7 +94,7 @@ class Lists
 
 
     /**
-     * @return \Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
+     * @return IterationListDataInterface
      */
     public function getIterationListData()
     {
@@ -97,9 +104,9 @@ class Lists
     
     /**
      * Setter for aggregate rows
-     * @param Tx_PtExtlist_Domain_Model_List_ListData  $aggregateListData   List data object holding aggregate rows
+     * @param ListData  $aggregateListData   List data object holding aggregate rows
      */
-    public function setAggregateListData(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData)
+    public function setAggregateListData(ListData $aggregateListData)
     {
         $this->aggregateListData = $aggregateListData;
     }
@@ -108,18 +115,18 @@ class Lists
     
     /**
      * Setter for list data
-     * @param Tx_PtExtlist_Domain_Model_List_ListData  $listData   List data to be set for this list object
+     * @param ListData  $listData   List data to be set for this list object
      */
-    public function setListData(Tx_PtExtlist_Domain_Model_List_ListData $listData)
+    public function setListData(ListData $listData)
     {
         $this->listData = $listData;
     }
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_IterationListDataInterface $iterationListData
+     * @param IterationListDataInterface $iterationListData
      */
-    public function setIterationListData(Tx_PtExtlist_Domain_Model_List_IterationListDataInterface $iterationListData)
+    public function setIterationListData(IterationListDataInterface $iterationListData)
     {
         $this->iterationListData = $iterationListData;
     }
@@ -128,9 +135,9 @@ class Lists
     /**
      *  
      * Setter for list header.
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     * @param ListHeader $listHeader
      */
-    public function setListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    public function setListHeader(ListHeader $listHeader)
     {
         $this->listHeader = $listHeader;
     }
@@ -140,7 +147,7 @@ class Lists
     /**
      *  
      * Getter for list header.
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     * @return ListHeader
      */
     public function getListHeader()
     {
@@ -151,7 +158,7 @@ class Lists
     
     /**
      * Getter for aggregate rows
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return ListData
      */
     public function getAggregateListData()
     {
@@ -160,7 +167,7 @@ class Lists
 
 
     /**
-     * @return Traversable
+     * @return \Traversable
      */
     public function getRenderedListData()
     {
@@ -186,7 +193,7 @@ class Lists
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return Row
      */
     public function getRenderedListHeader()
     {
@@ -195,7 +202,7 @@ class Lists
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return ListData
      */
     public function getRenderedAggregateListData()
     {
@@ -204,7 +211,7 @@ class Lists
 
 
     /**
-     * @param \Tx_PtExtlist_Domain_Renderer_RendererChain $rendererChain
+     * @param RendererChain $rendererChain
      */
     public function setRendererChain($rendererChain)
     {
@@ -213,7 +220,7 @@ class Lists
 
 
     /**
-     * @return \Tx_PtExtlist_Domain_Renderer_RendererChain
+     * @return RendererChain
      */
     public function getRendererChain()
     {

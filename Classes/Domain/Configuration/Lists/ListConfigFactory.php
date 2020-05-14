@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
 
 /***************************************************************
@@ -29,6 +28,11 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
+
 /**
  * Factory to create configs for list defaults
  *
@@ -41,11 +45,12 @@ class ListConfigFactory
     /**
      * Returns a instance of the list configuration.
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return ListConfig
+     * @throws \Exception
      */
     public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        return new \PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('list'));
+        return new ListConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('list'));
     }
 }

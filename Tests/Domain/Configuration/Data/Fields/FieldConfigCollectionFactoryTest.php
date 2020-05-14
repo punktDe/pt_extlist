@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage Domain\Configuration\Data\Fields
  * @author Daniel Lienert
- * @see Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory
+ * @see FieldConfigCollectionFactory
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -69,7 +69,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionF
     
     public function testGetFieldConfigCollection()
     {
-        $fieldConfigCollection = Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory::getInstance($this->configurationBuilderMock);
+        $fieldConfigCollection = FieldConfigCollectionFactory::getInstance($this->configurationBuilderMock);
         $this->assertTrue(is_a($fieldConfigCollection, \PunktDe\PtExtbase\Collection\ObjectCollection::class));
         $fieldConfig1 = $fieldConfigCollection->getFieldConfigByIdentifier('field1');
         $this->assertEquals($fieldConfig1->getTable(), 'tableName1');

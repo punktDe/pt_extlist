@@ -32,7 +32,7 @@
  * @package Typo3
  * @subpackage pt_extlist
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory
+ * @see Mapper_MapperFactory
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -46,7 +46,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest extends Tx_
     /** @test */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory'));
+        $this->assertTrue(class_exists('Mapper_MapperFactory'));
     }
     
     
@@ -54,8 +54,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest extends Tx_
     /** @test */
     public function createDataMapperReturnsMapperObject()
     {
-        $mapperFactory = $this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory');
+        $mapperFactory = $this->objectManager->get('Mapper_MapperFactory');
         $mapper = $mapperFactory->createDataMapper($this->configurationBuilderMock);
-        $this->assertTrue(is_a($mapper, 'Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface'));
+        $this->assertTrue(is_a($mapper, 'Mapper_MapperInterface'));
     }
 }

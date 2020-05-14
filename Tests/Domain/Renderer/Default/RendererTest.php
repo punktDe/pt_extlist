@@ -68,8 +68,8 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
     /** @test */
     public function renderListReturnsRenderedListForGivenConfiguration()
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $listData = new ListData();
+        $row = new Row();
         $row->createAndAddCell('val1', 'field1');
         $row->createAndAddCell('val2', 'field2');
         $row->createAndAddCell('val3', 'field3');
@@ -78,7 +78,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
 
         $renderedList = $this->renderer->renderList($listData);
 
-        $this->assertTrue(is_a($renderedList, 'Tx_PtExtlist_Domain_Model_List_ListData'));
+        $this->assertTrue(is_a($renderedList, 'ListData'));
 
         $this->assertEquals((string)$renderedList->getItemByIndex(0)->getCell('column1'), 'val1');
         $this->assertEquals((string)$renderedList->getItemByIndex(0)->getCell('column4'), 'val4');
@@ -89,12 +89,12 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest extends Tx_PtExtli
     /** @test */
     public function renderCaptionRendersCaptionForGivenConfiguration()
     {
-        $listHeaderFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory');
+        $listHeaderFactory = $this->objectManager->get('ListHeaderFactory');
         $listHeader = $listHeaderFactory->createInstance($this->configurationBuilderMock);
 
         $captions = $this->renderer->renderCaptions($listHeader);
 
-        $this->assertTrue(is_a($captions, 'Tx_PtExtlist_Domain_Model_List_Row'));
+        $this->assertTrue(is_a($captions, 'Row'));
 
         $this->assertEquals((string)$captions->getItemById('column1'), 'Column 1');
         $this->assertEquals((string)$captions->getItemById('column4'), 'Column 4');

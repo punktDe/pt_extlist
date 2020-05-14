@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Utility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +28,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -35,7 +40,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Utility_FlexformDataProviderTest
  */
-class user_Tx_PtExtlist_Utility_FlexformDataProvider
+class FlexformDataProvider
 {
     /**
      * Current pid
@@ -224,7 +229,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider
     {
         if (is_null($this->extListTypoScript)) {
             $extListTS = PunktDe_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
-            $this->extListTypoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($extListTS);
+            $this->extListTypoScript = GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($extListTS);
         }
     }
 
@@ -260,7 +265,7 @@ class user_Tx_PtExtlist_Utility_FlexformDataProvider
     protected function getTSArrayByPath($typoScriptPath)
     {
         $pathArray = explode('.', $typoScriptPath);
-        $outTSArray = \TYPO3\CMS\Extbase\Utility\ArrayUtility::getValueByPath($this->extListTypoScript, $pathArray);
+        $outTSArray = ArrayUtility::getValueByPath($this->extListTypoScript, $pathArray);
         if (!is_array($outTSArray)) {
             $outTSArray = [];
         }

@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage Domain\Model\Bookmark
  * @author David Vogt
- * @see Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy
+ * @see BookmarkStrategy
  */
 class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy
+     * @var BookmarkStrategy
      */
     protected $proxy;
 
@@ -199,9 +199,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
     
     public function setUp()
     {
-        $this->proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy');
+        $this->proxyClass = $this->buildAccessibleProxy('BookmarkStrategy');
         $this->proxy = new $this->proxyClass;
-        $this->bookmark = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Bookmark_Bookmark')
+        $this->bookmark = $this->getMockBuilder('Bookmark')
             ->setMethods(['setContent', 'getListId', 'getContent'])
             ->getMock();
     }
@@ -221,7 +221,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
      */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategy'));
+        $this->assertTrue(class_exists('BookmarkStrategy'));
     }
 
 
@@ -231,7 +231,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
      */
     public function addContentToBookmarkAddsEmptyArrayToBookmarkContent()
     {
-        $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
+        $configurationBuilder = $this->getMockBuilder('ConfigurationBuilder')
             ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -253,7 +253,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
      */
     public function addContentToBookmarkAddsSimpleSessionDataToBookmarkContent()
     {
-        $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
+        $configurationBuilder = $this->getMockBuilder('ConfigurationBuilder')
             ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -275,7 +275,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
      */
     public function addContentToBookmarkAddsJustFiltersSessionDataToBookmarkContent()
     {
-        $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
+        $configurationBuilder = $this->getMockBuilder('ConfigurationBuilder')
             ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -297,7 +297,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
      */
     public function addContentToBookmarkAddsJustHeadersSessionDataToBookmarkContent()
     {
-        $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
+        $configurationBuilder = $this->getMockBuilder('ConfigurationBuilder')
             ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -319,7 +319,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
      */
     public function addContentToBookmarkAddsPagerSessionDataToBookmarkContent()
     {
-        $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
+        $configurationBuilder = $this->getMockBuilder('ConfigurationBuilder')
             ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -341,7 +341,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkStrategyTest extends Tx_P
      */
     public function addContentToBookmarkAddsComplexSessionDataToBookmarkContent()
     {
-        $configurationBuilder = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
+        $configurationBuilder = $this->getMockBuilder('ConfigurationBuilder')
             ->setMethods(['getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();

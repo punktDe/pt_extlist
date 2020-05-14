@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\TimeSpanAlgorithm;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtbase\Collection\SortableObjectCollection;
+
 /**
  * Class implements a date picker filter
  *
@@ -36,17 +42,17 @@
  * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm
+class CondensedTimeSpansAlgorithm
 {
     /**
-     * @var PunktDe_PtExtbase_Collection_SortableObjectCollection
+     * @var SortableObjectCollection
      */
     protected $timeSpans;
 
 
 
     /**
-     * @var PunktDe_PtExtbase_Collection_SortableObjectCollection
+     * @var SortableObjectCollection
      */
     protected $condensedTimeSpans;
 
@@ -57,7 +63,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
      */
     public function __construct()
     {
-        $this->condensedTimeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
+        $this->condensedTimeSpans = new TimeSpanCollection();
     }
 
     
@@ -65,14 +71,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
     /**
      * Process algorithm
      *
-     * @return \Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection
+     * @return TimeSpanCollection
      */
     public function process()
     {
         $this->timeSpans->sort();
-        foreach ($this->timeSpans as $timeSpan) { /** @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan $timeSpan */
+        foreach ($this->timeSpans as $timeSpan) { /** @var TimeSpan $timeSpan */
             if (count($this->condensedTimeSpans) > 0) {
-                $item = $this->condensedTimeSpans->pop(); /** @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan $item */
+                $item = $this->condensedTimeSpans->pop(); /** @var TimeSpan $item */
                 if ($timeSpan->getStartDate()->format('U') <= $item->getEndDate()->format('U')
                     && $timeSpan->getEndDate()->format('U') >= $item->getEndDate()->format('U')) {
                     $item->setEndDate($timeSpan->getEndDate());
@@ -93,7 +99,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
 
     
     /**
-     * @param \PunktDe_PtExtbase_Collection_SortableObjectCollection $timeSpans
+     * @param SortableObjectCollection $timeSpans
      * @return void
      */
     public function setTimeSpans($timeSpans)
@@ -104,7 +110,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
 
 
     /**
-     * @return \PunktDe_PtExtbase_Collection_SortableObjectCollection
+     * @return SortableObjectCollection
      */
     public function getTimeSpans()
     {
@@ -114,7 +120,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedT
 
 
     /**
-     * @return \PunktDe_PtExtbase_Collection_SortableObjectCollection
+     * @return SortableObjectCollection
      */
     public function getCondensedTimeSpans()
     {

@@ -60,7 +60,7 @@ class SorterFactory implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Holds singleton instances of sorters for each list
      *
-     * @var array<Tx_PtExtlist_Domain_Model_Sorting_Sorter>
+     * @var array<Sorter>
      */
     private $instances = [];
 
@@ -77,12 +77,12 @@ class SorterFactory implements \TYPO3\CMS\Core\SingletonInterface
         $listIdentifier = $configurationBuilder->getListIdentifier();
 
         if ($this->instances[$listIdentifier] === null) {
-            $this->instances[$listIdentifier] = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Sorting_Sorter');
+            $this->instances[$listIdentifier] = $this->objectManager->get('Sorter');
             $this->instances[$listIdentifier]->_injectSorterConfig($configurationBuilder->buildSorterConfiguration());
 
             // At the moment we have to build list header here, as it is not registered in sorter otherwise.
             // TODO refactor this! We can register list header after sorter is build!
-            $listHeaderFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
+            $listHeaderFactory = $this->objectManager->get('ListHeaderFactory'); /* @var $listHeaderFactory ListHeaderFactory */
             $listHeaderFactory->createInstance($configurationBuilder);
         }
 

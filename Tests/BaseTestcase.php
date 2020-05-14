@@ -25,7 +25,21 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderInstancesContainer;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\Typo3DataBackend\Typo3DataBackend;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollectionFactory;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollectionFactory;
+use PunktDe\PtExtlist\Domain\Model\Sorting\SorterFactory;
+use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
 /**
  * Class implements a base testcase for pt_extlist testcases
@@ -101,10 +115,10 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
     
     public function setup()
     {
-        $typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser'); /* @var $typoScriptParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
+        $typoScriptParser = GeneralUtility::makeInstance(TypoScriptParser::class); /* @var $typoScriptParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
         $typoScriptParser->parse($this->extBaseSettingsString);
 
-        $this->extBaseSettings = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
+        $this->extBaseSettings = GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($typoScriptParser->setup);
     }
     
     
@@ -122,11 +136,11 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
     /**
      * Returns a renderer configuration created by current configuration builder mock settings
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+     * @return RendererConfig
      */
     public function getRendererConfiguration()
     {
-        $rendererChainConfig = Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory::getInstance($this->configurationBuilderMock);
+        $rendererChainConfig = RendererChainConfigFactory::getInstance($this->configurationBuilderMock);
         $rendererConfiguration = $rendererChainConfig->getItemById('100');
         return $rendererConfiguration;
     }
@@ -169,7 +183,7 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
      *
      * @param array $typoScriptSettingsForListIdentifier The settings array as we get it from configurationManager ATTENTION: This is not the settings array for the list identifier!!!
      * @param string $listIdentifier
-     * @return Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+     * @return DataBackendFactory
      * @throws Exception if no list identifier can be determined
      */
     public function getDataBackendFactoryMock($typoScriptSettingsForListIdentifier, $listIdentifier = null)
@@ -180,33 +194,33 @@ abstract class Tx_PtExtlist_Tests_BaseTestcase extends \PunktDe\PtExtbase\Testin
         if (!$listIdentifier) {
             throw new Exception('No list identifier was given and no list identifier could be found in given TS settings. 1363856864');
         }
-        $configurationManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager', ['getConfiguration'], [], '', false);
+        $configurationManagerMock = $this->getMock(ConfigurationManager::class, ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($typoScriptSettingsForListIdentifier)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
 
-        $configurationBuilderInstancesContainer = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer();
+        $configurationBuilderInstancesContainer = new ConfigurationBuilderInstancesContainer();
 
-        $configurationBuilderFactory = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory();
+        $configurationBuilderFactory = new ConfigurationBuilderFactory();
         $configurationBuilderFactory->injectConfigurationManager($configurationManagerMock);
         $configurationBuilderFactory->setSettings($typoScriptSettingsForListIdentifier);
         $configurationBuilderFactory->injectConfigurationBuilderInstancesContainer($configurationBuilderInstancesContainer);
         $configurationBuilderFactory->getInstance($listIdentifier);
 
-        $instancesContainer = GeneralUtility::makeInstance('Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer'); /* @var $instancesContainer Tx_PtExtlist_Domain_DataBackend_DataBackendInstancesContainer  */
+        $instancesContainer = GeneralUtility::makeInstance('DataBackendInstancesContainer'); /* @var $instancesContainer DataBackendInstancesContainer  */
 
-        $objectManagerMock = $this->getMock('\TYPO3\CMS\Extbase\Object\ObjectManager', ['get'], [], '', false);
+        $objectManagerMock = $this->getMock(\TYPO3\CMS\Extbase\Object\ObjectManager::class, ['get'], [], '', false);
         $objectManagerMock->expects($this->any())
                 ->method('get')
-                ->with('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', $configurationBuilderFactory->getInstance($listIdentifier))
-                ->will($this->returnValue(new Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend($configurationBuilderFactory->getInstance($listIdentifier)))); /* @var $objectManagerMock \TYPO3\CMS\Extbase\Object\ObjectManager */
+                ->with('Typo3DataBackend_Typo3DataBackend', $configurationBuilderFactory->getInstance($listIdentifier))
+                ->will($this->returnValue(new Typo3DataBackend($configurationBuilderFactory->getInstance($listIdentifier)))); /* @var $objectManagerMock \TYPO3\CMS\Extbase\Object\ObjectManager */
 
-        $dataBackendFactory = new Tx_PtExtlist_Domain_DataBackend_DataBackendFactory();
+        $dataBackendFactory = new DataBackendFactory();
         $dataBackendFactory->injectObjectManager($objectManagerMock);
         $dataBackendFactory->injectConfigurationBuilderFactory($configurationBuilderFactory);
         $dataBackendFactory->injectInstancesContainer($instancesContainer);
-        $dataBackendFactory->injectMapperFactory($this->objectManager->get('Tx_PtExtlist_Domain_DataBackend_Mapper_MapperFactory'));
-        $dataBackendFactory->injectFilterboxCollectionFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'));
-        $dataBackendFactory->injectPagerCollectionFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory'));
-        $dataBackendFactory->injectSorterFactory($this->objectManager->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'));
+        $dataBackendFactory->injectMapperFactory($this->objectManager->get(MapperFactory::class));
+        $dataBackendFactory->injectFilterboxCollectionFactory($this->objectManager->get(FilterboxCollectionFactory::class));
+        $dataBackendFactory->injectPagerCollectionFactory($this->objectManager->get(PagerCollectionFactory::class));
+        $dataBackendFactory->injectSorterFactory($this->objectManager->get(SorterFactory::class));
 
         return $dataBackendFactory;
     }

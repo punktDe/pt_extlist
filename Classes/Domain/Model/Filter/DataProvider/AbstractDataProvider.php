@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,11 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+
 /**
  * Implements data provider for grouped list data
  *  
@@ -36,12 +42,12 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-abstract class AbstractDataProvider implements \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\DataProviderInterface
+abstract class AbstractDataProvider implements DataProviderInterface
 {
     /**
      * Filter configuration object
      *
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig
+     * @var FilterConfig
      */
     protected $filterConfig;
 
@@ -50,7 +56,7 @@ abstract class AbstractDataProvider implements \PunktDe\PtExtlist\Domain\Model\F
     /**
      * Holds a reference to solr dataBackend
      *
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
+     * @var DataBackendInterface
      */
     protected $dataBackend;
 
@@ -59,10 +65,10 @@ abstract class AbstractDataProvider implements \PunktDe\PtExtlist\Domain\Model\F
     /**
      * Injects dataBackend into data provider
      *
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
+     * @param DataBackendInterface $dataBackend
      * @return void
      */
-    public function _injectDataBackend(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend)
+    public function _injectDataBackend(DataBackendInterface $dataBackend)
     {
         $this->dataBackend = $dataBackend;
     }
@@ -71,9 +77,9 @@ abstract class AbstractDataProvider implements \PunktDe\PtExtlist\Domain\Model\F
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::injectFilterConfig()
      */
-    public function _injectFilterConfig(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig)
+    public function _injectFilterConfig(FilterConfig $filterConfig)
     {
         $this->filterConfig = $filterConfig;
     }

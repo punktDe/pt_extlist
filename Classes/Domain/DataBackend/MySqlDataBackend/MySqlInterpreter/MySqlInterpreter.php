@@ -45,12 +45,12 @@ class MySqlInterpreter extends \PunktDe\PtExtlist\Domain\DataBackend\AbstractQue
      *
      * @var array
      */
-    protected static $translatorClasses = ['Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_NotCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator'
+    protected static $translatorClasses = ['Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator',
+                                                'Tx_PtExtlist_Domain_QueryObject_NotCriteria'    => 'MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator',
+                                                'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator',
+                                                'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator',
+                                                'Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'    => 'MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator',
+                                                'Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria' => 'MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator'
     ];
      
      

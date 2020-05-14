@@ -4,13 +4,8 @@ services:
     autoconfigure: true
     public: false
 
+  PunktDe\PtExtlist\:
+    resource: '../Classes/*'
 
-  PunktDe\PtExtlist\Controller\:
-    resource: '../Classes/Controller/*'
-
-  PunktDe\PtExtlist\ExtlistContext\:
-    resource: '../Classes/ExtlistContext/*'
-
-  PunktDe\PtExtlist\Domain\Model\Lists\:
-    resource: '../Classes/Domain/Model/Lists/*'
-    public: true
+  PunktDe\PtExtbase\State\GpVars\GpVarsInjectableInterface:
+    alias: PunktDe\PtExtlist\Domain\Model\Filter\StringFilter

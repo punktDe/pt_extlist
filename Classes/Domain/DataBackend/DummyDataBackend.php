@@ -130,7 +130,7 @@ class DummyDataBackend extends \PunktDe\PtExtlist\Domain\DataBackend\AbstractDat
     
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregatesByConfigCollection()
+     * @see Classes/Domain/DataBackend/DataBackendInterface::getAggregatesByConfigCollection()
      */
     public function getAggregatesByConfigCollection(\PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection $aggregateDataConfigCollection)
     {

@@ -306,7 +306,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         if ($this->templateVariableContainer->exists('listCaptions')) {
             foreach ($this->templateVariableContainer['listCaptions'] as $columnIdentifier => $caption) {
 
-                /* @var $caption Tx_PtExtlist_Domain_Model_List_Cell */
+                /* @var $caption Cell */
                 $this->activeSheet->setCellValueByColumnAndRow($columnNumber, $this->rowNumber, strip_tags($caption->getValue()));
 
                 $excelSettings = $this->getExcelSettingsByColumnIdentifier($columnIdentifier);
@@ -342,9 +342,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
         // Rows
         foreach ($this->templateVariableContainer['listData'] as $listRow) {
-            /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+            /* @var $row Row */
             foreach ($listRow as $columnIdentifier => $listCell) {
-                /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                /* @var $listCell Cell */
 
                 $cellValue = $listCell->getValue();
 
@@ -391,12 +391,12 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
         // Rows
         foreach ($this->templateVariableContainer['aggregateRows'] as $aggregateRow) {
-            /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+            /* @var $row Row */
 
             $columnNumber = 0;
 
             foreach ($aggregateRow as $columnIdentifier => $aggregateCell) {
-                /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                /* @var $listCell Cell */
 
                 $cellValue = $aggregateCell->getValue();
                 if ($this->stripTags) {

@@ -42,7 +42,7 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest extends Tx_PtEx
     protected $fullTextCriteria = null;
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var FieldConfigCollection
      */
     protected $fieldConfigCollection;
 
@@ -51,10 +51,10 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest extends Tx_PtEx
     {
         $this->initDefaultConfigurationBuilderMock();
 
-        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', ['field' => 'field', 'table' => 'table']);
-        $fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test2', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
+        $fieldConfig1 = new FieldConfig($this->configurationBuilderMock, 'test1', ['field' => 'field', 'table' => 'table']);
+        $fieldConfig2 = new FieldConfig($this->configurationBuilderMock, 'test2', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
 
-        $this->fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $this->fieldConfigCollection = new FieldConfigCollection();
         $this->fieldConfigCollection->addFieldConfig($fieldConfig1);
         $this->fieldConfigCollection->addFieldConfig($fieldConfig2);
 
@@ -82,7 +82,7 @@ class Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest extends Tx_PtEx
      */
     public function getFields()
     {
-        $this->assertTrue(is_a($this->fullTextCriteria->getFields(), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection'));
+        $this->assertTrue(is_a($this->fullTextCriteria->getFields(), 'FieldConfigCollection'));
     }
     
     

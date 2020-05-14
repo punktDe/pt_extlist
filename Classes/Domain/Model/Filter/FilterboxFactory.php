@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\AbstractComponentFactoryWithState;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * Class implements factory for filter boxes
  *
@@ -34,28 +43,26 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-    implements \TYPO3\CMS\Core\SingletonInterface
+class FilterboxFactory extends AbstractComponentFactoryWithState implements SingletonInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterFactory
+     * @var FilterFactory
      */
     private $filterFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+     * @var DataBackendFactory
      */
     private $dataBackendFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterFactory $filterFactory
+     * @param FilterFactory $filterFactory
      */
-    public function injectFilterFactory(Tx_PtExtlist_Domain_Model_Filter_FilterFactory $filterFactory)
+    public function injectFilterFactory(FilterFactory $filterFactory)
     {
         $this->filterFactory = $filterFactory;
     }
@@ -67,9 +74,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
      *
      * TODO think about how we get rid of this cyclic dependency!
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+     * @param DataBackendFactory $dataBackendFactory
      */
-    public function setDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory)
+    public function setDataBackendFactory(DataBackendFactory $dataBackendFactory)
     {
         $this->dataBackendFactory = $dataBackendFactory;
         $this->filterFactory->setDataBackendFactory($this->dataBackendFactory);
@@ -80,13 +87,13 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
     /**
      * Factory method for filter boxes. Returns filterbox for a given filterbox configuration and list identifier
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration
-     * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @param FilterboxConfig $filterboxConfiguration
+     * @return Filterbox
      */
-    public function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration)
+    public function createInstance(FilterboxConfig $filterboxConfiguration)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxConfiguration->getListIdentifier(), ['message' => 'List identifier must not be empty 1277889458']);
-        $filterbox = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox'); /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+        Assert::isNotEmptyString($filterboxConfiguration->getListIdentifier(), ['message' => 'List identifier must not be empty 1277889458']);
+        $filterbox = $this->objectManager->get(Filterbox::class); /* @var $filterbox Filterbox */
         $filterbox->_injectFilterboxConfiguration($filterboxConfiguration);
         $filterbox->_injectFilterboxFactory($this);
         foreach ($filterboxConfiguration as $filterConfiguration) {
@@ -106,15 +113,15 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
     /**
      * Factory method for filter boxes. Returns only accessible filters from a given filterbox.
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection
-     * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @param FilterBox $collection
+     * @return Filterbox
      */
-    public function createAccessableInstance(Tx_PtExtlist_Domain_Model_Filter_FilterBox $collection)
+    public function createAccessableInstance(FilterBox $collection)
     {
-        $accessibleCollection = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_Filterbox');
+        $accessibleCollection = $this->objectManager->get(Filterbox::class);
         $accessibleCollection->_injectFilterboxConfiguration($collection->getFilterboxConfiguration());
 
-        foreach ($collection as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+        foreach ($collection as $filter) { /* @var $filter FilterInterface */
             if ($filter->getFilterConfig()->isAccessable()) {
                 $accessibleCollection->addFilter($filter, $filter->getFilterIdentifier());
             }

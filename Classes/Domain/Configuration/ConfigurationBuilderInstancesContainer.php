@@ -44,7 +44,7 @@ class ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\Singleto
     /**
      * Holds an array of data backend instances as list-identifier based singletons
      *
-     * @var array<Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder>
+     * @var array<ConfigurationBuilder>
      */
     private $instances = [];
 

@@ -1,4 +1,9 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\StateAdapter\Storage;
+use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,11 +38,11 @@
  * @package Domain
  * @subpackage StateAdapter\Storage
  */
-class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory
+class DBStorageAdapterFactory
 {
     /**
      *
-     * @var Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter
+     * @var DBStorageAdapter
      */
     protected static $instance = null;
 
@@ -46,14 +51,13 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory
     /**
      * Create a single instance of the db storage adapter
      * 
-     * @return Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter
+     * @return DBStorageAdapter
      */
     public static function getInstance()
     {
         if (self::$instance == null) {
-            self::$instance = new Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter();
+            self::$instance = new DBStorageAdapter();
 
-            self::$instance->injectStateCache(self::buildStateCache());
             self::$instance->setStateHash(self::getStateHash());
             self::$instance->init();
         }
@@ -66,7 +70,6 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory
     /**
      * Build TYPO3 Caching Framework Cache
      * @throws Exception
-     * @return t3lib_cache_frontend_Cache
      */
     protected function buildStateCache()
     {
@@ -87,7 +90,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory
             try {
                 $cache = $GLOBALS['typo3CacheManager']->getCache('tx_ptextlist');
             } catch (\TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException $e) {
-                throw new Exception('Unable to load Cache! 1299942198');
+                throw new \Exception('Unable to load Cache! 1299942198');
             }
         
         
@@ -103,7 +106,7 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapterFactory
      */
     protected static function getStateHash()
     {
-        $getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+        $getPostVarsAdapterFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(GetPostVarAdapterFactory::class); /* @var $getPostVarsAdapterFactory GetPostVarAdapterFactory */
         $getPostVarAdapter = $getPostVarsAdapterFactory->getInstance();
         $stateHash = $getPostVarAdapter->getParametersByNamespace('state');
         return $stateHash;

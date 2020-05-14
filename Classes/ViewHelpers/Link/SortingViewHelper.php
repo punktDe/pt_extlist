@@ -27,6 +27,10 @@ namespace PunktDe\PtExtlist\ViewHelpers\Link;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
 use PunktDe\PtExtlist\ViewHelpers\Namespaces\GPArrayViewHelper;
 use \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 
@@ -44,7 +48,7 @@ class  SortingViewHelper extends ActionViewHelper
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -53,9 +57,9 @@ class  SortingViewHelper extends ActionViewHelper
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param \PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(\PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -65,7 +69,7 @@ class  SortingViewHelper extends ActionViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('header', 'Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', 'Header', true);
+        $this->registerArgument('header', 'HeaderColumn', 'Header', true);
     }
 
 
@@ -88,11 +92,10 @@ class  SortingViewHelper extends ActionViewHelper
      * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
      * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
      * @return string Rendered link
-     * @throws \PunktDe_PtExtbase_Exception_Assertion
      */
     public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [], $addQueryStringMethod = null)
     {
-        /** @var \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header */
+        /** @var HeaderColumn $header */
         $header = $this->arguments['header'];
         if ($action === null) {
             $action = 'sort';
@@ -100,10 +103,10 @@ class  SortingViewHelper extends ActionViewHelper
         $sortingFieldParams = [];
 
         // We generate sorting parameters for every sorting field configured for this column
-        foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig \Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+        foreach ($header->getColumnConfig()->getSortingConfig() as $sortingFieldConfig) { /* @var $sortingFieldConfig SortingConfig */
             $newSortingDirection = (
                 ($header->getSortingDirectionForField($sortingFieldConfig->getField()) != 0) ?
-                        \Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($header->getSortingDirectionForField($sortingFieldConfig->getField()))
+                        Query::invertSortingState($header->getSortingDirectionForField($sortingFieldConfig->getField()))
                         : $sortingFieldConfig->getDirection()
             );
             $sortingFieldParams[] = $sortingFieldConfig->getField() . ':' . $newSortingDirection;
@@ -136,18 +139,18 @@ class  SortingViewHelper extends ActionViewHelper
      * We loop over each sorting field of header and take first sorting field
      * that has no forced direction and has a current sorting set in header.
      *
-     * @param \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
-     * @return integer Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC
+     * @param HeaderColumn $header
+     * @return integer Query::SORTINGSTATE_NONE | Query::SORTINGSTATE_ASC | Query::SORTINGSTATE_DESC
      */
-    protected function getSortingDirectionForHeader(\Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header)
+    protected function getSortingDirectionForHeader(HeaderColumn $header)
     {
         $sortingFieldConfigForHeader = $header->getColumnConfig()->getSortingConfig();
-        foreach ($sortingFieldConfigForHeader as $sortingFieldConfig) { /* @var $sortingFieldConfig \Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig */
+        foreach ($sortingFieldConfigForHeader as $sortingFieldConfig) { /* @var $sortingFieldConfig SortingConfig */
             if (!$sortingFieldConfig->getForceDirection()
-                && $header->getSortingDirectionForField($sortingFieldConfig->getField()) != \Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE) {
+                && $header->getSortingDirectionForField($sortingFieldConfig->getField()) != Query::SORTINGSTATE_NONE) {
                 return $header->getSortingDirectionForField($sortingFieldConfig->getField());
             }
         }
-        return \Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE;
+        return Query::SORTINGSTATE_NONE;
     }
 }

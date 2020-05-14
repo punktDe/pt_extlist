@@ -3,6 +3,8 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Sorting;
 
+use PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -45,7 +47,7 @@ class Sorter
     /**
      * Array that holds sorters to be observerd by sorter
      *
-     * @var array<Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface>
+     * @var array<\PunktDe\PtExtlist\Domain\Model\Sorting\SortingObserverInterface>
      */
     protected $sortingObservers;
     
@@ -54,7 +56,7 @@ class Sorter
     /**
      * Holds sorter configuration
      *
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig
+     * @var SorterConfig
      */
     protected $sorterConfiguration;
     
@@ -63,7 +65,7 @@ class Sorter
     /**
      * Holds a collection of sorting states that are used for sorting
      *
-     * @var \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection
+     * @var SortingStateCollection
      */
     protected $sortingStateCollection;
     
@@ -72,9 +74,9 @@ class Sorter
     /**
      * Registers sorter that can influence sorting.
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Sorting\SortingObserverInterface $sortingObserver
+     * @param SortingObserverInterface $sortingObserver
      */
-    public function registerSortingObserver(\PunktDe\PtExtlist\Domain\Model\Sorting\SortingObserverInterface $sortingObserver)
+    public function registerSortingObserver(SortingObserverInterface $sortingObserver)
     {
         $this->sortingObservers[] = $sortingObserver;
         $sortingObserver->registerSorter($this);
@@ -126,7 +128,7 @@ class Sorter
      */
     public function reset()
     {
-        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver SortingObserverInterface */
             $sortingObserver->resetSorting();
         }
     }
@@ -138,7 +140,7 @@ class Sorter
      */
     public function resetToDefault()
     {
-        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver SortingObserverInterface */
             $sortingObserver->resetToDefaultSorting();
         }
     }
@@ -157,7 +159,7 @@ class Sorter
 
         // Gather sorting states from registered sorting observers
         if (is_array($this->sortingObservers)) {
-            foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+            foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver SortingObserverInterface */
                 $sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
                 foreach ($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
                     $this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);

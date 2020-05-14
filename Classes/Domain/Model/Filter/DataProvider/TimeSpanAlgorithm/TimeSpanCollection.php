@@ -1,4 +1,9 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\TimeSpanAlgorithm;
+
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Collection\SortableObjectCollection;
+
+
 /**
  * Time span collection
  *
@@ -33,14 +41,14 @@
  * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection extends PunktDe_PtExtbase_Collection_SortableObjectCollection
+class TimeSpanCollection extends SortableObjectCollection
 {
     /**
      * Restricted class name
      * @var string
      * @see \PunktDe\PtExtbase\Collection\ObjectCollection::checkItemType()
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan';
+    protected $restrictedClassName = TimeSpan::class;
 
 
 
@@ -48,7 +56,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCo
     {
         $timeSpans = [];
         foreach ($this->itemsArr as $timeSpan) {
-            /* @var $timeSpan Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan */
+            /* @var $timeSpan TimeSpan */
             $timeSpans[] = $timeSpan->getJsonValue();
         }
         $result = "{\"timeSpans\":[" . implode(',', $timeSpans) . "]}";

@@ -58,8 +58,8 @@ class LinkManagerFactory
         if (self::$instances[$listIdentifier] == null) {
 
             // TODO resolve this properly with Dependency Injection once we have cascading container
-            #$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-            $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+            #$configurationBuilder = ConfigurationBuilderFactory::getInstance($listIdentifier);
+            $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory ConfigurationBuilderFactory */
             $configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
             $getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 

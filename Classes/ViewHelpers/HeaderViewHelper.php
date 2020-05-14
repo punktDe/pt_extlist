@@ -59,13 +59,13 @@ class HeaderViewHelper extends AbstractViewHelper
      *
      * Sets additional template variables for children of this viewhelper.
      *
-     * @param \Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
-     * @param \Tx_PtExtlist_Domain_Model_List_Row $captions
+     * @param \ListHeader $headers
+     * @param \Row $captions
      * @param string $headerKey
      * @param string $captionKey
      * @throws \PunktDe\PtExtbase\Exception\InternalException
      */
-    public function render(\Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers, \Tx_PtExtlist_Domain_Model_List_Row $captions, $headerKey='header', $captionKey="caption")
+    public function render(\ListHeader $headers, \Row $captions, $headerKey='header', $captionKey="caption")
     {
         if ($headers === null || $captions === null) {
             return '';
@@ -74,7 +74,7 @@ class HeaderViewHelper extends AbstractViewHelper
         $output = '';
 
         foreach ($headers as $header) {
-            /* @var $header \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+            /* @var $header \HeaderColumn */
 
             if ($captions->hasItem($header->getColumnIdentifier()) && !in_array($header->getColumnIdentifier(), $this->arguments['exclude'])) {
 
@@ -106,10 +106,10 @@ class HeaderViewHelper extends AbstractViewHelper
      * Each header can have multiple sorting fields attached, each one
      * can be sorted individually.
      *
-     * @param \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header
+     * @param \HeaderColumn $header
      * @return array
      */
-    protected function buildSortingFieldParams(\Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $header)
+    protected function buildSortingFieldParams(\HeaderColumn $header)
     {
         $sortingFieldsParams = [];
 

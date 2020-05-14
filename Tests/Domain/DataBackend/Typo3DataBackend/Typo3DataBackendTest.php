@@ -38,7 +38,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTes
 {
     public function testSetUp()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend'));
+        $this->assertTrue(class_exists('Typo3DataBackend_Typo3DataBackend'));
     }
     
     
@@ -46,8 +46,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTes
     /** @test */
     public function createDataSourceCreatesObjectOfExpectedType()
     {
-        $dataSource = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend::createDataSource($this->configurationBuilder);
-        $this->assertTrue($dataSource instanceof Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource, 'Class is ' . get_class($dataSource));
+        $dataSource = Typo3DataBackend_Typo3DataBackend::createDataSource($this->configurationBuilder);
+        $this->assertTrue($dataSource instanceof DataSource_Typo3DataSource, 'Class is ' . get_class($dataSource));
     }
 
 
@@ -55,7 +55,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Typo3DataBackend_Typo3DataBackendTes
     /** @test */
     public function buildWherePartWithEnableFields()
     {
-        $backendMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend', ['getWhereClauseFromFilterboxes', 'getTypo3SpecialFieldsWhereClause'], [$this->configurationBuilder]);
+        $backendMock = $this->getAccessibleMock('Typo3DataBackend_Typo3DataBackend', ['getWhereClauseFromFilterboxes', 'getTypo3SpecialFieldsWhereClause'], [$this->configurationBuilder]);
 
         $backendMock->_set('backendConfiguration', $this->configurationBuilder->buildDataBackendConfiguration());
         

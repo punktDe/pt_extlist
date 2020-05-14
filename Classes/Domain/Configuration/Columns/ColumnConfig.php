@@ -28,6 +28,8 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -255,7 +257,7 @@ class ColumnConfig
         }
 
         if (array_key_exists('renderObj', $this->settings)) {
-            $this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
+            $this->renderObj = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
         }
 
         /* Sorting configuration is set as follows:

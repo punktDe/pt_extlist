@@ -34,13 +34,13 @@
  * @author Michael Knoll 
  * @package Tests
  * @subpackage Domain\DataBackend\DataSource
- * @see Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
+ * @see DataSource_Typo3DataSource
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_Typo3DataSourceTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource'));
+        $this->assertTrue(class_exists('DataSource_Typo3DataSource'));
     }
 }

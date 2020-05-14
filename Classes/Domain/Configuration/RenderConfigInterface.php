@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Configuration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +36,7 @@
  * @subpackage Configuration
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_Configuration_RenderConfigInterface
+interface RenderConfigInterface
 {
     /**
      * Returns a configuration array in typoscript config array notation:

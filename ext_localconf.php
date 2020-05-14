@@ -25,14 +25,14 @@ $controllerActions = [                                                          
 
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    $_EXTKEY,                                                                        // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
+    'PtExtlist',                                                                        // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
     'Pi1',                                                                            // A unique name of the plugin in UpperCamelCase
     $controllerActions,
     $controllerActions
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    $_EXTKEY,                                                                        // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
+    'PtExtlist',                                                                        // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
     'Cached',                                                                        // A unique name of the plugin in UpperCamelCase
     $controllerActions,
     []
@@ -50,4 +50,4 @@ require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
 /**
  * Register LifeCycle Manager
  */
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_eofe'][] = 'EXT:pt_extbase/Classes/Lifecycle/HookManager.php:tx_PtExtbase_Lifecycle_HookManager->updateEnd';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['hook_eofe'][] = PunktDe\PtExtbase\Lifecycle\HookManager::class .'->updateEnd';

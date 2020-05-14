@@ -79,11 +79,11 @@ class Tx_PtExtlist_Tests_View_TestView extends Tx_PtExtlist_View_BaseView
 
         $data =  'The output was successfully rendered through the TestView</br>';
 
-        foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+        foreach ($templateVariableContainer['listData'] as $listRow) { /* @var $row Row */
 
             $data .= '<ul>';
 
-            foreach ($listRow as $listCell) { /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+            foreach ($listRow as $listCell) { /* @var $listCell Cell */
                 $data .= '<li>'.$listCell->getValue().'</li>';
             }
 

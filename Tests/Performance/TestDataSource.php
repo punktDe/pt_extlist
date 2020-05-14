@@ -32,7 +32,7 @@
  * @package Domain
  * @subpackage Tests\Performance\TestDataBackend
  */
-class Tx_PtExtlist_Tests_Performance_TestDataSource implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+class Tx_PtExtlist_Tests_Performance_TestDataSource implements DataSource_IterationDataSourceInterface
 {
     /**
      * @var integer

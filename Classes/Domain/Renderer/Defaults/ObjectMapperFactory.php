@@ -1,7 +1,7 @@
 <?php
 
 
-namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
+namespace PunktDe\PtExtlist\Domain\Renderer\Defaults;
 
 /***************************************************************
  *  Copyright notice
@@ -30,22 +30,21 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 /**
- * Factory to create configs for list defaults
- *
+ * Maps data to a domain object
+ *  
  * @package Domain
- * @subpackage Configuration\List
- * @author Daniel Lienert 
+ * @subpackage Renderer\Default
+ * @author Daniel Lienert
  */
-class ListDefaultConfigFactory
+class ObjectMapperFactory
 {
     /**
-     * Returns a instance of a list default configuration.
-     *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Lists\ListDefaultConfig
+     * @var ObjectMapper
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    protected static $instance;
+
+
+    public static function getInstance($mapperConfig, $data)
     {
-        return new \PunktDe\PtExtlist\Domain\Configuration\Lists\ListDefaultConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('listDefault'));
     }
 }

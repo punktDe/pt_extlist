@@ -28,7 +28,15 @@ namespace PunktDe\PtExtlist\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Div;
+use PunktDe\PtExtbase\Utility\FakeFrontendFactory;
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3Fluid\Fluid\View\TemplateView;
 
 /**
  * Utility to render values by renderObject or renderUserFunction
@@ -41,7 +49,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class RenderValue
 {
     /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @var ContentObjectRenderer
      */
     protected static $cObj;
 
@@ -77,7 +85,7 @@ class RenderValue
              * causes an exception: Serialization of 'Closure' is not allowed
              */
             $cacheKey = md5(serialize(func_get_args()));
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return self::renderUncached($data, $renderObjectConfig, $renderUserFunctionConfig, $renderTemplate);
         }
 
@@ -350,12 +358,12 @@ class RenderValue
     public static function getCobj()
     {
         if (!self::$cObj || !is_object(self::$cObj)) {
-            if (TYPO3_MODE == 'FE') {
-                if (!is_a($GLOBALS['TSFE']->cObj, '\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')) {
+            if (TYPO3_MODE === 'FE') {
+                if (!is_a($GLOBALS['TSFE']->cObj, ContentObjectRenderer::class)) {
                     $GLOBALS['TSFE']->newCObj();
                 }
             } else {
-                GeneralUtility::makeInstance(\PunktDe\PtExtbase\Utility\FakeFrontendFactory::class)->createFakeFrontend();
+                GeneralUtility::makeInstance(FakeFrontendFactory::class)->createFakeFrontend();
                 $GLOBALS['TSFE']->newCObj();
             }
 
@@ -375,11 +383,11 @@ class RenderValue
     protected static function getFluidRenderer()
     {
         if (!self::$fluidRenderer) {
-            $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
-            self::$fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\TemplateView');
+            self::$fluidRenderer = $objectManager->get(TemplateView::class);
 
-            $controllerContext = $objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getControllerContext();
+            $controllerContext = $objectManager->get(ExtbaseContext::class)->getControllerContext();
             self::$fluidRenderer->setControllerContext($controllerContext);
         }
 
@@ -402,8 +410,8 @@ class RenderValue
             return $tsConfigValue;
         }
 
-        $tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray(['tsConfigArray' => $tsConfigValue]);
-        $content = PunktDe_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['tsConfigArray'], $tsArray['tsConfigArray.']);
+        $tsArray = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray(['tsConfigArray' => $tsConfigValue]);
+        $content = Div::getCobj()->cObjGetSingle($tsArray['tsConfigArray'], $tsArray['tsConfigArray.']);
 
         return $content;
     }
@@ -422,8 +430,8 @@ class RenderValue
             return $tsConfigValue;
         }
 
-        $tsArray = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService')->convertPlainArrayToTypoScriptArray($tsConfigValue);
+        $tsArray = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray($tsConfigValue);
 
-        return PunktDe_PtExtbase_Div::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
+        return Div::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
     }
 }

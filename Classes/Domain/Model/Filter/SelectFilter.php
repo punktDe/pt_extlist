@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -35,7 +38,7 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+class SelectFilter extends AbstractOptionsFilter
 {
     /**
      * Multiple or dropdown
@@ -46,7 +49,7 @@ class Tx_PtExtlist_Domain_Model_Filter_SelectFilter extends Tx_PtExtlist_Domain_
     
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
+     * @see AbstractFilter::initFilterByTsConfig()
      *
      */
     protected function initFilterByTsConfig()

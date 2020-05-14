@@ -27,6 +27,24 @@ namespace PunktDe\PtExtlist\Domain\Configuration;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Base\BaseConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfigurationFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Lists\ListDefaultConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfigFactory;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
@@ -49,47 +67,47 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
      */
     protected $configurationObjectSettings = [
         'aggregateData' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionFactory'],
+        ['factory' => AggregateConfigCollectionFactory::class],
         'aggregateRows' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollectionFactory'],
+        ['factory' => AggregateRowConfigCollectionFactory::class],
         'base' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Base_BaseConfigFactory'],
+        ['factory' => BaseConfigFactory::class],
         'bookmarks' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory',
+        ['factory' => BookmarkConfigFactory::class,
             'prototype' => 'bookmarks'],
         'columns' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollectionFactory'],
+        ['factory' => ColumnConfigCollectionFactory::class],
         'columnSelector' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfigFactory',
+        ['factory' => ColumnSelectorConfigFactory::class,
             'prototype' => 'columnSelector'],
         'dataBackend' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory',
+        ['factory' => DataBackendConfigurationFactory::class,
             'tsKey' => 'backendConfig'],
         'export' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory'],
+        ['factory' => ExportConfigFactory::class],
         'fields' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollectionFactory'],
+        ['factory' => FieldConfigCollectionFactory::class],
         'filter' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory',
+        ['factory' => FilterboxConfigCollectionFactory::class,
             'tsKey' => 'filters'],
         'list' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListConfigFactory',
+        ['factory' => ListConfigFactory::class,
             'prototype' => 'list',
             'tsKey' => null],
         'listDefault' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_List_ListDefaultConfigFactory',
+        ['factory' => ListDefaultConfigFactory::class,
             'tsKey' => 'default'],
         'pager' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollectionFactory',
+        ['factory' => PagerConfigCollectionFactory::class,
             'prototype' => 'pager'],
         'rendererChain' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory',
+        ['factory' => RendererChainConfigFactory::class,
             'prototype' => 'rendererChain'],
         'breadCrumbs' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfigFactory',
+        ['factory' => BreadCrumbsConfigFactory::class,
             'tsKey' => 'breadCrumbs'],
         'sorter' =>
-        ['factory' => 'Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfigFactory',
+        ['factory' => SorterConfigFactory::class,
             'tsKey' => 'sorter']
     ];
 
@@ -117,7 +135,7 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
      * @param array $settings  Settings of extension
      * @param string $listIdentifier
      */
-    public function __construct(array $settings, $listIdentifier = null)
+    public function __construct(array $settings, string $listIdentifier = null)
     {
         $this->setPrototypeSettings($settings);
         $this->setListIdentifier($settings, $listIdentifier);
@@ -133,7 +151,7 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
      */
     protected function setPrototypeSettings($settings)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isArray($settings['prototype'], ['message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089']);
+        Assert::isArray($settings['prototype'], ['message' => 'The basic settings are not available. Maybe the static typoscript template for pt_extlist is not included on this page. 1281175089']);
         $this->prototypeSettings = $settings['prototype'];
     }
 
@@ -206,7 +224,7 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'Filterbox identifier must not be empty! 1277889453']);
+        Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'Filterbox identifier must not be empty! 1277889453']);
         return $this->buildFilterConfiguration()->getItemById($filterboxIdentifier);
     }
 
@@ -331,7 +349,7 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
 
 
     /**
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Lists\ListDefaultConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\List\ListDefaultConfig
      */
     public function buildListDefaultConfig()
     {
@@ -355,7 +373,7 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a list configuration object
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\List\ListConfig
      */
     public function buildListConfiguration()
     {

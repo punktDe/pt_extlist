@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Renderer;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -35,14 +38,14 @@
  * @subpackage Renderer
  * @author Michael Knoll 
  */
-interface Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface extends \PunktDe\PtExtlist\Domain\Renderer\RendererInterface
+interface ConfigurableRendererInterface extends RendererInterface
 {
     /**
      * Injecotr for render configuration
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration
+     * @param RendererConfig $rendererConfiguration
      */
-    public function _injectConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration);
+    public function _injectConfiguration(RendererConfig $rendererConfiguration);
 
 
 

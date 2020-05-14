@@ -105,7 +105,7 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
      * Returns an array of options to be displayed by filter
      * for a given array of fields
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @param array FieldConfig
      * @return array Options to be displayed by filter
      */
     protected function getRenderedOptionsByFields($fields)
@@ -148,7 +148,7 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
     /**
      * Build the group data query to retrieve the group data
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+     * @param array FieldConfig $fields
      * @return \PunktDe\PtExtlist\Domain\QueryObject\Query
      */
     protected function buildGroupDataQuery($fields)
@@ -163,7 +163,7 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
             $groupDataQuery->addFrom($this->additionalTables);
         }
 
-        foreach ($this->displayFields as $displayField) { /* @var $displayField Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+        foreach ($this->displayFields as $displayField) { /* @var $displayField FieldConfig */
             $groupDataQuery->addSorting($displayField->getIdentifier(), \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_ASC);
         }
 
@@ -173,7 +173,7 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
         }
 
         $groupFields = [];
-        foreach ($this->getFieldsRequiredToBeSelected() as $field) { /* @var $field Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+        foreach ($this->getFieldsRequiredToBeSelected() as $field) { /* @var $field FieldConfig */
             $groupFields[] = $field->getIdentifier();
         }
 
@@ -274,12 +274,12 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
 
 
     /****************************************************************************************************************
-     * Methods implementing "Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface"
+     * Methods implementing "DataProvider_DataProviderInterface"
      *****************************************************************************************************************/
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::init()
      */
     public function init()
     {
@@ -290,7 +290,7 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::getRenderedOptions()
      */
     public function getRenderedOptions()
     {

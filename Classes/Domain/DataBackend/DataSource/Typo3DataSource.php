@@ -39,8 +39,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
  * @subpackage DataBackend\DataSource
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_Typo3DataSourceTest
  */
-class Typo3DataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource
-    implements \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDataSourceInterface
+class Typo3DataSource extends AbstractDataSource implements IterationDataSourceInterface
 {
     /**
      * Holds an instance of typo3 db object
@@ -69,8 +68,8 @@ class Typo3DataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\A
 
     /**
 				 * @param $query
-				 * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource
-				 * @throws Exception
+				 * @return Typo3DataSource
+				 * @throws \Exception
 				 */
 				public function executeQuery($query)
     {
@@ -78,8 +77,8 @@ class Typo3DataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\A
             $this->startTimeMeasure();
             $this->resource = $this->connection->sql_query($query);
             $this->stopTimeMeasure();
-        } catch (Exception $e) {
-            throw new Exception('Error while retrieving data from database using typo3 db object.<br> 
+        } catch (\Exception $e) {
+            throw new \Exception('Error while retrieving data from database using typo3 db object.<br> 
 							     Error: ' . $e->getMessage() . ' sql_error says: ' . $this->connection->sql_error() . ' 1280400023<br><br>
 							     SQL QUERY: <br>
 							     </strong><hr>' . nl2br($query) . '<hr><strong>', 1280400023);

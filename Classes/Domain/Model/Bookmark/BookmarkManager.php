@@ -1,5 +1,6 @@
 <?php
 namespace PunktDe\PtExtlist\Domain\Model\Bookmark;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,6 +28,12 @@ namespace PunktDe\PtExtlist\Domain\Model\Bookmark;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManager;
+use PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Repository\Bookmark\BookmarkRepository;
+
+
 /**
  * Bookmark manager
  *
@@ -48,7 +55,7 @@ class BookmarkManager
     /**
      * Holds an instance of a session persistence manager
      *
-     * @var PunktDe_PtExtbase_State_Session_SessionPersistenceManager
+     * @var SessionPersistenceManager
      */
     protected $sessionPersistenceManager;
     
@@ -57,7 +64,7 @@ class BookmarkManager
     /**
      * Holds an instance of a bookmark repository
      *
-     * @var Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository
+     * @var BookmarkRepository
      */
     protected $bookmarkRepository;
 
@@ -66,14 +73,14 @@ class BookmarkManager
     /**
      * Holds an instance of a BookmarkStrategy
      *
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface
+     * @var BookmarkStrategyInterface
      */
     protected $bookmarkStrategy;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
 
@@ -87,7 +94,7 @@ class BookmarkManager
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+     * @var BookmarkConfig
      */
     protected $bookmarkConfiguration;
 
@@ -122,9 +129,9 @@ class BookmarkManager
     /**
      * Injector for session persistence manager
      *
-     * @param PunktDe_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager
+     * @param SessionPersistenceManager $sessionPersistenceManager
      */
-    public function _injectSessionPersistenceManager(PunktDe_PtExtbase_State_Session_SessionPersistenceManager $sessionPersistenceManager)
+    public function _injectSessionPersistenceManager(SessionPersistenceManager $sessionPersistenceManager)
     {
         $this->sessionPersistenceManager = $sessionPersistenceManager;
     }
@@ -134,9 +141,9 @@ class BookmarkManager
     /**
      * Injector for bookmark repository
      *
-     * @param Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository $bookmarkRepository
+     * @param BookmarkRepository $bookmarkRepository
      */
-    public function injectBookmarkRepository(Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository $bookmarkRepository)
+    public function injectBookmarkRepository(BookmarkRepository $bookmarkRepository)
     {
         $this->bookmarkRepository = $bookmarkRepository;
     }
@@ -146,9 +153,9 @@ class BookmarkManager
     /**
      * Injector for bookmark strategy
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface $bookmarkStrategy
+     * @param BookmarkStrategyInterface $bookmarkStrategy
      */
-    public function injectBookmarkStrategy(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface $bookmarkStrategy)
+    public function injectBookmarkStrategy(BookmarkStrategyInterface $bookmarkStrategy)
     {
         $this->bookmarkStrategy = $bookmarkStrategy;
     }
@@ -166,9 +173,9 @@ class BookmarkManager
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function _injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function _injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         $this->configurationBuilder = $configurationBuilder;
     }
@@ -194,24 +201,24 @@ class BookmarkManager
 
     /**
      * @param integer $bookmarkUid
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function restoreBookmarkByUid($bookmarkUid)
     {
-        $bookmark = $this->bookmarkRepository->findByUid($bookmarkUid);        /* @var $bookmark Tx_PtExtlist_Domain_Model_Bookmark_Bookmark */
+        $bookmark = $this->bookmarkRepository->findByUid($bookmarkUid);        /* @var $bookmark Bookmark */
         if ($bookmark != null) {
             $this->restoreBookmark($bookmark);
         } else {
-            throw new InvalidArgumentException('No bookmark could be found for Bookmark-UID '.$bookmarkUid, 1372836569);
+            throw new \InvalidArgumentException('No bookmark could be found for Bookmark-UID '.$bookmarkUid, 1372836569);
         }
     }
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Bookmark $bookmark
      */
-    public function restoreBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function restoreBookmark(Bookmark $bookmark)
     {
         //TODO: That smells to hell. CHANGE!
         $this->sessionPersistenceManager->init();
@@ -226,9 +233,9 @@ class BookmarkManager
     /**
      * Adds content to bookmark which has to be stored in bookmark
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Bookmark $bookmark
      */
-    public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function addContentToBookmark(Bookmark $bookmark)
     {
         $this->bookmarkStrategy->addContentToBookmark($bookmark, $this->configurationBuilder, $this->sessionPersistenceManager->getSessionData());
     }
@@ -236,9 +243,9 @@ class BookmarkManager
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Bookmark $bookmark
      */
-    public function storeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function storeBookmark(Bookmark $bookmark)
     {
         $bookmark->setPid($this->bookmarkConfiguration->getBookmarkPid());
         $bookmark->setFeUser($this->feUser);
@@ -303,7 +310,7 @@ class BookmarkManager
     }
 
 
-    public function removeBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function removeBookmark(Bookmark $bookmark)
     {
         $this->bookmarkRepository->remove($bookmark);
     }

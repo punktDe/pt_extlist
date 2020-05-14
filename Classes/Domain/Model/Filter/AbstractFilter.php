@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,16 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtbase\State\GpVars\GpVarsAdapter;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Utility\RenderValue;
+
 /**
  * Abstract filter class for filter models
  *
@@ -35,8 +49,7 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
-    implements Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+abstract class AbstractFilter implements FilterInterface
 {
     /**
      * Identifier of list to which this filter belongs to
@@ -68,7 +81,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Holds a filter configuration for this filter
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     * @var FilterConfig
      */
     protected $filterConfig;
 
@@ -95,7 +108,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Get/Post vars adapter
      *
-     * @var PunktDe_PtExtbase_State_GpVars_GpVarsAdapter
+     * @var GpVarsAdapter
      */
     protected $gpVarAdapter = null;
 
@@ -120,7 +133,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Holds query object for this filter
      *
-     * @var Tx_PtExtlist_Domain_QueryObject_Query
+     * @var Query
      */
     protected $filterQuery = null;
 
@@ -129,7 +142,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Identifier of field on which this filter is operating (database field to be filtered)
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var FieldConfigCollection
      */
     protected $fieldIdentifierCollection;
 
@@ -138,7 +151,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Holds a reference to associated data backend
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @var DataBackendInterface
      */
     protected $dataBackend = null;
 
@@ -165,7 +178,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Holds Filterbox to which this filter belongs to
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @var Filterbox
      */
     protected $filterbox;
 
@@ -184,7 +197,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      */
     public function __construct()
     {
-        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $this->filterQuery = new Query();
     }
 
 
@@ -192,9 +205,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Injects filter configuration for this filter
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      */
-    public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig)
+    public function _injectFilterConfig(FilterConfig $filterConfig)
     {
         $this->filterConfig = $filterConfig;
 
@@ -208,9 +221,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Injector for Get/Post Vars adapter
      *
-     * @param PunktDe_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter Get/Post vars adapter to be injected
+     * @param GpVarsAdapter $gpVarAdapter Get/Post vars adapter to be injected
      */
-    public function _injectGpVarsAdapter(PunktDe_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter)
+    public function _injectGpVarsAdapter(GpVarsAdapter $gpVarAdapter)
     {
         $this->gpVarAdapter = $gpVarAdapter;
     }
@@ -220,9 +233,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Injector for associated data backend
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param DataBackendInterface $dataBackend
      */
-    public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    public function _injectDataBackend(DataBackendInterface $dataBackend)
     {
         $this->dataBackend = $dataBackend;
     }
@@ -232,9 +245,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Injects filterbox into filter
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox
+     * @param Filterbox $filterbox
      */
-    public function _injectFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox)
+    public function _injectFilterbox(Filterbox $filterbox)
     {
         $this->filterbox = $filterbox;
     }
@@ -329,7 +342,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      * Returns query set up by filter. Query contains
      * all criterias set by filter
      *
-     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     * @return Query
      */
     public function getFilterQuery()
     {
@@ -377,7 +390,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
     /**
      * Returns filterbox to which this filter is associated to
      *
-     * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @return Filterbox
      */
     public function getFilterbox()
     {
@@ -527,7 +540,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
             $this->filterQuery->unsetCriterias();
 
             if ($this->invert) {
-                $this->filterQuery->addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria::notOp($criteria));
+                $this->filterQuery->addCriteria(Criteria::notOp($criteria));
             } else {
                 $this->filterQuery->addCriteria($criteria);
             }
@@ -547,16 +560,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      * Build the filterCriteria for a single field
      *
      * @api
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+     * @param FieldConfig $fieldIdentifier
      */
-    abstract protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier);
+    abstract protected function buildFilterCriteria(FieldConfig $fieldIdentifier);
 
 
 
     /**
      * Build the filterCriteria for filter
      *
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @return Criteria
      */
     protected function buildFilterCriteriaForAllFields()
     {
@@ -565,7 +578,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
             $singleCriteria = $this->buildFilterCriteria($fieldIdentifier);
 
             if ($criteria) {
-                $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($criteria, $singleCriteria);
+                $criteria = Criteria::orOp($criteria, $singleCriteria);
             } else {
                 $criteria = $singleCriteria;
             }
@@ -614,7 +627,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
         if ($this->getDisplayValue() != '') {
             $breadCrumbRenderArray = $this->filterConfig->getBreadCrumbString();
 
-            $breadCrumbMessage = Tx_PtExtlist_Utility_RenderValue::renderDataByConfigArray(
+            $breadCrumbMessage = RenderValue::renderDataByConfigArray(
                 $this->getFieldsForBreadcrumb(),
                 $breadCrumbRenderArray
             );
@@ -665,7 +678,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
      * Returns a field configuration for a given identifier
      *
      * @param string $fieldIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig Field configuration for given identifier
+     * @return FieldConfig Field configuration for given identifier
      */
     protected function resolveFieldConfig($fieldIdentifier)
     {
@@ -685,7 +698,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
         $this->invert = false;
         $this->resetSessionDataForFilter();
         $this->resetGpVarDataForFilter();
-        $this->filterQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $this->filterQuery = new Query();
         $this->init(true);
     }
 
@@ -722,7 +735,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
 
 
     /****************************************************************************************************************
-     * Methods implementing "PunktDe_PtExtbase_State_GpVars_GpVarsInjectableInterface"
+     * Methods implementing "GpVarsInjectableInterface"
      *****************************************************************************************************************/
 
     /**

@@ -1,7 +1,9 @@
 <?php
 
 
-namespace PunktDe\PtExtlist\Domain\Renderer\Default;
+namespace PunktDe\PtExtlist\Domain\Renderer\Defaults;
+
+
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +31,14 @@ namespace PunktDe\PtExtlist\Domain\Renderer\Default;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+use PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer;
+
 /**
  * Default renderer for list data
  *  
@@ -38,41 +48,26 @@ namespace PunktDe\PtExtlist\Domain\Renderer\Default;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Renderer_Default_RendererTest
  */
-class Renderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
+class Renderer extends AbstractRenderer
 {
     /**
-     * The Strategy for rendering cells.
-     *
-     * @var Tx_PtExtlist_Domain_Renderer_Strategy_CellRenderingStrategyInterface
-     */
-    protected $cellRenderer;
-    
-    
-    
-    /**
-     * The strategy for rendering captions.
-     *
-     * @var Tx_PtExtlist_Domain_Renderer_Strategy_CaptionRenderingStrategyInterface
+     * @var CaptionRenderer
      */
     protected $captionRenderer;
-    
-    
-    
+
     /**
      * Holds an instance of a row renderer
      *
-     * @var \PunktDe\PtExtlist\Domain\Renderer\Default\RowRenderer
+     * @var RowRenderer
      */
     protected $rowRenderer;
     
-    
-
     /**
      * Injector for configuration
      *
      * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration
      */
-    public function _injectConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration)
+    public function _injectConfiguration(RendererConfig $rendererConfiguration)
     {
         // TODO remove this after refactoring!
         parent::_injectConfiguration($rendererConfiguration);
@@ -87,9 +82,9 @@ class Renderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
      */
     protected function initRowRenderer()
     {
-        $this->rowRenderer = new \PunktDe\PtExtlist\Domain\Renderer\Default\RowRenderer();
+        $this->rowRenderer = new RowRenderer();
         $this->rowRenderer->injectRendererConfiguration($this->rendererConfiguration);
-        $this->rowRenderer->injectCellRenderer(new \PunktDe\PtExtlist\Domain\Renderer\Default\CellRenderer($this->rendererConfiguration));
+        $this->rowRenderer->injectCellRenderer(new CellRenderer($this->rendererConfiguration));
     }
     
     
@@ -99,7 +94,7 @@ class Renderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
      */
     protected function initCaptionRenderer()
     {
-        $this->captionRenderer = new \PunktDe\PtExtlist\Domain\Renderer\Default\CaptionRenderer();
+        $this->captionRenderer = new CaptionRenderer();
     }
     
 
@@ -107,7 +102,7 @@ class Renderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
     /**
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
      */
-    public function renderCaptions(\PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader $listHeader)
+    public function renderCaptions(ListHeader $listHeader)
     {
         return $this->captionRenderer->renderCaptions($listHeader);
     }
@@ -117,12 +112,12 @@ class Renderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
     /**
      * Renders list data
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListData $listData
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
+     * @param ListData $listData
+     * @return ListData
      */
-    public function renderList(\PunktDe\PtExtlist\Domain\Model\Lists\ListData $listData)
+    public function renderList(ListData $listData)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotNull($listData, ['message' => 'No list data found in list. 1280405145']);
+        Assert::isNotNull($listData, ['message' => 'No list data found in list. 1280405145']);
 
         // We could get another type of list data here, so we have to instantiate this class
         $listDataClassName = get_class($listData);
@@ -146,11 +141,11 @@ class Renderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Row $row
+     * @param Row $row
      * @param $rowIndex
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row
+     * @return Row
      */
-    public function renderSingleRow(\PunktDe\PtExtlist\Domain\Model\Lists\Row $row, $rowIndex)
+    public function renderSingleRow(Row $row, $rowIndex)
     {
         return $this->rowRenderer->renderRow($row, $rowIndex);
     }
@@ -160,16 +155,16 @@ class Renderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
     /**
      * Returns a rendered aggregate list for a given row of aggregates
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListData $aggregateListData
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData Rendererd List of aggregate rows
+     * @param ListData $aggregateListData
+     * @return ListData Rendererd List of aggregate rows
      */
-    public function renderAggregateList(\PunktDe\PtExtlist\Domain\Model\Lists\ListData $aggregateListData)
+    public function renderAggregateList(ListData $aggregateListData)
     {
         if ($aggregateListData->count() == 0) {
             return $aggregateListData;
         }
         
-        $renderedAggregateList = new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
+        $renderedAggregateList = new ListData();
         
         $aggregateRowsConfiguration = $this->rendererConfiguration->getConfigurationBuilder()->buildAggregateRowsConfig();
         $aggregateDataRow = $aggregateListData->getItemByIndex(0);

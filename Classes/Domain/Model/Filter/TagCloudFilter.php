@@ -1,4 +1,6 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
 /***************************************************************
  *  Copyright notice
  *
@@ -34,10 +36,10 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+class TagCloudFilter extends AbstractOptionsFilter
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+     * @var DataProvider_DataProviderFactory
      */
     protected $dataProviderFactory;
 
@@ -84,7 +86,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     * @see AbstractFilter::initFilter()
      */
     protected function initFilter()
     {

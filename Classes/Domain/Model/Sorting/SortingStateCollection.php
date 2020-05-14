@@ -61,7 +61,7 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
      *
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Sorting_SortingState';
+    protected $restrictedClassName = 'SortingState';
 
 
     /**
@@ -102,7 +102,7 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
     /**
      * Returns an array of field configs that are contained by this sorting state collection
      *
-     * @return array<Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig>
+     * @return array<FieldConfig>
      */
     public function getSortedFields()
     {
@@ -123,7 +123,7 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
     {
         $sortingsQuery = new \PunktDe\PtExtlist\Domain\QueryObject\Query();
         foreach ($this->itemsArr as $sortingState) {
-            /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+            /* @var $sortingState SortingState */
             $sortingsQuery->addSorting($sortingState->getField()->getIdentifier(), $sortingState->getDirection());
         }
         return $sortingsQuery;
@@ -142,7 +142,7 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
     {
         $sessionPersistableArray = [];
         foreach ($this->itemsArr as $sortingState) {
-            /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+            /* @var $sortingState SortingState */
             $sessionPersistableArray[] = $sortingState->getSessionPersistableArray();
         }
         return $sessionPersistableArray;

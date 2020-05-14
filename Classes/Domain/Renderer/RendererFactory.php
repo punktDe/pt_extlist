@@ -1,7 +1,6 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\Renderer;
+
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +28,13 @@ namespace PunktDe\PtExtlist\Domain\Renderer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\AbstractComponentFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Object\Exception;
+
 /**
  * Factory for renderer
  *  
@@ -39,23 +45,22 @@ namespace PunktDe\PtExtlist\Domain\Renderer;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Renderer_RendererFactoryTest
  */
-class RendererFactory
-    extends \PunktDe\PtExtlist\Domain\AbstractComponentFactory
-    implements \TYPO3\CMS\Core\SingletonInterface
+class RendererFactory extends AbstractComponentFactory implements SingletonInterface
 {
     /**
      * Build and return the renderer
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration
-     * @return \PunktDe\PtExtlist\Domain\Renderer\ConfigurableRendererInterface
+     * @param RendererConfig $rendererConfiguration
+     * @return ConfigurableRendererInterface
+     * @throws Exception
      */
-    public function getRenderer(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration)
+    public function getRenderer(RendererConfig $rendererConfiguration)
     {
         $rendererClassName = $rendererConfiguration->getRendererClassName();
-        PunktDe_PtExtbase_Assertions_Assert::classExists($rendererClassName, ['message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512']);
+        Assert::classExists($rendererClassName, ['message' => 'Configured renderer class ' . $rendererClassName . ' does not exist! 1286986512']);
 
-        $renderer = $this->objectManager->get($rendererClassName); /* @var $renderer Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface */
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(is_a($renderer, 'Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface'), ['message' => 'Configured renderer class ' . $rendererClassName . ' does not implement Tx_PtExtlist_Domain_Renderer_RendererInterface 1286986513']);
+        $renderer = $this->objectManager->get($rendererClassName); /* @var $renderer ConfigurableRendererInterface */
+        Assert::isTrue(is_a($renderer, ConfigurableRendererInterface::class), ['message' => 'Configured renderer class ' . $rendererClassName . ' does not implement RendererInterface 1286986513']);
 
         $renderer->_injectConfiguration($rendererConfiguration);
         

@@ -66,7 +66,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigTest extends Tx_P
 
     public function testGetPagerClassName()
     {
-        $this->assertEquals($this->pagerConfiguration->getPagerClassName(), 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
+        $this->assertEquals($this->pagerConfiguration->getPagerClassName(), 'DefaultPager');
     }
     
     

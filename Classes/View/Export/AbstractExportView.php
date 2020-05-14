@@ -122,7 +122,7 @@ abstract class AbstractExportView extends \PunktDe\PtExtlist\View\BaseView
      *
      * Functionality is taken from FPDF!
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function sendHeader()
     {

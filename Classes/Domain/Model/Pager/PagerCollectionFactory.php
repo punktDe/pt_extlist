@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Pager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\AbstractComponentFactoryWithState;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * Class implements pager collection factory
  *
@@ -35,21 +41,21 @@
  * @author Christoph Ehscheidt
  * @see Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-    implements \TYPO3\CMS\Core\SingletonInterface
+class PagerCollectionFactory
+    extends AbstractComponentFactoryWithState
+    implements SingletonInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerFactory
+     * @var PagerFactory
      */
     private $pagerFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Pager_PagerFactory $pagerFactory
+     * @param PagerFactory $pagerFactory
      */
-    public function injectPagerFactory(Tx_PtExtlist_Domain_Model_Pager_PagerFactory $pagerFactory)
+    public function injectPagerFactory(PagerFactory $pagerFactory)
     {
         $this->pagerFactory = $pagerFactory;
     }
@@ -59,14 +65,14 @@ class Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
     /**
      * Returns a instance of the pager collection.
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return PagerCollection
      */
-    public function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $pagerConfigurationCollection = $configurationBuilder->buildPagerConfiguration();
 
-        $pagerCollection = new Tx_PtExtlist_Domain_Model_Pager_PagerCollection($configurationBuilder);
+        $pagerCollection = new PagerCollection($configurationBuilder);
 
         $sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance();
         $sessionPersistenceManager->registerObjectAndLoadFromSession($pagerCollection);

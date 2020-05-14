@@ -1,4 +1,9 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,20 +38,20 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+class FirstLetterFilter extends AbstractOptionsFilter
 {
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter::buildFilterCriteria()
+     * @see Classes/Domain/Model/Filter/AbstractOptionsFilter::buildFilterCriteria()
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
         $criteria = null;
         $columnName = $fieldIdentifier->getTableFieldCombined();
         $filterValues = array_filter($this->filterValues);
         
         if (count($filterValues)) {
-            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($columnName, current($filterValues).'%');
+            $criteria = Criteria::like($columnName, current($filterValues).'%');
         }
         
         return $criteria;

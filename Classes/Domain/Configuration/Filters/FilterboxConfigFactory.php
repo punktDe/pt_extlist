@@ -54,7 +54,7 @@ class FilterboxConfigFactory
         ksort($filterSettingsArray);
 
         foreach ($filterSettingsArray as $arrayIndex => $filterSettings) {
-            PunktDe_PtExtbase_Assertions_Assert::isArray($filterSettings, ['message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788']);
+            Assert::isArray($filterSettings, ['message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788']);
             $filterConfig = \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterSettings);
             $filterboxConfiguration->addFilterConfig($filterConfig, $arrayIndex);
         }

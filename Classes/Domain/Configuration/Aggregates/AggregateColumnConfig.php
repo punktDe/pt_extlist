@@ -28,6 +28,12 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Configuration\AbstractConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -38,7 +44,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Configuration\Aggregates
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest
  */
-class AggregateColumnConfig extends \PunktDe\PtExtbase\Configuration\AbstractConfiguration implements \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface
+class AggregateColumnConfig extends AbstractConfiguration implements ColumnConfigInterface
 {
     /** 
      * @var string
@@ -93,12 +99,12 @@ class AggregateColumnConfig extends \PunktDe\PtExtbase\Configuration\AbstractCon
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $settings
      * @param string $columnIdentifier
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateColumnConfig
+     * @return AggregateColumnConfig
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $settings, $columnIdentifier)
+    public function __construct(ConfigurationBuilder $configurationBuilder, array $settings, string $columnIdentifier)
     {
         $settings['columnIdentifier'] = $columnIdentifier;
         parent::__construct($configurationBuilder, $settings);
@@ -109,13 +115,14 @@ class AggregateColumnConfig extends \PunktDe\PtExtbase\Configuration\AbstractCon
     /**
      * (non-PHPdoc)
      * @see \PunktDe\PtExtbase\Configuration\AbstractConfiguration::init()
+     * @throws \Exception
      */
     protected function init()
     {
         // required
         $this->setRequiredValue('columnIdentifier', 'Column identifier for aggregate not given 1282916617');
 
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], ['message' => 'Aggregate data identifier not given for aggregate column "'.$this->columnIdentifier.'" 1282916619']);
+        Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], ['message' => 'Aggregate data identifier not given for aggregate column "'.$this->columnIdentifier.'" 1282916619']);
         $this->aggregateDataIdentifier = GeneralUtility::trimExplode(',', $this->settings['aggregateDataIdentifier']);
 
         // optional
@@ -129,7 +136,7 @@ class AggregateColumnConfig extends \PunktDe\PtExtbase\Configuration\AbstractCon
         }
 
         if (array_key_exists('renderObj', $this->settings)) {
-            $this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
+            $this->renderObj = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
         }
     }
 

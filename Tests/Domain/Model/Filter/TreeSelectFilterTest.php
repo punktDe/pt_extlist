@@ -264,7 +264,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
         // TODO why is this method called more than once?!?
         $gpVarAdapterMock->expects($this->any())->method('injectParametersInObject');
 
-        $fieldConfigMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig', ['getTable', 'getField'], [$this->configurationBuilderMock, 'testfield', ['field' => 'testfield', 'table' => 'testtable']]);
+        $fieldConfigMock = $this->getMock('FieldConfig', ['getTable', 'getField'], [$this->configurationBuilderMock, 'testfield', ['field' => 'testfield', 'table' => 'testtable']]);
         $fieldConfigMock->expects($this->any())
                 ->method('getTable')
                 ->will($this->returnValue('testtable'));
@@ -272,12 +272,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TreeSelectFilterTest extends Tx_PtE
                 ->method('getField')
                 ->will($this->returnValue('testfield'));
 
-        $fieldConfigCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection', ['getFieldConfigByIdentifier']);
+        $fieldConfigCollectionMock = $this->getMock('FieldConfigCollection', ['getFieldConfigByIdentifier']);
         $fieldConfigCollectionMock->expects($this->any())
                 ->method('getFieldConfigByIdentifier')
                 ->will($this->returnValue($fieldConfigMock));
 
-        $dataBackendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', ['getFieldConfigurationCollection'], [$this->configurationBuilderMock]);
+        $dataBackendMock = $this->getMock('MySqlDataBackend_MySqlDataBackend', ['getFieldConfigurationCollection'], [$this->configurationBuilderMock]);
         $dataBackendMock->expects($this->any())
                 ->method('getFieldConfigurationCollection')
                 ->will($this->returnValue($fieldConfigCollectionMock));

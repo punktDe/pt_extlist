@@ -48,13 +48,13 @@ class DomainObjectMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\Ab
 				 */
 				public function getMappedListData($domainObjects)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotNull($this->fieldConfigurationCollection, ['message' => 'No mapper configuration has been set for domain object mapper! 1281635601']);
+        Assert::isNotNull($this->fieldConfigurationCollection, ['message' => 'No mapper configuration has been set for domain object mapper! 1281635601']);
         
         $listData = new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
         
         foreach ($domainObjects as $domainObject) {
             $listDataRow = new \PunktDe\PtExtlist\Domain\Model\Lists\Row();
-            foreach ($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+            foreach ($this->fieldConfigurationCollection as $fieldConfiguration) { /* @var $fieldConfiguration FieldConfig */
                 $property = $this->getPropertyNameByFieldConfig($fieldConfiguration);
                 
                 if ($property == '__object__') {

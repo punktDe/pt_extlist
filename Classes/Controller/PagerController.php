@@ -1,6 +1,7 @@
 <?php
 namespace PunktDe\PtExtlist\Controller;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,8 @@ namespace PunktDe\PtExtlist\Controller;
  ***************************************************************/
 
 
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+
 /**
  * Class Pager Controller
  *
@@ -40,7 +43,7 @@ class PagerController extends AbstractController
     /**
      * Holds the pager collection.
      *  
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @var PagerCollection
      */
     protected $pagerCollection;
     
@@ -58,6 +61,7 @@ class PagerController extends AbstractController
     /**
      * (non-PHPdoc)
      * @see Classes/Controller/\PunktDe\PtExtlist\Controller\AbstractController::initializeAction()
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -92,7 +96,7 @@ class PagerController extends AbstractController
     /**
      * Returns an initialized pager object
      *  
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     * @returm PagerInterface
      */
     protected function getPagerCollectionInstance()
     {

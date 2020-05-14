@@ -53,7 +53,7 @@ class SortingState
      * TODO test me!
      *
      * @static
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @param ConfigurationBuilder
      * @param string $fieldIdentifier Field identifier for field to be sorted
      * @param integer $sortingDirection Sorting direction by which to sort given field
      * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingState

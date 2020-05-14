@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Lists\Header;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\AbstractComponentFactoryWithState;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig;
+use PunktDe\PtExtlist\Domain\Model\Sorting\SorterFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * Class implements header column factory
  * 
@@ -34,17 +42,17 @@
  * @subpackage Model\Lists\Header
  * @see Tx_PtExtlist_Twests_Domain_Model_List_Header_HeaderColumnFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+class HeaderColumnFactory extends AbstractComponentFactoryWithState
 {
     /**
      * build an instance of a header column by columnConfiguration 
      * 
-     * @param Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration
-     * @return Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn
+     * @param ColumnConfig $columnConfiguration
+     * @return HeaderColumn
      */
-    public function createInstance(Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig $columnConfiguration)
+    public function createInstance(ColumnConfig $columnConfiguration)
     {
-        $headerColumn = new Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn();
+        $headerColumn = new HeaderColumn();
         $headerColumn->injectColumnConfig($columnConfiguration);
 
         $this->sessionPersistenceManagerBuilder->getInstance()->registerObjectAndLoadFromSession($headerColumn);
@@ -52,7 +60,7 @@ class Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory extends Tx_PtExt
 
         // Register headerColumn in sorter
         // TODO we cannot use DI here since this would lead to cyclic dependencies
-        $sorterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_Sorting_SorterFactory'); /* @var $sorterFactory Tx_PtExtlist_Domain_Model_Sorting_SorterFactory */
+        $sorterFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(SorterFactory::class); /* @var $sorterFactory SorterFactory */
         $sorter = $sorterFactory->getInstance($columnConfiguration->getConfigurationBuilder());
         $sorter->registerSortingObserver($headerColumn);
 

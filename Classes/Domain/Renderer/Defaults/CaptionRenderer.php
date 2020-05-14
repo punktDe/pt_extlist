@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Renderer\Defaults;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /**
  * Default rendering strategy for rendering column captions
  * 
@@ -35,21 +46,21 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest
  */
-class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements \TYPO3\CMS\Core\SingletonInterface
+class CaptionRenderer implements SingletonInterface
 {
     /**
      * Renders captions
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     * @param ListHeader $listHeader
+     * @return ListHeader $listHeader
      */
-    public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    public function renderCaptions(ListHeader $listHeader)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotNull($listHeader, ['message' => 'No header data available. 1280408235']);
+        Assert::isNotNull($listHeader, ['message' => 'No header data available. 1280408235']);
         
-        $renderedListHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($listHeader->getListIdentifier());
+        $renderedListHeader = new ListHeader($listHeader->getListIdentifier());
 
-        foreach ($listHeader as $headerColumn) { /* @var $headerColumn Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+        foreach ($listHeader as $headerColumn) { /* @var $headerColumn HeaderColumn */
 
             if ($headerColumn->getColumnConfig()->isAccessable() && $headerColumn->getIsVisible()) {
                 $label = $this->renderColumnLabel($headerColumn);
@@ -63,17 +74,17 @@ class Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer implements \TYPO3\CMS
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn
+     * @param HeaderColumn $headerColumn
      * @return string
      */
-    public function renderColumnLabel(Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn)
+    public function renderColumnLabel(HeaderColumn $headerColumn)
     {
         $label = $headerColumn->getLabel();
 
-        $label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($label);
+        $label = RenderValue::stdWrapIfPlainArray($label);
 
-        if (\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($label, 'LLL:')) {
-            $label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($label, '');
+        if (GeneralUtility::isFirstPartOfStr($label, 'LLL:')) {
+            $label = LocalizationUtility::translate($label, '');
         }
 
         return $label;

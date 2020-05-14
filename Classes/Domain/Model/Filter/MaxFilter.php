@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,17 +29,22 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
+
+
 /**
  *
  * @author Christoph Ehscheidt
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+class MaxFilter extends AbstractSingleValueFilter
 {
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter#initFilter()
+     * @see Classes/Domain/Model/Filter/AbstractFilter#initFilter()
      */
     protected function initFilter()
     {
@@ -47,16 +55,16 @@ class Tx_PtExtlist_Domain_Model_Filter_MaxFilter extends Tx_PtExtlist_Domain_Mod
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::buildFilterCriteria()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::buildFilterCriteria()
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
         $criteria = null;
 
         if ($this->isActive) {
-            $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+            $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
             $filterValue = intval($this->filterValue);
-            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $filterValue);
+            $criteria = Criteria::lessThanEquals($fieldName, $filterValue);
         }
 
         return $criteria;

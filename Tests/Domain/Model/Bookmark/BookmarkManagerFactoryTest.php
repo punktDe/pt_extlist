@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage Domain\Model\Bookmark
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+ * @see BookmarkManagerFactory
  */
 class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -49,9 +49,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
 
             'backend' => [
                 'mysql' => [
-                    'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
-                    'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                    'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                    'dataBackendClass' => 'MySqlDataBackend_MySqlDataBackend',
+                    'dataMapperClass' => 'Mapper_ArrayMapper',
+                    'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 
 
                 ]
@@ -62,9 +62,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
             'Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest' => [
 
                 'backendConfig' => [
-                    'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
-                    'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                    'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                    'dataBackendClass' => 'Typo3DataBackend_Typo3DataBackend',
+                    'dataMapperClass' => 'Mapper_ArrayMapper',
+                    'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                 ],
 
                 'bookmarks' => [
@@ -91,7 +91,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+     * @var BookmarkManagerFactory
      */
     protected $proxy;
 
@@ -107,11 +107,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
 
     public function setUp()
     {
-        $this-> proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory');
+        $this-> proxyClass = $this->buildAccessibleProxy('BookmarkManagerFactory');
         $this->proxy = new $this->proxyClass;
         $this->initDefaultConfigurationBuilderMock();
 
-        $this->bookmarkManagerMock = $this->getMockBuilder('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager')
+        $this->bookmarkManagerMock = $this->getMockBuilder('BookmarkManager')
             ->setMethods(['_injectConfigurationBuilder', '_injectSessionPersistenceManager'])
             ->setConstructorArgs(['Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest'])
             ->getMock();
@@ -123,7 +123,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
      */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'));
+        $this->assertTrue(class_exists('BookmarkManagerFactory'));
     }
 
 
@@ -166,7 +166,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
             ->method('getBookmarkPid')
             ->will($this->returnValue(30));
 
-        $configurationBuilderMock = $this->getMockBuilder('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder')
+        $configurationBuilderMock = $this->getMockBuilder('ConfigurationBuilder')
             ->setMethods(['buildBookmarkConfiguration', 'getListIdentifier'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -175,7 +175,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
             ->will($this->returnValue($bookmarkConfigMock));
         $configurationBuilderMock->expects($this->atLeastOnce())
             ->method('getListIdentifier')
-            ->will($this->returnValue('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory'));
+            ->will($this->returnValue('BookmarkManagerFactory'));
 
         $bookmarkRepositoryMock = $this->getMockBuilder('Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository')
             ->setMethods(['setBookmarkStoragePid'])
@@ -192,7 +192,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkManagerFactoryTest extend
 
         $objectManagerMock->expects($this->once())
             ->method('get')
-            ->with('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager', 'Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory')
+            ->with('BookmarkManager', 'BookmarkManagerFactory')
             ->will($this->returnValue($this->bookmarkManagerMock));
 
         $this->bookmarkManagerMock->expects($this->once())

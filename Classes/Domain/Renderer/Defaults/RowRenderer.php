@@ -1,4 +1,9 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Renderer\Defaults;
+
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,12 +38,12 @@
  * @package Domain
  * @subpackage Renderer\Default
  */
-class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
+class RowRenderer
 {
     /**
      * Holds an instance of renderer configuration
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+     * @var RendererConfig
      */
     protected $rendererConfiguration;
 
@@ -47,7 +52,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
     /**
      * Holds an instance of cell renderer
      *
-     * @var Tx_PtExtlist_Domain_Renderer_Default_CellRenderer
+     * @var CellRenderer
      */
     protected $cellRenderer;
 
@@ -56,9 +61,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
     /**
      * Injector for renderer configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+     * @param RendererConfig $rendererConfiguration
      */
-    public function injectRendererConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration)
+    public function injectRendererConfiguration(RendererConfig $rendererConfiguration)
     {
         $this->rendererConfiguration = $rendererConfiguration;
     }
@@ -68,9 +73,9 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
     /**
      * Injector for cell renderer
      *
-     * @param Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer
+     * @param CellRenderer $cellRenderer
      */
-    public function injectCellRenderer(Tx_PtExtlist_Domain_Renderer_Default_CellRenderer $cellRenderer)
+    public function injectCellRenderer(CellRenderer $cellRenderer)
     {
         $this->cellRenderer = $cellRenderer;
     }
@@ -80,7 +85,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
     /**
      * Returns rendering configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+     * @return RendererConfig
      */
     public function getRendererConfiguration()
     {
@@ -92,13 +97,13 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
     /**
      * Renders a row
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Row $row Row to be rendered
+     * @param Row $row Row to be rendered
      * @param mixed $rowIndex Holds index of row in listData structure
-     * @return Tx_PtExtlist_Domain_Model_List_Row Rendered row
+     * @return Row Rendered row
      */
-    public function renderRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex)
+    public function renderRow(Row $row, $rowIndex)
     {
-        $renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+        $renderedRow = new Row();
 
         // copy special values
         $renderedRow->setSpecialValues($row->getSpecialValues());
@@ -106,7 +111,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
         $columnCollection = $this->getColumnCollection();
 
         $columnIndex = 0;
-        foreach ($columnCollection as $columnIdentifier => $column) { /* @var $column Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+        foreach ($columnCollection as $columnIdentifier => $column) { /* @var $column HeaderColumn */
             $columnConfig = $column->getColumnConfig();
 
             // Only render if FE-User is allowed to see the column
@@ -129,19 +134,19 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
     /**
      * Renders an aggregate row for given aggregate row configuration and given row index
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow Row to be rendered
+     * @param Row $aggregateDataRow Row to be rendered
      * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig Config used to render aggregate row
      * @param integer $rowIndex Index of rendered row
-     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregate row
+     * @return ListData Rendered aggregate row
      */
-    public function renderAggregateRow(Tx_PtExtlist_Domain_Model_List_Row $aggregateDataRow,
+    public function renderAggregateRow(Row $aggregateDataRow,
                                        Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig,
                                        $rowIndex)
     {
-        $renderedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+        $renderedRow = new Row();
         $columnCollection = $this->getColumnCollection();
 
-        foreach ($columnCollection as $columnIdentifier => $column) { /* @var $column Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+        foreach ($columnCollection as $columnIdentifier => $column) { /* @var $column HeaderColumn */
             $columnConfiguration = $column->getColumnConfig();
 
             if ($columnConfiguration->isAccessable() && $column->getIsVisible()) {
@@ -151,7 +156,7 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
                         $columnIdentifier,
                         $rowIndex);
                 } else {
-                    $cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+                    $cell = new Cell();
                 }
 
                 $renderedRow->addCell($cell, $columnIdentifier);
@@ -169,12 +174,12 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
      * Renders a cell
      *
      * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
-     * @param Tx_PtExtlist_Domain_Model_List_Row $data
+     * @param Row $data
      * @param integer $columnIndex
      * @param integer $rowIndex
-     * @return Tx_PtExtlist_Domain_Model_List_Cell
+     * @return Cell
      */
-    protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Tx_PtExtlist_Domain_Model_List_Row $data, $columnIndex, $rowIndex)
+    protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Row $data, $columnIndex, $rowIndex)
     {
         return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
     }
@@ -182,11 +187,11 @@ class Tx_PtExtlist_Domain_Renderer_Default_RowRenderer
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+     * @return ListHeader
      */
     protected function getColumnCollection()
     {
-        $listHeaderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
+        $listHeaderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('ListHeaderFactory'); /* @var $listHeaderFactory ListHeaderFactory */
         $listHeader = $listHeaderFactory->createInstance($this->rendererConfiguration->getConfigurationBuilder());
         return $listHeader;
     }

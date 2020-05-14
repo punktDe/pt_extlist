@@ -42,7 +42,7 @@ class DataBackendInstancesContainer implements \TYPO3\CMS\Core\SingletonInterfac
     /**
      * Holds an array of data backend instances as list-identifier based singletons
      *
-     * @var array<Tx_PtExtlist_Domain_DataBackend_DataBackendInterface>
+     * @var array<DataBackendInterface>
      */
     private $instances = [];
 

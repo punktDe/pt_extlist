@@ -167,7 +167,7 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
      */
     public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'FilterboxIdentifier must not be empty! 1277889451']);
+        Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'FilterboxIdentifier must not be empty! 1277889451']);
         
         $this->configurationBuilder = $configurationBuilder;
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
@@ -276,8 +276,8 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
         $excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $excludeFiltersString);
         foreach ($excludeFilters as $excludedFilter) {
             list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
-            PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416']);
-            PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($filterIdentifier, ['message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417']);
+            Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416']);
+            Assert::isNotEmptyString($filterIdentifier, ['message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417']);
             if (!is_array($this->excludeFilters[$filterboxIdentifier]) || !in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
                 $this->excludeFilters[$filterboxIdentifier][] = $filterIdentifier;
             }

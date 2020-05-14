@@ -6,9 +6,9 @@ plugin.tx_ptextlist.settings {
 
 		   	backendConfig {
 				dataBackendClass = Tx_PtExtlist_Tests_Performance_TestDataBackend
-				dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
+				dataMapperClass = Mapper_ArrayMapper
 				dataSourceClass = Tx_PtExtlist_Tests_Performance_TestDataBackend
-				queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
+				queryInterpreterClass = MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 			}
 
     		fields {

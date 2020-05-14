@@ -130,7 +130,7 @@ Sample Configuration::
     pagerConfigs {
     second {
     enabled = 1
-    pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+    pagerClassName = DefaultPager
     templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/second.html
     
     showNextLink = 1

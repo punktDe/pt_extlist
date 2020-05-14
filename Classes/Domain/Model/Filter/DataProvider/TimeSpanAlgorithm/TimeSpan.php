@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\TimeSpanAlgorithm;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Collection\SortableEntityInterface;
+
 /**
  * Class implements a date picker filter
  *
@@ -33,24 +39,24 @@
  * @subpackage Model\Filter\DataProvider\TimeSpanAlgorithm
  * @author Joachim Mathes
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan implements PunktDe_PtExtbase_Collection_SortableEntityInterface
+class TimeSpan implements SortableEntityInterface
 {
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     protected $startDate;
 
 
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     protected $endDate;
 
 
 
     /**
-     * @param DateTime $startDate
+     * @param \DateTime $startDate
      * @return void
      */
     public function setStartDate($startDate)
@@ -61,7 +67,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan i
 
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getStartDate()
     {
@@ -71,7 +77,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan i
 
 
     /**
-     * @param DateTime $endDate
+     * @param \DateTime $endDate
      * @return void
      */
     public function setEndDate($endDate)
@@ -82,7 +88,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan i
 
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getEndDate()
     {

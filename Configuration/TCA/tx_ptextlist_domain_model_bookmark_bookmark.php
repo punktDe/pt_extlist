@@ -13,7 +13,7 @@ return [
         'enablecolumns'     => [
             'disabled' => 'hidden'
         ],
-        'iconfile'          => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('pt_extlist') . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
+        'iconfile'          => 'EXT:pt_extlist/Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
     ],
     'interface' => [
         'showRecordFieldList' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content'

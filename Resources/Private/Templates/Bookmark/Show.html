@@ -31,18 +31,18 @@ Here is a list of objects / variables that can be accessed in this template
         <f:form.textfield name="name" property="name" id="name" />
 
         <f:if condition="{bookmarkConfig.createPublicBookmarks}">
-            <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', constantName:'PTEXTLIST_BOOKMARK_PUBLIC')}" name="type-public" property="type" id="type-public" /> <label for="type-public">Public</label>
+            <f:form.radio value="{ptextbase:classConstant(className:'Bookmark', constantName:'PTEXTLIST_BOOKMARK_PUBLIC')}" name="type-public" property="type" id="type-public" /> <label for="type-public">Public</label>
         </f:if>
 
         <f:if condition="{bookmarkConfig.createPrivateBookmarks}">
             <f:if condition="{userLoggedIn}">
-                <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', constantName:'PTEXTLIST_BOOKMARK_PRIVATE')}" name="type-private" property="type" id="type-private" /> <label for="type-private">Private</label>
+                <f:form.radio value="{ptextbase:classConstant(className:'Bookmark', constantName:'PTEXTLIST_BOOKMARK_PRIVATE')}" name="type-private" property="type" id="type-private" /> <label for="type-private">Private</label>
             </f:if>
         </f:if>
 
         <f:if condition="{bookmarkConfig.createGroupBookmarks}">
             <f:if condition="{feGroups}">
-                <f:form.radio value="{ptextbase:classConstant(className:'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark', constantName:'PTEXTLIST_BOOKMARK_GROUP')}" name="type-group" property="type" id="type-group" /> <label for="type-group">Group</label>
+                <f:form.radio value="{ptextbase:classConstant(className:'Bookmark', constantName:'PTEXTLIST_BOOKMARK_GROUP')}" name="type-group" property="type" id="type-group" /> <label for="type-group">Group</label>
                 <f:form.select property="feGroup" options="{feGroups}" optionLabelField="title" />
             </f:if>
         </f:if>

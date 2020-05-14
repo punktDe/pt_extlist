@@ -58,7 +58,7 @@ class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectV
         $this->captionRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
 
         // TODO Remove this, once we have DI
-        $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory \Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+        $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory \ConfigurationBuilderFactory */
         $configurationBuilder = $configurationBuilderFactory->getInstance();
 
         $this->columnSelectorConfig = $configurationBuilder->buildColumnSelectorConfiguration();
@@ -86,7 +86,7 @@ class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectV
         $this->registerTagAttribute('size', 'string', 'Size of input field');
         $this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
 
-        $this->registerArgument('columns', 'Tx_PtExtlist_Domain_Model_List_Header_ListHeader', 'The columns', true);
+        $this->registerArgument('columns', 'ListHeader', 'The columns', true);
         $this->registerArgument('optionValueField', 'string', 'If specified, will call the appropriate getter on each object to determine the value.');
         $this->registerArgument('optionLabelField', 'string', 'If specified, will call the appropriate getter on each object to determine the label.');
         $this->registerArgument('sortByOptionLabel', 'boolean', 'If true, List will be sorted by label.', false, false);
@@ -97,7 +97,7 @@ class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectV
 
 
     /**
-     * @param \Tx_PtExtlist_Domain_Model_List_Header_ListHeader $headers
+     * @param \ListHeader $headers
      */
     public function render()
     {
@@ -106,7 +106,7 @@ class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectV
         $options = [];
         $selectedOptions = [];
 
-        foreach ($columns as $columnIdentifier => $column) { /** @var $column \Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn */
+        foreach ($columns as $columnIdentifier => $column) { /** @var $column \HeaderColumn */
 
             if (!($this->columnSelectorConfig->getHideDefaultVisibleInSelector() && $column->getColumnConfig()->getIsVisible())) {
                 $options[$columnIdentifier] = $this->captionRenderer->renderColumnLabel($column);

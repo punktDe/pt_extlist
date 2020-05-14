@@ -67,20 +67,20 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_RowRendererTest extends Tx_PtEx
     /** @test */
     public function renderRowRendersRowForGivenConfiguration()
     {
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
         $row->createAndAddCell('val1', 'field1');
         $row->createAndAddCell('val2', 'field2');
         $row->createAndAddCell('val3', 'field3');
         $row->createAndAddCell('val4', 'field4');
         
         $cellRenderer = $this->getMock('Tx_PtExtlist_Domain_Renderer_Default_CellRenderer', [], [], '', false);
-        $cellRenderer->expects($this->any())->method('renderCell')->will($this->returnValue(new Tx_PtExtlist_Domain_Model_List_Cell('test')));
+        $cellRenderer->expects($this->any())->method('renderCell')->will($this->returnValue(new Cell('test')));
         $rowRenderer = $this->getRowRenderer();
         $rowRenderer->injectCellRenderer($cellRenderer);
         
         $renderedRow = $rowRenderer->renderRow($row, 1);
         
-        foreach ($renderedRow as $cell) { /* @var $cell Tx_PtExtlist_Domain_Model_List_Cell */
+        foreach ($renderedRow as $cell) { /* @var $cell Cell */
             $this->assertEquals($cell->getValue(), 'test');
         }
     }

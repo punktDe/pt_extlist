@@ -64,7 +64,7 @@ class SysCategory extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Ab
     /**
      * (non-PHPdoc)
      * @throws \Exception
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::init()
      */
     public function init()
     {
@@ -90,7 +90,7 @@ class SysCategory extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Ab
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::getRenderedOptions()
      */
     public function getRenderedOptions()
     {

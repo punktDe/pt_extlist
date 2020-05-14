@@ -41,7 +41,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackendTest extends Tx_PtEx
     /**
      * Holds an instance of data backend class to be tested
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_DummyDataBackend
+     * @var DummyDataBackend
      */
     protected $dataBackend;
 
@@ -50,7 +50,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackendTest extends Tx_PtEx
     public function setup()
     {
         $this->initDefaultConfigurationBuilderMock();
-        $this->dataBackend = new Tx_PtExtlist_Domain_DataBackend_DummyDataBackend($this->configurationBuilderMock);
+        $this->dataBackend = new DummyDataBackend($this->configurationBuilderMock);
     }
 
 
@@ -60,6 +60,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DummyDataBackendTest extends Tx_PtEx
      */
     public function bookmarkManagerCanBeInjectedVia_injectBookmarkManager()
     {
-        $this->dataBackend->_injectBookmarkManager($this->getMock('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager', [], ['testList']));
+        $this->dataBackend->_injectBookmarkManager($this->getMock('BookmarkManager', [], ['testList']));
     }
 }

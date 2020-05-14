@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend;
+use PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter\ExtBaseInterpreter;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
+use PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface;
+use PunktDe\PtExtlist\Domain\Model\Sorting\SortingState;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+
 /**
  * Backend for using pt_extlist with ExtBase Domain objects
  * 
@@ -35,7 +51,7 @@
  * @package Domain
  * @subpackage DataBackend\ExtBaseDataBackend
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+class ExtBaseDataBackend extends AbstractDataBackend
 {
     /**
      * Holds a repository for creating domain objects
@@ -52,14 +68,14 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      * Although it's called data source, we create an extbase repository here which acts as a 
      * datasource for this backend.
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @return mixed
      */
-    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function createDataSource(ConfigurationBuilder $configurationBuilder)
     {
         $dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], ['message' => 'No repository class name is given for extBase backend. 1281546327']);
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), ['message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328']);
+        Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], ['message' => 'No repository class name is given for extBase backend. 1281546327']);
+        Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), ['message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328']);
         $repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get($dataBackendSettings['repositoryClassName']);
         return $repository;
     }
@@ -68,7 +84,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend::buildListData()
+     * @see Classes/Domain/DataBackend/AbstractDataBackend::buildListData()
      */
     protected function buildListData()
     {
@@ -93,13 +109,13 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
 
 
     /**
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery
+     * @param Query $groupDataQuery
      * @param array $excludeFilters
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      * @return array
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = [],
-                                 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null)
+    public function getGroupData(Query $groupDataQuery, $excludeFilters = [],
+                                 FilterConfig $filterConfig = null)
     {
         /**
          * This is a proof of concept. To make this work, we use group filter TS configuration as follows:
@@ -123,15 +139,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
             $fromArray = $groupDataQuery->getFrom();
 
             $repositoryClassName = $fromArray[0];
-            PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($repositoryClassName), ['message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744']);
+            Assert::isTrue(class_exists($repositoryClassName), ['message' => 'Configuration for group filter expects ' . $repositoryClassName . ' to be a classname but it is not. 1282245744']);
 
             $repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($repositoryClassName);
-            PunktDe_PtExtbase_Assertions_Assert::isTrue($repository instanceof \TYPO3\CMS\Extbase\Persistence\Repository, ['message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository']);
+            Assert::isTrue($repository instanceof \TYPO3\CMS\Extbase\Persistence\Repository, ['message' => 'Class ' . $repositoryClassName . ' does not implement an extbase repository']);
         } else {
             $repository = $this->repository;
         }
 
-        $extBaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $repository);
+        $extBaseQuery = ExtBaseInterpreter::interpretQueryByRepository($query, $repository);
 
         if ($this->backendConfiguration->getSettings('respectStoragePage') == 0) {
             $extBaseQuery->getQuerySettings()->setRespectStoragePage(false);
@@ -164,11 +180,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      * 
      * TODO put this into query class!
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $resultQuery Query to be returned after merge
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $queryToBeMerged Query to be merged into other query
-     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     * @param Query $resultQuery Query to be returned after merge
+     * @param Query $queryToBeMerged Query to be merged into other query
+     * @return Query
      */
-    protected function mergeGenericQueries(Tx_PtExtlist_Domain_QueryObject_Query $resultQuery, Tx_PtExtlist_Domain_QueryObject_Query $queryToBeMerged)
+    protected function mergeGenericQueries(Query $resultQuery, Query $queryToBeMerged)
     {
         // TODO merge other things, except criterias
         foreach ($queryToBeMerged->getCriterias() as $criteria) {
@@ -186,11 +202,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      *
      * TODO this method is not really required ATM, as all methods in query interpreter are static ATM
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter $queryInterpreter
+     * @param ExtBaseInterpreter $queryInterpreter
      */
     public function _injectQueryInterpreter($queryInterpreter)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isTrue($queryInterpreter instanceof Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter);
+        Assert::isTrue($queryInterpreter instanceof ExtBaseInterpreter);
         parent::_injectQueryInterpreter($queryInterpreter);
     }
 
@@ -208,7 +224,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
         $this->setSortingOnQuery($query);
 
         // Create Extbase query for current request by translating extlist query
-        $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
+        $extbaseQuery = ExtBaseInterpreter::interpretQueryByRepository($query, $this->repository);
 
         /* @var $extbaseQuery \TYPO3\CMS\Extbase\Persistence\Generic\Query */
         if ($this->backendConfiguration->getSettings('respectStoragePage') == 0) {
@@ -223,10 +239,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     /**
      * Set limits from current pager on given query object.
      * 
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      * @return void
      */
-    protected function setLimitOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    protected function setLimitOnQuery(Query $query)
     {
         if ($this->pagerCollection->isEnabled()) {
             $limitPart = '';
@@ -243,10 +259,10 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     /**
      * Sets sorting either from backend config or from sorter on given query
      * 
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      * @return void
      */
-    protected function setSortingOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    protected function setSortingOnQuery(Query $query)
     {
         if (count($this->sorter->getSortingStateCollection()) > 0) {
             $this->setSortingFromSorterOnQuery($query);
@@ -260,14 +276,14 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     /**
      * Sets sorting from sorter on given query
      * 
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      * @return void
      */
-    protected function setSortingFromSorterOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    protected function setSortingFromSorterOnQuery(Query $query)
     {
         $sorting = [];
         $sortingStateCollection = $this->sorter->getSortingStateCollection();
-        foreach ($sortingStateCollection as $sortingState) { /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+        foreach ($sortingStateCollection as $sortingState) { /* @var $sortingState SortingState */
             $fieldName = $sortingState->getField()->getIdentifier();
             $sorting[$fieldName] = $sortingState->getDirection();
         }
@@ -279,15 +295,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     /**
      * Sets sortings state on given query from backend sorting configuration
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      * @return void
      */
-    protected function setSortingFromDefaultSortingOnQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    protected function setSortingFromDefaultSortingOnQuery(Query $query)
     {
         list($field, $direction) = explode(' ', $this->backendConfiguration->getDataBackendSettings('sorting'));
         $sorting = [];
         $sorting[$field] = strtoupper($direction) == 'DESC' ?
-            Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC : Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC;
+            Query::SORTINGSTATE_DESC : Query::SORTINGSTATE_ASC;
         $query->addSortingArray($sorting);
     }
     
@@ -297,7 +313,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      * Builds extlist query object without regarding pager
      *
      * @param array $excludeFilters
-     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     * @return Query
      */
     protected function buildGenericQueryWithoutPager(array $excludeFilters = [])
     {
@@ -311,15 +327,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      * Builds extlist query object excluding criterias from filters given by parameter
      *
      * @param array $excludeFilters Array of <filterbox>.<filter> identifiers to be excluded from query
-     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     * @return Query
      */
     protected function buildGenericQueryExcludingFilters(array $excludeFilters = [])
     {
-        $query = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $query = new Query();
         
-        foreach ($this->filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+        foreach ($this->filterboxCollection as $filterbox) { /* @var $filterbox Filterbox */
 
-            foreach ($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+            foreach ($filterbox as $filter) { /* @var $filter FilterInterface */
                 if (!is_array($excludeFilters[$filterbox->getfilterboxIdentifier()]) || !in_array($filter->getFilterIdentifier(), $excludeFilters[$filterbox->getfilterboxIdentifier()])) {
                     $criterias = $filter->getFilterQuery()->getCriterias();
 
@@ -342,7 +358,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      */
     protected function buildExtBaseQueryWithoutPager()
     {
-        $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::interpretQueryByRepository(
+        $extbaseQuery = ExtBaseInterpreter::interpretQueryByRepository(
             $this->buildGenericQueryWithoutPager(), $this->repository); /* @var $extbaseQuery \TYPO3\CMS\Extbase\Persistence\Generic\Query */
 
         if ($this->backendConfiguration->getSettings('respectStoragePage') == 0) {
@@ -355,7 +371,7 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     
     
     /**
-     * @see Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getTotalItemsCount()
+     * @see DataBackendInterface::getTotalItemsCount()
      *
      * @return integer
      */
@@ -369,12 +385,12 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
     
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_DataBackendInterface::getAggregateByConfig()
+     * @see Classes/Domain/DataBackend/DataBackendInterface::getAggregateByConfig()
      */
-    public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateDataConfig)
+    public function getAggregatesByConfigCollection(AggregateConfigCollection $aggregateDataConfig)
     {
         // TODO: implement me!
-        throw new Exception('Aggregates are not yet available in extbase Backend');
+        throw new \Exception('Aggregates are not yet available in extbase Backend');
     }
     
     
@@ -385,14 +401,14 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend exte
      */
     public function _injectDataSource($dataSource)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isInstanceOf($dataSource, '\TYPO3\CMS\Extbase\Persistence\Repository', ['message' => 'Given data source must implement \TYPO3\CMS\Extbase\Persistence\Repository but did not! 1281545172']);
+        Assert::isInstanceOf($dataSource, '\TYPO3\CMS\Extbase\Persistence\Repository', ['message' => 'Given data source must implement \TYPO3\CMS\Extbase\Persistence\Repository but did not! 1281545172']);
         $this->repository = $dataSource;
     }
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
-     * @throws Exception
+     * @return IterationListDataInterface|void
+     * @throws \Exception
      */
     public function getIterationListData()
     {

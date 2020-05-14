@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Repository\Bookmark;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\Bookmark;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /**
  * Class implements bookmarks repository
  *
@@ -34,7 +41,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Repository_Bookmarks_BookmarkRepositoryTest
  */
-class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class BookmarkRepository extends Repository
 {
     /**
      * Holds PID of folder for bookmarks. This can be set via settings.bookmarks.bookmarksPid
@@ -76,19 +83,19 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
      * @param string $listIdentifier
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Bookmark>
      */
     public function findPrivateBookmarksByFeUserAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $listIdentifier)
     {
         $feUserUid = $feUser->getUid();
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117065']);
+        Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117065']);
         if ($feUserUid > 0) {
             $query = $this->createQuery();
             $query->setOrderings(['name' => 'ASC']);
             $query->matching($query->logicalAnd(
                 $query->logicalAnd(
                     $query->equals('feUser', $feUserUid), $query->equals('listId', $listIdentifier)),
-                $query->equals('type', Tx_PtExtlist_Domain_Model_Bookmark_Bookmark::PTEXTLIST_BOOKMARK_PRIVATE)));
+                $query->equals('type', Bookmark::PTEXTLIST_BOOKMARK_PRIVATE)));
             $result = $query->execute();
             return $result;
         } else {
@@ -102,15 +109,15 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      * Returns collection of PUBLIC bookmarks for given list identifier
      *
      * @param string $listIdentifier
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Bookmark>
      */
     public function findPublicBookmarksByListIdentifier($listIdentifier)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117066']);
+        Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117066']);
         $query = $this->createQuery();
         $query->setOrderings(['name'=>'ASC']);
         $query->matching($query->logicalAnd(
-            $query->logicalAnd($query->equals('listId', $listIdentifier), $query->equals('type', Tx_PtExtlist_Domain_Model_Bookmark_Bookmark::PTEXTLIST_BOOKMARK_PUBLIC)),
+            $query->logicalAnd($query->equals('listId', $listIdentifier), $query->equals('type', Bookmark::PTEXTLIST_BOOKMARK_PUBLIC)),
             $query->equals('pid', $this->bookmarkStoragePid)));
         $result = $query->execute();
         return $result;
@@ -123,11 +130,11 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
      * @param string $listIdentifier
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Bookmark>
      */
     public function findGroupBookmarksByFeUserAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $listIdentifier)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117068']);
+        Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117068']);
         $groupBookmarks = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $feUserGroups = $feUser->getUsergroup();
         foreach ($feUserGroups as $feUserGroup) { /* @var $feUserGroup \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup */
@@ -143,17 +150,17 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup
      * @param string $listIdentifier
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmark_Bookmark>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Bookmark>
      */
     public function findGroupBookmarksByFeGroupAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $feGroup, $listIdentifier)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117067']);
+        Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117067']);
         $query = $this->createQuery();
         $query->setOrderings(['name'=>'ASC']);
         $query->matching($query->logicalAnd(
             $query->logicalAnd(
                 $query->equals('feGroup', $feGroup->getUid()), $query->equals('listId', $listIdentifier)),
-            $query->equals('type', Tx_PtExtlist_Domain_Model_Bookmark_Bookmark::PTEXTLIST_BOOKMARK_GROUP)));
+            $query->equals('type', Bookmark::PTEXTLIST_BOOKMARK_GROUP)));
         $result = $query->execute();
         return $result;
     }
@@ -186,11 +193,11 @@ class Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository extends \TYPO3\
      * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
      * @param string $groupIds Comma-separated list of group uids
      * @param string $listIdentifier
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Bookmark>
      */
     public function findBookmarksByFeUserGroupIdsAndListIdentifier(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser, $groupIds, $listIdentifier)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117069']);
+        Assert::isNotEmptyString($listIdentifier, ['message' => 'List identifier must not be empty! 1283117069']);
         if (!is_array($groupIds)) {
             $groupIds = explode(',', $groupIds);
         }

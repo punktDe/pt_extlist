@@ -72,8 +72,8 @@ class FullTextCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
      */
     public function __construct(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fields, $searchString, array $searchParameter = [])
     {
-        PunktDe_PtExtbase_Assertions_Assert::isPositiveInteger($fields->count(), ['message' => 'No field given to search in! 1313532571']);
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($searchString, ['message' => 'SearchString must not be empty! 1313532596']);
+        Assert::isPositiveInteger($fields->count(), ['message' => 'No field given to search in! 1313532571']);
+        Assert::isNotEmptyString($searchString, ['message' => 'SearchString must not be empty! 1313532596']);
         $this->fields = $fields;
         $this->searchString = $searchString;
         $this->searchParameter = $searchParameter;

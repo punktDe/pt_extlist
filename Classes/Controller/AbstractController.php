@@ -32,10 +32,20 @@ use PunktDe\PtExtbase\Controller\AbstractActionController;
 use PunktDe\PtExtbase\Lifecycle\Manager;
 use PunktDe\PtExtbase\State\Session\SessionPersistenceManager;
 use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
 use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
 use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
 use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory;
 use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use PunktDe\PtExtlist\View\BaseView;
+use PunktDe\PtExtlist\View\ConfigurableViewInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Abstract controller for all pt_extlist controllers
@@ -47,7 +57,7 @@ use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
 abstract class AbstractController extends AbstractActionController
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager
+     * @var BookmarkManager
      */
     protected $bookmarkManager;
 
@@ -83,21 +93,21 @@ abstract class AbstractController extends AbstractActionController
     /**
      * Holds instance of configuration builder factory
      *
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory
+     * @var ConfigurationBuilderFactory
      */
     protected $configurationBuilderFactory;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @var ConfigurationBuilder
      *
      */
     protected $configurationBuilder;
 
     /**
      *
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface
+     * @var DataBackendInterface
      */
     protected $dataBackend;
 
@@ -131,21 +141,21 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory
+     * @var DataBackendFactory
      */
     protected $dataBackendFactory;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory
+     * @var GetPostVarAdapterFactory
      */
     protected $getPostVarsAdapterFactory;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory
+     * @var BookmarkManagerFactory
      */
     protected $bookmarkManagerFactory;
 
@@ -154,14 +164,14 @@ abstract class AbstractController extends AbstractActionController
     /**
      * Holds an instance of fe user repository
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+     * @var FrontendUserRepository
      */
     protected $feUserRepository;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory
+     * @var GetPostVarAdapterFactory
      */
     protected $getPostVarAdapterFactory;
 
@@ -182,7 +192,7 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory $dataBackendFactory
+     * @param DataBackendFactory $dataBackendFactory
      */
     public function injectDataBackendFactory(DataBackendFactory $dataBackendFactory)
     {
@@ -192,7 +202,7 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory $configurationBuilderFactory
+     * @param ConfigurationBuilderFactory $configurationBuilderFactory
      */
     public function injectConfigurationBuilderFactory(ConfigurationBuilderFactory $configurationBuilderFactory)
     {
@@ -202,7 +212,7 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory $getPostVarsAdapterFactory
+     * @param GetPostVarAdapterFactory $getPostVarsAdapterFactory
      */
     public function injectGetPostVarsAdapterFactory(GetPostVarAdapterFactory $getPostVarsAdapterFactory)
     {
@@ -212,7 +222,7 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory $bookmarkManagerFactory
+     * @param BookmarkManagerFactory $bookmarkManagerFactory
      */
     public function injectBookmarkManagerFactory(BookmarkManagerFactory $bookmarkManagerFactory)
     {
@@ -222,9 +232,9 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository
+     * @param FrontendUserRepository $feUserRepository
      */
-    public function injectFeUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository)
+    public function injectFeUserRepository(FrontendUserRepository $feUserRepository)
     {
         $this->feUserRepository = $feUserRepository;
     }
@@ -242,7 +252,7 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory $getPostVarAdapterFactory
+     * @param GetPostVarAdapterFactory $getPostVarAdapterFactory
      */
     public function injectGetPostVarAdapterFactory(GetPostVarAdapterFactory $getPostVarAdapterFactory)
     {
@@ -280,7 +290,7 @@ abstract class AbstractController extends AbstractActionController
         if ($this->settings['listIdentifier'] != '') {
             $this->listIdentifier = $this->settings['listIdentifier'];
         } else {
-            throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in FlexForm 1363797701');
+            throw new \Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in FlexForm 1363797701');
         }
     }
 
@@ -298,7 +308,7 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @return void
+     * @throws \Exception
      */
     protected function buildAndInitSessionPersistenceManager()
     {
@@ -344,17 +354,18 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @return PunktDe_PtExtbase_State_Session_SessionPersistenceManager
+     * @return SessionPersistenceManager
+     * @throws \Exception
      */
     protected function buildSessionPersistenceManager()
     {
         // Determine class name of session storage class to use for session persistence
         if (TYPO3_MODE === 'FE') {
-            $sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
+            $sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->isInCachedMode()
                 ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter() // We are in cached mode
                 : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter(); // We are in uncached mode
         } else {
-            $sessionPersistenceStorageAdapterClassName = PunktDe_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
+            $sessionPersistenceStorageAdapterClassName = SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
         }
         // Instantiate session storage for determined class name
         $sessionStorageAdapter = call_user_func($sessionPersistenceStorageAdapterClassName . '::getInstance');
@@ -365,7 +376,7 @@ abstract class AbstractController extends AbstractActionController
 
     /**
      * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
-     * @return void
+     * @throws \Exception
      */
     protected function setViewConfiguration(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
     {
@@ -387,9 +398,9 @@ abstract class AbstractController extends AbstractActionController
      */
     protected function initializeView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
     {
-        $this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
+        $this->objectManager->get(ExtbaseContext::class)->setControllerContext($this->controllerContext);
         if (method_exists($view, 'setConfigurationBuilder')) {
-            /* @var $view Tx_PtExtlist_View_ConfigurableViewInterface */
+            /* @var $view ConfigurableViewInterface */
             $view->setConfigurationBuilder($this->configurationBuilder);
         }
         $this->view->assign('config', $this->configurationBuilder);
@@ -458,7 +469,7 @@ abstract class AbstractController extends AbstractActionController
      * Set the TS defined custom paths in view
      *
      * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
-     * @throws Exception
+     * @throws \Exception
      */
     protected function setCustomPathsInView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
     {
@@ -474,20 +485,20 @@ abstract class AbstractController extends AbstractActionController
             $templatePathAndFilename = $this->templatePathAndFileName;
         }
         if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
-            if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename))) {
-                /* @var $view Tx_PtExtlist_View_BaseView */
-                $view->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename));
+            if (file_exists(GeneralUtility::getFileAbsFileName($templatePathAndFilename))) {
+                /* @var $view BaseView */
+                $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($templatePathAndFilename));
             } else {
-                throw new Exception('Given template path and filename could not be found or resolved: ' . \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename), 1284655110);
+                throw new \Exception('Given template path and filename could not be found or resolved: ' . \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename), 1284655110);
             }
         }
     }
 
 
-
     /**
      * (non-PHPdoc)
      *
+     * @throws StopActionException
      * @see redirect() in parent
      */
     protected function redirect($actionName, $controllerName = null, $extensionName = null, array $arguments = null, $pageUid = null, $delay = 0, $statusCode = 303)

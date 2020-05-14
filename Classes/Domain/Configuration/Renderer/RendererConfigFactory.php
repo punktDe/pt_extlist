@@ -48,7 +48,7 @@ class RendererConfigFactory
      */
     public static function getRendererConfiguration(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $rendererSettings)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isArray($rendererSettings, ['message' => 'No renderer settings found. 1281087488']);
+        Assert::isArray($rendererSettings, ['message' => 'No renderer settings found. 1281087488']);
         $config = new \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig($configurationBuilder, $rendererSettings);
         return $config;
     }

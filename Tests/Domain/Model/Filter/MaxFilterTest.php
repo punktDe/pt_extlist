@@ -111,7 +111,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_MaxFilterTest extends Tx_PtExtlist_
                 ->will($this->returnValue($fieldIdentifierCollection));
         }
             
-        $fieldMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig',
+        $fieldMock = $this->getAccessibleMock('FieldConfig',
             ['getTableFieldCombined'], [], '', false);
         $fieldMock->expects($this->any())
             ->method('getTableFieldCombined')

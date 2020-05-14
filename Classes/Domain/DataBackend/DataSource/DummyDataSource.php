@@ -1,7 +1,7 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
 
 /***************************************************************
  *  Copyright notice
@@ -37,7 +37,7 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSourceTest
  */
-class DummyDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource
+class DummyDataSource extends AbstractDataSource
 {
     /**
      * Some dummy data to be returned
@@ -60,10 +60,10 @@ class DummyDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\A
     /**
      * Returns some dummy data on an executed query
      *
-     * @param \PunktDe\PtExtlist\Domain\QueryObject\Query $query
+     * @param Query $query
      * @return array
      */
-    public function execute(\PunktDe\PtExtlist\Domain\QueryObject\Query $query = null)
+    public function execute(Query $query = null)
     {
         return $this->dummyArray;
     }

@@ -1,7 +1,7 @@
 <?php
 
-
 namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +29,10 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+
 /**
  * Class implements a row for a list data structure. Row contains
  * cells addressed by a identifier (column name).
@@ -39,7 +43,7 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_RowTest
  */
-class Row extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class Row extends ObjectCollection
 {
     /**
      * Special values for multiple purpose. Values are stored as key=>value pair
@@ -64,10 +68,10 @@ class Row extends \PunktDe\PtExtbase\Collection\ObjectCollection
      * Add a new cell to row identified by a given column name
      *  
      * @param string $columnName
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Cell $cell
-     * @return void
+     * @param Cell $cell
+     * @throws InternalException
      */
-    public function addCell(\PunktDe\PtExtlist\Domain\Model\Lists\Cell $cell, $columnName)
+    public function addCell(Cell $cell, $columnName)
     {
         $this->addItem($cell, $columnName);
     }
@@ -80,22 +84,27 @@ class Row extends \PunktDe\PtExtbase\Collection\ObjectCollection
      * @param string $cellContent
      * @param string $columnIdentifier
      */
+    /**
+     * @param $cellContent
+     * @param $columnIdentifier
+     * @throws InternalException
+     */
     public function createAndAddCell($cellContent, $columnIdentifier)
     {
-        $this->addItem(new \PunktDe\PtExtlist\Domain\Model\Lists\Cell($cellContent), $columnIdentifier);
+        $this->addItem(new Cell($cellContent), $columnIdentifier);
     }
 
 
 
     /**
      * @param $columnIdentifier
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Cell
-     * @throws Exception
+     * @return Cell
+     * @throws \Exception
      */
     public function getCell($columnIdentifier)
     {
         if (!$this->hasItem($columnIdentifier)) {
-            throw new Exception('No Cell with Identifier "' . $columnIdentifier . '" found in Row. There are ('.implode(', ', array_keys($this->itemsArr)).')! 1282978972');
+            throw new \Exception('No Cell with Identifier "' . $columnIdentifier . '" found in Row. There are ('.implode(', ', array_keys($this->itemsArr)).')! 1282978972');
         }
         return $this->getItemById($columnIdentifier);
     }
@@ -159,7 +168,7 @@ class Row extends \PunktDe\PtExtbase\Collection\ObjectCollection
     
     
     /**
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Cell $cell
+     * @return Cell $cell
      */
     public function getFirstCell()
     {
@@ -197,10 +206,10 @@ class Row extends \PunktDe\PtExtbase\Collection\ObjectCollection
 
         foreach ($rowArray['columns'] as $columnIdentifier => $cellData) {
             if (count($this->itemsArr)) {
-                $cell = array_pop($this->itemsArr); /**  @var $cell Tx_PtExtlist_Domain_Model_List_Cell */
+                $cell = array_pop($this->itemsArr); /**  @var $cell Cell */
                 $cell->setByArray($cellData);
             } else {
-                $cell = new \PunktDe\PtExtlist\Domain\Model\Lists\Cell();
+                $cell = new Cell();
                 $cell->setByArray($cellData);
             }
 

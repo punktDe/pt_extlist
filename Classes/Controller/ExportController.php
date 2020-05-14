@@ -1,6 +1,7 @@
 <?php
 namespace PunktDe\PtExtlist\Controller;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -28,6 +29,11 @@ namespace PunktDe\PtExtlist\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
+use PunktDe\PtExtlist\ExtlistContext\ExtlistContextFactory;
+use PunktDe\PtExtlist\View\Export\AbstractExportView;
+
 
 /**
  * Controller for export actions
@@ -44,33 +50,27 @@ class ExportController extends AbstractController
      */
     protected $resetConfigurationBuilder = true;
 
-
-
     /**
      * @var string
      */
     protected $exportListIdentifier;
 
-
-
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Lists\ListFactory
+     * @var ListFactory
      */
     protected $listFactory;
 
-
-
     /**
-     * @var \PunktDe\PtExtlist\View\Export\AbstractExportView
+     * @var AbstractExportView
      */
     protected $view;
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\ListFactory $listFactory
+     * @param ListFactory $listFactory
      */
-    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    public function injectListFactory(ListFactory $listFactory)
     {
         $this->listFactory = $listFactory;
     }
@@ -79,6 +79,7 @@ class ExportController extends AbstractController
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -88,7 +89,7 @@ class ExportController extends AbstractController
         if (!$this->exportListIdentifier) {
             $this->exportListIdentifier = $this->listIdentifier;
         }
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, ['message' => 'No export list identifier set.', 1316446015]);
+        Assert::isNotEmptyString($this->exportListIdentifier, ['message' => 'No export list identifier set.', 1316446015]);
     }
 
 
@@ -108,7 +109,7 @@ class ExportController extends AbstractController
      * Returns download for given parameters
      *
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     public function downloadAction()
     {
@@ -118,10 +119,10 @@ class ExportController extends AbstractController
             $exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
             
             if (!is_array($exportListConfiguration)) {
-                throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
+                throw new \Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
             }
 
-            $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
+            $extListContext = ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
             
             $list = $extListContext->getList(true);
         }

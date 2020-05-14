@@ -56,14 +56,14 @@
  * @package Tests
  * @subpackage pt_extlist
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_Model_Pager_DeltaPager
+ * @see DeltaPager
  */
 class Tx_PtExtlist_Tests_Domain_Model_Pager_DeltaPagerTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /**
      * Holds an instance of pager object
      *
-     * @var Tx_PtExtlist_Domain_Model_Pager_DeltaPager
+     * @var DeltaPager
      */
     protected $pager;
 
@@ -83,7 +83,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DeltaPagerTest extends Tx_PtExtlist_
 
         $pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($this->configurationBuilderMock, 'delta', $pagerSettings);
 
-        $proxyClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Pager_DeltaPager');
+        $proxyClass = $this->buildAccessibleProxy('DeltaPager');
         $this->pager = $this->objectManager->get($proxyClass, $pagerConfiguration);
     }
 
@@ -91,7 +91,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DeltaPagerTest extends Tx_PtExtlist_
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Pager_DeltaPager'));
+        $this->assertTrue(class_exists('DeltaPager'));
     }
 
 

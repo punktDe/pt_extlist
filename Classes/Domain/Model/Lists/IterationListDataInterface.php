@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
+
 /**
  * Interface for listData structure
  *
@@ -33,25 +37,25 @@
  * @package Domain
  * @subpackage Model\List
  */
-interface Tx_PtExtlist_Domain_Model_List_IterationListDataInterface extends Iterator
+interface IterationListDataInterface extends Iterator
 {
     /**
      * Set the datasource
      *
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDatasourceInterface $dataSource
+     * @param IterationDatasourceInterface $dataSource
      */
-    public function _injectDataSource(\PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDatasourceInterface $dataSource);
+    public function _injectDataSource(IterationDatasourceInterface $dataSource);
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface $mapper
+     * @param MapperInterface $mapper
      */
-    public function _injectDataMapper(\PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface $mapper);
+    public function _injectDataMapper(MapperInterface $mapper);
 
 
     /**
      * @abstract
-     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain
+     * @param RendererChain $renderChain
      */
     public function _injectRenderChain(\PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain);
 

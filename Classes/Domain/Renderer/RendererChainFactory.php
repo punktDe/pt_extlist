@@ -1,7 +1,11 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\Renderer;
+
+use PunktDe\Extlist\Domain\Renderer\RendererChain;
+use PunktDe\PtExtlist\Domain\AbstractComponentFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +33,8 @@ namespace PunktDe\PtExtlist\Domain\Renderer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
 /**
  * Class implements factory for renderer chain. 
  *
@@ -36,36 +42,35 @@ namespace PunktDe\PtExtlist\Domain\Renderer;
  * @subpackage Renderer
  * @author Michael Knoll 
  */
-class RendererChainFactory
-    extends \PunktDe\PtExtlist\Domain\AbstractComponentFactory
-    implements \TYPO3\CMS\Core\SingletonInterface
+class RendererChainFactory extends AbstractComponentFactory implements SingletonInterface
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererFactory
+     * @var RendererFactory
      */
     protected $rendererFactory;
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererFactory $rendererFactory
+     * @param RendererFactory $rendererFactory
      */
-    public function injectRendererFactory(\PunktDe\PtExtlist\Domain\Renderer\RendererFactory $rendererFactory)
+    public function injectRendererFactory(RendererFactory $rendererFactory)
     {
         $this->rendererFactory = $rendererFactory;
     }
 
 
-
     /**
      * Creates an instance of renderer chain object for given renderer chain configuration
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig $rendererChainConfiguration
-     * @return \PunktDe\PtExtlist\Domain\Renderer\RendererChain
+     * @param RendererChainConfig $rendererChainConfiguration
+     * @return RendererChain
+     * @throws Exception
      */
-    public function getRendererChain(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig $rendererChainConfiguration)
+    public function getRendererChain(RendererChainConfig $rendererChainConfiguration)
     {
-        $rendererChain = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_RendererChain', $rendererChainConfiguration);
+        /** @var RendererChain $rendererChain */
+        $rendererChain = $this->objectManager->get(RendererChain::class, $rendererChainConfiguration);
         //$rendererChain = new Tx_PtExtlist_Domain_Renderer_RendererChain($rendererChainConfiguration);
         foreach ($rendererChainConfiguration as $rendererConfiguration) {
             $renderer = $this->rendererFactory->getRenderer($rendererConfiguration);

@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator
+ * @see ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslatorTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -49,7 +49,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator'));
+        $this->assertTrue(class_exists('ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator'));
     }
     
     
@@ -61,7 +61,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $criteria = new Tx_PtExtlist_Domain_QueryObject_NotCriteria(new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria('field', 'value', '='));
         $query = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Query', [], [], '', false);
         try {
-            Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+            ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
                 $criteria, $query, $this->repositoryMock
             );
         } catch (Exception $e) {
@@ -82,7 +82,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             ->method('equals')
             ->with('field', 'value')
             ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+        ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
     
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             ->method('lessThan')
             ->with('field', 'value')
             ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+        ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
     
@@ -114,7 +114,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             ->method('lessThanOrEqual')
             ->with('field', 'value')
             ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+        ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
     
@@ -130,7 +130,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             ->method('greaterThan')
             ->with('field', 'value')
             ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+        ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
     
@@ -146,7 +146,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             ->method('greaterThanOrEqual')
             ->with('field', 'value')
             ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+        ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
     
@@ -176,7 +176,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             ->method('logicalAnd')
             ->with($firstConstraintMock, $secondConstraintMock)
             ->will($this->returnValue($andConstraintMock));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
+        ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria(
             $criteria, $query, $this->repositoryMock);
     }
     

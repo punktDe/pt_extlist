@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,18 +35,18 @@
  * @package Domain
  * @subpackage Model\List
  */
-interface Tx_PtExtlist_Domain_Model_List_ListDataInterface
+interface ListDataInterface
 {
     /**
      * @param integer $id
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row $row   Row to be added to list data
+     * @return Row $row   Row to be added to list data
      */
     public function getRow($id);
 
 
 
     /**
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row $row   Row to be added to list data
+     * @return Row $row   Row to be added to list data
      */
     public function getFirstRow();
 

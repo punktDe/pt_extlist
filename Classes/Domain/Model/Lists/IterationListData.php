@@ -1,6 +1,4 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\Model\Lists;
 
 /***************************************************************

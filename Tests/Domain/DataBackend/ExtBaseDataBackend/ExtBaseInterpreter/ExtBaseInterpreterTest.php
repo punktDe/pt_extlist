@@ -32,14 +32,14 @@
  * @package Tests
  * @subpackage Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
+ * @see ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreterTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter');
+        $this->assertClassExists('ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter');
     }
 
     
@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $repositoryMock = $this->getMock('\TYPO3\CMS\Extbase\Persistence\Repository', [], [], '', false);
         $repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($extbaseQueryMock));
         
-        $translatedQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::
+        $translatedQuery = ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::
             interpretQueryByRepository($queryObjectMock, $repositoryMock);
     }
 
@@ -73,7 +73,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
     
     public function testTranslateCriteria()
     {
-        $this->assertTrue(method_exists(Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter, 'translateCriteria'));
+        $this->assertTrue(method_exists(ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter, 'translateCriteria'));
     }
     
     
@@ -92,7 +92,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $extbaseQueryMock->expects($this->once())
            ->method('setLimit')
            ->with(intval('10'));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setLimitOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
+        ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setLimitOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
     }
     
     
@@ -111,7 +111,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             )
         );
         $extbaseQueryMock = new \TYPO3\CMS\Extbase\Persistence\Generic\Query('any');#$this->getMock('PunktDe_Extbase_Persistence_Query', array(), array(), '', FALSE);
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setSortingOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
+        ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setSortingOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
         $extBaseOrderings = $extbaseQueryMock->getOrderings();
         $this->assertEquals($extbaseQueryMock->getOrderings(), ['fieldName1' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING, 'fieldName2' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING]);
     }
@@ -129,7 +129,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $extbaseQueryMock->expects($this->once())
            ->method('setLimit')
            ->with(intval('20'));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setLimitOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
+        ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setLimitOnExtBaseQueryByQueryObject($queryObjectMock, $extbaseQueryMock, $repositoryMock);
     }
     
     
@@ -150,7 +150,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
             ->method('equals')
             ->with('field', 'value')
             ->will($this->returnValue($this->getMock('\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison', [], [], '', false)));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria, $extbaseQueryMock, $repositoryMock);
+        ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setCriteriaOnExtBaseQueryByCriteria($criteria, $extbaseQueryMock, $repositoryMock);
     }
 
     
@@ -180,6 +180,6 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $extbaseQueryMock->expects($this->any())
             ->method('getConstraint')
             ->will($this->returnValue(null));
-        Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setAllCriteriasOnExtBaseQueryByQueryObject($queryMock, $extbaseQueryMock, $repositoryMock);
+        ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter::setAllCriteriasOnExtBaseQueryByQueryObject($queryMock, $extbaseQueryMock, $repositoryMock);
     }
 }

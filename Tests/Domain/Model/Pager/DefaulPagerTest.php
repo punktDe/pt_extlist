@@ -39,7 +39,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     /**
      * Holds an instance of pager object
      *
-     * @var Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+     * @var DefaultPager
      */
     protected $pager;
 
@@ -60,14 +60,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
 
         $this->pagerConfiguration = Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigFactory::getInstance($this->configurationBuilderMock, 'default', $pagerSettings);
 
-        $accessiblePagerClass = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Pager_DefaultPager');
+        $accessiblePagerClass = $this->buildAccessibleProxy('DefaultPager');
         $this->pager = new $accessiblePagerClass($this->pagerConfiguration);
     }
 
 
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_Pager_DefaultPager'));
+        $this->assertTrue(class_exists('DefaultPager'));
     }
 
 
@@ -76,12 +76,12 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
         $settings['enabled'] = 0;
         $disabledPagerConfiguration = $this->getPagerConfigurationByArray($settings);
-        $disabledPager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($disabledPagerConfiguration);
+        $disabledPager = new DefaultPager($disabledPagerConfiguration);
         $this->assertFalse($disabledPager->isEnabled());
 
         $settings['enabled'] = 1;
         $enabledPagerConfiguration = $this->getPagerConfigurationByArray($settings);
-        $enabledPager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($enabledPagerConfiguration);
+        $enabledPager = new DefaultPager($enabledPagerConfiguration);
         $this->assertTrue($enabledPager->isEnabled());
     }
 
@@ -137,7 +137,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $settings['showFirstLink'] = 1;
         $settings['itemsPerPage'] = 10;
 
-        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $this->pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $this->assertTrue($this->pager->getShowFirstLink());
     }
 
@@ -150,7 +150,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $settings['showLastLink'] = 1;
         $settings['itemsPerPage'] = 10;
 
-        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $this->pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $this->assertTrue($this->pager->getShowLastLink());
     }
 
@@ -164,7 +164,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $settings['showPreviousLink'] = 1;
         $settings['itemsPerPage'] = 10;
 
-        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $this->pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $this->assertTrue($this->pager->getShowPreviousLink());
     }
 
@@ -178,7 +178,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $settings['showNextLink'] = 1;
         $settings['itemsPerPage'] = 10;
 
-        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $this->pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $this->assertTrue($this->pager->getShowNextLink());
     }
 
@@ -188,7 +188,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
         $settings['itemsPerPage'] = 2;
 
-        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $this->pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $this->pager->setItemCount(21);
 
         $this->assertEquals(count($this->pager->getPages()), 11);
@@ -200,7 +200,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
         $settings['itemsPerPage'] = 10;
 
-        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $this->pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $this->pager->setItemCount(100);
         $this->pager->setCurrentPage(2);
 
@@ -213,7 +213,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
         $settings['itemsPerPage'] = 10;
 
-        $this->pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $this->pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $this->pager->setCurrentPage(3);
         $this->pager->setItemCount(100);
 
@@ -232,7 +232,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     {
         $settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
         $settings['itemsPerPage'] = 10;
-        $pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $pager->setCurrentPage(1);
 
         $this->assertTrue($pager->getIsOnFirstPage());
@@ -244,7 +244,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     {
         $settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
         $settings['itemsPerPage'] = 10;
-        $pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $pager->setCurrentPage(2);
 
         $this->assertFalse($pager->getIsOnFirstPage());
@@ -256,7 +256,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     {
         $settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
         $settings['itemsPerPage'] = 10;
-        $pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $pager->setCurrentPage(10);
         $pager->setItemCount(100);
 
@@ -269,7 +269,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     {
         $settings = $this->configurationBuilderMock->getSettingsForConfigObject('pager');
         $settings['itemsPerPage'] = 10;
-        $pager = new Tx_PtExtlist_Domain_Model_Pager_DefaultPager($this->getPagerConfigurationByArray($settings));
+        $pager = new DefaultPager($this->getPagerConfigurationByArray($settings));
         $pager->setCurrentPage(1);
         $pager->setItemCount(100);
 
@@ -321,7 +321,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
         $pagerSettings['itemsPerPage'] = 10;
         $pagerConfigurationArray = \TYPO3\CMS\Core\Utility\GeneralUtility::array_merge_recursive_overrule($pagerSettings, $pagerConfigurationArray);
 
-        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', ['getPagerSettings', 'getListIdentifier'], [[]], '', false);
+        $configurationBuilderMock = $this->getMock('ConfigurationBuilder', ['getPagerSettings', 'getListIdentifier'], [[]], '', false);
         $configurationBuilderMock->expects($this->any())
             ->method('getListIdentifier')
             ->will($this->returnValue('test'));
@@ -342,7 +342,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_DefaultPagerTest extends Tx_PtExtlis
     protected function getPagerBaseSettings()
     {
         return [
-            'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+            'pagerClassName' => 'DefaultPager',
             'enabled' => '1'
         ];
     }

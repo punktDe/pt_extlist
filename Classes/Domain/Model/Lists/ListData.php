@@ -1,7 +1,6 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\Model\Lists;
+
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +28,10 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+
 /**
  * Class implements list data object containing rows for a list.
  *
@@ -38,24 +41,28 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest
  */
-class ListData extends \PunktDe\PtExtbase\Collection\ObjectCollection implements \PunktDe\PtExtlist\Domain\Model\Lists\ListDataInterface
+class ListData extends ObjectCollection implements ListDataInterface
 {
     /**
      * Class name to restrict collection to
      *
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_List_Row';
+    protected $restrictedClassName = Row::class;
     
     
     
     /**
      * Adds a row to list data
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Row $row   Row to be added to list data
+     * @param Row $row   Row to be added to list data
      * @return void
      */
-    public function addRow(\PunktDe\PtExtlist\Domain\Model\Lists\Row $row)
+    /**
+     * @param Row $row
+     * @throws InternalException
+     */
+    public function addRow(Row $row)
     {
         $this->addItem($row);
     }
@@ -63,7 +70,8 @@ class ListData extends \PunktDe\PtExtbase\Collection\ObjectCollection implements
     
     /**
      * @param integer $id
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row $row   Row to be added to list data
+     * @return Row $row   Row to be added to list data
+     * @throws InternalException
      */
     public function getRow($id)
     {
@@ -72,7 +80,7 @@ class ListData extends \PunktDe\PtExtbase\Collection\ObjectCollection implements
     
     
     /**
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row $row   Row to be added to list data
+     * @return Row $row   Row to be added to list data
      */
     public function getFirstRow()
     {

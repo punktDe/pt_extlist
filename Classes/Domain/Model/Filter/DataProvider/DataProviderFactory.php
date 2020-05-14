@@ -68,8 +68,8 @@ class DataProviderFactory
     {
         $dataProviderClassName = $this->determineDataProviderClass($filterConfig);
         $dataProvider = $this->objectManager->get($dataProviderClassName);
-        PunktDe_PtExtbase_Assertions_Assert::isInstanceOf($dataProvider, 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface', ['message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125']);
-        /* @var $dataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
+        Assert::isInstanceOf($dataProvider, 'DataProvider_DataProviderInterface', ['message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125']);
+        /* @var $dataProvider DataProvider_DataProviderInterface */
 
         $dataProvider->_injectFilterConfig($filterConfig);
         $dataProvider->_injectDataBackend($this->dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
@@ -93,12 +93,12 @@ class DataProviderFactory
             $dataProviderClassName = $filterConfig->getSettings('dataProviderClassName');
         } else {
             if ($filterConfig->getSettings('options')) {
-                $dataProviderClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData';
+                $dataProviderClassName = 'DataProvider_ExplicitData';
             } else {
-                $dataProviderClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData';
+                $dataProviderClassName = 'DataProvider_GroupData';
             }
         }
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($dataProviderClassName), ['message' => 'The defined DataProviderClass "'.$dataProviderClassName.'" does not exist! 1283535558']);
+        Assert::isTrue(class_exists($dataProviderClassName), ['message' => 'The defined DataProviderClass "'.$dataProviderClassName.'" does not exist! 1283535558']);
         return $dataProviderClassName;
     }
 }

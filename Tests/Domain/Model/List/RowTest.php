@@ -33,7 +33,7 @@
  * @author Michael Knoll 
  * @package Tests
  * @subpackage Domain\List
- * @see Tx_PtExtlist_Domain_Model_List_Row
+ * @see Row
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -66,7 +66,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_Ba
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Row');
+        $this->assertClassExists('Row');
     }
 
 
@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_Ba
      */
     public function addCell()
     {
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
         $row->createAndAddCell('testContent', 'testKey');
 
         $testCell = $row->getCell('testKey');
@@ -90,7 +90,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_Ba
      */
     public function rowContent()
     {
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
         $row->createAndAddCell('testContent', 'testKey');
         foreach ($row as $columnName => $cellContent) {
             $this->assertEquals($columnName, 'testKey');
@@ -104,7 +104,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_Ba
      */
     public function rowArrayAccess()
     {
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
         $row->createAndAddCell('testContent', 'testKey');
         $this->assertEquals($row['testKey']->getValue(), 'testContent');
     }
@@ -126,7 +126,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_Ba
      */
     public function setByArray()
     {
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
         $row->setByArray($this->dataArray);
 
         $this->assertEquals(2, $row->count());
@@ -141,7 +141,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_RowTest extends Tx_PtExtlist_Tests_Ba
      */
     public function getAsArray()
     {
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
         $row->createAndAddCell('testContent1', 'col1');
         $row->createAndAddCell('testContent2', 'col2');
         $row->addSpecialValue('key', 'value');

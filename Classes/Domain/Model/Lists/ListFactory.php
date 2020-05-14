@@ -27,6 +27,14 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\AbstractComponentFactory;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * Factory to put all parts of a list together.
  *  
@@ -35,28 +43,26 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  * @package Domain
  * @subpackage Model\List
  */
-class ListFactory
-    extends \PunktDe\PtExtlist\Domain\AbstractComponentFactory
-    implements \TYPO3\CMS\Core\SingletonInterface
+class ListFactory extends AbstractComponentFactory implements SingletonInterface
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory
+     * @var ListHeaderFactory
      */
     protected $listHeaderFactory;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory
+     * @var RendererChainFactory
      */
     protected $rendererChainFactory;
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory $listHeaderFactory
+     * @param ListHeaderFactory $listHeaderFactory
      */
-    public function injectListHeaderFactory(\PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory $listHeaderFactory)
+    public function injectListHeaderFactory(ListHeaderFactory $listHeaderFactory)
     {
         $this->listHeaderFactory = $listHeaderFactory;
     }
@@ -64,9 +70,9 @@ class ListFactory
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory $rendererChainFactory
+     * @param RendererChainFactory $rendererChainFactory
      */
-    public function injectRendererChainFactory(\PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory $rendererChainFactory)
+    public function injectRendererChainFactory(RendererChainFactory $rendererChainFactory)
     {
         $this->rendererChainFactory = $rendererChainFactory;
     }
@@ -76,14 +82,14 @@ class ListFactory
     /**
      * Returns a full featured list object.
      *
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param DataBackendInterface $dataBackend
+     * @param ConfigurationBuilder $configurationBuilder
      * @param boolean $resetList
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Lists
+     * @return Lists
      */
-    public function createList(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $resetList = false)
+    public function createList(DataBackendInterface $dataBackend, ConfigurationBuilder $configurationBuilder, $resetList = false)
     {
-        $list = new \PunktDe\PtExtlist\Domain\Model\Lists\Lists();
+        $list = new Lists();
 
         // We have to build headers here, as they are no longer created by data backend
         $listHeader = $this->listHeaderFactory->createInstance($configurationBuilder, $resetList);
@@ -111,16 +117,16 @@ class ListFactory
     /**
      * Build the aggregate list data if any aggregates are defined
      *
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
+     * @param DataBackendInterface $dataBackend
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return ListData
      */
-    public function buildAggregateListData(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface $dataBackend, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function buildAggregateListData(DataBackendInterface $dataBackend, ConfigurationBuilder $configurationBuilder)
     {
         if ($configurationBuilder->buildAggregateDataConfig()->count() > 0) {
             return $dataBackend->getAggregateListData();
         } else {
-            return new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
+            return new ListData();
         }
     }
 }

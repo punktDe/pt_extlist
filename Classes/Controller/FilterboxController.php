@@ -53,7 +53,7 @@ class FilterboxController extends AbstractController
     /**
      * Holds a pagerCollection.
      *  
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @var PagerCollection
      */
     protected $pagerCollection = null;
     
@@ -87,7 +87,7 @@ class FilterboxController extends AbstractController
     public function initializeAction()
     {
         parent::initializeAction();
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['filterboxIdentifier'], ['message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418']);
+        Assert::isNotEmptyString($this->settings['filterboxIdentifier'], ['message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418']);
         $this->filterboxIdentifier = $this->settings['filterboxIdentifier'];
         $this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
         $this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);

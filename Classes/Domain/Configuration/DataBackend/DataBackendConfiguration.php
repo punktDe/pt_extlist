@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\DataBackend;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,10 @@ namespace PunktDe\PtExtlist\Domain\Configuration\DataBackend;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Databackend configuration class. Holds configuration parameters for the dataBackend
  *
@@ -80,9 +85,9 @@ class DataBackendConfiguration extends \PunktDe\PtExtlist\Domain\Configuration\A
     /**
      * Constructor for data backend configuration
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function __construct(ConfigurationBuilder $configurationBuilder)
     {
         parent::__construct($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('dataBackend'));
 
@@ -102,8 +107,8 @@ class DataBackendConfiguration extends \PunktDe\PtExtlist\Domain\Configuration\A
      */
     protected function checkAndSetDataBackendClass($dataBackendClassName)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendClassName, ['message' => 'dataBackendClass must not be empty! 1281178473']);
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendClassName), ['message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1281178474']);
+        Assert::isNotEmptyString($dataBackendClassName, ['message' => 'dataBackendClass must not be empty! 1281178473']);
+        Assert::isTrue(class_exists($dataBackendClassName), ['message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1281178474']);
         $this->dataBackendClass = $dataBackendClassName;
     }
     
@@ -115,8 +120,8 @@ class DataBackendConfiguration extends \PunktDe\PtExtlist\Domain\Configuration\A
      */
     protected function checkAndSetDataMapperClass($dataMapperClassName)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($dataMapperClassName, ['message' => 'dataMapperClass must not be empty! 1281178475']);
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($dataMapperClassName), ['message' =>' Datamapper class ' . $dataMapperClassName . ' does not exist! 1281178476']);
+        Assert::isNotEmptyString($dataMapperClassName, ['message' => 'dataMapperClass must not be empty! 1281178475']);
+        Assert::isTrue(class_exists($dataMapperClassName), ['message' =>' Datamapper class ' . $dataMapperClassName . ' does not exist! 1281178476']);
         $this->dataMapperClass = $dataMapperClassName;
     }
 
@@ -127,8 +132,8 @@ class DataBackendConfiguration extends \PunktDe\PtExtlist\Domain\Configuration\A
      */
     protected function checkAndSetDataSourceClass($dataSourceClassName)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($dataSourceClassName, ['message' => 'dataSourceClassName must not be empty! 1337589668']);
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($dataSourceClassName), ['message' =>' DataSourceClass ' . $dataSourceClassName . ' does not exist! 1337589669']);
+        Assert::isNotEmptyString($dataSourceClassName, ['message' => 'dataSourceClassName must not be empty! 1337589668']);
+        Assert::isTrue(class_exists($dataSourceClassName), ['message' =>' DataSourceClass ' . $dataSourceClassName . ' does not exist! 1337589669']);
         $this->dataSourceClass = $dataSourceClassName;
     }
 
@@ -140,8 +145,8 @@ class DataBackendConfiguration extends \PunktDe\PtExtlist\Domain\Configuration\A
      */
     protected function checkAndSetQueryInterpreterClass($queryInterpreterClassName)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($queryInterpreterClassName, ['message' => 'queryInterpreterClass must not be empty! 1281178538']);
-        PunktDe_PtExtbase_Assertions_Assert::isTrue(class_exists($queryInterpreterClassName), ['message' =>' QueryInterpreter class ' . $queryInterpreterClassName . ' does not exist! 1281178539']);
+        Assert::isNotEmptyString($queryInterpreterClassName, ['message' => 'queryInterpreterClass must not be empty! 1281178538']);
+        Assert::isTrue(class_exists($queryInterpreterClassName), ['message' =>' QueryInterpreter class ' . $queryInterpreterClassName . ' does not exist! 1281178539']);
         $this->queryInterpreterClass = $queryInterpreterClassName;
     }
     

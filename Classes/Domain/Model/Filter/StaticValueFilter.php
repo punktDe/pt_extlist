@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
+class StaticValueFilter extends AbstractFilter
 {
     /**
      * Holds the current filter value
@@ -44,12 +44,12 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
+     * @param FieldConfig $fieldIdentifier
      * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
-        $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+        $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
         $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue, $fieldIdentifier->getTreatValueAsString());
 
         return $criteria;
@@ -97,7 +97,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
 
     /**
      * @param $filterValue
-     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+     * @return AbstractSingleValueFilter
      */
     public function setFilterValue($filterValue)
     {

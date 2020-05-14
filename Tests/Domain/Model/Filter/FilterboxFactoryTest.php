@@ -64,7 +64,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactoryTest extends Tx_PtE
         $filterboxConfigurationMock = new Tx_PtExtlist_Tests_Domain_Configuration_Filters_Stubs_FilterboxConfigurationCollectionMock();
         $filterboxConfigurationMock->setup();
         $filterboxConfiguration = $filterboxConfigurationMock->getfilterboxConfigurationMock('filterbox1');
-        $this->assertTrue($filterboxConfiguration->getConfigurationBuilder() instanceof Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder);
+        $this->assertTrue($filterboxConfiguration->getConfigurationBuilder() instanceof ConfigurationBuilder);
     }
     
     

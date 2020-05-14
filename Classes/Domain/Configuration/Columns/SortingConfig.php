@@ -80,11 +80,11 @@ class SortingConfig
     /**
      * Constructor for sorting configuration
      *
-     * @param $field
-     * @param $direction
-     * @param $forceDirection
+     * @param string $field
+     * @param int $direction
+     * @param bool $forceDirection
      */
-    public function __construct($field, $direction, $forceDirection, $label='')
+    public function __construct(string $field, int $direction, bool $forceDirection, string $label='')
     {
         // TODO assert that direction is 1 / 0 / -1
         $this->direction = $direction;

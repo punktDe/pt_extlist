@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
 
 /***************************************************************
@@ -29,6 +28,11 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtbase\Exception\InternalException;
+
 /**
  * AggregateRowConfigFactory for Aggregate config collection Objects 
  *
@@ -41,11 +45,12 @@ class AggregateRowConfigFactory
     /**
      * Build and return AggregateRowConfigObject
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $aggregateRowSettings
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection
+     * @return ColumnConfigCollection
+     * @throws InternalException
      */
-    public static function getAggregateRowConfig(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $aggregateRowSettings)
+    public static function getAggregateRowConfig(ConfigurationBuilder $configurationBuilder, array $aggregateRowSettings)
     {
         return self::buildAggregateRowConfigObject($configurationBuilder, $aggregateRowSettings);
     }
@@ -53,16 +58,22 @@ class AggregateRowConfigFactory
     
     
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $aggregateRowSettings
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection
+     * @return ColumnConfigCollection
      */
-    protected static function buildAggregateRowConfigObject(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $aggregateRowSettings)
+    /**
+     * @param ConfigurationBuilder $configurationBuilder
+     * @param array $aggregateRowSettings
+     * @return AggregateRowConfig
+     * @throws InternalException
+     */
+    protected static function buildAggregateRowConfigObject(ConfigurationBuilder $configurationBuilder, array $aggregateRowSettings)
     {
-        $aggregateRowConfig = new \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfig();
+        $aggregateRowConfig = new AggregateRowConfig();
         
         foreach ($aggregateRowSettings as $columnIdentifier => $aggregateColumnSettings) {
-            $aggregateColumnConfig = new \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateColumnConfig($configurationBuilder, $aggregateColumnSettings, $columnIdentifier);
+            $aggregateColumnConfig = new AggregateColumnConfig($configurationBuilder, $aggregateColumnSettings, $columnIdentifier);
             $aggregateRowConfig->addAggregateColumnConfig($aggregateColumnConfig, $columnIdentifier);
         }
         

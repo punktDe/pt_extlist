@@ -33,7 +33,7 @@
  * @author Daniel Lienert
  * @package Tests
  * @subpackage Model\List
- * @see Tx_PtExtlist_Domain_Model_List_ListData
+ * @see ListData
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -92,7 +92,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
      */
     public function classExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_List_ListData'));
+        $this->assertTrue(class_exists('ListData'));
     }
 
 
@@ -102,7 +102,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
      */
     public function populateListData()
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new ListData();
         $this->populateListDataByObjects($listData);
     }
 
@@ -113,7 +113,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
      */
     public function getFirstRow()
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new ListData();
         $this->populateListDataByObjects($listData);
 
         $row = $listData->getFirstRow();
@@ -128,7 +128,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
      */
     public function addRow()
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new ListData();
         $row = $this->createRowFromTestData($this->testData['rows'][0]);
 
         $listData->addRow($row);
@@ -142,7 +142,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
      */
     public function getRow()
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new ListData();
         $this->populateListDataByObjects($listData);
 
         $testRow = $this->createRowFromTestData($this->testData['rows'][1]);
@@ -157,7 +157,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
      */
     public function getCountTest()
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new ListData();
         $this->populateListDataByObjects($listData);
 
         $this->assertEquals(count($this->testData['rows']), $listData->count());
@@ -174,9 +174,9 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
     /**
      * Populates the listData the old way ..
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
+     * @param ListData $listData
      */
-    protected function populateListDataByObjects(Tx_PtExtlist_Domain_Model_List_ListData $listData)
+    protected function populateListDataByObjects(ListData $listData)
     {
         foreach ($this->testData['rows'] as $testRow) {
             $listData->addRow($this->createRowFromTestData($testRow));
@@ -187,16 +187,16 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListDataTest extends Tx_PtExtlist_Tes
 
     /**
      * @param array $rowData
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return Row
      */
     protected function createRowFromTestData(array $rowData)
     {
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
 
         $row->setSpecialValues($rowData['specialValues']);
 
         foreach ($rowData['columns'] as $key => $testCell) {
-            $cell = new Tx_PtExtlist_Domain_Model_List_Cell($testCell['value']);
+            $cell = new Cell($testCell['value']);
             $cell->setCSSClass($testCell['cssClass']);
             $cell->setColumnIndex($testCell['columnIndex']);
             $cell->setRowIndex($testCell['rowIndex']);

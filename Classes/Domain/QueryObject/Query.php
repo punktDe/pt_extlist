@@ -1,7 +1,6 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\QueryObject;
+
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +28,9 @@ namespace PunktDe\PtExtlist\Domain\QueryObject;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+
 /**
  * Class implements a query
  *
@@ -79,7 +81,7 @@ class Query
     /**
      * Holds array of criterias to restrict selection
      *
-     * @var array<Tx_PtExtlist_Domain_QueryObject_Criteria>
+     * @var array<\PunktDe\PtExtlist\Domain\QueryObject\Criteria>
      */
     protected $criterias = [];
     
@@ -123,7 +125,7 @@ class Query
      */
     public function addField($field)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1279988488']);
+        Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1279988488']);
         $this->fields[] = $field;
     }
     
@@ -148,7 +150,7 @@ class Query
      */
     public function addFrom($from)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($from, ['message' => 'From must not be empty! 1279988763']);
+        Assert::isNotEmptyString($from, ['message' => 'From must not be empty! 1279988763']);
         $this->from[] = $from;
     }
     
@@ -193,7 +195,7 @@ class Query
     /**
      * Returns all criterias from this query
      *
-     * @return array<Tx_PtExtlist_Domain_QueryObject_Criteria>
+     * @return array<\PunktDe\PtExtlist\Domain\QueryObject\Criteria>
      */
     public function getCriterias()
     {
@@ -268,7 +270,7 @@ class Query
      */
     public function addSorting($field, $direction = self::SORTINGSTATE_ASC)
     {
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'field must not be empty! 1280060692']);
+        Assert::isNotEmptyString($field, ['message' => 'field must not be empty! 1280060692']);
         
         if ($direction == self::SORTINGSTATE_ASC || $direction == self::SORTINGSTATE_DESC) {
             $this->sortings[$field] = $direction;

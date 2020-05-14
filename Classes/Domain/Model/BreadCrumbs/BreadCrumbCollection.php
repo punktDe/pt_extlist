@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\BreadCrumbs;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\State\GpVars\GpVarsInjectableInterface;
+use PunktDe\PtExtbase\State\IdentifiableInterface;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements a collection of breadcrumbs
  *
@@ -35,21 +44,21 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionTest
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
-    implements  PunktDe_PtExtbase_State_IdentifiableInterface,
-                PunktDe_PtExtbase_State_GpVars_GpVarsInjectableInterface
+class BreadCrumbCollection extends ObjectCollection
+    implements IdentifiableInterface,
+               GpVarsInjectableInterface
 {
     /**
      * Restrict collection to breadcrumb class
      *
      * @var String
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb';
+    protected $restrictedClassName = BreadCrumb::class;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
 
@@ -63,9 +72,9 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends \PunktD
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         $this->configurationBuilder = $configurationBuilder;
     }
@@ -87,9 +96,9 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection extends \PunktD
     /**
      * Adds a breadcrumb to collection
      *
-     * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb BreadCrumb to be added
+     * @param BreadCrumb $breadCrumb BreadCrumb to be added
      */
-    public function addBreadCrumb(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb $breadCrumb)
+    public function addBreadCrumb(BreadCrumb $breadCrumb)
     {
         $breadcrumbIdentifier = $breadCrumb->getFilter()->getFilterBoxIdentifier() . '.' . $breadCrumb->getFilter()->getFilterIdentifier();
         $this->addItem($breadCrumb, $breadcrumbIdentifier);

@@ -41,7 +41,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilderMock = null;
     

@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +35,7 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-interface Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
+interface DataProviderInterface
 {
     /**
      * inject the filterconfig

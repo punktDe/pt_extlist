@@ -26,9 +26,9 @@ if (TYPO3_MODE == 'BE') {
 /**
  * Load static templates for Typoscript settings
  */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '[pt_extlist] Basic settings');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Export', '[pt_extlist] Export settings');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Demolist', '[pt_extlist] Demolist Package');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('pt_extlist', 'Configuration/TypoScript', '[pt_extlist] Basic settings');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('pt_extlist', 'Configuration/TypoScript/Export', '[pt_extlist] Export settings');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('pt_extlist', 'Configuration/TypoScript/Demolist', '[pt_extlist] Demolist Package');
 
 $pluginModes = [
     'Pi1' => 'ExtList',
@@ -41,7 +41,7 @@ foreach ($pluginModes as $ident => $label) {
      * Register plugin in ExtBase
      */
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        $_EXTKEY,           // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
+        'pt_extlist',           // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
         $ident,                // A unique name of the plugin in UpperCamelCase
         $label        // A title shown in the backend dropdown field
     );

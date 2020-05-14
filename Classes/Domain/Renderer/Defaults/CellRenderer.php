@@ -1,6 +1,6 @@
 <?php
 
-namespace PunktDe\PtExtlist\Domain\Renderer\Default;
+namespace PunktDe\PtExtlist\Domain\Renderer\Defaults;
 
 /***************************************************************
  *  Copyright notice
@@ -28,7 +28,14 @@ namespace PunktDe\PtExtlist\Domain\Renderer\Default;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Cell;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Form\Mvc\Configuration\TypoScriptService;
 
 /**
  * Default renderer for a cell in a row in list data
@@ -41,7 +48,7 @@ class CellRenderer
 {
     /**
      * Reference to the ConfigurationBuilder
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
 
@@ -49,7 +56,7 @@ class CellRenderer
 
     /**
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfiguration
+     * @var RendererConfig
      */
     protected $rendererConfiguration;
 
@@ -67,9 +74,9 @@ class CellRenderer
     /**
      * Construct the strategy.
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration
+     * @param RendererConfig $rendererConfiguration
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration)
+    public function __construct(RendererConfig $rendererConfiguration)
     {
         $this->rendererConfiguration = $rendererConfiguration;
         $this->configurationBuilder = $rendererConfiguration->getConfigurationBuilder();
@@ -80,15 +87,15 @@ class CellRenderer
     /**
      * Renders the cell content.
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface $columnConfig
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Row $data The table data.
+     * @param ColumnConfigInterface $columnConfig
+     * @param Row $data The table data.
      * @param integer $columnIndex Current column index.
      * @param integer $rowIndex Current row index.
      *
      * @internal param string $columnIdentifier The columnIdentifier.
-     * @return PunktDe_Pt_extlist_Domain_Model_List_Cell
+     * @return Cell
      */
-    public function renderCell(\PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface $columnConfig, \PunktDe\PtExtlist\Domain\Model\Lists\Row $data, $columnIndex, $rowIndex)
+    public function renderCell(ColumnConfigInterface $columnConfig, Row $data, $columnIndex, $rowIndex)
     {
 
         // Load all available fields
@@ -105,7 +112,7 @@ class CellRenderer
         }
 
         // Create new cell
-        $cell = new \PunktDe\PtExtlist\Domain\Model\Lists\Cell($content);
+        $cell = new Cell($content);
         $cell->setRowIndex($rowIndex);
         $cell->setColumnIndex($columnIndex);
 
@@ -123,15 +130,15 @@ class CellRenderer
      * render the cells CSS Class
      *  
      * @param array $fieldSet
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface $columnConfig
+     * @param ColumnConfigInterface $columnConfig
      * @return string
      */
-    protected function renderCellCSSClass($fieldSet, \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface $columnConfig)
+    protected function renderCellCSSClass($fieldSet, ColumnConfigInterface $columnConfig)
     {
         $cellCSSConfig = $columnConfig->getCellCSSClass();
 
         if (is_array($cellCSSConfig)) {
-            $renderObj =            array_key_exists('renderObj', $cellCSSConfig)            ? GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(['renderObj' => $cellCSSConfig['renderObj']]) : null;
+            $renderObj =            array_key_exists('renderObj', $cellCSSConfig)            ? GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray(['renderObj' => $cellCSSConfig['renderObj']]) : null;
             $renderUserFunction =    array_key_exists('renderUserFunction', $cellCSSConfig)    ? $cellCSSConfig['renderUserFunction'] : null;
 
             return \PunktDe\PtExtlist\Utility\RenderValue::render($fieldSet, $renderObj, $renderUserFunction);
@@ -146,10 +153,10 @@ class CellRenderer
      * Call user functions for building special values.
      * renderer.specialCell gets overridden by column.specialCell
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Cell $cell
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface $columnConfig
+     * @param Cell $cell
+     * @param ColumnConfigInterface $columnConfig
      */
-    protected function renderSpecialValues(\PunktDe\PtExtlist\Domain\Model\Lists\Cell $cell, \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface $columnConfig)
+    protected function renderSpecialValues(Cell $cell, ColumnConfigInterface $columnConfig)
     {
         $rendererUserFunc = $this->rendererConfiguration->getSpecialCell();
 
@@ -169,11 +176,11 @@ class CellRenderer
     /**
      * Creates a set of fields which are available. Defined by the 'fields' TS setup.
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Row $row
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface $columnConfig
+     * @param Row $row
+     * @param ColumnConfigInterface $columnConfig
      * @return array
      */
-    protected function createFieldSet(\PunktDe\PtExtlist\Domain\Model\Lists\Row $row, \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface $columnConfig)
+    protected function createFieldSet(Row $row, ColumnConfigInterface $columnConfig)
     {
         $fieldSet = [];
         foreach ($columnConfig->getFieldIdentifier() as $fieldConfig) {
@@ -198,7 +205,7 @@ class CellRenderer
      *  2b duplicate non array fields
      *      
      * @param array fieldSet
-     * @throws Exception
+     * @throws \Exception
      * @return array
      */
     protected function createArrayDataFieldSet(array $fieldSet)
@@ -212,7 +219,7 @@ class CellRenderer
         }
 
         if (!is_array($loopArray)) {
-            throw new Exception('Error Column with Flag "containsArrayData" contains no Field with array-value!', 1283426460);
+            throw new \Exception('Error Column with Flag "containsArrayData" contains no Field with array-value!', 1283426460);
         }
 
         $outDataArray = [];

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace PunktDe\PtExtlist\Domain\Renderer\Default;
+namespace PunktDe\PtExtlist\Domain\Renderer\Defaults;
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +29,10 @@ namespace PunktDe\PtExtlist\Domain\Renderer\Default;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Property\PropertyMapper;
+
 /**
  * Maps data to a domain object
  *  
@@ -36,19 +40,19 @@ namespace PunktDe\PtExtlist\Domain\Renderer\Default;
  * @subpackage Renderer\Default
  * @author Daniel Lienert
  */
-class ObjectMapper implements \TYPO3\CMS\Core\SingletonInterface
+class ObjectMapper implements SingletonInterface
 {
     /**
-     * @var PunktDe_Extbase_Property_Mapper
+     * @var PropertyMapper
      */
     protected $mapper;
 
 
 
     /**
-     * @param PunktDe_Extbase_Property_Mapper $mapper
+     * @param PropertyMapper $mapper
      */
-    public function injectMapper(\TYPO3\CMS\Extbase\Property\Mapper $mapper)
+    public function injectMapper(PropertyMapper $mapper)
     {
         $this->mapper = $mapper;
     }
@@ -68,7 +72,7 @@ class ObjectMapper implements \TYPO3\CMS\Core\SingletonInterface
         $mappedObject = $this->mapper->map([], $data, $configuration->getClass());
 
         if ($mappedObject === null) {
-            throw new Exception('The data could mot be mapped to the object of class' . $configuration->getClass() .
+            throw new \Exception('The data could mot be mapped to the object of class' . $configuration->getClass() .
                       '. Reason: '. implode(', ', $this->mapper->getMappingResults()->getErrors()));
         }
 

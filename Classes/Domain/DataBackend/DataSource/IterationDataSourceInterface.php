@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-interface Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+interface IterationDataSourceInterface
 {
     /**
      * Return data row as array

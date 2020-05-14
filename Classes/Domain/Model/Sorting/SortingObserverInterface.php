@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Sorting;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,21 +34,21 @@
  * @package pt_extlist
  * @subpackage Domain\Model\Sorting
  */
-interface Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface
+interface SortingObserverInterface
 {
     /**
      * Registers a sorter which observes implementing object.
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Sorting\Sorter $sorter
+     * @param Sorter $sorter
      */
-    public function registerSorter(\PunktDe\PtExtlist\Domain\Model\Sorting\Sorter $sorter);
+    public function registerSorter(Sorter $sorter);
     
     
     
     /**
      * Returns sorting of implementing object.
      *  
-     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection Collection of sorting states
+     * @return SortingStateCollection Collection of sorting states
      */
     public function getSortingStateCollection();
     

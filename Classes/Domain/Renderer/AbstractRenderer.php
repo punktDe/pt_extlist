@@ -1,7 +1,6 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\Renderer;
+
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +28,12 @@ namespace PunktDe\PtExtlist\Domain\Renderer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+
 /**
  * Abstract class for list renderers
  *  
@@ -38,10 +43,10 @@ namespace PunktDe\PtExtlist\Domain\Renderer;
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class AbstractRenderer implements \PunktDe\PtExtlist\Domain\Renderer\ConfigurableRendererInterface
+abstract class AbstractRenderer implements ConfigurableRendererInterface
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig
+     * @var RendererConfig
      */
     protected $rendererConfiguration;
     
@@ -50,9 +55,9 @@ abstract class AbstractRenderer implements \PunktDe\PtExtlist\Domain\Renderer\Co
     /**
      * Inject the Configuration Builder
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration
+     * @param RendererConfig $rendererConfiguration
      */
-    public function _injectConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfiguration)
+    public function _injectConfiguration(RendererConfig $rendererConfiguration)
     {
         $this->rendererConfiguration = $rendererConfiguration;
     }
@@ -62,7 +67,7 @@ abstract class AbstractRenderer implements \PunktDe\PtExtlist\Domain\Renderer\Co
      * (non-PHPdoc)
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
      */
-    public function renderList(\PunktDe\PtExtlist\Domain\Model\Lists\ListData $listData)
+    public function renderList(ListData $listData)
     {
         return $listData;
     }
@@ -71,13 +76,13 @@ abstract class AbstractRenderer implements \PunktDe\PtExtlist\Domain\Renderer\Co
     /**
      * This method makes existing renderer compatible to iteration list data
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Lists\Row $row
+     * @param Row $row
      * @param $rowIndex
-     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row
+     * @return Row
      */
-    public function renderSingleRow(\PunktDe\PtExtlist\Domain\Model\Lists\Row $row, $rowIndex)
+    public function renderSingleRow(Row $row, $rowIndex)
     {
-        $listData = new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
+        $listData = new ListData();
         $listData->addRow($row, $rowIndex);
         $this->renderList($listData);
         $renderedRow = $listData->getFirstRow();
@@ -91,7 +96,7 @@ abstract class AbstractRenderer implements \PunktDe\PtExtlist\Domain\Renderer\Co
      * (non-PHPdoc)
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
      */
-    public function renderCaptions(\PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader $listHeader)
+    public function renderCaptions(ListHeader $listHeader)
     {
         return $listHeader;
     }
@@ -102,7 +107,7 @@ abstract class AbstractRenderer implements \PunktDe\PtExtlist\Domain\Renderer\Co
      * (non-PHPdoc)
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
      */
-    public function renderAggregateList(\PunktDe\PtExtlist\Domain\Model\Lists\ListData $aggregateListData)
+    public function renderAggregateList(ListData $aggregateListData)
     {
         return $aggregateListData;
     }

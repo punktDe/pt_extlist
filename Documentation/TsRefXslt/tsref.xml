@@ -35,7 +35,7 @@
 			<DEFAULT></DEFAULT>
 			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
-			<EXAMPLE>pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager</EXAMPLE>
+			<EXAMPLE>pagerClassName = DefaultPager</EXAMPLE>
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>

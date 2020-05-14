@@ -75,7 +75,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_SelectFilterTest extends Tx_PtExtli
         $selectFilter->_injectFilterConfig($filterConfiguration);
         $sessionManagerMock = $this->getMock('PunktDe_PtExtbase_State_Session_SessionPersistenceManager', [], [], '', false);
 
-        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock = new MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
         $selectFilter->_injectDataBackend($dataBackendMock);
 

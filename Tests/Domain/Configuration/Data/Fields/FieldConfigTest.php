@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage Domain\Configuration\Data\Fields
  * @author Daniel Lienert
- * @see Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+ * @see FieldConfig
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extend
     
     /**
      * Holds an instance of field configuration object
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @var FieldConfig
      */
     protected $fieldConfig = null;
     
@@ -64,14 +64,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extend
         
         $this->initDefaultConfigurationBuilderMock();
         
-        $this->fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', $this->fieldSettings);
+        $this->fieldConfig = new FieldConfig($this->configurationBuilderMock, 'test1', $this->fieldSettings);
     }
     
     
     
     public function testSetup()
     {
-        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', $this->fieldSettings);
+        $fieldConfig = new FieldConfig($this->configurationBuilderMock, 'test1', $this->fieldSettings);
     }
     
     
@@ -125,7 +125,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extend
         $fieldSettings = [
             'special' => 'specialtestString',
         ];
-        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', $fieldSettings);
+        $fieldConfig = new FieldConfig($this->configurationBuilderMock, 'test', $fieldSettings);
         $this->assertEquals($fieldConfig->getSpecial(), $fieldSettings['special']);
     }
     
@@ -133,7 +133,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extend
     
     public function testDefaultGetIsSortable()
     {
-        $newFieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', ['table' => '1', 'field' => '2']);
+        $newFieldConfig = new FieldConfig($this->configurationBuilderMock, 'test1', ['table' => '1', 'field' => '2']);
         $this->assertEquals($newFieldConfig->getIsSortable(), true);
     }
     
@@ -153,7 +153,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extend
     public function testNoTableNameGivenException()
     {
         try {
-            new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', ['field' => '2']);
+            new FieldConfig($this->configurationBuilderMock, 'test', ['field' => '2']);
         } catch (Exception $e) {
             return;
         }
@@ -165,7 +165,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest extend
     public function testNoFieldNameGivenException()
     {
         try {
-            new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', ['table' => '2']);
+            new FieldConfig($this->configurationBuilderMock, 'test', ['table' => '2']);
         } catch (Exception $e) {
             return;
         }

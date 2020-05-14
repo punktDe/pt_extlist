@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\View;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -24,6 +27,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 /**
  * Interface for configurable views that allow injection of configuration builder
@@ -33,13 +38,13 @@
  * @subpackage 
  * @see 
  */
-interface Tx_PtExtlist_View_ConfigurableViewInterface extends \TYPO3\CMS\Extbase\Mvc\View\ViewInterface
+interface ConfigurableViewInterface extends ViewInterface
 {
     /**
      * Injects configuration builder via setter.
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @return mixed
      */
-    public function setConfigurationBuilder(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder);
+    public function setConfigurationBuilder(ConfigurationBuilder $configurationBuilder);
 }

@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Link;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,12 @@ namespace PunktDe\PtExtlist\Domain\Link;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+use PunktDe\PtExtbase\State\GpVars\GpVarsAdapter;
+use PunktDe\PtExtbase\State\IdentifiableInterface;
+use PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig;
+
 /**
  * Link manager provides all links used in this plugin
  * TODO: implement shortlinks
@@ -40,14 +47,14 @@ namespace PunktDe\PtExtlist\Domain\Link;
 class LinkManager
 {
     /**
-     * @var PunktDe_PtExtbase_State_GpVars_GpVarsAdapter
+     * @var GpVarsAdapter
      */
     protected $getPostVarAdapter;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig
+     * @var ListConfig
      */
     protected $listConfiguration;
 
@@ -55,9 +62,9 @@ class LinkManager
 
     /**
      * Inject the get post var adapter
-     * @param PunktDe_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapter
+     * @param GpVarsAdapter $getPostVarAdapter
      */
-    public function injectGetPostVarAdapter(PunktDe_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapter)
+    public function injectGetPostVarAdapter(GpVarsAdapter $getPostVarAdapter)
     {
         $this->getPostVarAdapter = $getPostVarAdapter;
     }
@@ -68,7 +75,7 @@ class LinkManager
      * Inject the List configuration
      * @param $listConfig
      */
-    public function injectListConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig $listConfig)
+    public function injectListConfiguration(ListConfig $listConfig)
     {
         $this->listConfiguration = $listConfig;
     }
@@ -78,10 +85,10 @@ class LinkManager
     /**
      * Build and return the argument array for the given object
      *
-     * @param PunktDe_PtExtbase_State_IdentifiableInterface $object
+     * @param IdentifiableInterface $object
      * @param array $properties
      */
-    public function buildArgumentArrayForObject(PunktDe_PtExtbase_State_IdentifiableInterface $object, array $properties)
+    public function buildArgumentArrayForObject(IdentifiableInterface $object, array $properties)
     {
     }
 }

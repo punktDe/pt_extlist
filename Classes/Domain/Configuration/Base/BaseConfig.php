@@ -29,6 +29,11 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Base;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * Class implements basic configuration parameters
  *
@@ -37,7 +42,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Base;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest
  */
-class BaseConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
+class BaseConfig extends AbstractExtlistConfiguration
 {
     /**
      * Session storage adapter for a uncached plugin
@@ -82,8 +87,7 @@ class BaseConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlist
     /**
      * Template method for initializing this config object by injected
      * TypoScript settings.
-     *  
-     * @return void
+     * @throws \Exception
      */
     protected function init()
     {
@@ -91,7 +95,7 @@ class BaseConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlist
         $this->setBooleanIfExistsAndNotNothing('resetSessionOnResetParameter');
         $this->setRequiredValue('uncachedSessionStorageAdapter', 'No storage adapter for a uncached plugin has been given! 1302255094');
         $this->setRequiredValue('cachedSessionStorageAdapter', 'No storage adapter for a cached plugin has been given! 1302255109');
-        $this->useSession = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() ? false : true;
+        $this->useSession = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->isInCachedMode() ? false : true;
     }
     
     

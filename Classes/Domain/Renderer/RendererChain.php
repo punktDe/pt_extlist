@@ -1,4 +1,11 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Renderer;
+
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,12 +41,12 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterface
+class RendererChain implements RendererInterface
 {
     /**
      * Holds an array of renderers
      *
-     * @var array<Tx_PtExtlist_Domain_Renderer_RendererInterface>
+     * @var array<\PunktDe\PtExtlist\Domain\Renderer\RendererInterface>
      */
     protected $renderers = [];
     
@@ -47,7 +54,7 @@ class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterf
     
     /**
      * Holds an instance of renderer chain configuration
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig
+     * @var RendererChainConfig
      */
     protected $rendererChainConfiguration;
 
@@ -55,9 +62,9 @@ class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterf
     
     /**
      * Constructor for rendering chain
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig $rendererChainConfiguration
+     * @param RendererChainConfig $rendererChainConfiguration
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig $rendererChainConfiguration)
+    public function __construct(RendererChainConfig $rendererChainConfiguration)
     {
         $this->rendererChainConfiguration = $rendererChainConfiguration;
     }
@@ -67,12 +74,12 @@ class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterf
     /**
      * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @param ListHeader $listHeader
+     * @return Row
      */
-    public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    public function renderCaptions(ListHeader $listHeader)
     {
-        foreach ($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+        foreach ($this->renderers as $renderer) { /* @var $renderer RendererInterface */
             $listHeader = $renderer->renderCaptions($listHeader);
         }
         return $listHeader;
@@ -83,15 +90,15 @@ class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterf
     /**
      * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @param ListData $listData
+     * @return ListData
      */
-    public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData)
+    public function renderList(ListData $listData)
     {
         if (!$this->rendererChainConfiguration->isEnabled()) {
             return $listData;
         }
-        foreach ($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+        foreach ($this->renderers as $renderer) { /* @var $renderer RendererInterface */
             $listData = $renderer->renderList($listData);
         }
         return $listData;
@@ -100,16 +107,16 @@ class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterf
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_Row $row
+     * @param Row $row
      * @param $rowIndex
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return Row
      */
-    public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex)
+    public function renderSingleRow(Row $row, $rowIndex)
     {
         if (!$this->rendererChainConfiguration->isEnabled()) {
             return $row;
         }
-        foreach ($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+        foreach ($this->renderers as $renderer) { /* @var $renderer RendererInterface */
             $row = $renderer->renderSingleRow($row, $rowIndex);
         }
 
@@ -121,14 +128,14 @@ class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterf
     /**
      * Renders aggregated list data
      *  
-     * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
+     * @see RendererInterface::renderAggregateList()
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData Row to be rendered
-     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendered aggregated list data
+     * @param ListData $aggregatedListData Row to be renderer
+     * @return ListData Rendered aggregated list data
      */
-    public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregatedListData)
+    public function renderAggregateList(ListData $aggregatedListData)
     {
-        foreach ($this->renderers as $renderer) { /* @var $renderer Tx_PtExtlist_Domain_Renderer_RendererInterface */
+        foreach ($this->renderers as $renderer) { /* @var $renderer RendererInterface */
             $aggregatedListData = $renderer->renderAggregateList($aggregatedListData);
         }
         return $aggregatedListData;
@@ -139,9 +146,9 @@ class RendererChain implements \PunktDe\PtExtlist\Domain\Renderer\RendererInterf
     /**
      * Adds a renderer to the list of renderers
      *
-     * @param Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer
+     * @param RendererInterface $renderer
      */
-    public function addRenderer(Tx_PtExtlist_Domain_Renderer_RendererInterface $renderer)
+    public function addRenderer(RendererInterface $renderer)
     {
         $this->renderers[] = $renderer;
     }

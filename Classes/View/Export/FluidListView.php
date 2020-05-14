@@ -52,7 +52,7 @@ class FluidListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
     public function initConfiguration()
     {
         $this->templatePath = $this->exportConfiguration->getSettings('templatePath');
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, ['message' => 'No template path given for fluid export!', 1284621481]);
+        Assert::isNotEmptyString($this->templatePath, ['message' => 'No template path given for fluid export!', 1284621481]);
         $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->templatePath));
     }
 

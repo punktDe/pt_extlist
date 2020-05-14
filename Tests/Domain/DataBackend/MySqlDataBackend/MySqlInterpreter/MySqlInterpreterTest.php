@@ -33,7 +33,7 @@
  * @subpackage Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Michael Knoll 
  * @author Daniel Lienert
- * @see Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
+ * @see MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreterTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -78,28 +78,28 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_My
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter');
+        $this->assertClassExists('MySqlDataBackend_MySqlInterpreter_MySqlInterpreter');
     }
     
     
     
     public function testGetLimit()
     {
-        $this->assertTrue(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getLimit($this->queryObject) == '10,10');
+        $this->assertTrue(MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getLimit($this->queryObject) == '10,10');
     }
     
     
     
     public function testGroupByClause()
     {
-        $this->assertTrue(Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getGroupBy($this->queryObject) == 'name, company');
+        $this->assertTrue(MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getGroupBy($this->queryObject) == 'name, company');
     }
     
     
     
     public function testGetSortings()
     {
-        $sorting = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getSorting($this->queryObject);
+        $sorting = MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::getSorting($this->queryObject);
         $this->assertTrue($sorting == 'test ASC, test2 DESC', $sorting);
     }
     

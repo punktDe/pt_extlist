@@ -1,4 +1,25 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend;
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\MysqlDataSourceFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter;
+use PunktDe\PtExtlist\Domain\Model\Filter\AbstractFilter;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
+use PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use PunktDe\PtExtlist\Utility\RenderValue;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,10 +55,10 @@
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+class MySqlDataBackend extends AbstractDataBackend
 {
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+     * @var MySqlDataSource
      */
     protected $dataSource;
 
@@ -46,7 +67,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Holds an instance of a query interpreter to be used for
      * query objects
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
+     * @var MySqlInterpreter
      */
     protected $queryInterpreter;
 
@@ -105,15 +126,15 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Holds an instance of the renderer chain factory
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     * @var RendererChainFactory
      */
     protected $rendererChainFactory;
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+     * @param RendererChainFactory $rendererChainFactory
      */
-    public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
+    public function injectRendererChainFactory(RendererChainFactory $rendererChainFactory)
     {
         $this->rendererChainFactory = $rendererChainFactory;
     }
@@ -125,13 +146,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      * Only DataBackend knows, which data source to use and how to instantiate it.
      * So there cannot be a generic factory for data sources and data backend factory cannot instantiate it either!
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource Data source object for this data backend
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return MySqlDataSource Data source object for this data backend
      */
-    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function createDataSource(ConfigurationBuilder $configurationBuilder)
     {
-        $dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
-        $dataSource = Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
+        $dataSourceConfiguration = new DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
+        $dataSource = MysqlDataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
 
         return $dataSource;
     }
@@ -139,14 +160,14 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/DataBackend/Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend::initBackendByTsConfig()
+     * @see Classes/Domain/DataBackend/AbstractDataBackend::initBackendByTsConfig()
      */
     protected function initBackendByTsConfig()
     {
-        $this->tables = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables'));
-        $this->baseWhereClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
-        $this->baseFromClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
-        $this->baseGroupByClause = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
+        $this->tables = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables'));
+        $this->baseWhereClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
+        $this->baseFromClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
+        $this->baseGroupByClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
     }
 
 
@@ -195,8 +216,8 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface
-     * @throws Exception
+     * @return IterationListDataInterface
+     * @throws \Exception
      */
     public function getIterationListData()
     {
@@ -209,12 +230,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $dataSource = clone $this->dataSource;
         $dataSource->executeQuery($sqlQuery);
 
-        if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
-        }
+        ###TODO
+//        if (TYPO3_DLOG) {
+//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
+//        }
 
-        $iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_List_IterationListData');
-        /** @var $iterationListData Tx_PtExtlist_Domain_Model_List_IterationListData */
+        $iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('IterationListData');
+        /** @var $iterationListData IterationListData */
         $iterationListData->_injectDataSource($dataSource);
         $iterationListData->_injectDataMapper($this->dataMapper);
         $iterationListData->_injectRenderChain($rendererChain);
@@ -333,11 +355,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
         $selectParts = [];
 
         foreach ($this->fieldConfigurationCollection as $fieldConfiguration) {
-            /* @var $fieldConfiguration Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+            /* @var $fieldConfiguration FieldConfig */
             if ($fieldConfiguration->getExpandGroupRows() && $this->baseGroupByClause) {
-                $selectParts[] = 'group_concat(' . Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldConfiguration) . ' SEPARATOR "' . $fieldConfiguration->getExpandGroupRowsSeparator() . '") AS ' . $fieldConfiguration->getIdentifier();
+                $selectParts[] = 'group_concat(' . DbUtils::getSelectPartByFieldConfig($fieldConfiguration) . ' SEPARATOR "' . $fieldConfiguration->getExpandGroupRowsSeparator() . '") AS ' . $fieldConfiguration->getIdentifier();
             } else {
-                $selectParts[] = Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfiguration);
+                $selectParts[] = DbUtils::getAliasedSelectPartByFieldConfig($fieldConfiguration);
             }
         }
 
@@ -358,7 +380,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
             $fromPart = $this->tables;
         }
 
-        PunktDe_PtExtbase_Assertions_Assert::isNotEmptyString($fromPart, ['message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420']);
+        Assert::isNotEmptyString($fromPart, ['message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420']);
 
         return $fromPart;
     }
@@ -426,7 +448,7 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     public function getWhereClauseFromFilterboxes($excludeFilters = [])
     {
         $whereClauses = [];
-        foreach ($this->filterboxCollection as $filterBox) { /* @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+        foreach ($this->filterboxCollection as $filterBox) { /* @var $filterBox Filterbox */
 
             $excludeFilterbox = array_key_exists($filterBox->getfilterboxIdentifier(), $excludeFilters) ? $excludeFilters[$filterBox->getfilterboxIdentifier()] : [];
             $whereClauseFromFilterbox = $this->getWhereClauseFromFilterbox($filterBox, $excludeFilterbox);
@@ -442,14 +464,14 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Returns where clauses from all filters of a given filterbox
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox
+     * @param Filterbox $filterbox
      * @param array $excludeFilters Filters from which no where clause should be returned
      * @return string WHERE clause from filterbox without 'WHERE'
      */
-    public function getWhereClauseFromFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox, array $excludeFilters = [])
+    public function getWhereClauseFromFilterbox(Filterbox $filterbox, array $excludeFilters = [])
     {
         $whereClausesFromFilterbox = [];
-        foreach ($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+        foreach ($filterbox as $filter) { /* @var $filter FilterInterface */
 
             if (!in_array($filter->getFilterIdentifier(), $excludeFilters)) {
                 $whereClauseFromFilter = $this->getWhereClauseFromFilter($filter);
@@ -466,10 +488,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Returns WHERE clause for a given filter
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter
+     * @param AbstractFilter $filter
      * @return string WHERE clause for given filter without 'WHERE'
      */
-    public function getWhereClauseFromFilter(Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter)
+    public function getWhereClauseFromFilter(AbstractFilter $filter)
     {
         $whereClauseFromFilter = $this->queryInterpreter->getCriterias($filter->getFilterQuery());
         return $whereClauseFromFilter;
@@ -572,13 +594,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
      *
      * Result is given as associative array with fields given in query object.
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery Query that defines which group data to get
+     * @param Query $groupDataQuery Query that defines which group data to get
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
      */
-    public function getGroupData(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = [],
-                                 Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null)
+    public function getGroupData(Query $groupDataQuery, $excludeFilters = [],
+                                 FilterConfig $filterConfig = null)
     {
         $query = $this->buildGroupDataQuery($groupDataQuery, $excludeFilters, $filterConfig);
 
@@ -593,13 +615,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery
+     * @param Query $groupDataQuery
      * @param array $excludeFilters
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      * @return string
      */
-    protected function buildGroupDataQuery(Tx_PtExtlist_Domain_QueryObject_Query $groupDataQuery, $excludeFilters = [],
-                                            Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig = null)
+    protected function buildGroupDataQuery(Query $groupDataQuery, $excludeFilters = [],
+                                            FilterConfig $filterConfig = null)
     {
         $this->buildQuery();
 
@@ -647,9 +669,9 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Aggreagte the list by field and method or special sql
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+     * @param AggregateConfigCollection $aggregateConfigCollection
      */
-    public function getAggregatesByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection)
+    public function getAggregatesByConfigCollection(AggregateConfigCollection $aggregateConfigCollection)
     {
         $aggregateSQLQuery = $this->buildAggregateSQLByConfigCollection($aggregateConfigCollection);
 
@@ -666,10 +688,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Build the whole SQL Query for all aggregate fields
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+     * @param AggregateConfigCollection $aggregateConfigCollection
      * @return string
      */
-    protected function buildAggregateSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection)
+    protected function buildAggregateSQLByConfigCollection(AggregateConfigCollection $aggregateConfigCollection)
     {
         $this->buildQuery();
 
@@ -685,10 +707,10 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Build the fields Sql for all fields
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection
+     * @param AggregateConfigCollection $aggregateConfigCollection
      * @return string
      */
-    protected function buildAggregateFieldsSQLByConfigCollection(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfigCollection $aggregateConfigCollection)
+    protected function buildAggregateFieldsSQLByConfigCollection(AggregateConfigCollection $aggregateConfigCollection)
     {
         $fieldsSQL = [];
 
@@ -703,17 +725,17 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend extends 
     /**
      * Build the SQL Query for an aggregate
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig
+     * @param AggregateConfig $aggregateConfig
      * @return string
      */
-    protected function buildAggregateFieldSQLByConfig(Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig $aggregateConfig)
+    protected function buildAggregateFieldSQLByConfig(AggregateConfig $aggregateConfig)
     {
         $supportedMethods = ['sum', 'avg', 'min', 'max', 'count'];
 
         if ($aggregateConfig->getSpecial()) {
             $aggregateFieldSQL = $aggregateConfig->getSpecial();
         } else {
-            PunktDe_PtExtbase_Assertions_Assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, ['info' => 'The given aggregate method "' . $aggregateConfig->getMethod() . '" is not supported by this DataBackend']);
+            Assert::isInArray($aggregateConfig->getMethod(), $supportedMethods, ['info' => 'The given aggregate method "' . $aggregateConfig->getMethod() . '" is not supported by this DataBackend']);
             $aggregateFieldSQL = strtoupper($aggregateConfig->getMethod()) . '(' . $aggregateConfig->getFieldIdentifier() . ')';
         }
 

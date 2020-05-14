@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +36,7 @@
  * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
  * @author Michael Knoll 
  */
-interface Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseCriteriaTranslatorInterface
+interface ExtBaseCriteriaTranslatorInterface
 {
     /**
      * Translates a query an manipulates given query object

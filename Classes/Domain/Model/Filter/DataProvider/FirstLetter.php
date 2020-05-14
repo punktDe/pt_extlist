@@ -42,7 +42,7 @@ class FirstLetter extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Gr
     /**
      * Build the group data query to retrieve the group data
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+     * @param array FieldConfig $fields
      * @return string
      */
     protected function buildGroupDataQuery($fields)
@@ -75,7 +75,7 @@ class FirstLetter extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Gr
      * Returns an array of options to be displayed by filter
      * for a given array of fields
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @param array FieldConfig
      * @return array Options to be displayed by filter
      */
     protected function getRenderedOptionsByFields($fields)

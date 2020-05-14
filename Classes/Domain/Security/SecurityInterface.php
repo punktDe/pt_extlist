@@ -1,4 +1,9 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Security;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -30,7 +35,7 @@
  * @package Domain
  * @subpackage Security
  */
-interface Tx_PtExtlist_Domain_Security_SecurityInterface
+interface SecurityInterface
 {
-    public function isAccessableFilter(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configBuilder);
+    public function isAccessableFilter(FilterConfig $filterConfig, ConfigurationBuilder $configBuilder);
 }

@@ -154,18 +154,18 @@ class CsvListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
 
         // Rows
         foreach ($data as $listRow) {
-            /* @var $listRow Tx_PtExtlist_Domain_Model_List_Row */
+            /* @var $listRow Row */
 
             $row = [];
 
             if ($this->outputEncoding == 'UTF-8') {
                 foreach ($listRow as &$listCell) {
-                    /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                    /* @var $listCell Cell */
                     $row[] = $listCell->getValue();
                 }
             } else {
                 foreach ($listRow as &$listCell) {
-                    /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                    /* @var $listCell Cell */
                     $row[] = iconv('UTF-8', $this->outputEncoding, $listCell->getValue());
                 }
             }

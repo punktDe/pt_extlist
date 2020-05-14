@@ -125,7 +125,7 @@ class ConfigurationBuilderFactory
      * @param string $listIdentifier the listidentifier of the list
      * @param boolean $resetConfigurationBuilder
      * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
-     * @throws Exception
+     * @throws \Exception
      */
     public function getInstance($listIdentifier = null, $resetConfigurationBuilder = false)
     {
@@ -134,7 +134,7 @@ class ConfigurationBuilderFactory
         }
 
         if ($listIdentifier == '') {
-            throw new Exception('No list identifier could be found in settings!', 1280230579);
+            throw new \Exception('No list identifier could be found in settings!', 1280230579);
         }
 
         if ($resetConfigurationBuilder) {
@@ -143,7 +143,7 @@ class ConfigurationBuilderFactory
 
         if (!$this->configurationBuilderInstancesContainer->contains($listIdentifier)) {
             if (!is_array($this->settings['listConfig']) || !array_key_exists($listIdentifier, $this->settings['listConfig'])) {
-                throw new Exception('No list with listIdentifier ' . $listIdentifier . ' could be found in settings! Available are: ' .
+                throw new \Exception('No list with listIdentifier ' . $listIdentifier . ' could be found in settings! Available are: ' .
                     implode(', ', is_array($this->settings['listConfig']) ? array_keys($this->settings['listConfig']) : []),
                     1288110596
                 );

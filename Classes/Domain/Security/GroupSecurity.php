@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Security;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,15 @@ namespace PunktDe\PtExtlist\Domain\Security;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * @author Christoph Ehscheidt
  *
@@ -36,7 +46,7 @@ namespace PunktDe\PtExtlist\Domain\Security;
  * @subpackage Security
  * @see Tx_PtExtlist_Tests_Domain_Security_GroupSecurityTest
  */
-class GroupSecurity implements \PunktDe\PtExtlist\Domain\Security\SecurityInterface, \TYPO3\CMS\Core\SingletonInterface
+class GroupSecurity implements SecurityInterface, SingletonInterface
 {
     /**
      * Comma separated list of user groups
@@ -57,11 +67,11 @@ class GroupSecurity implements \PunktDe\PtExtlist\Domain\Security\SecurityInterf
     /**
      * Evaluates if a column is accessable by the FE-User(-Group).
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig
+     * @param ColumnConfig $columnConfig
      *
      * @return bool
      */
-    public function isAccessableColumn(\PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig)
+    public function isAccessableColumn(ColumnConfig $columnConfig)
     {
 
         // FAIL if one of this tests are failing.
@@ -79,7 +89,7 @@ class GroupSecurity implements \PunktDe\PtExtlist\Domain\Security\SecurityInterf
 
 
 
-    protected function checkColumn(\PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig)
+    protected function checkColumn(ColumnConfig $columnConfig)
     {
         $groups = $columnConfig->getAccessGroups();
 
@@ -98,12 +108,12 @@ class GroupSecurity implements \PunktDe\PtExtlist\Domain\Security\SecurityInterf
     /**
      * Evaluates if a filter is accessable by the FE-User(-Group).
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configBuilder
+     * @param FilterConfig $filterConfig
+     * @param ConfigurationBuilder $configBuilder
      *
      * @return bool
      */
-    public function isAccessableFilter(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configBuilder)
+    public function isAccessableFilter(FilterConfig $filterConfig, ConfigurationBuilder $configBuilder)
     {
         $fieldConfigCollection = $filterConfig->getFieldIdentifier();
 
@@ -126,12 +136,12 @@ class GroupSecurity implements \PunktDe\PtExtlist\Domain\Security\SecurityInterf
     /**
      * Check field access
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fieldConfigCollection
+     * @param FieldConfigCollection $fieldConfigCollection
      * @return bool
      */
-    protected function checkFields(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fieldConfigCollection)
+    protected function checkFields(FieldConfigCollection $fieldConfigCollection)
     {
-        foreach ($fieldConfigCollection as $fieldConfig) { /* @var $fieldConfig Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+        foreach ($fieldConfigCollection as $fieldConfig) { /* @var $fieldConfig FieldConfig */
             $ident = $fieldConfig->getAccessGroups();
 
             if (empty($ident)) {
@@ -147,7 +157,7 @@ class GroupSecurity implements \PunktDe\PtExtlist\Domain\Security\SecurityInterf
 
 
 
-    protected function checkFilter(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filter)
+    protected function checkFilter(FilterConfig $filter)
     {
         $groups = $filter->getAccessGroups();
         if (!is_array($groups)) {
@@ -181,7 +191,7 @@ class GroupSecurity implements \PunktDe\PtExtlist\Domain\Security\SecurityInterf
                 return true;
             }
 
-            $groupArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->userGroups);
+            $groupArray = GeneralUtility::trimExplode(',', $this->userGroups);
 
             foreach ($groupArray as $groupData) {
                 if ($group == $groupData) {

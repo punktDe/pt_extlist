@@ -1,7 +1,6 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 
 /***************************************************************
  *  Copyright notice
@@ -29,6 +28,10 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use Doctrine\DBAL\Driver\PDOStatement;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+
 /**
  * Class implements data source for mysql databases
  *  
@@ -37,13 +40,12 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  * @subpackage DataBackend\DataSource
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest
  */
-class MySqlDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource
-    implements \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDataSourceInterface
+class MySqlDataSource extends AbstractDataSource implements IterationDataSourceInterface
 {
     /**
      * Holds an instance of PDO for database connection
      *
-     * @var PDO
+     * @var \PDO
      */
     protected $connection;
 
@@ -58,19 +60,17 @@ class MySqlDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\A
     /**
      * Constructor for datasource
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $configuration
+     * @param DatabaseDataSourceConfiguration $configuration
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $configuration)
+    public function __construct(DatabaseDataSourceConfiguration $configuration)
     {
         $this->dataSourceConfiguration = $configuration;
     }
-    
-    
-    
+
     /**
      * Injector for database connection object
      *
-     * @param PDO $dbObject
+     * @param \PDO $dbObject
      */
     public function injectDbObject($dbObject)
     {
@@ -82,8 +82,8 @@ class MySqlDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\A
      * Executes a query using current database connection
      *
      * @param $query
-     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource
-     * @throws Exception
+     * @return MySqlDataSource
+     * @throws \Exception
      */
     public function executeQuery($query)
     {
@@ -93,8 +93,8 @@ class MySqlDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\A
             $this->statement = $this->connection->prepare($query);
             $this->statement->execute();
             $this->stopTimeMeasure();
-        } catch (Exception $e) {
-            throw new Exception('Error while trying to execute query on database! SQL-Statement: ' . $query .
+        } catch (\Exception $e) {
+            throw new \Exception('Error while trying to execute query on database! SQL-Statement: ' . $query .
                 ' - Error message from PDO: ' . $e->getMessage() .
                 '. Further information from PDO_errorInfo: ' . $this->statement->errorInfo(), 1280322659);
         }
@@ -105,28 +105,28 @@ class MySqlDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\A
 
     /**
      * @return array
-     * @throws Exception
+     * @throws \Exception
      */
     public function fetchAll()
     {
         if ($this->statement instanceof PDOStatement) {
-            return $this->statement->fetchall(PDO::FETCH_ASSOC);
+            return $this->statement->fetchall(\PDO::FETCH_ASSOC);
         } else {
-            throw new Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951370);
+            throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951370);
         }
     }
 
 
     /**
      * @return mixed
-     * @throws Exception
+     * @throws \Exception
      */
     public function fetchRow()
     {
         if ($this->statement instanceof PDOStatement) {
-            return $this->statement->fetch(PDO::FETCH_ASSOC);
+            return $this->statement->fetch(\PDO::FETCH_ASSOC);
         } else {
-            throw new Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
+            throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
         }
     }
 
@@ -146,6 +146,6 @@ class MySqlDataSource extends \PunktDe\PtExtlist\Domain\DataBackend\DataSource\A
      */
     public function rewind()
     {
-        return $this->statement->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_FIRST);
+        return $this->statement->fetch(\PDO::FETCH_ASSOC, \PDO::FETCH_ORI_FIRST);
     }
 }

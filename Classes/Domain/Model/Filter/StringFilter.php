@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\AndCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\OrCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
+
 /**
  * Class implements a string filter
  *
@@ -35,7 +45,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_StringFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+class StringFilter extends AbstractSingleValueFilter
 {
     /**
      * @var boolean
@@ -88,10 +98,10 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-     * @return null|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @param FieldConfig $fieldIdentifier
+     * @return null|SimpleCriteria
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
         if ($this->filterValue == '') {
             return null;
@@ -99,7 +109,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
 
         $this->treatValueAsString = $fieldIdentifier->getTreatValueAsString();
 
-        $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+        $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
         if ($this->orToken || $this->andToken) {
             $filterValueArray = $this->prepareFilterValue($this->filterValue);
@@ -116,7 +126,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     /**
      * @param $fieldName
      * @param $orLevelArray
-     * @return null|Tx_PtExtlist_Domain_QueryObject_AndCriteria|Tx_PtExtlist_Domain_QueryObject_OrCriteria|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return null|AndCriteria|OrCriteria|SimpleCriteria
      */
     protected function buildOrCriteria($fieldName, $orLevelArray)
     {
@@ -126,7 +136,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
             $singleORCriteria = $this->buildAndCriteria($fieldName, $andLevelArray);
 
             if ($criteria) {
-                $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($criteria, $singleORCriteria);
+                $criteria = Criteria::orOp($criteria, $singleORCriteria);
             } else {
                 $criteria = $singleORCriteria;
             }
@@ -140,7 +150,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     /**
      * @param $fieldName
      * @param $andLevelArray
-     * @return null|Tx_PtExtlist_Domain_QueryObject_AndCriteria|Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return null|AndCriteria|SimpleCriteria
      */
     public function buildAndCriteria($fieldName, $andLevelArray)
     {
@@ -150,7 +160,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
             $singleAndCriteria = $this->buildFilterCriteriaForSingleValue($fieldName, $singleValue);
 
             if ($criteria) {
-                $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria, $singleAndCriteria);
+                $criteria = Criteria::andOp($criteria, $singleAndCriteria);
             } else {
                 $criteria = $singleAndCriteria;
             }
@@ -164,15 +174,15 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends Tx_PtExtlist_Domain_
     /**
      * @param $fieldName
      * @param $filterValue
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return SimpleCriteria
      */
     protected function buildFilterCriteriaForSingleValue($fieldName, $filterValue)
     {
         if ($this->exactMatch) {
-            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $filterValue, $this->treatValueAsString);
+            $criteria = Criteria::equals($fieldName, $filterValue, $this->treatValueAsString);
         } else {
             $filterValue = '%' . $filterValue . '%';
-            $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);
+            $criteria = Criteria::like($fieldName, $filterValue);
         }
 
         return $criteria;

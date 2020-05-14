@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\DataBackend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +36,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+interface CriteriaTranslatorInterface
 {
     /**
      * Translates given criteria into current query language

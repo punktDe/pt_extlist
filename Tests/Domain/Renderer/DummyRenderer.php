@@ -53,10 +53,10 @@ class DummyRenderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
     /**
      * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @param ListHeader $listHeader
+     * @return Row
      */
-    public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    public function renderCaptions(ListHeader $listHeader)
     {
         return $listHeader;
     }
@@ -66,10 +66,10 @@ class DummyRenderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
     /**
      * @see Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @param ListData $listData
+     * @return ListData
      */
-    public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData)
+    public function renderList(ListData $listData)
     {
         return $listData;
     }
@@ -79,12 +79,12 @@ class DummyRenderer extends \PunktDe\PtExtlist\Domain\Renderer\AbstractRenderer
         /**
      * Returns a rendered aggregate list for a given row of aggregates
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
-     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
+     * @param ListData $aggregateListData
+     * @return ListData Rendererd List of aggregate rows
      */
-    public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData)
+    public function renderAggregateList(ListData $aggregateListData)
     {
-        return new Tx_PtExtlist_Domain_Model_List_ListData();
+        return new ListData();
     }
 
 

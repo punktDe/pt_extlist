@@ -58,9 +58,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
 
                     'backend' => [
                         'mysql' => [
-                            'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
-                            'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                            'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                            'dataBackendClass' => 'MySqlDataBackend_MySqlDataBackend',
+                            'dataMapperClass' => 'Mapper_ArrayMapper',
+                            'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 
 
                         ]
@@ -71,9 +71,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest extend
                      'Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfigTest' => [
                         
                         'backendConfig' => [
-                                'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
-                                'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                                'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                                'dataBackendClass' => 'Typo3DataBackend_Typo3DataBackend',
+                                'dataMapperClass' => 'Mapper_ArrayMapper',
+                                'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                 
                 
                                 'dataSource' => [
