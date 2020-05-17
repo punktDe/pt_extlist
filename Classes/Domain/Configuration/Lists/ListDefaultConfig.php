@@ -3,6 +3,8 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
 
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -37,7 +39,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_List_ListDefaultConfigTest
  */
-class ListDefaultConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
+class ListDefaultConfig extends AbstractExtlistConfiguration
 {
     /**
      * ListIdentifier of the default sorting column

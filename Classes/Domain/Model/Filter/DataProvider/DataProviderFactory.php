@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,13 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\AbstractComponentFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * Implements factory for options filter data provider
  *  
@@ -38,20 +46,20 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTest
  */
 class DataProviderFactory
-    extends \PunktDe\PtExtlist\Domain\AbstractComponentFactory
-    implements \TYPO3\CMS\Core\SingletonInterface
+    extends AbstractComponentFactory
+    implements SingletonInterface
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory
+     * @var DataBackendFactory
      */
     protected $dataBackendFactory;
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory $dataBackendFactory
+     * @param DataBackendFactory $dataBackendFactory
      */
-    public function injectDataBackendFactory(\PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory $dataBackendFactory)
+    public function injectDataBackendFactory(DataBackendFactory $dataBackendFactory)
     {
         $this->dataBackendFactory = $dataBackendFactory;
     }
@@ -61,15 +69,15 @@ class DataProviderFactory
     /**
      * Create a dataprovider for options filter data
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig
-     * @return \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\DataProviderInterface
+     * @param FilterConfig $filterConfig
+     * @return DataProviderInterface
      */
-    public function createInstance(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig)
+    public function createInstance(FilterConfig $filterConfig)
     {
         $dataProviderClassName = $this->determineDataProviderClass($filterConfig);
         $dataProvider = $this->objectManager->get($dataProviderClassName);
-        Assert::isInstanceOf($dataProvider, 'DataProvider_DataProviderInterface', ['message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125']);
-        /* @var $dataProvider DataProvider_DataProviderInterface */
+        Assert::isInstanceOf($dataProvider, DataProviderInterface::class, ['message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125']);
+        /* @var $dataProvider DataProviderInterface */
 
         $dataProvider->_injectFilterConfig($filterConfig);
         $dataProvider->_injectDataBackend($this->dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
@@ -84,10 +92,10 @@ class DataProviderFactory
      * Determine the dataProvider to use for filter options
      *
      * TODO: Test me!
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      * @return string dataProviderClass
      */
-    protected function determineDataProviderClass(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig)
+    protected function determineDataProviderClass(FilterConfig $filterConfig)
     {
         if ($filterConfig->getSettings('dataProviderClassName')) {
             $dataProviderClassName = $filterConfig->getSettings('dataProviderClassName');

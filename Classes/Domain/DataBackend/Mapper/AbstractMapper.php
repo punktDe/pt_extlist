@@ -3,6 +3,9 @@
 
 namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -38,19 +41,19 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
  * @package Domain
  * @subpackage DataBackend\Mapper
  */
-abstract class AbstractMapper implements \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface
+abstract class AbstractMapper implements MapperInterface
 {
     /**
      * Holds mapping configurations
      *
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
+     * @var FieldConfigCollection
      */
     protected $fieldConfigurationCollection = null;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
 
@@ -65,9 +68,9 @@ abstract class AbstractMapper implements \PunktDe\PtExtlist\Domain\DataBackend\M
     /**
      * Sets the mapper configuration
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $mapperConfiguration
+     * @param FieldConfigCollection $mapperConfiguration
      */
-    public function _injectMapperConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $mapperConfiguration)
+    public function _injectMapperConfiguration(FieldConfigCollection $mapperConfiguration)
     {
         $this->fieldConfigurationCollection = $mapperConfiguration;
     }
@@ -75,9 +78,9 @@ abstract class AbstractMapper implements \PunktDe\PtExtlist\Domain\DataBackend\M
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function _injectConfigurationBuilder(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function _injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         $this->configurationBuilder = $configurationBuilder;
     }

@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Export;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /**
  * Class implements configuration for export
  *
@@ -37,7 +40,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Export;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigTest
  */
-class ExportConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
+class ExportConfig extends AbstractExtlistConfiguration
 {
     /**
      * Add current date to filename

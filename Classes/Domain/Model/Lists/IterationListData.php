@@ -1,6 +1,7 @@
 <?php
 namespace PunktDe\PtExtlist\Domain\Model\Lists;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,6 +28,12 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDataSourceInterface;
+use PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
+
 /**
  * Class implements a listData that iterates through a data source
  *
@@ -35,17 +42,17 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  * @subpackage Model\List
  * @see Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest
  */
-class IterationListData implements \PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface
+class IterationListData implements IterationListDataInterface
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDatasourceInterface
+     * @var IterationDatasourceInterface
      */
     protected $dataSource;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Model\Lists\Row
+     * @var Row
      */
     protected $currentRow = null;
 
@@ -59,23 +66,23 @@ class IterationListData implements \PunktDe\PtExtlist\Domain\Model\Lists\Iterati
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface
+     * @var MapperInterface
      */
     protected $dataMapper;
 
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Renderer\RendererChain
+     * @var RendererChain
      */
     protected $renderChain;
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDatasourceInterface $dataSource
+     * @param IterationDatasourceInterface $dataSource
      */
-    public function _injectDataSource(\PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDataSourceInterface $dataSource)
+    public function _injectDataSource(IterationDataSourceInterface $dataSource)
     {
         $this->dataSource = $dataSource;
     }
@@ -83,9 +90,9 @@ class IterationListData implements \PunktDe\PtExtlist\Domain\Model\Lists\Iterati
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface $dataMapper
+     * @param MapperInterface $dataMapper
      */
-    public function _injectDataMapper(\PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface $dataMapper)
+    public function _injectDataMapper(MapperInterface $dataMapper)
     {
         $this->dataMapper = $dataMapper;
     }
@@ -93,9 +100,9 @@ class IterationListData implements \PunktDe\PtExtlist\Domain\Model\Lists\Iterati
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain
+     * @param RendererChain $renderChain
      */
-    public function _injectRenderChain(\PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain)
+    public function _injectRenderChain(RendererChain $renderChain)
     {
         $this->renderChain = $renderChain;
     }

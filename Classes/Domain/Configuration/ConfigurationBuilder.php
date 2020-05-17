@@ -29,21 +29,41 @@ namespace PunktDe\PtExtlist\Domain\Configuration;
  ***************************************************************/
 
 use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Configuration\AbstractConfigurationBuilder;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfigCollection;
 use PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Base\BaseConfig;
 use PunktDe\PtExtlist\Domain\Configuration\Base\BaseConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig;
 use PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfig;
 use PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection;
 use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig;
 use PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
 use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
 use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfiguration;
 use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfigurationFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig;
 use PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfigCollection;
 use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig;
 use PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Lists\ListDefaultConfig;
 use PunktDe\PtExtlist\Domain\Configuration\Lists\ListDefaultConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfigCollection;
 use PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfigCollectionFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig;
 use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfigFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig;
 use PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfigFactory;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 
@@ -58,7 +78,7 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
  * @author Christoph Ehscheidt
  * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderTest
  */
-class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConfigurationBuilder
+class ConfigurationBuilder extends AbstractConfigurationBuilder
 {
     /**
      * Holds settings to build configuration objects
@@ -162,7 +182,7 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
      *
      * @param array $settings
      * @param string $listIdentifier
-     * @throws Exception if no list configuration can be found for list identifier
+     * @throws \Exception if no list configuration can be found for list identifier
      */
     protected function setListIdentifier($settings, $listIdentifier = null)
     {
@@ -176,7 +196,7 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
             } else {
                 $helpListIdentifier = 'No list configurations available on this page.';
             }
-            throw new Exception('No list configuration can be found for list identifier "' . $listIdentifier . '" 1278419536' . '<br>' . $helpListIdentifier);
+            throw new \Exception('No list configuration can be found for list identifier "' . $listIdentifier . '" 1278419536' . '<br>' . $helpListIdentifier);
         }
 
         $this->listIdentifier = $listIdentifier;
@@ -220,7 +240,10 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
      * Returns configuration object for filterbox identifier
      *
      * @param string $filterboxIdentifier
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig
+     * @return FilterboxConfig
+     *
+     * @throws Assertion
+     * @throws InternalException
      */
     public function getFilterboxConfigurationByFilterboxIdentifier($filterboxIdentifier)
     {
@@ -232,7 +255,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
 
     /**
      * Returns a singleton instance of databackend configuration
-     * @return \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DatabackendConfiguration
+     * @return DatabackendConfiguration
+     * @throws \Exception
      */
     public function buildDataBackendConfiguration()
     {
@@ -244,7 +268,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a singleton instance of a fields configuration collection for current list configuration
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
+     * @return FieldConfigCollection
+     * @throws \Exception
      */
     public function buildFieldsConfiguration()
     {
@@ -256,7 +281,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a singleton instance of a aggregateData configuration collection for current list configuration
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection
+     * @return AggregateConfigCollection
+     * @throws \Exception
      */
     public function buildAggregateDataConfig()
     {
@@ -268,7 +294,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * return a singelton instance of aggregate row collection
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfigCollection
+     * @return AggregateRowConfigCollection
+     * @throws \Exception
      */
     public function buildAggregateRowsConfig()
     {
@@ -279,7 +306,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
 
     /**
      * return a singleton instance of export configuratrion
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig
+     * @return ExportConfig
+     * @throws \Exception
      */
     public function buildExportConfiguration()
     {
@@ -291,7 +319,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a singleton instance of columns configuration collection for current list configuration
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection
+     * @return ColumnConfigCollection
+     * @throws \Exception
      */
     public function buildColumnsConfiguration()
     {
@@ -303,7 +332,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a singleton instance of a filter configuration collection for current list configuration
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfigCollection
+     * @return FilterboxConfigCollection
+     * @throws \Exception
      */
     public function buildFilterConfiguration()
     {
@@ -315,7 +345,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a singleton instance of the renderer chain configuration object.
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig
+     * @return RendererChainConfig
+     * @throws \Exception
      */
     public function buildRendererChainConfiguration()
     {
@@ -327,7 +358,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns base configuration
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Base\BaseConfig
+     * @return BaseConfig
+     * @throws \Exception
      */
     public function buildBaseConfiguration()
     {
@@ -339,7 +371,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns bookmark configuration
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig
+     * @return BookmarkConfig
+     * @throws \Exception
      */
     public function buildBookmarkConfiguration()
     {
@@ -349,7 +382,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
 
 
     /**
-     * @return \PunktDe\PtExtlist\Domain\Configuration\List\ListDefaultConfig
+     * @return ListDefaultConfig
+     * @throws \Exception
      */
     public function buildListDefaultConfig()
     {
@@ -361,7 +395,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns configuration object for pager
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfigCollection Configuration object for pager
+     * @return PagerConfigCollection Configuration object for pager
+     * @throws \Exception
      */
     public function buildPagerConfiguration()
     {
@@ -373,7 +408,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a list configuration object
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\List\ListConfig
+     * @return ListConfig
+     * @throws \Exception
      */
     public function buildListConfiguration()
     {
@@ -385,7 +421,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a breadcrumbs configuration object
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfig
+     * @return BreadCrumbsConfig
+     * @throws \Exception
      */
     public function buildBreadCrumbsConfiguration()
     {
@@ -397,7 +434,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a sorter configuration object
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig
+     * @return SorterConfig
+     * @throws \Exception
      */
     public function buildSorterConfiguration()
     {
@@ -409,7 +447,8 @@ class ConfigurationBuilder extends \PunktDe\PtExtbase\Configuration\AbstractConf
     /**
      * Returns a columnSelector configuration object
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig
+     * @return ColumnSelectorConfig
+     * @throws \Exception
      */
     public function buildColumnSelectorConfiguration()
     {

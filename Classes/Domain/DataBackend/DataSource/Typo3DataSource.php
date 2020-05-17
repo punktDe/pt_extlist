@@ -2,6 +2,8 @@
 
 namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
 
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,8 +31,10 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Database\DatabaseConnection;
-
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Statement;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 /**
  * Class implements data source for TYPO3 databases
  *  
@@ -42,24 +46,29 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 class Typo3DataSource extends AbstractDataSource implements IterationDataSourceInterface
 {
     /**
-     * Holds an instance of typo3 db object
-     *
-     * @var DatabaseConnection
+     * @var Statement
+     */
+    protected $statement;
+
+    /**
+     * @var Connection
      */
     protected $connection;
 
-
     /**
-     * @var pointer	Result pointer / DBAL object
+     * Constructor for datasource
+     *
+     * @param DatabaseDataSourceConfiguration $configuration
      */
-    protected $resource;
-
-
+    public function __construct(DatabaseDataSourceConfiguration $configuration)
+    {
+        $this->dataSourceConfiguration = $configuration;
+    }
 
     /**
      * Injector for database connection object
      *
-     * @param DatabaseConnection $dbObject
+     * @param Connection $dbObject
      */
     public function injectDbObject($dbObject)
     {
@@ -67,75 +76,72 @@ class Typo3DataSource extends AbstractDataSource implements IterationDataSourceI
     }
 
     /**
-				 * @param $query
-				 * @return Typo3DataSource
-				 * @throws \Exception
-				 */
-				public function executeQuery($query)
+     * Executes a query using current database connection
+     *
+     * @param $query
+     * @return Typo3DataSource
+     * @throws \Exception
+     */
+    public function executeQuery(QueryBuilder $queryBuilder)
     {
         try {
             $this->startTimeMeasure();
-            $this->resource = $this->connection->sql_query($query);
+            $this->statement = $queryBuilder->execute();
             $this->stopTimeMeasure();
         } catch (\Exception $e) {
-            throw new \Exception('Error while retrieving data from database using typo3 db object.<br> 
-							     Error: ' . $e->getMessage() . ' sql_error says: ' . $this->connection->sql_error() . ' 1280400023<br><br>
-							     SQL QUERY: <br>
-							     </strong><hr>' . nl2br($query) . '<hr><strong>', 1280400023);
+            throw new \Exception('Error while trying to execute query on database! SQL-Statement: ' . $queryBuilder->getSQL().
+                ' - Error message from PDO: ' . $e->getMessage() .
+                '. Further information from PDO_errorInfo: ' . var_export($this->connection->errorInfo(), true), 1280322659);
         }
 
         return $this;
     }
 
 
-
     /**
      * @return array
+     * @throws \Exception
      */
     public function fetchAll()
     {
-        $rows = [];
-
-        while (($a_row = $this->connection->sql_fetch_assoc($this->resource)) == true) {
-            $rows[] = $a_row;
+        if ($this->statement instanceof Statement) {
+            return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
+        } else {
+            throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951370);
         }
-
-        $this->connection->sql_free_result($this->resource);
-
-        return $rows;
     }
 
 
-
     /**
-     * Return data row as array
-     *
-     * @return array
+     * @return mixed
+     * @throws \Exception
      */
     public function fetchRow()
     {
-        return $this->connection->sql_fetch_assoc($this->resource);
+        if ($this->statement instanceof Statement) {
+            return $this->statement->fetch(\PDO::FETCH_ASSOC);
+        } else {
+            throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
+        }
     }
 
 
-
     /**
-     * Return record count
-     *
      * @return integer
      */
     public function count()
     {
-        return $this->connection->sql_num_rows($this->resource);
+        return $this->statement->rowCount();
     }
 
 
 
     /**
-     * Rewind the cursor to the first row
+     * @return mixed
      */
     public function rewind()
     {
-        return $this->connection->sql_data_seek($this->resource, 0);
+        return $this->statement->fetch(\PDO::FETCH_ASSOC, \PDO::FETCH_ORI_FIRST);
     }
 }
+

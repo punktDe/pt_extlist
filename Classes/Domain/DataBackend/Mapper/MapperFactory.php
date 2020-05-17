@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,13 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+
 /**
  * Class implements a factory for a data mapper
  *  
@@ -37,10 +45,10 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_MapperFactoryTest
  */
-class MapperFactory implements \TYPO3\CMS\Core\SingletonInterface
+class MapperFactory implements SingletonInterface
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var ObjectManager
      */
     private $objectManager;
 
@@ -49,7 +57,7 @@ class MapperFactory implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
      */
-    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    public function injectObjectManager(ObjectManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
     }
@@ -59,19 +67,19 @@ class MapperFactory implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Returns an instance of a data mapper for a given data mapper class name.
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @return mixed
      */
-    public function createDataMapper(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function createDataMapper(ConfigurationBuilder $configurationBuilder)
     {
         $dataBackendConfiguration = $configurationBuilder->buildDataBackendConfiguration();
         $dataMapperClassName = $dataBackendConfiguration->getDataMapperClass();
 
-        $dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder); /** @var \PunktDe\PtExtlist\Domain\DataBackend\Mapper\AbstractMapper $dataMapper */
+        $dataMapper = $this->objectManager->get($dataMapperClassName, $configurationBuilder); /** @var AbstractMapper $dataMapper */
         $mapperConfiguration = $configurationBuilder->buildFieldsConfiguration();
 
         // Check whether mapper implements interface
-        Assert::isTrue($dataMapper instanceof \PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface, ['message' => 'Data mapper must implement data mapper interface! 1280415471']);
+        Assert::isTrue($dataMapper instanceof MapperInterface, ['message' => 'Data mapper must implement data mapper interface! 1280415471']);
 
         $dataMapper->_injectConfigurationBuilder($configurationBuilder);
         $dataMapper->_injectMapperConfiguration($mapperConfiguration);

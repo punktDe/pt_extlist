@@ -80,7 +80,7 @@ class FormViewHelper extends TYPO3FormViewHelper
             $uriBuilder = $this->renderingContext->getControllerContext()->getUriBuilder();
             $formActionUri = $uriBuilder
                 ->reset()
-                ->setTargetPageUid($this->arguments['pageUid'])
+                ->setTargetPageUid((int)$this->arguments['pageUid'])
                 ->setTargetPageType($this->arguments['pageType'])
                 ->setNoCache($this->arguments['noCache'])
                 ->setUseCacheHash(!$this->arguments['noCacheHash'])

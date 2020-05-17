@@ -32,7 +32,7 @@
  *
  * @author Daniel Lienert
  * @package Tests
- * @subpackage Domain\List\Aggregates
+ * @subpackage Domain\Lists\Aggregates
  * @see Aggregates_ArrayAggregator
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extends Tx_PtExtlist_Tests_BaseTestcase

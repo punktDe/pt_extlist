@@ -16,13 +16,12 @@ ListData					aggregateRows	A collection of aggregateRows.
 @author Christoph Ehscheidt <ehscheidt@punkt.de>
 -->
 </extlist:comment>
-
-<table class="tx-ptextlist-list tx-ptextlist-list-standard" id="tx-ptextlist-list-{config.listConfiguration.listIdentifier}">
+<table class="tx-ptextlist-list tx-ptextlist-list-standard" id="tx-ptextlist-list-{listConfiguration.listIdentifier}">
 	<thead>
-		<f:render partial="{config.listConfiguration.headerPartial}" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
+		<f:render partial="{listConfiguration.headerPartial}" arguments="{listHeader:listHeader, listCaptions:listCaptions}" />
 	</thead>
 	<tbody>
-		<f:render partial="{config.listConfiguration.bodyPartial}" arguments="{listData:listData}" />
-		<f:render partial="{config.listConfiguration.aggregateRowsPartial}" arguments="{aggregateRows:aggregateRows}" />
+		<f:render partial="{listConfiguration.bodyPartial}" arguments="{listData:listData}" />
+		<f:render partial="{listConfiguration.aggregateRowsPartial}" arguments="{aggregateRows:aggregateRows}" />
 	</tbody>
 </table>

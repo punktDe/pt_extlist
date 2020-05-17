@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+
 /**
  * Class implements a collection of aggregate configurations.
  *  
@@ -37,23 +40,23 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Aggregates_AggregateConfigCollectionTest
  */
-class AggregateConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class AggregateConfigCollection extends ObjectCollection
 {
     /**
      * This collection is restricted to objects of type Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig
      *
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig';
+    protected $restrictedClassName = AggregateConfig::class;
     
     
     
     /**
      * Adds a aggregate configuration object to collection
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig $aggregateConfig
+     * @param AggregateConfig $aggregateConfig
      */
-    public function addAggregateConfig(\PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig $aggregateConfig)
+    public function addAggregateConfig(AggregateConfig $aggregateConfig)
     {
         $this->addItem($aggregateConfig, $aggregateConfig->getIdentifier());
     }
@@ -64,15 +67,15 @@ class AggregateConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectColl
      * Returns a aggregate configuration object for a given identifier
      *
      * @param string $identifier
-     * @throws Exception
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig
+     * @throws \Exception
+     * @return AggregateConfig
      */
     public function getAggregateConfigByIdentifier($identifier)
     {
         if ($this->hasItem($identifier)) {
             return $this->getItemById($identifier);
         } else {
-            throw new Exception('Aggregate configuration for key ' . $identifier . ' does not exist! 1282893634');
+            throw new \Exception('Aggregate configuration for key ' . $identifier . ' does not exist! 1282893634');
         }
     }
     
@@ -81,11 +84,11 @@ class AggregateConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectColl
      * Extract the items with the given scope
      *  
      * @param string $scope
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection
+     * @return AggregateConfigCollection
      */
     public function extractCollectionByScope($scope)
     {
-        $collection = new \PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
+        $collection = new AggregateConfigCollection;
         foreach ($this->itemsArr as $itemKey => $item) {
             if ($item->getScope() == $scope) {
                 $collection->addAggregateConfig($item, $itemKey);

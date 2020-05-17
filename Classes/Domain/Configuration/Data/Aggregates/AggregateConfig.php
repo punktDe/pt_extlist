@@ -29,6 +29,10 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+
 /**
  * Class aggregateField config
  *
@@ -48,7 +52,7 @@ class AggregateConfig
     
     /**
      * configobject of the field that will be aggregated
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
+     * @var FieldConfig
      */
     protected $fieldIdentifier;
     
@@ -80,7 +84,7 @@ class AggregateConfig
      * @param string $identifier aggregate identifier 
      * @param array $aggregateSettings
      * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct($identifier, $aggregateSettings, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
@@ -88,12 +92,12 @@ class AggregateConfig
         $this->identifier = $identifier;
         
         if (!trim($aggregateSettings['fieldIdentifier'])) {
-            throw new Exception('No fieldIdentifier for aggregate given! 1282891630');
+            throw new \Exception('No fieldIdentifier for aggregate given! 1282891630');
         }
         $this->fieldIdentifier = $configurationBuilder->buildFieldsConfiguration()->getFieldConfigByIdentifier($aggregateSettings['fieldIdentifier']);
     
         if (!array_key_exists('method', $aggregateSettings) && !array_key_exists('special', $aggregateSettings)) {
-            throw new Exception('No aggregate method or special sql given for aggregate '.$this->identifier.'! 1282891831');
+            throw new \Exception('No aggregate method or special sql given for aggregate '.$this->identifier.'! 1282891831');
         }
         
         if (array_key_exists('method', $aggregateSettings)) {
@@ -121,7 +125,7 @@ class AggregateConfig
     
     
     /**
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
+     * @return FieldConfig
      */
     public function getFieldIdentifier()
     {

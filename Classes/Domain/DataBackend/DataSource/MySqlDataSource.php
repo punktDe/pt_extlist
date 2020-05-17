@@ -30,7 +30,10 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  ***************************************************************/
 
 use Doctrine\DBAL\Driver\PDOStatement;
+use PDO;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+
 
 /**
  * Class implements data source for mysql databases
@@ -43,20 +46,15 @@ use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSo
 class MySqlDataSource extends AbstractDataSource implements IterationDataSourceInterface
 {
     /**
-     * Holds an instance of PDO for database connection
-     *
-     * @var \PDO
-     */
-    protected $connection;
-
-
-    /**
      * @var PDOStatement
      */
     protected $statement;
 
-    
-    
+    /**
+     * @var \PDO
+     */
+    protected $connection;
+
     /**
      * Constructor for datasource
      *
@@ -70,13 +68,12 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
     /**
      * Injector for database connection object
      *
-     * @param \PDO $dbObject
+     * @param PDO $dbObject
      */
     public function injectDbObject($dbObject)
     {
         $this->connection = $dbObject;
     }
-
 
     /**
      * Executes a query using current database connection
@@ -85,18 +82,16 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
      * @return MySqlDataSource
      * @throws \Exception
      */
-    public function executeQuery($query)
+    public function executeQuery(QueryBuilder $queryBuilder)
     {
         try {
-            /* @var $statement PDOStatement */
             $this->startTimeMeasure();
-            $this->statement = $this->connection->prepare($query);
-            $this->statement->execute();
+            $this->statement = $queryBuilder->execute();
             $this->stopTimeMeasure();
         } catch (\Exception $e) {
-            throw new \Exception('Error while trying to execute query on database! SQL-Statement: ' . $query .
+            throw new \Exception('Error while trying to execute query on database! SQL-Statement: ' . $this->queryBuilder->getSQL().
                 ' - Error message from PDO: ' . $e->getMessage() .
-                '. Further information from PDO_errorInfo: ' . $this->statement->errorInfo(), 1280322659);
+                '. Further information from PDO_errorInfo: ' . $this->connection->errorInfo(), 1280322659);
         }
 
         return $this;
@@ -110,9 +105,9 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
     public function fetchAll()
     {
         if ($this->statement instanceof PDOStatement) {
-            return $this->statement->fetchall(\PDO::FETCH_ASSOC);
+            return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
         } else {
-            throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951370);
+            throw new \Exception('No queryBuilder defined to fetch data from. You have to prepare a statement first!', 1347951370);
         }
     }
 

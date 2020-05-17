@@ -93,7 +93,7 @@ class Filterbox
      *
      * @var string
      */
-    protected $restrictedClassName = 'FilterInterface';
+    protected $restrictedClassName = FilterInterface::class;
 
 
 

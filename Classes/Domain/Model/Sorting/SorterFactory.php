@@ -3,6 +3,11 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Sorting;
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -38,19 +43,19 @@ namespace PunktDe\PtExtlist\Domain\Model\Sorting;
  * @subpackage Domain\Model\Sorting
  * @see Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterFactoryTest
  */
-class SorterFactory implements \TYPO3\CMS\Core\SingletonInterface
+class SorterFactory implements SingletonInterface
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @var ObjectManagerInterface
      */
     private $objectManager;
 
 
 
     /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     * @param ObjectManagerInterface $objectManager
      */
-    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    public function injectObjectManager(ObjectManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
     }
@@ -69,20 +74,20 @@ class SorterFactory implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Factory method for returning a singleton instance of sorter
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\Sorter
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return Sorter
      */
-    public function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $listIdentifier = $configurationBuilder->getListIdentifier();
 
         if ($this->instances[$listIdentifier] === null) {
-            $this->instances[$listIdentifier] = $this->objectManager->get('Sorter');
+            $this->instances[$listIdentifier] = $this->objectManager->get(Sorter::class);
             $this->instances[$listIdentifier]->_injectSorterConfig($configurationBuilder->buildSorterConfiguration());
 
             // At the moment we have to build list header here, as it is not registered in sorter otherwise.
             // TODO refactor this! We can register list header after sorter is build!
-            $listHeaderFactory = $this->objectManager->get('ListHeaderFactory'); /* @var $listHeaderFactory ListHeaderFactory */
+            $listHeaderFactory = $this->objectManager->get(ListHeaderFactory::class); /* @var $listHeaderFactory ListHeaderFactory */
             $listHeaderFactory->createInstance($configurationBuilder);
         }
 

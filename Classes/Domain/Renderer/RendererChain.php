@@ -1,11 +1,6 @@
 <?php
 namespace PunktDe\PtExtlist\Domain\Renderer;
 
-use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig;
-use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
-use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
-use PunktDe\PtExtlist\Domain\Model\Lists\Row;
-
 /***************************************************************
  *  Copyright notice
  *
@@ -41,6 +36,12 @@ use PunktDe\PtExtlist\Domain\Model\Lists\Row;
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
+
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+
 class RendererChain implements RendererInterface
 {
     /**

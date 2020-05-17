@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PunktDe\PtExtlist\Domain\Configuration;
 
 /***************************************************************
@@ -29,6 +28,11 @@ namespace PunktDe\PtExtlist\Domain\Configuration;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+
 /**
  * Factory for Configuration Builder
  *
@@ -41,7 +45,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration;
 class ConfigurationBuilderFactory
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderInstancesContainer
+     * @var ConfigurationBuilderInstancesContainer
      */
     private $configurationBuilderInstancesContainer;
 
@@ -59,7 +63,7 @@ class ConfigurationBuilderFactory
     /**
      * Holds extbase context to determine FE / BE usage
      *
-     * @var \PunktDe\PtExtlist\Extbase\ExtbaseContext
+     * @var ExtbaseContext
      */
     private $extbaseContext;
 
@@ -68,19 +72,19 @@ class ConfigurationBuilderFactory
     /**
      * Injects configuration manager (that holds TS settings) for usage with DI
      *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager
+     * @param ConfigurationManager $configurationManager
      */
-    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager)
+    public function injectConfigurationManager(ConfigurationManager $configurationManager)
     {
-        $this->settings = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+        $this->settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
     }
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderInstancesContainer $instancesContainer
+     * @param ConfigurationBuilderInstancesContainer $instancesContainer
      */
-    public function injectConfigurationBuilderInstancesContainer(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderInstancesContainer $instancesContainer)
+    public function injectConfigurationBuilderInstancesContainer(ConfigurationBuilderInstancesContainer $instancesContainer)
     {
         $this->configurationBuilderInstancesContainer = $instancesContainer;
     }
@@ -109,9 +113,9 @@ class ConfigurationBuilderFactory
     /**
      * Injects extbase context (for determine FE / BE usage) for usage with DI
      *
-     * @param \PunktDe\PtExtlist\Extbase\ExtbaseContext $extbaseContext
+     * @param ExtbaseContext $extbaseContext
      */
-    public function injectExtbaseContext(\PunktDe\PtExtlist\Extbase\ExtbaseContext $extbaseContext)
+    public function injectExtbaseContext(ExtbaseContext $extbaseContext)
     {
         $this->extbaseContext = $extbaseContext;
     }
@@ -150,7 +154,7 @@ class ConfigurationBuilderFactory
             }
 
             // TODO use object manager to instantiate the configuration builder object
-            $this->configurationBuilderInstancesContainer->add(new \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder($this->settings, $listIdentifier));
+            $this->configurationBuilderInstancesContainer->add(new ConfigurationBuilder($this->settings, $listIdentifier));
         }
 
         return $this->configurationBuilderInstancesContainer->get($listIdentifier);

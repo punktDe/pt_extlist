@@ -29,6 +29,7 @@ namespace PunktDe\PtExtlist\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Div;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -228,7 +229,7 @@ class FlexformDataProvider
     protected function loadExtListTyposcriptArray()
     {
         if (is_null($this->extListTypoScript)) {
-            $extListTS = PunktDe_PtExtbase_Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
+            $extListTS = Div::typoscriptRegistry('plugin.tx_ptextlist.', $this->currentPid);
             $this->extListTypoScript = GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($extListTS);
         }
     }

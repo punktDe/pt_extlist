@@ -17,7 +17,7 @@ plugin.tx_ptextlist.settings.export {
 
 		csvExport < plugin.tx_ptextlist.prototype.export
 		csvExport {
-			viewClassName = Tx_PtExtlist_View_Export_CsvListView
+			viewClassName = PunktDe\PtExtlist\View\Export\CsvListView
 			fileExtension = csv
 
 			outputEncoding = ISO-8859-1
@@ -27,7 +27,7 @@ plugin.tx_ptextlist.settings.export {
 
 		fluidTemplateExport < plugin.tx_ptextlist.prototype.export
 		fluidTemplateExport {
-			viewClassName = Tx_PtExtlist_View_Export_FluidListView
+			viewClassName = TPunktDe\PtExtlist\View\Export\FluidListView
 			fileExtension = txt
 			templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/export.html
 		}
@@ -35,7 +35,7 @@ plugin.tx_ptextlist.settings.export {
 
 		excelExport < plugin.tx_ptextlist.prototype.export
 		excelExport {
-		    viewClassName = Tx_PtExtlist_View_Export_ExcelListView
+		    viewClassName = PunktDe\PtExtlist\View\Export\ExcelListView
 		    fileExtension = xls
 
 		    stripTags = 1

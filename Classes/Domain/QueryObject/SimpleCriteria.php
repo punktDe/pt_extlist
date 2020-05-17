@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\QueryObject;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+
 /**
  * Implements a simple criteria which works like
  *  

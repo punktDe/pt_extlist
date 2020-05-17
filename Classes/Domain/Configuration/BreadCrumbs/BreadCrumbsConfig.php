@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /**
  * Class implementing configuration for breadcrumb
  *  
@@ -36,7 +39,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs;
  * @subpackage Configuration\BreadCrumbs
  * @author Michael Knoll 
  */
-class BreadCrumbsConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
+class BreadCrumbsConfig extends AbstractExtlistConfiguration
 {
     /**
      * Holds configuration for showing reset links

@@ -30,6 +30,7 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter;
  ***************************************************************/
 
 use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
 
 /**
  * Class implements a collection of filterboxes
@@ -106,14 +107,14 @@ class FilterboxCollection extends ObjectCollection
      * @param string $filterBoxIdentifier Identifier of filterbox to be returned
      * @param bool $throwExceptionOnNonExistingIdentifier If set to true, an exception will be thrown, if no filterbox is registered for given identifier
      * @return Filterbox
-     * @throws Exception
+     * @throws \Exception
      */
     public function getFilterboxByFilterboxIdentifier($filterBoxIdentifier, $throwExceptionOnNonExistingIdentifier = false)
     {
         if ($this->hasItem($filterBoxIdentifier)) {
             return $this->getItemById($filterBoxIdentifier);
         } elseif ($throwExceptionOnNonExistingIdentifier) {
-            throw new Exception('No filterBox can be found for ID ' . $filterBoxIdentifier, 1280857703);
+            throw new \Exception('No filterBox can be found for ID ' . $filterBoxIdentifier, 1280857703);
         }
     }
     

@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /**
  * Class implementing configuration for the objectMapper
  *
@@ -36,7 +39,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper;
  * @subpackage Configuration\Column
  * @author Daniel Lienert
  */
-class ObjectMapperConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
+class ObjectMapperConfig extends AbstractExtlistConfiguration
 {
     /**
      * The class of the target object
@@ -55,12 +58,13 @@ class ObjectMapperConfig extends \PunktDe\PtExtlist\Domain\Configuration\Abstrac
 
     /**
      * Init the configuration
+     * @throws \Exception
      */
     protected function init()
     {
         $this->setRequiredValue('class', 'No class for target object given. 1328218072');
         if (!class_exists($this->class)) {
-            throw new Exception('The class ' . $this->class . ' could not be loaded. 1328218148');
+            throw new \Exception('The class ' . $this->class . ' could not be loaded. 1328218148');
         }
 
         if (array_key_exists('mapping', $this->settings) && is_array($this->settings['mapping'])) {

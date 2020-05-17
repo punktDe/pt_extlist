@@ -31,6 +31,7 @@ namespace PunktDe\PtExtlist\Controller;
 
 
 use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerInterface;
 
 /**
  * Class Pager Controller
@@ -96,7 +97,7 @@ class PagerController extends AbstractController
     /**
      * Returns an initialized pager object
      *  
-     * @returm PagerInterface
+     * @return PagerCollection
      */
     protected function getPagerCollectionInstance()
     {

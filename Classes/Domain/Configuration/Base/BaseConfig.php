@@ -32,6 +32,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Base;
 
 use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
 use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
@@ -95,7 +96,7 @@ class BaseConfig extends AbstractExtlistConfiguration
         $this->setBooleanIfExistsAndNotNothing('resetSessionOnResetParameter');
         $this->setRequiredValue('uncachedSessionStorageAdapter', 'No storage adapter for a uncached plugin has been given! 1302255094');
         $this->setRequiredValue('cachedSessionStorageAdapter', 'No storage adapter for a cached plugin has been given! 1302255109');
-        $this->useSession = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->isInCachedMode() ? false : true;
+        $this->useSession = GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->isInCachedMode() ? false : true;
     }
     
     

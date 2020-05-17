@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,13 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Security\GroupSecurity;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * Class implementing factory for filter configuration
  *  
@@ -39,9 +47,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
  */
 class FilterConfigFactory
 {
-    public static function createInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings)
+    public static function createInstance(ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterSettings)
     {
-        $filterConfig = new \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig($configurationBuilder, $filterSettings, $filterboxIdentifier);
+        $filterConfig = new FilterConfig($configurationBuilder, $filterSettings, $filterboxIdentifier);
         $filterConfig = self::setAccessableFlag($filterConfig, $configurationBuilder);
         return $filterConfig;
     }
@@ -51,14 +59,14 @@ class FilterConfigFactory
     /**
      * Sets accessible flag for filter
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig
+     * @param FilterConfig $filterConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return FilterConfig
      */
-    protected static function setAccessableFlag(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig, \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    protected static function setAccessableFlag(FilterConfig $filterConfig, ConfigurationBuilder $configurationBuilder)
     {
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-        $security = $objectManager->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class); /* @var $objectManager ObjectManager */
+        $security = $objectManager->get(GroupSecurity::class); /* @var $security GroupSecurity */
         $accessable = $security->isAccessableFilter($filterConfig, $configurationBuilder);
         $filterConfig->setAccessable($accessable);
         

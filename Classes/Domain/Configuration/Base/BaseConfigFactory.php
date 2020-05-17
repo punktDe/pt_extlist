@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Base;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements factory for basic configuration
  *
@@ -41,13 +44,13 @@ class BaseConfigFactory
     /**
      * Returns a instance of a base configuration.
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Base\BaseConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return BaseConfig
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $baseSettings = $configurationBuilder->getSettingsForConfigObject('base');
-        $baseConfig = new \PunktDe\PtExtlist\Domain\Configuration\Base\BaseConfig($configurationBuilder, $baseSettings);
+        $baseConfig = new BaseConfig($configurationBuilder, $baseSettings);
         
         return $baseConfig;
     }

@@ -3,6 +3,9 @@
 
 namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
 
+use PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -36,15 +39,15 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Michael Knoll
  */
-class RawSqlCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface
+class RawSqlCriteriaTranslator implements CriteriaTranslatorInterface
 {
     /**
      * translate raw sql criteria
      *  
-     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria
+     * @param Criteria $criteria
      * @return string
      */
-    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
+    public static function translateCriteria($criteria)
     {
         return $criteria->getRawSqlString();
     }

@@ -44,7 +44,7 @@ class FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollecti
      *
      * @var string
      */
-    protected $restrictedClassName = 'FieldConfig';
+    protected $restrictedClassName = FieldConfig::class;
 
 
 
@@ -53,7 +53,7 @@ class FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollecti
      *
      * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfig
      */
-    public function addFieldConfig(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fieldConfig)
+    public function addFieldConfig(FieldConfig $fieldConfig)
     {
         $this->addItem($fieldConfig, $fieldConfig->getIdentifier());
     }
@@ -64,15 +64,15 @@ class FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollecti
      * Returns a field configuration object for a given identifier
      *
      * @param string $identifier
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
-     * @throws Exception
+     * @return FieldConfig
+     * @throws \Exception
      */
     public function getFieldConfigByIdentifier($identifier)
     {
         if ($this->hasItem($identifier)) {
             return $this->getItemById($identifier);
         } else {
-            throw new Exception('Field configuration for key ' . $identifier . ' does not exist!', 1280772114);
+            throw new \Exception('Field configuration for key ' . $identifier . ' does not exist!', 1280772114);
         }
     }
 
@@ -82,7 +82,7 @@ class FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollecti
      * get part of the collection with entrys selected by the array
      *
      * @param array $fieldIdentifierList
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection ;
+     * @return FieldConfigCollection ;
      */
     public function extractCollectionByIdentifierList(array $fieldIdentifierList)
     {
@@ -90,7 +90,7 @@ class FieldConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollecti
             return $this;
         }
 
-        $collection = new \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection();
+        $collection = new FieldConfigCollection();
         foreach ($fieldIdentifierList as $fieldIdentifier) {
             $collection->addFieldConfig($this->getFieldConfigByIdentifier($fieldIdentifier));
         }

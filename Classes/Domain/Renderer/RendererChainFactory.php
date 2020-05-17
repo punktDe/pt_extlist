@@ -1,7 +1,6 @@
 <?php
 namespace PunktDe\PtExtlist\Domain\Renderer;
 
-use PunktDe\Extlist\Domain\Renderer\RendererChain;
 use PunktDe\PtExtlist\Domain\AbstractComponentFactory;
 use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig;
 use TYPO3\CMS\Core\SingletonInterface;

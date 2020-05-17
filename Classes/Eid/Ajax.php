@@ -26,6 +26,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
+use TYPO3\CMS\Frontend\Page\PageRepository;
+
 /**
  * Stub for eID ajax calls.
  */
@@ -42,13 +45,14 @@ $GLOBALS['TSFE'] = $TSFE;
 
 $typoscriptInclude = '<INCLUDE_TYPOSCRIPT:source="FILE:EXT:pt_extlist/Configuration/TypoScript/setup.txt">';
 
-$tsParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser'); /* @var $tsParser \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser */
+$tsParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TypoScriptParser::class); /* @var $tsParser TypoScriptParser */
 $externalTSFileContent = $tsParser->checkIncludeLines($typoscriptInclude);
 $tsParser->parse($externalTSFileContent);
 
 $GLOBALS['TSFE']->tmpl->setup = $tsParser->setup;
 
-$GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
+$GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(PageRepository::class);
+
 
 $dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('PunktDe_PtExtbase_Utility_AjaxDispatcher'); /* @var $dispatcher PunktDe_PtExtbase_Utility_AjaxDispatcher */
 $dispatcher->setExtensionName('PtExtlist');

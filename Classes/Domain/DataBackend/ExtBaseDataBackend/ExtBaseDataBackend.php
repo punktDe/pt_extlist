@@ -41,6 +41,7 @@ use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
 use PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface;
 use PunktDe\PtExtlist\Domain\Model\Sorting\SortingState;
 use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Backend for using pt_extlist with ExtBase Domain objects
@@ -76,7 +77,7 @@ class ExtBaseDataBackend extends AbstractDataBackend
         $dataBackendSettings =  $configurationBuilder->getSettingsForConfigObject('dataBackend');
         Assert::isNotEmptyString($dataBackendSettings['repositoryClassName'], ['message' => 'No repository class name is given for extBase backend. 1281546327']);
         Assert::isTrue(class_exists($dataBackendSettings['repositoryClassName']), ['message' => 'Given class does not exist: ' . $dataBackendSettings['repositoryClassName'] . ' 1281546328']);
-        $repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get($dataBackendSettings['repositoryClassName']);
+        $repository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get($dataBackendSettings['repositoryClassName']);
         return $repository;
     }
     

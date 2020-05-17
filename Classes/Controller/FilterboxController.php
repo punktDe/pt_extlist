@@ -1,6 +1,7 @@
 <?php
 namespace PunktDe\PtExtlist\Controller;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,6 +28,13 @@ namespace PunktDe\PtExtlist\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+
 /**
  * Class implementing filterbox controller.
  *  
@@ -62,7 +70,7 @@ class FilterboxController extends AbstractController
     /**
      * Holds an instance of filterbox collection for processed list
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     * @var FilterboxCollection
      */
     protected $filterboxCollection = null;
     
@@ -71,7 +79,7 @@ class FilterboxController extends AbstractController
     /**
      * Holds an instance of filterbox processed by this controller
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @var Filterbox
      */
     protected $filterbox = null;
 
@@ -81,8 +89,8 @@ class FilterboxController extends AbstractController
      *
      * @param array $settings Settings container of the current extension
      * @return void
-     * @throws PunktDe_PtExtbase_Exception_Assertion
-     * @throws Exception
+     * @throws Assertion
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -166,7 +174,7 @@ class FilterboxController extends AbstractController
      *
      * @param string $filterboxIdentifier Identifier of filter which should be reset
      * @return string Rendered reset action
-     * @throws Exception
+     * @throws \Exception
      */
     public function resetAction($filterboxIdentifier)
     {
@@ -201,7 +209,7 @@ class FilterboxController extends AbstractController
      *
      * @param string $fullQualifiedFilterIdentifier FilterboxIdentifier.FilterIdentifier Identifier of filter to be reseted
      * @return string Rendered resetFilter Action
-     * @throws Exception
+     * @throws \Exception
      */
     public function resetFilterAction($fullQualifiedFilterIdentifier)
     {

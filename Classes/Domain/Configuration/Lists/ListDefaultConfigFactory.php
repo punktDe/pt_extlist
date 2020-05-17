@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Lists;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Factory to create configs for list defaults
  *
@@ -41,10 +45,10 @@ class ListDefaultConfigFactory
     /**
      * Returns a instance of a list default configuration.
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @return ListDefaultConfig
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         return new ListDefaultConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('listDefault'));
     }

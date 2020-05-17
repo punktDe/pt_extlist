@@ -102,11 +102,11 @@ class PagerConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlis
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @param array $pagerIdentifier
+     * @param ConfigurationBuilder $configurationBuilder
+     * @param string $pagerIdentifier
      * @param array $settings
      */
-    public function __construct(ConfigurationBuilder $configurationBuilder, array $pagerIdentifier,  array $settings)
+    public function __construct(ConfigurationBuilder $configurationBuilder, string $pagerIdentifier,  array $settings)
     {
         $settings['pagerIdentifier'] = $pagerIdentifier;
         parent::__construct($configurationBuilder, $settings);

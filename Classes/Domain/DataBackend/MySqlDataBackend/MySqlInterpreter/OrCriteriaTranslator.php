@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface;
+
 /**
  * Translator for AND criteria
  *  
@@ -37,19 +40,20 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class OrCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface
+class OrCriteriaTranslator implements CriteriaTranslatorInterface
 {
     /**
      * translate or criteria to string
      *
      * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Tx_PtExtlist_Domain_QueryObject_OrCriteria
      * @return string
+     * @throws \Exception
      */
     public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
-        $orCriteriaString = '(' . \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter::translateCriteria($criteria->getFirstCriteria());
+        $orCriteriaString = '(' . MySqlInterpreter::translateCriteria($criteria->getFirstCriteria());
         $orCriteriaString .= ') OR (';
-        $orCriteriaString .= \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
+        $orCriteriaString .= MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
         
         return $orCriteriaString;
     }

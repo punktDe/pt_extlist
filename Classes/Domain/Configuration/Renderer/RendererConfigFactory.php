@@ -29,6 +29,10 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Renderer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements a factory for renderer configurations
  *  
@@ -43,13 +47,13 @@ class RendererConfigFactory
      * Returns a renderer configuration for given renderer settings
      *
      * @param array $rendererSettings
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return RendererConfig
      */
-    public static function getRendererConfiguration(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $rendererSettings)
+    public static function getRendererConfiguration(ConfigurationBuilder $configurationBuilder, $rendererSettings)
     {
         Assert::isArray($rendererSettings, ['message' => 'No renderer settings found. 1281087488']);
-        $config = new \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig($configurationBuilder, $rendererSettings);
+        $config = new RendererConfig($configurationBuilder, $rendererSettings);
         return $config;
     }
 }

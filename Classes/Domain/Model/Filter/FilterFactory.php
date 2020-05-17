@@ -113,7 +113,7 @@ class FilterFactory extends AbstractComponentFactoryWithState implements Singlet
         Assert::isNotEmptyString($filterClassName, ['message' => 'No filter class name given, check TS configuration! 1277889459']);
         Assert::isTrue(class_exists($filterClassName), ['message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460']);
         $filter = $this->objectManager->get($filterClassName); /* @var $filter FilterInterface */
-        Assert::isTrue(is_a($filter, 'FilterInterface'), ['message' => 'Given filter class does not implement filter interface! 1277889461']);
+        Assert::isTrue(is_a($filter, FilterInterface::class), ['message' => 'Given filter class does not implement filter interface! 1277889461']);
         $filter->_injectGpVarsAdapter($this->getPostVarsAdapterFactory->getInstance());
         return $filter;
     }

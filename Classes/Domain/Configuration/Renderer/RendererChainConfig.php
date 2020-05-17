@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Renderer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements renderer chain configuration as a collection of renderer
  *
@@ -68,23 +71,23 @@ class RendererChainConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
      * Classname for this collection object type
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig';
+    protected $restrictedClassName = RendererConfig::class;
     
     
     
     /**
      * Holds an instance of configuration builder
      *
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
     
     
     
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $rendererChainSettings)
+    public function __construct(ConfigurationBuilder $configurationBuilder, array $rendererChainSettings)
     {
         $this->configurationBuilder = $configurationBuilder;
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
@@ -109,10 +112,10 @@ class RendererChainConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
     /**
      * Add renderConfig to list
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfig
+     * @param RendererConfig $rendererConfig
      * @param string $rendererConfigIdentifier
      */
-    public function addRendererConfig(\PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig $rendererConfig, $rendererConfigIdentifier)
+    public function addRendererConfig(RendererConfig $rendererConfig, $rendererConfigIdentifier)
     {
         $this->addItem($rendererConfig, $rendererConfigIdentifier);
     }
@@ -122,7 +125,7 @@ class RendererChainConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
     /**
      * Getter for configuration builder
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @return ConfigurationBuilder
      */
     public function getConfigurationBuilder()
     {

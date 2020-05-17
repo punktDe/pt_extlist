@@ -34,6 +34,7 @@ use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollec
 use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
 use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataBackendConfiguration;
 use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface;
 use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
 use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
 use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;

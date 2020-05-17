@@ -3,6 +3,9 @@
 
 namespace PunktDe\PtExtlist\Domain\DataBackend\Typo3DataBackend;
 
+use PunktDe\PtExtbase\Div;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -76,10 +79,11 @@ class Typo3DataBackend extends \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBa
         } else {
             $wherePart = $baseWhereClause.$whereClauseFromFilterBoxes;
         }
-     
-        if ($this->backendConfiguration->getDataBackendSettings('useEnableFields')) {
-            $wherePart .= $wherePart ? $this->getTypo3SpecialFieldsWhereClause() : substr($this->getTypo3SpecialFieldsWhereClause(), 5);
-        }
+
+        ###TODO wird nicht im Projekt verwendet
+//        if ($this->backendConfiguration->getDataBackendSettings('useEnableFields')) {
+//            $wherePart .= $wherePart ? $this->getTypo3SpecialFieldsWhereClause() : substr($this->getTypo3SpecialFieldsWhereClause(), 5);
+//        }
         
         return $wherePart;
     }
@@ -93,33 +97,34 @@ class Typo3DataBackend extends \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBa
      */
     protected function getTypo3SpecialFieldsWhereClause()
     {
-        $typo3Tables = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->tables, true);
+        $typo3Tables = GeneralUtility::trimExplode(',', $this->tables, true);
         $specialFieldsWhereClause = '';
 
         foreach ($typo3Tables as $typo3Table) {
-            list($table, $alias) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $typo3Table, true);
+            list($table, $alias) = GeneralUtility::trimExplode(' ', $typo3Table, true);
             $alias = trim($alias);
 
-            if (is_array($GLOBALS['TCA'][$table])) {
-                $specialFieldsWhereClauseSnippet = PunktDe_PtExtbase_Div::getCobj()->enableFields($table);
-
-                if ($alias) {
-                    // Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after
-                    $specialFieldsWhereClauseSnippet = str_replace(' ' . $table . '.',  ' ' . $alias . '.', $specialFieldsWhereClauseSnippet);
-                    // Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after
-                    $specialFieldsWhereClauseSnippet = str_replace('`' . $table . '`.',  '`' . $alias . '`.', $specialFieldsWhereClauseSnippet);
-                    // Make sure not to replace parts of table names with wrong aliases! So check for '(' to come before and '.' to come after
-                    $specialFieldsWhereClauseSnippet = str_replace('(' . $table . '.',  '(' . $alias . '.', $specialFieldsWhereClauseSnippet);
-                    // Make sure not to replace parts of table names with wrong aliases! So check for ',' to come before and '.' to come after
-                    $specialFieldsWhereClauseSnippet = str_replace(',' . $table . '.',  ',' . $alias . '.', $specialFieldsWhereClauseSnippet);
-                }
-
-                if (trim($specialFieldsWhereClauseSnippet) === 'AND') {
-                    $specialFieldsWhereClauseSnippet = '';
-                }
-
-                $specialFieldsWhereClause .= $specialFieldsWhereClauseSnippet;
-            }
+            ####TODO
+//            if (is_array($GLOBALS['TCA'][$table])) {
+//                $specialFieldsWhereClauseSnippet = Div::getCobj()->enableFields($table);
+//
+//                if ($alias) {
+//                    // Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after
+//                    $specialFieldsWhereClauseSnippet = str_replace(' ' . $table . '.',  ' ' . $alias . '.', $specialFieldsWhereClauseSnippet);
+//                    // Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after
+//                    $specialFieldsWhereClauseSnippet = str_replace('`' . $table . '`.',  '`' . $alias . '`.', $specialFieldsWhereClauseSnippet);
+//                    // Make sure not to replace parts of table names with wrong aliases! So check for '(' to come before and '.' to come after
+//                    $specialFieldsWhereClauseSnippet = str_replace('(' . $table . '.',  '(' . $alias . '.', $specialFieldsWhereClauseSnippet);
+//                    // Make sure not to replace parts of table names with wrong aliases! So check for ',' to come before and '.' to come after
+//                    $specialFieldsWhereClauseSnippet = str_replace(',' . $table . '.',  ',' . $alias . '.', $specialFieldsWhereClauseSnippet);
+//                }
+//
+//                if (trim($specialFieldsWhereClauseSnippet) === 'AND') {
+//                    $specialFieldsWhereClauseSnippet = '';
+//                }
+//
+//                $specialFieldsWhereClause .= $specialFieldsWhereClauseSnippet;
+//            }
         }
         
         return $specialFieldsWhereClause;

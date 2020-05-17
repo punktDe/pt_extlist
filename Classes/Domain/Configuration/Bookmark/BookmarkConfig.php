@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\Bookmark;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Bookmark;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /**
  * Class implements configuration for bookmarks
  *
@@ -37,7 +41,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Bookmark;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfgTest
  */
-class BookmarkConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
+class BookmarkConfig extends AbstractExtlistConfiguration
 {
     /**
      * Holds comma separated list of pids to search for bookmarks

@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Data\Fields;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  *  FieldConfigCollection Factory
  *
@@ -42,10 +45,10 @@ class FieldConfigCollectionFactory
     /**
      * Returns an instance of a field config collection for given field settings
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return FieldConfigCollection
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $fieldsSettings = $configurationBuilder->getSettingsForConfigObject('fields');
         $fieldConfigCollection = self::buildFieldConfigCollection($configurationBuilder, $fieldsSettings);
@@ -57,15 +60,15 @@ class FieldConfigCollectionFactory
     /**
      * Builds a collection of field config objects for a given settings array
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $fieldSettingsArray
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
+     * @return FieldConfigCollection
      */
-    protected static function buildFieldConfigCollection(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $fieldSettingsArray = null)
+    protected static function buildFieldConfigCollection(ConfigurationBuilder $configurationBuilder, array $fieldSettingsArray = null)
     {
-        $fieldConfigCollection = new \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection();
+        $fieldConfigCollection = new FieldConfigCollection();
         foreach ($fieldSettingsArray as $fieldIdentifier => $fieldSettings) {
-            $fieldConfig = new \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig($configurationBuilder, $fieldIdentifier, $fieldSettings);
+            $fieldConfig = new FieldConfig($configurationBuilder, $fieldIdentifier, $fieldSettings);
             //$fieldConfigCollection->addItem($fieldConfig, $fieldConfig->getIdentifier());
             $fieldConfigCollection->addFieldConfig($fieldConfig);
         }

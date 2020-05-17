@@ -29,8 +29,12 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -42,8 +46,8 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest
  */
-class FilterConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
-    implements \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface
+class FilterConfig extends AbstractExtlistConfiguration
+    implements RenderConfigInterface
 {
     /**
      * Identifier of filterbox to which this filter belongs to
@@ -337,7 +341,7 @@ class FilterConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtli
         $this->setValueIfExistsAndNotNothing('renderTemplate');
 
         if ($this->configValueExistsAndNotNothing('inactiveOption')) {
-            $this->inactiveOption = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
+            $this->inactiveOption = RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
             if (GeneralUtility::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
                 $this->inactiveOption = LocalizationUtility::translate($this->inactiveOption, '');
             }
@@ -402,7 +406,7 @@ class FilterConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtli
         if (!$this->defaultValue['cObject']) {
             foreach ($this->defaultValue as $key => $defaultValue) {
                 if (is_array($defaultValue)) {
-                    $this->defaultValue[$key] = \PunktDe\PtExtlist\Utility\RenderValue::renderCObjectWithPlainArray($defaultValue);
+                    $this->defaultValue[$key] = RenderValue::renderCObjectWithPlainArray($defaultValue);
                 }
             }
 
@@ -415,7 +419,7 @@ class FilterConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtli
 
 
         // array and cObject - render
-        $this->defaultValue = \PunktDe\PtExtlist\Utility\RenderValue::renderCObjectWithPlainArray($this->defaultValue);
+        $this->defaultValue = RenderValue::renderCObjectWithPlainArray($this->defaultValue);
     }
 
 
@@ -478,7 +482,7 @@ class FilterConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtli
     }
 
     /**
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
+     * @return FieldConfigCollection
      */
     public function getFieldIdentifier()
     {

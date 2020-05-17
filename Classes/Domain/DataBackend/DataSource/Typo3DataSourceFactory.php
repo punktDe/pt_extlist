@@ -29,7 +29,9 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class implements data source for typo3 databases
@@ -59,10 +61,11 @@ class Typo3DataSourceFactory
 
     /**
      * @static
-     * @return DatabaseConnection
+     * @return
      */
     protected static function createDataObject()
     {
-        return $GLOBALS['TYPO3_DB'];
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class); /** @var $connectionPool ConnectionPool */
+        return $connectionPool->getConnectionByName('Default');
     }
 }

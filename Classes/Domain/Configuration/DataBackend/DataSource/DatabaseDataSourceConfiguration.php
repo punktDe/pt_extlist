@@ -3,6 +3,8 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource;
 
+use PunktDe\PtExtbase\Utility\NamespaceUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -117,7 +119,7 @@ class DatabaseDataSourceConfiguration
     public function getSettings($key = '')
     {
         if ($key != '') {
-            return \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $key);
+            return NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $key);
         } else {
             return $this->settings;
         }

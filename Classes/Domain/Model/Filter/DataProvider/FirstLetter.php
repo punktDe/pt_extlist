@@ -3,6 +3,11 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
 
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -37,17 +42,18 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
  * @subpackage Model\Filter\DataProvider
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest
  */
-class FirstLetter extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\GroupData
+class FirstLetter extends GroupData
 {
     /**
      * Build the group data query to retrieve the group data
      *
      * @param array FieldConfig $fields
      * @return string
+     * @throws InternalException
      */
     protected function buildGroupDataQuery($fields)
     {
-        $groupDataQuery = new \PunktDe\PtExtlist\Domain\QueryObject\Query();
+        $groupDataQuery = new Query();
 
         $displayField = $this->displayFields->getItemByIndex(0);
 
@@ -57,7 +63,7 @@ class FirstLetter extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Gr
 
         //TODO only works with SQL!
         $groupDataQuery->addField(sprintf('UPPER(LEFT(%1$s,1)) as firstLetter', $displayField->getTableFieldCombined()));
-        $groupDataQuery->addSorting('firstLetter', \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_ASC);
+        $groupDataQuery->addSorting('firstLetter', Query::SORTINGSTATE_ASC);
 
         if ($this->showRowCount) {
             // TODO only works with SQL!
@@ -134,7 +140,7 @@ class FirstLetter extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Gr
     {
         $missingLettersString = $this->filterConfig->getSettings('addLettersIfMissing');
         if ($missingLettersString) {
-            return \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $missingLettersString);
+            return GeneralUtility::trimExplode(',', $missingLettersString);
         } else {
             return null;
         }
@@ -150,7 +156,7 @@ class FirstLetter extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Gr
      */
     protected function renderOptionData($optionData)
     {
-        $option = \PunktDe\PtExtlist\Utility\RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+        $option = RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
         return $option;
     }
 }

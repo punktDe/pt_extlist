@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Renderer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implementing factory for for the renderer chain configuration
  *  
@@ -40,20 +43,20 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Renderer;
 class RendererChainConfigFactory
 {
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return RendererChainConfig
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $rendererChainConfiguration = null;
         $rendererChainSettings = $configurationBuilder->getSettingsForConfigObject('rendererChain');
 
         if (is_array($rendererChainSettings['rendererConfigs'])) {
             ksort($rendererChainSettings['rendererConfigs']);
-            $rendererChainConfiguration = new \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfig($configurationBuilder, $rendererChainSettings);
+            $rendererChainConfiguration = new RendererChainConfig($configurationBuilder, $rendererChainSettings);
 
             foreach ($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
-                $rendererConfiguration = \PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfigFactory::getRendererConfiguration($configurationBuilder, $rendererSettings);
+                $rendererConfiguration = RendererConfigFactory::getRendererConfiguration($configurationBuilder, $rendererSettings);
                 $rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
             }
         }

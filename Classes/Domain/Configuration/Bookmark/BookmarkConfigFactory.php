@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Bookmark;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements factory for export configuration
  *
@@ -41,13 +44,13 @@ class BookmarkConfigFactory
     /**
      * Returns a instance of a bookmark configuration.
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return BookmarkConfig
      */
     public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $bookmarksSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
-        $bookmarkConfig = new \PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig($configurationBuilder, $bookmarksSettings);
+        $bookmarkConfig = new BookmarkConfig($configurationBuilder, $bookmarksSettings);
         return $bookmarkConfig;
     }
 }

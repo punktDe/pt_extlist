@@ -1,5 +1,6 @@
 <?php
 namespace PunktDe\PtExtlist\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,8 +28,11 @@ namespace PunktDe\PtExtlist\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper for rendering list headers.
@@ -51,6 +55,10 @@ class HeaderViewHelper extends AbstractViewHelper
     public function initializeArguments()
     {
         $this->registerArgument('exclude', 'array', 'Define identifiers to exclude from the headers', false, []);
+        $this->registerArgument('headers', 'ListHeader', 'ListHeader object', true);
+        $this->registerArgument('captions', 'Row', 'Row object', true);
+        $this->registerArgument('headerKey', 'string', 'headerKey', false, 'header');
+        $this->registerArgument('captionKey', 'string', 'captionKey', false, 'caption');
     }
 
 
@@ -59,14 +67,15 @@ class HeaderViewHelper extends AbstractViewHelper
      *
      * Sets additional template variables for children of this viewhelper.
      *
-     * @param \ListHeader $headers
-     * @param \Row $captions
-     * @param string $headerKey
-     * @param string $captionKey
-     * @throws \PunktDe\PtExtbase\Exception\InternalException
+     * @throws InternalException
      */
-    public function render(\ListHeader $headers, \Row $captions, $headerKey='header', $captionKey="caption")
+    public function render()
     {
+        $headers = $this->arguments['headers'];
+        $captions = $this->arguments['captions'];
+        $headerKey = $this->arguments['headerKey'];
+        $captionKey = $this->arguments['captionKey'];
+
         if ($headers === null || $captions === null) {
             return '';
         }
@@ -74,7 +83,7 @@ class HeaderViewHelper extends AbstractViewHelper
         $output = '';
 
         foreach ($headers as $header) {
-            /* @var $header \HeaderColumn */
+            /* @var $header HeaderColumn */
 
             if ($captions->hasItem($header->getColumnIdentifier()) && !in_array($header->getColumnIdentifier(), $this->arguments['exclude'])) {
 
@@ -106,10 +115,10 @@ class HeaderViewHelper extends AbstractViewHelper
      * Each header can have multiple sorting fields attached, each one
      * can be sorted individually.
      *
-     * @param \HeaderColumn $header
+     * @param HeaderColumn $header
      * @return array
      */
-    protected function buildSortingFieldParams(\HeaderColumn $header)
+    protected function buildSortingFieldParams(HeaderColumn $header)
     {
         $sortingFieldsParams = [];
 

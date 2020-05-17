@@ -21,14 +21,14 @@ plugin.tx_ptextlist {
 		* Tx_PtExtbase_State_Session_Storage_SessionAdapter			Use the TYPO3 browser session
 		* Tx_PtExtbase_State_Session_Storage_FeUserSessionAdapter 	use the TYPO3 fe_user specific session
 		*/
-		uncachedSessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_SessionAdapter
+		uncachedSessionStorageAdapter = PunktDe\PtExtbase\State\Session\Storage\SessionAdapter
 
 		/*
 		* Defined class es are:
 		* Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter			Save the session data into the databae and add an identifier to the get parameter
 		* Tx_PtExtlist_Domain_StateAdapter_Storage_NullStorageAdapter		Add all session parameters to the get parameter
 		*/
-		cachedSessionStorageAdapter = Tx_PtExtbase_State_Session_Storage_NullStorageAdapter
+		cachedSessionStorageAdapter = PunktDe\PtExtbase\State\Session\Storage\NullStorageAdapter
 
 		/*
 		* If this is set to 1, a list will be reset every time there is no

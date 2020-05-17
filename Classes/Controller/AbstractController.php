@@ -361,14 +361,14 @@ abstract class AbstractController extends AbstractActionController
     {
         // Determine class name of session storage class to use for session persistence
         if (TYPO3_MODE === 'FE') {
-            $sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->isInCachedMode()
+            $sessionPersistenceStorageAdapterClassName = GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->isInCachedMode()
                 ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter() // We are in cached mode
                 : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter(); // We are in uncached mode
         } else {
             $sessionPersistenceStorageAdapterClassName = SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
         }
         // Instantiate session storage for determined class name
-        $sessionStorageAdapter = call_user_func($sessionPersistenceStorageAdapterClassName . '::getInstance');
+        $sessionStorageAdapter = GeneralUtility::makeInstance($sessionPersistenceStorageAdapterClassName);
         $this->sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance($sessionStorageAdapter);
     }
 

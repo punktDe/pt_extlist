@@ -29,6 +29,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Sorting;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Factory to create config object for sorter
  *
@@ -41,16 +44,16 @@ class SorterConfigFactory
     /**
      * Returns a instance of a sorter configuration.
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return SorterConfig
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $sorterSettings = $configurationBuilder->getSettings('sorter');
         if (!is_array($sorterSettings)) {
             $sorterSettings = [];
         }
-        $sorterConfig = new \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig($configurationBuilder, $sorterSettings);
+        $sorterConfig = new SorterConfig($configurationBuilder, $sorterSettings);
         return $sorterConfig;
     }
 }

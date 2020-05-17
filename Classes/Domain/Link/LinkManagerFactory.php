@@ -3,6 +3,10 @@
 
 namespace PunktDe\PtExtlist\Domain\Link;
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -41,7 +45,7 @@ class LinkManagerFactory
     /**
      * Array of singleton instance of link manager object
      *
-     * @var \PunktDe\PtExtlist\Domain\Link\LinkManager
+     * @var LinkManager
      */
     private static $instances;
     
@@ -51,7 +55,7 @@ class LinkManagerFactory
      * Factory method for link manager 
      *  
      * @param string listIdentifier
-     * @return \PunktDe\PtExtlist\Domain\Link\LinkManager 
+     * @return LinkManager
      */
     public static function getInstance($listIdentifier)
     {
@@ -59,11 +63,11 @@ class LinkManagerFactory
 
             // TODO resolve this properly with Dependency Injection once we have cascading container
             #$configurationBuilder = ConfigurationBuilderFactory::getInstance($listIdentifier);
-            $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory ConfigurationBuilderFactory */
+            $configurationBuilderFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationBuilderFactory::class); /* @var $configurationBuilderFactory ConfigurationBuilderFactory */
             $configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
-            $getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+            $getPostVarsAdapterFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(GetPostVarAdapterFactory::class); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 
-            self::$instances[$listIdentifier] = new \PunktDe\PtExtlist\Domain\Link\LinkManager();
+            self::$instances[$listIdentifier] = new LinkManager();
             self::$instances[$listIdentifier]->injectGetPostVarAdapater($getPostVarsAdapterFactory->getInstance());
             self::$instances[$listIdentifier]->injectListConfiguration($configurationBuilder->buildListConfiguration());
         }

@@ -32,6 +32,7 @@ use PunktDe\PtExtbase\State\IdentifiableInterface;
 use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
 use PunktDe\PtExtbase\Utility\NamespaceUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * GPValueViewHelper
@@ -48,7 +49,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * 
  * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest
  */
-class GPArrayViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper
+class GPArrayViewHelper extends AbstractViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
@@ -68,6 +69,20 @@ class GPArrayViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHe
     }
 
     /**
+     * Initialize arguments.
+     *
+     * @return void
+     * @author Sebastian Kurfürst <sebastian@typo3.org>
+     * @api
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('arguments', 'string', 'Arguments');
+        $this->registerArgument('object', 'object', 'IdentifiableInterface');
+        $this->registerArgument('nameSpace', 'string', 'nameSpace');
+    }
+
+    /**
      * render build key/value GET/POST-array within the namespace of the given object
      *
      * @param string $arguments : list of arguments
@@ -77,9 +92,11 @@ class GPArrayViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHe
      * @param string $nameSpace
      * @return array GPArray of objects namespace
      */
-    public function render($arguments, $object = null, $nameSpace = '')
+    public function render()
     {
-        $argumentStringArray = $this->getArgumentArray($arguments);
+        $object = $this->arguments['object'] ?? null;
+        $nameSpace = $this->arguments['nameSpace'] ?? '';
+        $argumentStringArray = $this->getArgumentArray($this->arguments['arguments']);
         $argumentArray = [];
         
         foreach ($argumentStringArray as $key => $value) {

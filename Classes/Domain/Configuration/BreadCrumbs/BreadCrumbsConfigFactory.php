@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs;
 
 /***************************************************************
@@ -29,6 +28,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Factory to create configs for list defaults
  *
@@ -41,11 +43,11 @@ class BreadCrumbsConfigFactory
     /**
      * Returns a instance of the breadcrumbs configuration.
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return BreadCrumbsConfig
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
-        return new \PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('breadCrumbs'));
+        return new BreadCrumbsConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('breadCrumbs'));
     }
 }

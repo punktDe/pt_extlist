@@ -29,6 +29,12 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Security\GroupSecurity;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * ColumnConfigCollectionFactory for ColumnConfig Objects
  *
@@ -44,10 +50,10 @@ class ColumnConfigCollectionFactory
     /**
      * Build and return ColumnConfigurationCollection (as a singleton!)
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return ColumnConfigCollection
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         return self::buildColumnConfigCollection($configurationBuilder);
     }
@@ -55,20 +61,20 @@ class ColumnConfigCollectionFactory
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return ColumnConfigCollection
      */
-    protected static function buildColumnConfigCollection(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    protected static function buildColumnConfigCollection(ConfigurationBuilder $configurationBuilder)
     {
         $columnSettings = $configurationBuilder->getSettingsForConfigObject('columns');
         ksort($columnSettings);
-        $columnConfigCollection = new \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection();
+        $columnConfigCollection = new ColumnConfigCollection();
 
-        $security = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Security_GroupSecurity'); /* @var $security Tx_PtExtlist_Domain_Security_GroupSecurity */
+        $security = GeneralUtility::makeInstance(ObjectManager::class)->get(GroupSecurity::class); /* @var $security GroupSecurity */
 
         foreach ($columnSettings as $columnId => $columnSetting) {
             $columnSettingMergedWithPrototype = $configurationBuilder->getMergedSettingsWithPrototype($columnSetting, 'column.default');
-            $columnConfig = new \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig($configurationBuilder, $columnSettingMergedWithPrototype);
+            $columnConfig = new ColumnConfig($configurationBuilder, $columnSettingMergedWithPrototype);
 
             // Inject security information
             $accessable = $security->isAccessableColumn($columnConfig);

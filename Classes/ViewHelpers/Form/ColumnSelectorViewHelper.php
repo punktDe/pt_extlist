@@ -1,5 +1,14 @@
 <?php
 namespace PunktDe\PtExtlist\ViewHelpers\Form;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Renderer\Defaults\CaptionRenderer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,16 +43,16 @@ namespace PunktDe\PtExtlist\ViewHelpers\Form;
  * @package ViewHelpers
  * @subpackage NameSpace
  */
-class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
+class ColumnSelectorViewHelper extends SelectViewHelper
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\Renderer\Default\CaptionRenderer
+     * @var CaptionRenderer
      */
     protected $captionRenderer;
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig
+     * @var ColumnSelectorConfig
      */
     protected $columnSelectorConfig;
 
@@ -55,10 +64,10 @@ class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectV
     public function initialize()
     {
         parent::initialize();
-        $this->captionRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
+        $this->captionRenderer = GeneralUtility::makeInstance(CaptionRenderer::class);
 
         // TODO Remove this, once we have DI
-        $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory \ConfigurationBuilderFactory */
+        $configurationBuilderFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationBuilderFactory::class); /* @var $configurationBuilderFactory \ConfigurationBuilderFactory */
         $configurationBuilder = $configurationBuilderFactory->getInstance();
 
         $this->columnSelectorConfig = $configurationBuilder->buildColumnSelectorConfiguration();
@@ -97,7 +106,7 @@ class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectV
 
 
     /**
-     * @param \ListHeader $headers
+     * @param ListHeader $headers
      */
     public function render()
     {
@@ -106,7 +115,7 @@ class ColumnSelectorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectV
         $options = [];
         $selectedOptions = [];
 
-        foreach ($columns as $columnIdentifier => $column) { /** @var $column \HeaderColumn */
+        foreach ($columns as $columnIdentifier => $column) { /** @var $column HeaderColumn */
 
             if (!($this->columnSelectorConfig->getHideDefaultVisibleInSelector() && $column->getColumnConfig()->getIsVisible())) {
                 $options[$columnIdentifier] = $this->captionRenderer->renderColumnLabel($column);

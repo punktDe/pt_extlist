@@ -31,6 +31,7 @@ namespace PunktDe\PtExtlist\Utility;
 
 use PunktDe\PtExtbase\Div;
 use PunktDe\PtExtbase\Utility\FakeFrontendFactory;
+use PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface;
 use PunktDe\PtExtlist\Extbase\ExtbaseContext;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -102,11 +103,11 @@ class RenderValue
      * Render the given Data by configuration from the configuration object
      *
      * @param array $data data to be rendered
-     * @param \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface $renderConfig
+     * @param RenderConfigInterface $renderConfig
      * @param bool $caching Set to true if you want to get caching for cell rendering. Default is FALSE
      * @return string
      */
-    public static function renderByConfigObject(array $data, \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface $renderConfig, $caching = false)
+    public static function renderByConfigObject(array $data, RenderConfigInterface $renderConfig, $caching = false)
     {
         if ($caching) {
             return self::render($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
@@ -121,10 +122,10 @@ class RenderValue
      * Render the given Data by configuration from the configuration object uncached
      *
      * @param array $data data to be rendered
-     * @param \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface $renderConfig
+     * @param RenderConfigInterface $renderConfig
      * @return string
      */
-    public static function renderByConfigObjectUncached(array $data, \PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface $renderConfig)
+    public static function renderByConfigObjectUncached(array $data, RenderConfigInterface $renderConfig)
     {
         return self::renderUncached($data, $renderConfig->getRenderObj(), $renderConfig->getRenderUserFunctions(), $renderConfig->getRenderTemplate());
     }
@@ -264,8 +265,8 @@ class RenderValue
     {
         $renderObjectConfig['renderObj.']['setCurrent'] = $currentData;
 
-        PunktDe_PtExtbase_Div::getCobj()->start($data);
-        return PunktDe_PtExtbase_Div::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
+        Div::getCobj()->start($data);
+        return Div::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
     }
 
 
@@ -293,8 +294,8 @@ class RenderValue
      */
     public static function renderDataByConfigArray($data, $configArray)
     {
-        PunktDe_PtExtbase_Div::getCobj()->start($data);
-        return PunktDe_PtExtbase_Div::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
+        Div::getCobj()->start($data);
+        return Div::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
     }
 
 
@@ -353,7 +354,7 @@ class RenderValue
      * return the cObj object
      *
      * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     * @deprecated Use PunktDe_PtExtbase_Div::getCobj instead
+     * @deprecated Use Div::getCobj instead
      */
     public static function getCobj()
     {

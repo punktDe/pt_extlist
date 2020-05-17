@@ -1,8 +1,6 @@
 <?php
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter;
-use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
-use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
 
 /***************************************************************
  *  Copyright notice
@@ -30,6 +28,9 @@ use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
 
 /**
  * Class implements the firstLetter filter

@@ -1,25 +1,6 @@
 <?php
 namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend;
 
-use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
-use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig;
-use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
-use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
-use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
-use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
-use PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend;
-use PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource;
-use PunktDe\PtExtlist\Domain\DataBackend\DataSource\MysqlDataSourceFactory;
-use PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter;
-use PunktDe\PtExtlist\Domain\Model\Filter\AbstractFilter;
-use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
-use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
-use PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface;
-use PunktDe\PtExtlist\Domain\QueryObject\Query;
-use PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory;
-use PunktDe\PtExtlist\Utility\DbUtils;
-use PunktDe\PtExtlist\Utility\RenderValue;
-
 /***************************************************************
  *  Copyright notice
  *
@@ -47,6 +28,34 @@ use PunktDe\PtExtlist\Utility\RenderValue;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\AbstractDataBackend;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\MysqlDataSourceFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter;
+use PunktDe\PtExtlist\Domain\Model\Filter\AbstractFilter;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
+use PunktDe\PtExtlist\Domain\Model\Lists\IterationListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\IterationListDataInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\View\StandaloneView;
+
 /**
  * Class implements data backend for generic mysql connections
  *
@@ -58,9 +67,9 @@ use PunktDe\PtExtlist\Utility\RenderValue;
 class MySqlDataBackend extends AbstractDataBackend
 {
     /**
-     * @var MySqlDataSource
+     * @var Connection
      */
-    protected $dataSource;
+    protected $connection;
 
 
     /**
@@ -200,13 +209,14 @@ class MySqlDataBackend extends AbstractDataBackend
      */
     public function buildListData()
     {
-        $sqlQuery = $this->buildQuery();
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = $this->buildQuery(true);
 
-        $rawData = $this->dataSource->executeQuery($sqlQuery)->fetchAll();
+        $rawData = $this->dataSource->executeQuery($queryBuilder)->fetchAll();
 
-        if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
-        }
+//        if (TYPO3_DLOG) {
+//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
+//        }
 
         $mappedListData = $this->dataMapper->getMappedListData($rawData);
         unset($rawData);
@@ -225,17 +235,17 @@ class MySqlDataBackend extends AbstractDataBackend
 
         $rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
 
-        $sqlQuery = $this->buildQuery();
+        $queryBuilder = $this->buildQuery(true);
 
         $dataSource = clone $this->dataSource;
-        $dataSource->executeQuery($sqlQuery);
+        $dataSource->executeQuery($queryBuilder);
 
         ###TODO
 //        if (TYPO3_DLOG) {
 //            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
 //        }
 
-        $iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('IterationListData');
+        $iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get(IterationListData::class);
         /** @var $iterationListData IterationListData */
         $iterationListData->_injectDataSource($dataSource);
         $iterationListData->_injectDataMapper($this->dataMapper);
@@ -251,30 +261,50 @@ class MySqlDataBackend extends AbstractDataBackend
      * and generates SQL query out of this information
      *
      * @return string An SQL query
+     * @throws Assertion
      */
-    public function buildQuery()
+    public function buildQuery($execute= false): QueryBuilder
     {
+
         $this->executePrepareStatements();
 
         if (!is_array($this->listQueryParts)) {
-            $selectPart = $this->buildSelectPart();
-            $fromPart = $this->buildFromPart();
-            $wherePart = $this->buildWherePartForListData();
-            $orderByPart = $this->buildOrderByPart();
-            $limitPart = $this->buildLimitPart();
-            $groupByPart = $this->buildGroupByPart();
-
-            $this->listQueryParts['SELECT'] = $selectPart != '' ? 'SELECT ' . $this->processQueryWithFluid($selectPart) . " \n" : '';
-            $this->listQueryParts['FROM'] = $fromPart != '' ? 'FROM ' . $this->processQueryWithFluid($fromPart) . " \n" : '';
-            $this->listQueryParts['WHERE'] = $wherePart != '' ? 'WHERE ' . $this->processQueryWithFluid($wherePart) . " \n" : '';
-            $this->listQueryParts['GROUPBY'] = $groupByPart != '' ? 'GROUP BY ' . $this->processQueryWithFluid($groupByPart) . " \n" : '';
-            $this->listQueryParts['ORDERBY'] = $orderByPart != '' ? 'ORDER BY ' . $orderByPart . " \n" : '';
-            $this->listQueryParts['LIMIT'] = $limitPart != '' ? 'LIMIT ' . $limitPart . " \n" : '';
+            $this->buildSelectPart();
+            $this->buildFromPart();
+            $this->buildWherePartForListData();
+            $this->buildOrderByPart();
+            $this->buildGroupByPart();
+            $this->buildLimitPart();
         }
 
-        $query = implode('', $this->listQueryParts);
+        /** @var Connection $connection */
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->listQueryParts['FIRSTTABLE']);
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = $connection->createQueryBuilder();
 
-        return $query;
+        if ($execute) {
+            $queryBuilder->selectLiteral($this->listQueryParts['SELECT'])
+                ->from($this->listQueryParts['FROM']);
+
+            if (!empty($this->listQueryParts['WHERE'])) {
+                $queryBuilder->where($this->listQueryParts['WHERE']);
+            }
+
+            if (!empty($this->listQueryParts['ORDERBY'])) {
+                $queryBuilder->orderBy($this->listQueryParts['ORDERBY']);
+            }
+
+            if (!empty($this->listQueryParts['GROUPBY'])) {
+                $queryBuilder->groupBy($this->listQueryParts['GROUPBY']);
+            }
+            if (!empty($this->listQueryParts['FIRSTRESULT'])) {
+                $queryBuilder->setFirstResult($this->listQueryParts['FIRSTRESULT']);
+            }
+            if (!empty($this->listQueryParts['MAXRESULT'])) {
+                $queryBuilder->setMaxResults($this->listQueryParts['MAXRESULT']);
+            }
+        }
+        return $queryBuilder;
     }
 
 
@@ -290,7 +320,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
         $query = '{namespace extlist=PunktDe\PtExtlist\ViewHelpers}{namespace ptx=PunktDe\PtExtbase\ViewHelpers}' . $query;
 
-        $fluidView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView'); /** @var \TYPO3\CMS\Fluid\View\StandaloneView $fluidView */
+        $fluidView = $this->objectManager->get(StandaloneView::class); /** @var StandaloneView $fluidView */
         $fluidView->setTemplateSource($query);
         $fluidView->assignMultiple([
             'filters' => $this->filterboxCollection,
@@ -314,14 +344,18 @@ class MySqlDataBackend extends AbstractDataBackend
 
         $prepareStatements = $this->backendConfiguration->getSettings('prepareStatements');
 
+        ###TODO
         if (is_array($prepareStatements)) {
+
             foreach ($prepareStatements as $prepareStatement) {
                 if (trim($prepareStatement)) {
+                    throw new \Exception('deactivated function executePrepareStatements', 1589466778);
                     $this->dataSource->executeQuery($this->processQueryWithFluid($prepareStatement));
                 }
             }
         } else {
             if (trim($prepareStatements)) {
+                throw new \Exception('deactivated function executePrepareStatements', 1589466878);
                 $this->dataSource->executeQuery($this->processQueryWithFluid($prepareStatements));
             }
         }
@@ -341,7 +375,7 @@ class MySqlDataBackend extends AbstractDataBackend
      */
     protected function buildWherePartForListData()
     {
-        return $this->buildWherePart($this->filterboxCollection->getExcludeFilters());
+        $this->listQueryParts['WHERE'] = $this->processQueryWithFluid($this->buildWherePart($this->filterboxCollection->getExcludeFilters()));
     }
 
 
@@ -362,8 +396,7 @@ class MySqlDataBackend extends AbstractDataBackend
                 $selectParts[] = DbUtils::getAliasedSelectPartByFieldConfig($fieldConfiguration);
             }
         }
-
-        return implode(', ', $selectParts);
+        $this->listQueryParts['SELECT'] = $this->processQueryWithFluid(implode(', ', $selectParts));
     }
 
 
@@ -371,6 +404,7 @@ class MySqlDataBackend extends AbstractDataBackend
      * Builds from part from all parts of plugin
      *
      * @return string FROM part of query without 'FROM'
+     * @throws Assertion
      */
     public function buildFromPart()
     {
@@ -382,7 +416,10 @@ class MySqlDataBackend extends AbstractDataBackend
 
         Assert::isNotEmptyString($fromPart, ['message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420']);
 
-        return $fromPart;
+        $tables = GeneralUtility::trimExplode(',', $fromPart);
+
+        $this->listQueryParts['FIRSTTABLE'] = trim(current($tables));
+        $this->listQueryParts['FROM'] = trim($this->processQueryWithFluid($fromPart));
     }
 
 
@@ -394,7 +431,6 @@ class MySqlDataBackend extends AbstractDataBackend
      */
     public function buildWherePart($excludeFilters = [])
     {
-        $wherePart = '';
         $baseWhereClause = $this->getBaseWhereClause();
         $whereClauseFromFilterBoxes = $this->getWhereClauseFromFilterboxes($excludeFilters);
 
@@ -403,8 +439,7 @@ class MySqlDataBackend extends AbstractDataBackend
         } else {
             $wherePart = $baseWhereClause . $whereClauseFromFilterBoxes;
         }
-
-        return $wherePart;
+        $this->listQueryParts['WHERE'] = $wherePart;
     }
 
 
@@ -414,7 +449,7 @@ class MySqlDataBackend extends AbstractDataBackend
      */
     public function buildGroupByPart()
     {
-        return $this->getBaseGroupByClause();
+        $this->listQueryParts['GROUPBY'] = $this->getBaseGroupByClause();
     }
 
 
@@ -506,8 +541,7 @@ class MySqlDataBackend extends AbstractDataBackend
     public function buildOrderByPart()
     {
         $sortingsQuery = $this->sorter->getSortingStateCollection()->getSortingsQuery();
-        $translatedOrderBy = $this->queryInterpreter->getSorting($sortingsQuery);
-        return $translatedOrderBy;
+        $this->listQueryParts['ORDERBY'] = $this->queryInterpreter->getSorting($sortingsQuery);
     }
 
 
@@ -518,16 +552,13 @@ class MySqlDataBackend extends AbstractDataBackend
      */
     public function buildLimitPart()
     {
-        $limitPart = '';
         if ($this->pagerCollection->isEnabled()) {
             $pagerOffset = $this->pagerCollection->getItemOffset();
             $pagerLimit = intval($this->pagerCollection->getItemsPerPage());
-            $limitPart .= $pagerOffset > 0 ? $pagerOffset . ',' : '';
-            $limitPart .= $pagerLimit > 0 ? $pagerLimit : '';
+            $this->listQueryParts['FIRSTRESULT'] .= $pagerOffset > 0 ? $pagerOffset . ',' : '';
+            $this->listQueryParts['MAXRESULT'] .= $pagerLimit > 0 ? $pagerLimit : '';
         }
-        return $limitPart;
     }
-
 
     /**
      * Get the query parts
@@ -557,24 +588,28 @@ class MySqlDataBackend extends AbstractDataBackend
     public function getTotalItemsCount()
     {
         if ($this->totalItemsCount == null) {
-            $this->buildQuery();
+            $queryBuilder = $this->buildQuery();
 
-            $query = '';
-            $query .= 'SELECT COUNT(*) AS totalItemCount ';
-            $query .= $this->listQueryParts['FROM'];
-            $query .= $this->listQueryParts['WHERE'];
-            $query .= $this->listQueryParts['GROUPBY'];
+            $queryBuilder->selectLiteral('COUNT(*) AS totalItemCount')
+                ->from($this->listQueryParts['FROM']);
 
-            $countResult = $this->dataSource->executeQuery($query)->fetchAll();
-
-            if (TYPO3_DLOG) {
-                \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
+            if (!empty($this->listQueryParts['WHERE'])) {
+                $queryBuilder->where($this->listQueryParts['WHERE']);
             }
+            if (!empty($this->listQueryParts['GROUPBY'])) {
+                $queryBuilder->groupBy($this->listQueryParts['GROUPBY']);
+            }
+
+            $countResult = $this->dataSource->executeQuery($queryBuilder)->fetchAll();
+
+//            if (TYPO3_DLOG) {
+//                \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
+//            }
 
             if ($this->listQueryParts['GROUPBY']) {
                 $this->totalItemsCount = count($countResult);
             } else {
-                $this->totalItemsCount = intval($countResult[0]['totalItemCount']);
+                $this->totalItemsCount = (int)$countResult[0]['totalItemCount'];
             }
 
             $this->pagerCollection->setItemCount($this->totalItemsCount);
@@ -582,7 +617,7 @@ class MySqlDataBackend extends AbstractDataBackend
             // We have to build query again, as LIMIT is not set correctly above!
             // TODO fix this! Split build query in buildQueryWithoutPager() and buildQueryPartsFromPager()
             $this->listQueryParts = null;
-            $this->buildQuery();
+            $this->buildQuery(false);
         }
 
         return $this->totalItemsCount;
@@ -606,9 +641,9 @@ class MySqlDataBackend extends AbstractDataBackend
 
         $groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
 
-        if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
-        }
+//        if (TYPO3_DLOG) {
+//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
+//        }
 
         return $groupDataArray;
     }
@@ -623,12 +658,13 @@ class MySqlDataBackend extends AbstractDataBackend
     protected function buildGroupDataQuery(Query $groupDataQuery, $excludeFilters = [],
                                             FilterConfig $filterConfig = null)
     {
-        $this->buildQuery();
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = $this->buildQuery();
 
-        $selectPart = 'SELECT ' . $this->queryInterpreter->getSelectPart($groupDataQuery);
+        $selectPart = $this->queryInterpreter->getSelectPart($groupDataQuery);
         $fromPart = $this->listQueryParts['FROM'];
-        $groupPart = count($groupDataQuery->getGroupBy()) > 0 ? ' GROUP BY ' . $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
-        $sortingPart = count($groupDataQuery->getSortings()) > 0 ? ' ORDER BY ' . $this->queryInterpreter->getSorting($groupDataQuery) : '';
+        $groupPart = count($groupDataQuery->getGroupBy()) > 0 ?  $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
+        $sortingPart = count($groupDataQuery->getSortings()) > 0 ? $this->queryInterpreter->getSorting($groupDataQuery) : '';
 
 
         /**
@@ -644,25 +680,39 @@ class MySqlDataBackend extends AbstractDataBackend
             $sortingPart = $this->convertTableFieldToAlias($sortingPart);
 
             $filterWherePart = $this->buildWherePart($excludeFilters);
-            $filterWherePart = $filterWherePart ? ' WHERE ' . $filterWherePart . " \n" : '';
 
             // if the list has a group by clause itself, we have to use the listQuery as subQuery
-            $fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $filterWherePart . $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+            $fromPart = '(' . ' SELECT ' .  $this->listQueryParts['SELECT'] . ' FROM ' . $this->listQueryParts['FROM'] . ' WHERE ' . $filterWherePart . ' GROUP BY ' .  $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
 
             unset($filterWherePart); // we confined the subquery, so we dont need this in the group query
         } else {
             $filterWherePart = $this->buildWherePart($excludeFilters);
             if ($filterWherePart != '') {
-                $filterWherePart = ' WHERE ' . $filterWherePart . " \n";
+                $filterWherePart = $filterWherePart . " \n";
             }
         }
 
-        $query = implode(" \n", [$selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart]);
+        $queryBuilder->selectLiteral($selectPart)
+            ->from($fromPart);
 
+        if (!empty($filterWherePart)) {
+            $queryBuilder->where($filterWherePart);
+        }
 
-        $query = $this->processQueryWithFluid($query);
+        if (!empty($sortingPart)) {
+            $queryBuilder->orderBy($sortingPart);
+        }
 
-        return $query;
+        if (!empty($groupPart)) {
+            $queryBuilder->groupBy($groupPart);
+        }
+
+        //$query = implode(" \n", [$selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart]);
+
+        ###TODO
+        //$query = $this->processQueryWithFluid($query);
+
+        return $queryBuilder;
     }
 
 

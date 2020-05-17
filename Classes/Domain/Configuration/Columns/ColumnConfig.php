@@ -29,6 +29,11 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Utility\HeaderInclusion;
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper\ObjectMapperConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -41,8 +46,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest
  */
 class ColumnConfig
-    extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
-    implements \PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface
+    extends AbstractExtlistConfiguration
+    implements ColumnConfigInterface
 {
     /**
      * @var string
@@ -52,7 +57,7 @@ class ColumnConfig
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
+     * @var FieldConfigCollection
      */
     protected $fieldIdentifier;
 
@@ -94,7 +99,7 @@ class ColumnConfig
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper\ObjectMapperConfig
+     * @var ObjectMapperConfig
      */
     protected $objectMapperConfig = null;
 
@@ -123,7 +128,7 @@ class ColumnConfig
 
 
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfigCollection
+     * @var SortingConfigCollection
      */
     protected $sortingConfigCollection = null;
 
@@ -222,7 +227,7 @@ class ColumnConfig
      */
     protected function init()
     {
-        $headerInclusionUtility = GeneralUtility::makeInstance('PunktDe_PtExtbase_Utility_HeaderInclusion');
+        $headerInclusionUtility = GeneralUtility::makeInstance(HeaderInclusion::class);
 
         $this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
         $this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "' . $this->columnIdentifier . '" not given 1277889447');
@@ -266,11 +271,11 @@ class ColumnConfig
               3. If we don't have either, we use first field identifier and make this sorting field of column
          */
         if (array_key_exists('sortingFields', $this->settings)) {
-            $this->sortingConfigCollection = \PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
+            $this->sortingConfigCollection = SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
         } elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
-            $this->sortingConfigCollection = \PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
+            $this->sortingConfigCollection = SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
         } else {
-            $this->sortingConfigCollection = \PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
+            $this->sortingConfigCollection = SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
         }
 
         if (array_key_exists('accessGroups', $this->settings)) {
@@ -284,7 +289,7 @@ class ColumnConfig
 
         // Build the objectMapperConfig
         if (array_key_exists('objectMapper', $this->settings)) {
-            $this->objectMapperConfig = new \PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper\ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
+            $this->objectMapperConfig = new ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
         }
     }
 
@@ -378,7 +383,7 @@ class ColumnConfig
 
 
     /**
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\SortingConfigCollection
+     * @return SortingConfigCollection
      */
     public function getSortingConfig()
     {
@@ -496,7 +501,7 @@ class ColumnConfig
 
 
     /**
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper\ObjectMapperConfig
+     * @return ObjectMapperConfig
      */
     public function getObjectMapperConfig()
     {

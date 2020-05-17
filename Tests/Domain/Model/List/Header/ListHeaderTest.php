@@ -33,7 +33,7 @@
  * 
  * @author Daniel Lienert 
  * @package Tests
- * @subpackage Model\List\Header
+ * @subpackage Model\Lists\Header
  * @see ListHeader
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderTest extends Tx_PtExtlist_Tests_BaseTestcase

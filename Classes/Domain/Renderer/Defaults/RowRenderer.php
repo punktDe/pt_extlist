@@ -2,8 +2,6 @@
 
 namespace PunktDe\PtExtlist\Domain\Renderer\Defaults;
 
-use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
-
 /***************************************************************
  *  Copyright notice
  *
@@ -30,6 +28,18 @@ use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfig;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Cell;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeaderFactory;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Class implements a renderer for rows in list data
@@ -135,12 +145,12 @@ class RowRenderer
      * Renders an aggregate row for given aggregate row configuration and given row index
      *
      * @param Row $aggregateDataRow Row to be rendered
-     * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig Config used to render aggregate row
+     * @param AggregateRowConfig $aggregateRowConfig Config used to render aggregate row
      * @param integer $rowIndex Index of rendered row
      * @return ListData Rendered aggregate row
      */
     public function renderAggregateRow(Row $aggregateDataRow,
-                                       Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig,
+                                       AggregateRowConfig $aggregateRowConfig,
                                        $rowIndex)
     {
         $renderedRow = new Row();
@@ -173,13 +183,13 @@ class RowRenderer
     /**
      * Renders a cell
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig
+     * @param ColumnConfigInterface $columnConfig
      * @param Row $data
      * @param integer $columnIndex
      * @param integer $rowIndex
      * @return Cell
      */
-    protected function renderCell(Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface $columnConfig, Row $data, $columnIndex, $rowIndex)
+    protected function renderCell(ColumnConfigInterface $columnConfig, Row $data, $columnIndex, $rowIndex)
     {
         return $this->cellRenderer->renderCell($columnConfig, $data, $columnIndex, $rowIndex);
     }
@@ -191,7 +201,7 @@ class RowRenderer
      */
     protected function getColumnCollection()
     {
-        $listHeaderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('ListHeaderFactory'); /* @var $listHeaderFactory ListHeaderFactory */
+        $listHeaderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get(ListHeaderFactory::class); /* @var $listHeaderFactory ListHeaderFactory */
         $listHeader = $listHeaderFactory->createInstance($this->rendererConfiguration->getConfigurationBuilder());
         return $listHeader;
     }
@@ -199,7 +209,7 @@ class RowRenderer
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+     * @return ColumnConfigCollection
      */
     protected function getColumnConfigurationCollection()
     {

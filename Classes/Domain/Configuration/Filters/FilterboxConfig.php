@@ -3,6 +3,12 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -37,7 +43,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigTest
  */
-class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class FilterboxConfig extends ObjectCollection
 {
     /**
      * Hash map between filter identifier and numeric filter index
@@ -59,7 +65,7 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
     /**
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig';
+    protected $restrictedClassName = FilterConfig::class;
     
     
     
@@ -161,11 +167,11 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
     
     
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param string $filterboxIdentifier
      * @param array $filterBoxSettings
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings)
+    public function __construct(ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings)
     {
         Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'FilterboxIdentifier must not be empty! 1277889451']);
         
@@ -193,10 +199,11 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
     /**
      * Add FilterConfig to the FilterboxConfig
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      * @param $filterIndex
+     * @throws InternalException
      */
-    public function addFilterConfig(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig $filterConfig, $filterIndex)
+    public function addFilterConfig(FilterConfig $filterConfig, $filterIndex)
     {
         $this->addItem($filterConfig, $filterIndex);
         $this->filterIdentifierToFilterIndex[$filterConfig->getFilterIdentifier()] = $filterIndex;
@@ -208,7 +215,8 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
      * Get the filterconfig by filterIdentifier
      *  
      * @param string $filterIdentifier
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig
+     * @return FilterConfig
+     * @throws InternalException
      */
     public function getFilterConfigByFilterIdentifier($filterIdentifier)
     {
@@ -221,7 +229,7 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
      * Set the optional settings
      *
      * @param array $filterBoxSettings
-     * @throws Exception
+     * @throws \Exception
      */
     protected function setOptionalSettings($filterBoxSettings)
     {
@@ -246,7 +254,7 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
             if (array_key_exists('action', $redirectSettings)) {
                 $this->redirectOnSubmitActionName = $redirectSettings['action'];
             } else {
-                throw new Exception('You have redirect on submit configured for your filterbox ' . $this->getFilterboxIdentifier() . ' but have set no action to redirect to. You always have to set an action, even if it is nonesense! 1313610240');
+                throw new \Exception('You have redirect on submit configured for your filterbox ' . $this->getFilterboxIdentifier() . ' but have set no action to redirect to. You always have to set an action, even if it is nonesense! 1313610240');
             }
             if (array_key_exists('pageId', $redirectSettings)) {
                 $this->redirectOnSubmitPageId = $redirectSettings['pageId'];
@@ -273,7 +281,7 @@ class FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
      */
     protected function setExcludeFilters($excludeFiltersString)
     {
-        $excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $excludeFiltersString);
+        $excludeFilters = GeneralUtility::trimExplode(',', $excludeFiltersString);
         foreach ($excludeFilters as $excludedFilter) {
             list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
             Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416']);

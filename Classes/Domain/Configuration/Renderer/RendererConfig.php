@@ -29,13 +29,18 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Renderer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
+
 /**
  * @author Christoph Ehscheidt 
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Renderer
  */
-class RendererConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
+class RendererConfig extends AbstractExtlistConfiguration
 {
     /**
      * @var boolean 
@@ -50,18 +55,9 @@ class RendererConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExt
      */
     protected $rendererClassName;
     
-    
-    
-    /**
-     * @var Tx_PtExtlist_Domain_Configuration_Renderer_RenderConfigCollection
-     */
-    protected $renderConfigCollection;
-    
-    
-    
     /**
      * (non-PHPdoc)
-     * @see \PunktDe\PtExtbase\Configuration\AbstractConfiguration::init()
+     * @see AbstractConfiguration::init()
      */
     protected function init()
     {

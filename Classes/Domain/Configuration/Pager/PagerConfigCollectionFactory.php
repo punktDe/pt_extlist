@@ -1,7 +1,7 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\Domain\Configuration\Pager;
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
 
 /***************************************************************
  *  Copyright notice
@@ -40,18 +40,18 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Pager;
 class PagerConfigCollectionFactory
 {
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfigCollection
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return PagerConfigCollection
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $pagerCollectionSettings = $configurationBuilder->getSettingsForConfigObject('pager');
 
-        $pagerConfigCollection = new \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfigCollection($configurationBuilder);
+        $pagerConfigCollection = new PagerConfigCollection($configurationBuilder);
         
         foreach ($pagerCollectionSettings['pagerConfigs'] as $pagerIdentifier => $pagerSettings) {
             $pagerSettings['itemsPerPage'] = $pagerCollectionSettings['itemsPerPage'];
-            $pagerConfiguration = \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfigFactory::getInstance($configurationBuilder, $pagerIdentifier, $pagerSettings);
+            $pagerConfiguration = PagerConfigFactory::getInstance($configurationBuilder, $pagerIdentifier, $pagerSettings);
 
             $pagerConfigCollection->addPagerConfig($pagerConfiguration, $pagerIdentifier);
         }

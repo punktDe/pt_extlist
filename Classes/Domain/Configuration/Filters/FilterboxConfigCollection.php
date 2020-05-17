@@ -29,6 +29,11 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class FilterboxConfig Collection
  *
@@ -37,20 +42,20 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionTest
  */
-class FilterboxConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class FilterboxConfigCollection extends ObjectCollection
 {
     protected $listIdentifier;
 
 
 
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig';
+    protected $restrictedClassName = FilterboxConfig::class;
 
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function __construct(ConfigurationBuilder $configurationBuilder)
     {
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
     }
@@ -59,19 +64,21 @@ class FilterboxConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectColl
 
     /**
      * Add a filterbox config
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig $filterBox
+     * @param FilterboxConfig $filterBox
      * @param string $filterBoxIdentifier
+     * @param $filterBoxIdentifier
+     * @throws InternalException
      */
-    public function addFilterBoxConfig(\PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig $filterBox, $filterBoxIdentifier)
+    public function addFilterBoxConfig(FilterboxConfig $filterBox, $filterBoxIdentifier)
     {
         $this->addItem($filterBox, $filterBoxIdentifier);
     }
 
 
-
     /**
      * @param $filterBoxIdentifier
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig
+     * @return FilterboxConfig
+     * @throws InternalException
      */
     public function getFilterBoxConfig($filterBoxIdentifier)
     {

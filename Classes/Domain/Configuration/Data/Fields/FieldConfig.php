@@ -1,6 +1,8 @@
 <?php
 namespace PunktDe\PtExtlist\Domain\Configuration\Data\Fields;
 
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -36,7 +38,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Data\Fields;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest
  */
-class FieldConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
+class FieldConfig extends AbstractExtlistConfiguration
 {
     /**
      * Field Identifier

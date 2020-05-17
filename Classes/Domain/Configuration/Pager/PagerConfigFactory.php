@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\Pager;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,9 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Pager;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Factory to create configs for pager
  *
@@ -43,14 +47,14 @@ class PagerConfigFactory
     /**
      * Returns a instance of a pager configuration.
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param string pagerIdentifier
      * @param array $pagerSettings
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig
+     * @return PagerConfig
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $pagerSettings)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $pagerSettings)
     {
-        $pagerConfig = new \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig($configurationBuilder, $pagerIdentifier, $pagerSettings);
+        $pagerConfig = new PagerConfig($configurationBuilder, $pagerIdentifier, $pagerSettings);
         
         return $pagerConfig;
     }

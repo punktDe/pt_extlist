@@ -49,7 +49,7 @@ class ListConfigFactory
      * @return ListConfig
      * @throws \Exception
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         return new ListConfig($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('list'));
     }

@@ -1,6 +1,8 @@
 <?php
 namespace PunktDe\PtExtlist\Controller;
 
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterFactory;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -43,7 +45,7 @@ class AjaxFilterController extends AbstractController
     public function getFilterElementAction($fullQualifiedFilterIdentifier)
     {
         $filterConfig = $this->getFilterConfigByFullQualifiedFilterIdentifier($fullQualifiedFilterIdentifier);
-        $filter = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterFactory')->createInstance($filterConfig);
+        $filter = $this->objectManager->get(FilterFactory::class)->createInstance($filterConfig);
         
         $this->view->assign('filter', $filter);
     }

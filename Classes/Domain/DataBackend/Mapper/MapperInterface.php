@@ -2,6 +2,8 @@
 
 namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
 
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -47,8 +49,8 @@ interface MapperInterface
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $mapperConfiguration
+     * @param FieldConfigCollection $mapperConfiguration
      * @return void
      */
-    public function _injectMapperConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $mapperConfiguration);
+    public function _injectMapperConfiguration(FieldConfigCollection $mapperConfiguration);
 }

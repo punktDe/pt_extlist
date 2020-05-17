@@ -32,7 +32,7 @@
  *
  * @author Daniel Lienert
  * @package Tests
- * @subpackage Model\List\Header
+ * @subpackage Model\Lists\Header
  * @see HeaderColumn
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnTest extends Tx_PtExtlist_Tests_BaseTestcase

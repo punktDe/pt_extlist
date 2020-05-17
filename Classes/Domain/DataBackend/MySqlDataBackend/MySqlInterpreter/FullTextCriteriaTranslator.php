@@ -3,6 +3,12 @@
 
 namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
 
+use PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -37,18 +43,18 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class FullTextCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface
+class FullTextCriteriaTranslator implements CriteriaTranslatorInterface
 {
     /**
      * translate fullText criteria
      *
-     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria
+     * @param Criteria $criteria
      * @return string
      */
-    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
+    public static function translateCriteria($criteria)
     {
-        $connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
-
+        /** @var Connection $connection */
+        $connection = GeneralUtility::makeInstance(Connection::class);
         $searchString = $criteria->getSearchString();
 
         if ($criteria->getSearchParameter('booleanMode')) {
@@ -64,10 +70,10 @@ class FullTextCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBacken
             }
         }
 
-        $searchString = $connection->fullQuoteStr($searchString, '');
+        $searchString = $connection->quoteIdentifier($searchString);
 
         return sprintf('MATCH (%s) AGAINST (%s%s)',
-                                \PunktDe\PtExtlist\Utility\DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
+                                DbUtils::getSelectPartByFieldConfigCollection($criteria->getFields()),
                                 $searchString,
                                 $booleanMode
                         );

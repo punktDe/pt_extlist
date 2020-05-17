@@ -29,6 +29,11 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+
+
 /**
  * column config collection
  * @author Daniel Lienert
@@ -36,12 +41,12 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
  * @subpackage 	Configuration\Columns
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigCollectionTest
  */
-class ColumnConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class ColumnConfigCollection extends ObjectCollection
 {
     /**
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig';
+    protected $restrictedClassName = ColumnConfig::class;
 
 
     /**
@@ -53,10 +58,10 @@ class ColumnConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
 
     /**
      * @param $columnNumber
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
+     * @param ColumnConfig $columnConfig
      * @return void
      */
-    public function addColumnConfig($columnNumber, \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig $columnConfig)
+    public function addColumnConfig($columnNumber, ColumnConfig $columnConfig)
     {
         $this->addItem($columnConfig, $columnNumber);
         $this->identifierToIdMap[$columnConfig->getColumnIdentifier()] = $columnNumber;
@@ -66,15 +71,15 @@ class ColumnConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
 
     /**
      * @param integer $id
-     * @throws Exception
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig
+     * @throws \Exception
+     * @return ColumnConfig
      */
     public function getColumnConfigById($id)
     {
         if ($this->hasItem($id)) {
             return $this->getItemById($id);
         } else {
-            throw new Exception('The column with id ' . $id . ' does not exist! 1280309838');
+            throw new \Exception('The column with id ' . $id . ' does not exist! 1280309838');
         }
     }
 
@@ -94,15 +99,15 @@ class ColumnConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
 
     /**
      * @param string $identifier
-     * @throws Exception
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfig
+     * @throws \Exception
+     * @return ColumnConfig
      */
     public function getColumnConfigByIdentifier($identifier)
     {
         if (array_key_exists($identifier, $this->identifierToIdMap)) {
             return $this->getColumnConfigById($this->identifierToIdMap[$identifier]);
         } else {
-            throw new Exception('The column with identifier ' . $identifier . ' does not exist! 1320052358');
+            throw new \Exception('The column with identifier ' . $identifier . ' does not exist! 1320052358');
         }
     }
 }

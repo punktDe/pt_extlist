@@ -16,7 +16,7 @@ plugin.tx_ptextlist.prototype.pager {
 		// Default Pager
 		default {
 			enabled = 1
-			pagerClassName = DefaultPager
+			pagerClassName = PunktDe\PtExtlist\Domain\Model\Pager\DefaultPager
 			templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/Default.html
 			
 			showNextLink = 1
@@ -29,7 +29,7 @@ plugin.tx_ptextlist.prototype.pager {
 		// Delta Pager
 		delta < plugin.tx_ptextlist.prototype.pager.pagerConfigs.default
 		delta {
-			pagerClassName = DeltaPager
+			pagerClassName = PunktDe\PtExtlist\Domain\Model\Pager\DeltaPager
 			templatePath = EXT:pt_extlist/Resources/Private/Templates/Pager/Delta.html
 
 			delta = 3

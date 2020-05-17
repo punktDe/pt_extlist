@@ -26,6 +26,8 @@ namespace PunktDe\PtExtlist\Hooks;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Class implements hook for tx_cms_layout
@@ -105,8 +107,8 @@ class CMSLayoutHook
         $templatePathAndFilename = GeneralUtility::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
                 
         // Fluid
-        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $this->fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->fluidRenderer = $objectManager->get(StandaloneView::class);
         $this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);
     }
 }

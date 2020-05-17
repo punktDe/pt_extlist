@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,12 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Factory for filterbox configuration
  *  
@@ -41,21 +48,23 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
 class FilterboxConfigFactory
 {
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param $filterboxIdentifier
      * @param array $filterBoxSettings
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig
+     * @return FilterboxConfig
+     * @throws Assertion
+     * @throws InternalException
      */
-    public static function createInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterBoxSettings)
+    public static function createInstance(ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, array $filterBoxSettings)
     {
-        $filterboxConfiguration = new \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig($configurationBuilder, $filterboxIdentifier, $filterBoxSettings);
+        $filterboxConfiguration = new FilterboxConfig($configurationBuilder, $filterboxIdentifier, $filterBoxSettings);
 
         $filterSettingsArray = is_array($filterBoxSettings['filterConfigs']) ? $filterBoxSettings['filterConfigs'] : [];
         ksort($filterSettingsArray);
 
         foreach ($filterSettingsArray as $arrayIndex => $filterSettings) {
             Assert::isArray($filterSettings, ['message' => 'No array given for filter settings. Perhaps misconfiguration of TS for filterbox? 1280772788']);
-            $filterConfig = \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterSettings);
+            $filterConfig = FilterConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterSettings);
             $filterboxConfiguration->addFilterConfig($filterConfig, $arrayIndex);
         }
         

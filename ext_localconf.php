@@ -12,14 +12,14 @@ if (!defined('TYPO3_MODE')) {
  * if no other settings are given.
  */
 $controllerActions = [                                                            // An array holding the controller-action-combinations that are accessible
-    'List' => 'list,sort', // The first controller and its first action will be the default
-    'Export'=>'showLink,download',
-    'Filterbox' => 'show,submit,reset,resetFilter',
-    'Pager' => 'show',
-    'Bookmark' => 'show,save,delete,restore',
-    'BreadCrumbs' => 'index,resetFilter',
-    'ColumnSelector' => 'show',
-    'AjaxFilter' => 'getFilterElement'
+    PunktDe\PtExtlist\Controller\ListController::class => 'list,sort', // The first controller and its first action will be the default
+    PunktDe\PtExtlist\Controller\ExportController::class =>'showLink,download',
+    PunktDe\PtExtlist\Controller\FilterboxController::class => 'show,submit,reset,resetFilter',
+    PunktDe\PtExtlist\Controller\PagerController::class => 'show',
+    PunktDe\PtExtlist\Controller\BookmarkController::class => 'show,save,delete,restore',
+    PunktDe\PtExtlist\Controller\BreadCrumbsController::class => 'index,resetFilter',
+    PunktDe\PtExtlist\Controller\ColumnSelectorController::class => 'show',
+    PunktDe\PtExtlist\Controller\AjaxFilterController::class => 'getFilterElement'
 ];
 
 

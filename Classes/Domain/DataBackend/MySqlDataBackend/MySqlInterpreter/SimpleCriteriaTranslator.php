@@ -29,6 +29,13 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Translator for AND criteria
  *
@@ -39,12 +46,10 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
 class SimpleCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface
 {
     /**
-     * translate simple criteria
-     *
-     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria|\PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @param SimpleCriteria|Criteria $criteria
      * @return string
      */
-    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
+    public static function translateCriteria($criteria): string
     {
         return '' . $criteria->getField() . ' ' . $criteria->getOperator() . ' ' . self::wrapArrayInBrackets($criteria);
     }
@@ -55,20 +60,22 @@ class SimpleCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\
      * Wraps an array in ("<array[0]>",...,"<array[n]>") and escapes values.
      * Returns string as escaped string if no array is given
      *
-     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria
+     * @param Criteria $criteria
      * @return integer|mixed|string
      */
-    public static function wrapArrayInBrackets(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
+    public static function wrapArrayInBrackets(SimpleCriteria $criteria)
     {
-        $connection = $GLOBALS['TYPO3_DB']; /** @var TYPO3\CMS\Core\Database\DatabaseConnection $connection */
+        ###TODO Default Database
+        /** @var Connection $connection */
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName('Default');
 
         if (is_array($criteria->getValue())) {
-            $escapedValues = $connection->fullQuoteArray($criteria->getValue(), '');
+            $escapedValues = $connection->quote($criteria->getValue(), Connection::PARAM_STR_ARRAY);
             $returnString = '(' . implode(',', $escapedValues) . ')';
         } elseif (is_numeric($criteria->getValue()) && !$criteria->getTreatValueAsString()) {
             $returnString = $criteria->getValue();
         } else {
-            $returnString = $connection->fullQuoteStr($criteria->getValue(), '');
+            $returnString = $connection->quote($criteria->getValue(), \PDO::PARAM_STR);
         }
 
         return $returnString;

@@ -29,6 +29,11 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\AndCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+
 /**
  * Translator for AND criteria
  *  
@@ -37,18 +42,19 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class AndCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface
+class AndCriteriaTranslator implements CriteriaTranslatorInterface
 {
     /**
      * return translated criteria string
-     * @param \PunktDe\PtExtlist\Domain\QueryObject\AndCriteria|\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Tx_PtExtlist_Domain_QueryObject_AndCriteria
+     * @param AndCriteria|Criteria $criteria
      * @return string
+     * @throws \Exception
      */
-    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
+    public static function translateCriteria($criteria)
     {
-        $andCriteriaString = '(' . \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter::translateCriteria($criteria->getFirstCriteria());
+        $andCriteriaString = '(' . MySqlInterpreter::translateCriteria($criteria->getFirstCriteria());
         $andCriteriaString .= ') AND (';
-        $andCriteriaString .= \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
+        $andCriteriaString .= MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
         
         return $andCriteriaString;
     }

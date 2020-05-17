@@ -3,6 +3,8 @@
 
 namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -41,17 +43,17 @@ class FilterboxConfigCollectionFactory
     /**
      *  
      * @param $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfigCollection
+     * @return FilterboxConfigCollection
      */
-    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $filterboxCollectionSettings = $configurationBuilder->getSettingsForConfigObject('filter');
 
 
-        $filterBoxConfigCollection = new \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfigCollection($configurationBuilder);
+        $filterBoxConfigCollection = new FilterboxConfigCollection($configurationBuilder);
 
         foreach ($filterboxCollectionSettings as $filterboxIdentifier => $filterboxSettings) {
-            $filterboxConfiguration = \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);
+            $filterboxConfiguration = FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);
             
             $filterBoxConfigCollection->addFilterBoxConfig($filterboxConfiguration, $filterboxIdentifier);
         }

@@ -93,10 +93,13 @@ class  SortingViewHelper extends ActionViewHelper
      * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
      * @return string Rendered link
      */
-    public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [], $addQueryStringMethod = null)
+    public function render()
     {
         /** @var HeaderColumn $header */
         $header = $this->arguments['header'];
+
+        $action = $this->arguments['action'];
+
         if ($action === null) {
             $action = 'sort';
         }
@@ -125,7 +128,7 @@ class  SortingViewHelper extends ActionViewHelper
         
         $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 
-        $output = parent::render($action, $argumentArray, null, null, null, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
+        $output = parent::render();
 
         $this->templateVariableContainer->remove('sortingDirection');
         return $output;

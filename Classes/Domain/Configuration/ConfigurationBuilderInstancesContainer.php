@@ -55,15 +55,15 @@ class ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\Singleto
      *
      * Use set() if you want to overwrite existing instances.
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @throws Exception if a configuration builder for this list identifier has already been added to this container.
+     * @param ConfigurationBuilder $configurationBuilder
+     * @throws \Exception if a configuration builder for this list identifier has already been added to this container.
      */
-    public function add(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function add(ConfigurationBuilder $configurationBuilder)
     {
         if (empty($this->instances[$configurationBuilder->getListIdentifier()])) {
             $this->instances[$configurationBuilder->getListIdentifier()] = $configurationBuilder;
         } else {
-            throw new Exception('A configuration builder for this list identifier has already been added. Please check first, whether this container already has an instance for the given list identifier! 1363856875');
+            throw new \Exception('A configuration builder for this list identifier has already been added. Please check first, whether this container already has an instance for the given list identifier! 1363856875');
         }
     }
 
@@ -72,9 +72,9 @@ class ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\Singleto
     /**
      * Sets a given configuration builder as instance. Overwrites already set instance.
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function set(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function set(ConfigurationBuilder $configurationBuilder)
     {
         $this->instances[$configurationBuilder->getListIdentifier()] = $configurationBuilder;
     }
@@ -112,7 +112,7 @@ class ConfigurationBuilderInstancesContainer implements \TYPO3\CMS\Core\Singleto
      * Returns instance of configuration builder for given list identifier
      *
      * @param $listIdentifier
-     * @return null|\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @return null|ConfigurationBuilder
      */
     public function get($listIdentifier)
     {

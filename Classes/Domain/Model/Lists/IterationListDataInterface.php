@@ -28,6 +28,8 @@ namespace PunktDe\PtExtlist\Domain\Model\Lists;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\IterationDataSourceInterface;
+use PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface;
 use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
 
 /**
@@ -37,7 +39,7 @@ use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
  * @package Domain
  * @subpackage Model\List
  */
-interface IterationListDataInterface extends Iterator
+interface IterationListDataInterface extends \Iterator
 {
     /**
      * Set the datasource
@@ -57,7 +59,7 @@ interface IterationListDataInterface extends Iterator
      * @abstract
      * @param RendererChain $renderChain
      */
-    public function _injectRenderChain(\PunktDe\PtExtlist\Domain\Renderer\RendererChain $renderChain);
+    public function _injectRenderChain(RendererChain $renderChain);
 
 
     /**
