@@ -29,22 +29,27 @@ namespace PunktDe\PtExtlist\Domain\Model\Sorting;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+
 class SortingState
 {
     /**
      * Returns an instance of this object for a given session persisted array
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $sessionArray
-     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingState
+     * @return SortingState
+     * @throws \Exception
      */
-    public static function getInstanceBySessionArray(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $sessionArray)
+    public static function getInstanceBySessionArray(ConfigurationBuilder $configurationBuilder, array $sessionArray)
     {
         $field = $configurationBuilder->buildFieldsConfiguration()->getFieldConfigByIdentifier($sessionArray['fieldName']);
         $direction = $sessionArray['direction'];
-        return new \PunktDe\PtExtlist\Domain\Model\Sorting\SortingState($field, $direction);
+        return new SortingState($field, $direction);
     }
-
 
 
     /**
@@ -56,12 +61,13 @@ class SortingState
      * @param ConfigurationBuilder
      * @param string $fieldIdentifier Field identifier for field to be sorted
      * @param integer $sortingDirection Sorting direction by which to sort given field
-     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingState
+     * @return SortingState
+     * @throws \Exception
      */
     public static function getInstanceByFieldIdentifierAndSortingDirection($configurationBuilder, $fieldIdentifier, $sortingDirection)
     {
         $field = $configurationBuilder->buildFieldsConfiguration()->getFieldConfigByIdentifier($fieldIdentifier);
-        return new \PunktDe\PtExtlist\Domain\Model\Sorting\SortingState($field, $sortingDirection);
+        return new SortingState($field, $sortingDirection);
     }
     
     
@@ -69,7 +75,7 @@ class SortingState
     /**
      * Holds field for which this sorting state is set
      *
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
+     * @var FieldConfig
      */
     protected $field;
     
@@ -89,20 +95,21 @@ class SortingState
      *  
      * Takes a field and a direction out of which a sorting state should be generated.
      * Sorting state must either be one of these:
-     * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_NONE
-     * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC
-     * Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC
+     * Query::SORTINGSTATE_NONE
+     * Query::SORTINGSTATE_ASC
+     * Query::SORTINGSTATE_DESC
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $field
+     * @param FieldConfig $field
      * @param integer $direction
+     * @throws \Exception
      */
-    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $field, $direction)
+    public function __construct(FieldConfig $field, $direction)
     {
-        if (!($direction != \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_NONE
-           || $direction != \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_ASC
-           || $direction != \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_DESC
+        if (!($direction != Query::SORTINGSTATE_NONE
+           || $direction != Query::SORTINGSTATE_ASC
+           || $direction != Query::SORTINGSTATE_DESC
            )) {
-            throw new Exception('Given sorting direction is not known! 1313625871');
+            throw new \Exception('Given sorting direction is not known! 1313625871');
         }
         $this->field = $field;
         $this->direction = $direction;
@@ -113,7 +120,7 @@ class SortingState
     /**
      * Getter for field for this sorting state
      *
-     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
+     * @return FieldConfig
      */
     public function getField()
     {
@@ -137,11 +144,11 @@ class SortingState
     /**
      * Returns query object that reflects sorting of this sorting state
      *  
-     * @return \PunktDe\PtExtlist\Domain\QueryObject\Query
+     * @return Query
      */
     public function getSortingQuery()
     {
-        $sortingQuery = new \PunktDe\PtExtlist\Domain\QueryObject\Query();
+        $sortingQuery = new Query();
         $sortingQuery->addSorting($this->field->getIdentifier(), $this->direction);
         return $sortingQuery;
     }

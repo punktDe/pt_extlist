@@ -29,6 +29,7 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -47,25 +48,26 @@ class Typo3DataSourceFactory
      *
      * @static
      * @param string $dataSourceClassName
-     * @param \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration
-     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource
+     * @param DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return Typo3DataSource
      */
-    public static function createInstance($dataSourceClassName, \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    public static function createInstance($dataSourceClassName, DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
         $dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource $dataSource */
-        $dataSource->injectDbObject(self::createDataObject());
+        $dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
         $dataSource->initialize();
         return $dataSource;
     }
 
 
     /**
-     * @static
-     * @return
+     * @param DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return Connection
+     * @throws \Doctrine\DBAL\DBALException
      */
-    protected static function createDataObject()
+    protected static function createDataObject(DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class); /** @var $connectionPool ConnectionPool */
-        return $connectionPool->getConnectionByName('Default');
+        return $connectionPool->getConnectionByName($dataSourceConfiguration->getDatabase());
     }
 }

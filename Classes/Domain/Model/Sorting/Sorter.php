@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Sorting;
 
+use PunktDe\PtExtbase\Exception\InternalException;
 use PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig;
 
 /***************************************************************
@@ -47,7 +48,7 @@ class Sorter
     /**
      * Array that holds sorters to be observerd by sorter
      *
-     * @var array<\PunktDe\PtExtlist\Domain\Model\Sorting\SortingObserverInterface>
+     * @var array<SortingObserverInterface>
      */
     protected $sortingObservers;
     
@@ -83,9 +84,9 @@ class Sorter
     }
 
 
-
     /**
      * Removes all registered sorting observers and resets sorting state collection
+     * @throws InternalException
      */
     public function removeAllSortingObservers()
     {
@@ -98,9 +99,9 @@ class Sorter
     /**
      * Injector for sorter configuration
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig $sorterConfiguration
+     * @param SorterConfig $sorterConfiguration
      */
-    public function _injectSorterConfig(\PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig $sorterConfiguration)
+    public function _injectSorterConfig(SorterConfig $sorterConfiguration)
     {
         $this->sorterConfiguration = $sorterConfiguration;
     }
@@ -109,7 +110,8 @@ class Sorter
     /**
      * Returns current sorting state collection of this sorter
      *
-     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection
+     * @return SortingStateCollection
+     * @throws InternalException
      */
     public function getSortingStateCollection()
     {
@@ -146,16 +148,16 @@ class Sorter
     }
 
 
-
     /**
      * Builds sorting state collection by respecting the registered sorting observers
      * and getting their sorting informations.
      *
      * @return void
+     * @throws \PunktDe\PtExtbase\Exception\InternalException
      */
     protected function buildSortingStateCollection()
     {
-        $this->sortingStateCollection = new \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection();
+        $this->sortingStateCollection = new SortingStateCollection();
 
         // Gather sorting states from registered sorting observers
         if (is_array($this->sortingObservers)) {

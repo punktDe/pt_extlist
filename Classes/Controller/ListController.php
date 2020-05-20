@@ -121,7 +121,6 @@ class ListController extends AbstractController
         $pagerCollection->setItemCount($this->dataBackend->getTotalItemsCount());
 
         $this->view->assign('config', $this->configurationBuilder);
-        $this->view->assign('listConfiguration', $this->configurationBuilder->getListConfiguration());
         $this->view->assign('listHeader', $list->getListHeader());
         $this->view->assign('listCaptions', $list->getRenderedListHeader());
         $this->view->assign('listData', $list->getRenderedListData());

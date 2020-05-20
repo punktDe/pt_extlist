@@ -101,4 +101,9 @@ class DbUtils
 
         return implode(', ', $selectParts);
     }
+
+    public static function getDefaultDatabase()
+    {
+        return 'Default';
+    }
 }

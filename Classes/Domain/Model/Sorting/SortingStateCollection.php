@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Sorting;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,13 @@ namespace PunktDe\PtExtlist\Domain\Model\Sorting;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+
 /**
  * Class implements a collection of sorting states.
  *
@@ -36,20 +44,22 @@ namespace PunktDe\PtExtlist\Domain\Model\Sorting;
  * @subpackage Domain\Model\Sorting
  * @author Michael Knoll
  */
-class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class SortingStateCollection extends ObjectCollection
 {
     /**
      * Factory method to create a sorting state from a given session array
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $sessionArray
-     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection
+     * @return SortingStateCollection
+     * @throws InternalException
+     * @throws \Exception
      */
-    public static function getInstanceBySessionArray(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, array $sessionArray)
+    public static function getInstanceBySessionArray(ConfigurationBuilder $configurationBuilder, array $sessionArray)
     {
-        $sortingStateCollection = new \PunktDe\PtExtlist\Domain\Model\Sorting\SortingStateCollection();
+        $sortingStateCollection = new SortingStateCollection();
         foreach ($sessionArray as $sortingStateSessionArray) {
-            $sortingStateCollection->addSortingState(\PunktDe\PtExtlist\Domain\Model\Sorting\SortingState::getInstanceBySessionArray($configurationBuilder, $sortingStateSessionArray));
+            $sortingStateCollection->addSortingState(SortingState::getInstanceBySessionArray($configurationBuilder, $sortingStateSessionArray));
         }
         return $sortingStateCollection;
     }
@@ -61,18 +71,20 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
      *
      * @var string
      */
-    protected $restrictedClassName = 'SortingState';
+    protected $restrictedClassName = SortingState::class;
 
 
     /**
      * Adds a given field and direction to sorting state
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $field
+     * @param FieldConfig $field
      * @param integer $direction
+     * @throws InternalException
+     * @throws \Exception
      */
-    public function addSortingByFieldAndDirection(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $field, $direction)
+    public function addSortingByFieldAndDirection(FieldConfig $field, $direction)
     {
-        $sortingState = new \PunktDe\PtExtlist\Domain\Model\Sorting\SortingState($field, $direction);
+        $sortingState = new SortingState($field, $direction);
         $this->addItem($sortingState, $field->getIdentifier());
     }
 
@@ -80,9 +92,10 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
     /**
      * Adds a sorting state to this collection
      *
-     * @param \PunktDe\PtExtlist\Domain\Model\Sorting\SortingState $sortingState
+     * @param SortingState $sortingState
+     * @throws InternalException
      */
-    public function addSortingState(\PunktDe\PtExtlist\Domain\Model\Sorting\SortingState $sortingState)
+    public function addSortingState(SortingState $sortingState)
     {
         $this->addItem($sortingState, $sortingState->getField()->getIdentifier());
     }
@@ -90,13 +103,15 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
 
     /**
      * @param $sortingStateIdentifier
-     * @return \PunktDe\PtExtlist\Domain\Model\Sorting\SortingState
+     * @return SortingState
+     * @throws InternalException
      */
     public function getSortingState($sortingStateIdentifier)
     {
         if ($this->hasItem($sortingStateIdentifier)) {
             return $this->getItemById($sortingStateIdentifier);
         }
+        return null;
     }
 
     /**
@@ -107,7 +122,7 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
     public function getSortedFields()
     {
         $sortedFields = [];
-        foreach ($this->itemsArr as $sortingState) {
+        foreach ($this->itemsArr as $sortingState) { /** @var $sortingState SortingState */
             $sortedFields[] = $sortingState->getField();
         }
         return $sortedFields;
@@ -117,11 +132,11 @@ class SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollect
     /**
      * Returns a query object with sortings for this sorting state collection
      *
-     * @return \PunktDe\PtExtlist\Domain\QueryObject\Query
+     * @return Query
      */
     public function getSortingsQuery()
     {
-        $sortingsQuery = new \PunktDe\PtExtlist\Domain\QueryObject\Query();
+        $sortingsQuery = new Query();
         foreach ($this->itemsArr as $sortingState) {
             /* @var $sortingState SortingState */
             $sortingsQuery->addSorting($sortingState->getField()->getIdentifier(), $sortingState->getDirection());

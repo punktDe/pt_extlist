@@ -75,9 +75,16 @@ class DatabaseDataSourceConfiguration
      * @var string
      */
     protected $databaseName;
-    
-    
-    
+
+    /**
+     * Name of database used in TYPO3
+     *
+     * @var string
+     */
+    protected $database;
+
+
+
     /**
      * Port number of database to connect to
      *
@@ -101,6 +108,7 @@ class DatabaseDataSourceConfiguration
         $this->password = $dataSourceSettings['password'];
         $this->databaseName = $dataSourceSettings['databaseName'];
         $this->port = $dataSourceSettings['port'];
+        $this->database = $dataSourceSettings['database'];
     }
 
 
@@ -183,5 +191,15 @@ class DatabaseDataSourceConfiguration
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Returns database for db connection
+     *
+     * @return string
+     */
+    public function getDatabase()
+    {
+        return $this->database;
     }
 }

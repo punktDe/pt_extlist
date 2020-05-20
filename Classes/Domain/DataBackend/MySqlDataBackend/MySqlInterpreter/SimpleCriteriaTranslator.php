@@ -32,6 +32,7 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter
 
 use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
 use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -67,7 +68,7 @@ class SimpleCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\
     {
         ###TODO Default Database
         /** @var Connection $connection */
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName('Default');
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName(DbUtils::getDefaultDatabase());
 
         if (is_array($criteria->getValue())) {
             $escapedValues = $connection->quote($criteria->getValue(), Connection::PARAM_STR_ARRAY);

@@ -33,6 +33,7 @@ plugin.tx_ptextlist.prototype.backend {
 		useEnableFields = 1
 
 		dataSource {
+		    database = Default
 			prepareStatements =
 		}
 	}

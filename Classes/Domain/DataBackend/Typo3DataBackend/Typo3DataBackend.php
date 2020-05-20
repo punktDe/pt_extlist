@@ -4,6 +4,11 @@
 namespace PunktDe\PtExtlist\Domain\DataBackend\Typo3DataBackend;
 
 use PunktDe\PtExtbase\Div;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSourceFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlDataBackend;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -43,7 +48,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * TODO implement T3 db object methods for query (hidden fields, deleted rows etc...)
  *    
  */
-class Typo3DataBackend extends \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlDataBackend
+class Typo3DataBackend extends MySqlDataBackend
 {
     /**
      * Factory method for data source
@@ -51,13 +56,14 @@ class Typo3DataBackend extends \PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBa
      * Only DataBackend knows, which data source to use and how to instantiate it.
      * So there cannot be a generic factory for data sources and data backend factory cannot instantiate it either!
      *
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
-     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource Data source object for this data backend
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return Typo3DataSource Data source object for this data backend
+     * @throws \Exception
      */
-    public static function createDataSource(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public static function createDataSource(ConfigurationBuilder $configurationBuilder)
     {
-        $dataSourceConfiguration = new \PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
-        $dataSource =  \PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
+        $dataSourceConfiguration = new DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
+        $dataSource =  Typo3DataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
         return $dataSource;
     }
     
