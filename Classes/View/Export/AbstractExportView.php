@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\View\Export;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,12 @@ namespace PunktDe\PtExtlist\View\Export;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+use PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig;
+use PunktDe\PtExtlist\View\BaseView;
+use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
+
 /**
  * Abstract view for exports. This class acts as a base class for
  * all exports. It handles settings for export and header generation etc.
@@ -39,12 +46,12 @@ namespace PunktDe\PtExtlist\View\Export;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest
  */
-abstract class AbstractExportView extends \PunktDe\PtExtlist\View\BaseView
+abstract class AbstractExportView extends BaseView
 {
     /**
      * Export configuration object
      *
-     * @var \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig
+     * @var ExportConfig
      */
     protected $exportConfiguration;
 
@@ -65,9 +72,9 @@ abstract class AbstractExportView extends \PunktDe\PtExtlist\View\BaseView
 
 
     /**
-     * @param \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig $exportConfiguration
+     * @param  ExportConfig $exportConfiguration
      */
-    public function setExportConfiguration(\PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig $exportConfiguration)
+    public function setExportConfiguration(ExportConfig $exportConfiguration)
     {
         $this->exportConfiguration = $exportConfiguration;
     }
@@ -88,7 +95,7 @@ abstract class AbstractExportView extends \PunktDe\PtExtlist\View\BaseView
      * (non-PHPdoc)
      * @see \TYPO3\CMS\Fluid\View\TemplateView::canRender()
      */
-    public function canRender(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext)
+    public function canRender(ControllerContext $controllerContext)
     {
         return true;
     }
@@ -135,7 +142,7 @@ abstract class AbstractExportView extends \PunktDe\PtExtlist\View\BaseView
                 }
 
                 if (headers_sent()) {
-                    throw new Exception('Some data has already been output to browser, can\'t send Export file.', 1283945901);
+                    throw new \Exception('Some data has already been output to browser, can\'t send Export file.', 1283945901);
                 }
 
                 header('Content-disposition: inline; filename="' . $this->getFilenameFromTs() . '"');
@@ -153,7 +160,7 @@ abstract class AbstractExportView extends \PunktDe\PtExtlist\View\BaseView
                 break;
 
             default:
-                throw new Exception('No valid download handling set for Export file!', 1283945902);
+                throw new \Exception('No valid download handling set for Export file!', 1283945902);
         }
     }
 }

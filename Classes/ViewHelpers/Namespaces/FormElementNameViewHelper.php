@@ -53,7 +53,7 @@ class FormElementNameViewHelper extends AbstractViewHelper
     public function initializeArguments()
     {
         $this->registerArgument('property', 'string', 'Property');
-        $this->registerArgument('object', 'IdentifiableInterface', 'IdentifiableInterface');
+        $this->registerArgument('object', 'mixed', 'IdentifiableInterface');
         $this->registerArgument('addExtPrefix', 'bool', 'addExtPrefix');
     }
 

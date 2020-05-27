@@ -3,6 +3,7 @@
 
 namespace PunktDe\PtExtlist\View\Export;
 
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,6 +30,10 @@ namespace PunktDe\PtExtlist\View\Export;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+
 /**
  * Implements a view for rendering a export with fluid
  *
@@ -36,7 +41,7 @@ namespace PunktDe\PtExtlist\View\Export;
  * @package View
  * @subpackage Export
  */
-class FluidListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
+class FluidListView extends AbstractExportView
 {
     /**
      * Path to fluid template
@@ -48,6 +53,7 @@ class FluidListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
 
     /**
      * Initialize additional class properties
+     * @throws Assertion
      */
     public function initConfiguration()
     {
@@ -57,11 +63,11 @@ class FluidListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
     }
 
 
-
     /**
      * Overwriting the render method to generate a downloadable output
      *
      * @return   void (never returns)
+     * @throws \Exception
      */
     public function render($actionName = null)
     {

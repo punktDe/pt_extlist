@@ -27,7 +27,7 @@ plugin.tx_ptextlist.settings.export {
 
 		fluidTemplateExport < plugin.tx_ptextlist.prototype.export
 		fluidTemplateExport {
-			viewClassName = TPunktDe\PtExtlist\View\Export\FluidListView
+			viewClassName = PunktDe\PtExtlist\View\Export\FluidListView
 			fileExtension = txt
 			templatePath = typo3conf/ext/pt_extlist/Resources/Private/Templates/Export/export.html
 		}

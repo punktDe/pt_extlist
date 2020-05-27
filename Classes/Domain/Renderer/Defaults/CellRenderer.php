@@ -34,8 +34,8 @@ use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
 use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
 use PunktDe\PtExtlist\Domain\Model\Lists\Cell;
 use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Form\Mvc\Configuration\TypoScriptService;
 
 /**
  * Default renderer for a cell in a row in list data

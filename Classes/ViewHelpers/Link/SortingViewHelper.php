@@ -69,7 +69,8 @@ class  SortingViewHelper extends ActionViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('header', 'HeaderColumn', 'Header', true);
+        parent::initializeArguments();
+        $this->registerArgument('header', HeaderColumn::class, 'Header', true);
     }
 
 

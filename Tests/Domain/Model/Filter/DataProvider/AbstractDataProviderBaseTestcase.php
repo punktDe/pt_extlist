@@ -46,13 +46,13 @@ abstract class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_AbstractDataP
      * Build the dataprovider
      *
      * @param array $filterSettings
-     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
+     * @return PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\ExplicitSQLQuery
      */
     protected function buildAccessibleDataProvider($filterSettings = null)
     {
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery');
+        $accessibleClassName = $this->buildAccessibleProxy('PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\ExplicitSQLQuery');
         $accessibleExplicitDataProvider = new $accessibleClassName;
-        /* @var $accessibleExplicitDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery */
+        /* @var $accessibleExplicitDataProvider PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\ExplicitSQLQuery */
 
         if (!$filterSettings) {
             $filterSettings = $this->defaultFilterSettings;

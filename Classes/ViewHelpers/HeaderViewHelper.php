@@ -55,8 +55,8 @@ class HeaderViewHelper extends AbstractViewHelper
     public function initializeArguments()
     {
         $this->registerArgument('exclude', 'array', 'Define identifiers to exclude from the headers', false, []);
-        $this->registerArgument('headers', 'ListHeader', 'ListHeader object', true);
-        $this->registerArgument('captions', 'Row', 'Row object', true);
+        $this->registerArgument('headers', ListHeader::class, 'ListHeader object', true);
+        $this->registerArgument('captions', Row::class, 'Row object', true);
         $this->registerArgument('headerKey', 'string', 'headerKey', false, 'header');
         $this->registerArgument('captionKey', 'string', 'captionKey', false, 'caption');
     }
@@ -71,7 +71,7 @@ class HeaderViewHelper extends AbstractViewHelper
      */
     public function render()
     {
-        $headers = $this->arguments['headers'];
+        $headers = $this->arguments['headers']; /** @var ListHeader $headers */
         $captions = $this->arguments['captions'];
         $headerKey = $this->arguments['headerKey'];
         $captionKey = $this->arguments['captionKey'];

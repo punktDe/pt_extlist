@@ -1,6 +1,4 @@
 <?php
-
-
 namespace PunktDe\PtExtlist\View\Export;
 
 /***************************************************************
@@ -38,7 +36,7 @@ namespace PunktDe\PtExtlist\View\Export;
  * @subpackage Export
  * @see Tx_PtExtlist_Tests_View_List_CsvListViewTest
  */
-class CsvListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
+class CsvListView extends AbstractExportView
 {
     /**
      * @var string sets the output encoding

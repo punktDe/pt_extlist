@@ -274,7 +274,7 @@ class ExtlistContextFactory implements SingletonInterface
      */
     protected static function buildContext(DataBackendInterface $dataBackend)
     {
-        $extListContext = self::$staticObjectManager->get(ExtlistContext::class); /* @var ExtlistContext $extListContext */
+        $extListContext = GeneralUtility::makeInstance(ObjectManager::class)->get(ExtlistContext::class); /* @var ExtlistContext $extListContext */
 
         $extListContext->_injectDataBackend($dataBackend);
         $extListContext->init();

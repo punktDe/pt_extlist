@@ -3,6 +3,9 @@
 
 namespace PunktDe\PtExtlist\View\Export;
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -36,7 +39,7 @@ namespace PunktDe\PtExtlist\View\Export;
  * @package View
  * @subpackage Export
  */
-class PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
+class PdfListView extends AbstractExportView
 {
     /**
      * @var string domPdf source absolute path
@@ -69,9 +72,10 @@ class PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
      */
     protected $cssFilePath;
 
-    
+
     /**
      * Initialize additional class properties
+     * @throws Assertion
      */
     public function initConfiguration()
     {

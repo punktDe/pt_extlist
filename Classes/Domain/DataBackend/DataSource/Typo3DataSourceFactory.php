@@ -50,10 +50,12 @@ class Typo3DataSourceFactory
      * @param string $dataSourceClassName
      * @param DatabaseDataSourceConfiguration $dataSourceConfiguration
      * @return Typo3DataSource
+     * @throws \Doctrine\DBAL\DBALException
      */
+
     public static function createInstance($dataSourceClassName, DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
-        $dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var \PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource $dataSource */
+        $dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var AbstractDataSource $dataSource */
         $dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
         $dataSource->initialize();
         return $dataSource;

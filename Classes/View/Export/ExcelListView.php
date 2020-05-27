@@ -1,4 +1,15 @@
 <?php
+
+namespace PunktDe\PtExtlist\View\Export;
+
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection;
+use PunktDe\PtExtlist\Domain\Model\Filter\AbstractFilter;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Lists\Cell;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+use PunktDe\PtExtlist\ExtlistContext\ExtlistContextFactory;
+use TYPO3\CMS\Core\Error\Http\StatusException;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -41,7 +52,7 @@
  * @subpackage Export
  * @see Tx_PtExtlist_Tests_View_List_ExcelListViewTest
  */
-class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_AbstractExportView
+class ExcelListView extends AbstractExportView
 {
     /**
      * Holds an PHPExcel worksheet object
@@ -69,7 +80,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+     * @var ColumnConfigCollection
      */
     protected $columnConfigCollection;
 
@@ -241,7 +252,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     protected function renderFilterStates()
     {
         $activeSheet = $this->objPHPExcel->getActiveSheet();
-        $extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier($this->exportConfiguration->getListIdentifier());
+        $extlistContext = ExtlistContextFactory::getContextByListIdentifier($this->exportConfiguration->getListIdentifier());
         $filterBoxCollection = $extlistContext->getFilterBoxCollection();
 
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber, 'Filter');
@@ -249,9 +260,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         $this->rowNumber++;
 
         foreach ($filterBoxCollection as $filterBox) {
-            /** @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+            /** @var $filterBox Filterbox */
             foreach ($filterBox as $filter) {
-                /** @var $filter Tx_PtExtlist_Domain_Model_Filter_AbstractFilter */
+                /** @var $filter AbstractFilter */
                 $activeSheet->setCellValueByColumnAndRow(
                     0,
                     $this->rowNumber,
@@ -270,10 +281,10 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter
+     * @param AbstractFilter $filter
      * @return string
      */
-    protected function renderFilterValues(Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter)
+    protected function renderFilterValues(AbstractFilter $filter)
     {
         $filterValue = $filter->getDisplayValue();
 
@@ -330,9 +341,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     }
 
 
-
     /**
      * render all body rows
+     * @throws StatusException
      */
     protected function renderBody()
     {

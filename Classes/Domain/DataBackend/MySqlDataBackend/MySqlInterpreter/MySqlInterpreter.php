@@ -122,20 +122,18 @@ class MySqlInterpreter extends AbstractQueryInterpreter
      * Returns SQL sortings string without "ORDER BY"
      *
      * @param Query $query
-     * @return string
+     * @return array
      */
-    public static function getSorting(Query $query): string
+    public static function getSorting(Query $query): array
     {
         $directionMap = [Query::SORTINGSTATE_ASC => 'ASC',
                               Query::SORTINGSTATE_DESC => 'DESC'];
         
         $sortingsArray = [];
         foreach ($query->getSortings() as $field => $direction) {
-            ###TODO
-            //$sortingsArray[] = $field . ' ' . $directionMap[$direction];
-            $sortingsArray[] = $field;
+            $sortingsArray[$field] = $directionMap[$direction];
         }
-        return implode(', ', $sortingsArray);
+        return $sortingsArray;
     }
     
     

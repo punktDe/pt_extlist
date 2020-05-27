@@ -1,13 +1,6 @@
 <?php
 namespace PunktDe\PtExtlist\ViewHelpers\Form;
-use PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig;
-use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
-use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
-use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
-use PunktDe\PtExtlist\Domain\Renderer\Defaults\CaptionRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
+
 
 /***************************************************************
  *  Copyright notice
@@ -35,6 +28,15 @@ use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Renderer\Defaults\CaptionRenderer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
 
 /**
  * GPValueViewHelper

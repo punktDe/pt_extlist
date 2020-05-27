@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use PunktDe\PtExtlist\Utility\RenderValue;
+
 /**
  * Class implements a filter for settings static values
  * 
@@ -45,12 +53,12 @@ class StaticValueFilter extends AbstractFilter
 
     /**
      * @param FieldConfig $fieldIdentifier
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return SimpleCriteria
      */
     protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
         $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
-        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue, $fieldIdentifier->getTreatValueAsString());
+        $criteria = Criteria::equals($fieldName, $this->filterValue, $fieldIdentifier->getTreatValueAsString());
 
         return $criteria;
     }
@@ -61,7 +69,7 @@ class StaticValueFilter extends AbstractFilter
      */
     protected function initFilterByTsConfig()
     {
-        $filterValue = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('filterValue'));
+        $filterValue = RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('filterValue'));
         $this->filterValue = $filterValue;
     }
 
@@ -87,7 +95,7 @@ class StaticValueFilter extends AbstractFilter
     /**
      * Returns the current filtervalues of this filter
      *
-     * @return variant
+     * @return string
      */
     public function getValue()
     {

@@ -173,7 +173,7 @@ class MySqlDataBackend extends AbstractDataBackend
      */
     protected function initBackendByTsConfig()
     {
-        $this->tables = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables'));
+        //$this->tables = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables'));
         $this->baseWhereClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
         $this->baseFromClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
         $this->baseGroupByClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
@@ -260,7 +260,7 @@ class MySqlDataBackend extends AbstractDataBackend
      * all parts of plugin (ts-config, pager, filters etc.)
      * and generates SQL query out of this information
      *
-     * @return string An SQL query
+     * @return QueryBuilder
      * @throws Assertion
      */
     public function buildQuery($execute= false): QueryBuilder
@@ -278,20 +278,28 @@ class MySqlDataBackend extends AbstractDataBackend
         }
 
         /** @var Connection $connection */
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->listQueryParts['FIRSTTABLE']);
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->listQueryParts['FROMTABLE']);
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $connection->createQueryBuilder();
 
         if ($execute) {
             $queryBuilder->selectLiteral($this->listQueryParts['SELECT'])
-                ->from($this->listQueryParts['FROM']);
+                ->from($this->listQueryParts['FROMTABLE'], $this->listQueryParts['FROMALIAS']);
 
             if (!empty($this->listQueryParts['WHERE'])) {
                 $queryBuilder->where($this->listQueryParts['WHERE']);
             }
 
             if (!empty($this->listQueryParts['ORDERBY'])) {
-                $queryBuilder->orderBy($this->listQueryParts['ORDERBY']);
+                $firstItem = true;
+                foreach($this->listQueryParts['ORDERBY'] as $field => $direction) {
+                    if ($firstItem) {
+                        $queryBuilder->orderBy($field, $direction);
+                        $firstItem = false;
+                    } else {
+                        $queryBuilder->addOrderBy($field, $direction);
+                    }
+                }
             }
 
             if (!empty($this->listQueryParts['GROUPBY'])) {
@@ -304,6 +312,7 @@ class MySqlDataBackend extends AbstractDataBackend
                 $queryBuilder->setMaxResults($this->listQueryParts['MAXRESULT']);
             }
         }
+        print_r($this->listQueryParts);
         return $queryBuilder;
     }
 
@@ -409,17 +418,18 @@ class MySqlDataBackend extends AbstractDataBackend
     public function buildFromPart()
     {
         if ($this->baseFromClause) {
-            $fromPart = $this->baseFromClause;
-        } else {
-            $fromPart = $this->tables;
+            $fromPart = trim($this->baseFromClause);
         }
 
-        Assert::isNotEmptyString($fromPart, ['message' => 'Backend must have a tables setting or a baseFromClause in TS! None of both is given! 1280234420']);
+        Assert::isNotEmptyString($fromPart, ['message' => 'Backend must have a baseFromClause in TS! This is not given! 1280234420']);
 
-        $tables = GeneralUtility::trimExplode(',', $fromPart);
+        $fromPart = trim($this->processQueryWithFluid($fromPart));
+        $items = GeneralUtility::trimExplode(' ', $fromPart);
 
-        $this->listQueryParts['FIRSTTABLE'] = trim(current($tables));
-        $this->listQueryParts['FROM'] = trim($this->processQueryWithFluid($fromPart));
+        Assert::isInRange(count($items), 1 ,2 , ['message' => 'baseFromClause of Backend in TS has not the correct values! This should table name and optional added bey space alias! 1280234420']);
+
+        $this->listQueryParts['FROMTABLE'] = trim($items[0]);
+        $this->listQueryParts['FROMALIAS'] = $items[1] ?? '';
     }
 
 
@@ -554,7 +564,7 @@ class MySqlDataBackend extends AbstractDataBackend
     {
         if ($this->pagerCollection->isEnabled()) {
             $pagerOffset = $this->pagerCollection->getItemOffset();
-            $pagerLimit = intval($this->pagerCollection->getItemsPerPage());
+            $pagerLimit = (int)$this->pagerCollection->getItemsPerPage();
             $this->listQueryParts['FIRSTRESULT'] .= $pagerOffset > 0 ? $pagerOffset . ',' : '';
             $this->listQueryParts['MAXRESULT'] .= $pagerLimit > 0 ? $pagerLimit : '';
         }
@@ -591,7 +601,7 @@ class MySqlDataBackend extends AbstractDataBackend
             $queryBuilder = $this->buildQuery();
 
             $queryBuilder->selectLiteral('COUNT(*) AS totalItemCount')
-                ->from($this->listQueryParts['FROM']);
+                ->from($this->listQueryParts['FROMTABLE'], $this->listQueryParts['FROMALIAS']);
 
             if (!empty($this->listQueryParts['WHERE'])) {
                 $queryBuilder->where($this->listQueryParts['WHERE']);
@@ -637,9 +647,9 @@ class MySqlDataBackend extends AbstractDataBackend
     public function getGroupData(Query $groupDataQuery, $excludeFilters = [],
                                  FilterConfig $filterConfig = null)
     {
-        $query = $this->buildGroupDataQuery($groupDataQuery, $excludeFilters, $filterConfig);
+        $queryBuilder = $this->buildGroupDataQuery($groupDataQuery, $excludeFilters, $filterConfig);
 
-        $groupDataArray = $this->dataSource->executeQuery($query)->fetchAll();
+        $groupDataArray = $this->dataSource->executeQuery($queryBuilder)->fetchAll();
 
 //        if (TYPO3_DLOG) {
 //            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
@@ -653,16 +663,14 @@ class MySqlDataBackend extends AbstractDataBackend
      * @param Query $groupDataQuery
      * @param array $excludeFilters
      * @param FilterConfig $filterConfig
-     * @return string
+     * @return QueryBuilder
      */
     protected function buildGroupDataQuery(Query $groupDataQuery, $excludeFilters = [],
-                                            FilterConfig $filterConfig = null)
+                                            FilterConfig $filterConfig = null): QueryBuilder
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->buildQuery();
-
         $selectPart = $this->queryInterpreter->getSelectPart($groupDataQuery);
-        $fromPart = $this->listQueryParts['FROM'];
         $groupPart = count($groupDataQuery->getGroupBy()) > 0 ?  $this->queryInterpreter->getGroupBy($groupDataQuery) : '';
         $sortingPart = count($groupDataQuery->getSortings()) > 0 ? $this->queryInterpreter->getSorting($groupDataQuery) : '';
 
@@ -677,12 +685,15 @@ class MySqlDataBackend extends AbstractDataBackend
         if ($this->listQueryParts['GROUPBY'] && $filterConfig->getShowRowCount()) {
             $selectPart = $this->convertTableFieldToAlias($selectPart);
             $groupPart = $this->convertTableFieldToAlias($groupPart);
-            $sortingPart = $this->convertTableFieldToAlias($sortingPart);
+            ###TODO
+            ///$sortingPart = $this->convertTableFieldToAlias($sortingPart);
 
             $filterWherePart = $this->buildWherePart($excludeFilters);
 
             // if the list has a group by clause itself, we have to use the listQuery as subQuery
-            $fromPart = '(' . ' SELECT ' .  $this->listQueryParts['SELECT'] . ' FROM ' . $this->listQueryParts['FROM'] . ' WHERE ' . $filterWherePart . ' GROUP BY ' .  $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+            $fromPart = '(' . ' SELECT ' .  $this->listQueryParts['SELECT'] . ' FROM ' . $this->listQueryParts['FROMTABLE'] . ' ' . $this->listQueryParts['FROMALIAS']. ' WHERE ' . $filterWherePart . ' GROUP BY ' .  $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+            $queryBuilder->selectLiteral($selectPart)
+                ->from($fromPart);
 
             unset($filterWherePart); // we confined the subquery, so we dont need this in the group query
         } else {
@@ -690,17 +701,28 @@ class MySqlDataBackend extends AbstractDataBackend
             if ($filterWherePart != '') {
                 $filterWherePart = $filterWherePart . " \n";
             }
+            $queryBuilder->selectLiteral($selectPart)
+                ->from($this->listQueryParts['FROMTABLE'], $this->listQueryParts['FROMALIAS'] ?? null);
+
         }
 
         $queryBuilder->selectLiteral($selectPart)
-            ->from($fromPart);
+            ->from($this->listQueryParts['FROMTABLE'], $this->listQueryParts['FROMALIAS'] ?? null);
 
         if (!empty($filterWherePart)) {
             $queryBuilder->where($filterWherePart);
         }
 
         if (!empty($sortingPart)) {
-            $queryBuilder->orderBy($sortingPart);
+            $firstItem = true;
+            foreach($sortingPart as $field => $direction) {
+                if ($firstItem) {
+                    $queryBuilder->orderBy($field, $direction);
+                    $firstItem = false;
+                } else {
+                    $queryBuilder->addOrderBy($field, $direction);
+                }
+            }
         }
 
         if (!empty($groupPart)) {
@@ -727,9 +749,9 @@ class MySqlDataBackend extends AbstractDataBackend
 
         $aggregates = $this->dataSource->executeQuery($aggregateSQLQuery)->fetchAll();
 
-        if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery]);
-        }
+//        if (TYPO3_DLOG) {
+//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery]);
+//        }
 
         return $aggregates[0];
     }
@@ -746,7 +768,7 @@ class MySqlDataBackend extends AbstractDataBackend
         $this->buildQuery();
 
         $selectPart = 'SELECT ' . $this->buildAggregateFieldsSQLByConfigCollection($aggregateConfigCollection);
-        $fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROM'] . $this->listQueryParts['WHERE'] . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY';
+        $fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROMTABLE'] . ' ' . $this->listQueryParts['FROMALIAS'] . $this->listQueryParts['WHERE'] . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY';
 
         $query = implode(" \n", [$selectPart, $fromPart]);
 

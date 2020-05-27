@@ -101,9 +101,9 @@ class DataProviderFactory
             $dataProviderClassName = $filterConfig->getSettings('dataProviderClassName');
         } else {
             if ($filterConfig->getSettings('options')) {
-                $dataProviderClassName = 'DataProvider_ExplicitData';
+                $dataProviderClassName = ExplicitData::class;
             } else {
-                $dataProviderClassName = 'DataProvider_GroupData';
+                $dataProviderClassName = GroupData::class;
             }
         }
         Assert::isTrue(class_exists($dataProviderClassName), ['message' => 'The defined DataProviderClass "'.$dataProviderClassName.'" does not exist! 1283535558']);

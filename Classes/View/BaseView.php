@@ -29,6 +29,10 @@ namespace PunktDe\PtExtlist\View;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\View\BaseView as PtExtbaseBaseView;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements base view for all pt_extlist views. 
  *  
@@ -38,12 +42,12 @@ namespace PunktDe\PtExtlist\View;
  * @author Michael Knoll
  * @package View
  */
-class BaseView
-    extends PunktDe_PtExtbase_View_BaseView
-    implements \PunktDe\PtExtlist\View\ConfigurableViewInterface
+abstract class BaseView
+    extends PtExtbaseBaseView
+    implements ConfigurableViewInterface
 {
     /**
-     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
     
@@ -51,10 +55,10 @@ class BaseView
     /**
      * Inject the configurationBuilder
      *  
-     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @return mixed|void
      */
-    public function setConfigurationBuilder(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
+    public function setConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         $this->configurationBuilder = $configurationBuilder;
     }

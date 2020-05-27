@@ -28,13 +28,18 @@
  ***************************************************************/
 
 namespace PunktDe\PtExtlist\ExtlistContext;
+use PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig;
 use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
 use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\Bookmark;
 use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
 use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
 use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
 use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
 use PunktDe\PtExtlist\Domain\Model\Lists\Lists;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
 use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
 use PunktDe\PtExtlist\Domain\Model\Pager\PagerInterface;
 use PunktDe\PtExtlist\Domain\QueryObject\Query;
@@ -107,7 +112,7 @@ class ExtlistContext
     /**
      * Cached rendered list data
      *
-     * @var
+     * @var \Traversable
      */
     protected $renderedListData;
 
@@ -230,12 +235,12 @@ class ExtlistContext
     }
 
 
-
     /**
      * Returns renderer chain
      *
      * @return RendererChain
      * @throws \TYPO3\CMS\Extbase\Object\Exception
+     * @throws \Exception
      */
     public function getRendererChain()
     {
@@ -259,7 +264,6 @@ class ExtlistContext
     }
 
 
-
     /**
      * Sets sorting of list to given column identifier.
      *
@@ -273,6 +277,8 @@ class ExtlistContext
      * @param integer $sortingDirection Sorting direction (one of Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC | SORTINGSTATE_DESC | SORTINGSTATE_NONE)
      * @param bool $rebuildListCache If set to false, the list cache has to be re-calculated manually (e.g. by calling $extlistcontext->getList(TRUE))
      * @throws Exception , if given column identifier does not exist in this list
+     * @throws \PunktDe\PtExtbase\Exception\InternalException
+     * @throws \Exception
      */
     public function setSortingColumn($sortingColumn, $sortingDirection = Query::SORTINGSTATE_ASC, $rebuildListCache = true)
     {
@@ -321,6 +327,7 @@ class ExtlistContext
      *
      * @param string $pagerIdentifier
      * @return PagerInterface
+     * @throws \Exception
      */
     public function getPager($pagerIdentifier = '')
     {
@@ -373,7 +380,7 @@ class ExtlistContext
      * Returns rendered list data for this list context
      *
      * @param bool $buildNew If set to TRUE, the list data is rebuild
-     * @return ListData
+     * @return \Traversable
      */
     public function getRenderedListData($buildNew = false)
     {
@@ -385,7 +392,7 @@ class ExtlistContext
     /**
      * Returns the filterboxCollection
      *
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     * @return FilterboxCollection
      */
     public function getFilterBoxCollection()
     {
@@ -400,7 +407,7 @@ class ExtlistContext
      * TODO refactor me, use filterboxCollection->getFilterByFullFiltername()
      *
      * @param $fullFilterName
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     * @return FilterInterface
      */
     public function getFilterByFullFiltername($fullFilterName)
     {
@@ -423,7 +430,7 @@ class ExtlistContext
      * @param string $filterIdentifier Identifier of filter for which we want to set a value
      * @param mixed $filterValue Filter value to be set in filter
      * @param bool $resetListCache If set to FALSE, list cache must be re-calculated manually
-     * @throws Exception , if addressed filter object does not have a setValue method (this is not part of the filter interface!)
+     * @throws \Exception , if addressed filter object does not have a setValue method (this is not part of the filter interface!)
      */
     public function setFilterValue($filterboxIdentifier, $filterIdentifier, $filterValue, $resetListCache = true)
     {
@@ -457,11 +464,11 @@ class ExtlistContext
     }
 
 
-
     /**
      * Return an array with all parts to display an integrated list
      *
      * @return array
+     * @throws \Exception
      */
     public function getAllListTemplateParts()
     {
@@ -504,7 +511,7 @@ class ExtlistContext
 
 
     /**
-     * @return \ExtbaseContext
+     * @return ExtbaseContext
      */
     public function getExtBaseContext()
     {
@@ -538,7 +545,8 @@ class ExtlistContext
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+     * @return BookmarkConfig
+     * @throws \Exception
      */
     public function getBookmarkConfiguration()
     {

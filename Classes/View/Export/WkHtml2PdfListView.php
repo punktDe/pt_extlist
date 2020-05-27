@@ -3,6 +3,9 @@
 
 namespace PunktDe\PtExtlist\View\Export;
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -46,7 +49,7 @@ namespace PunktDe\PtExtlist\View\Export;
  * @package View
  * @subpackage Export
  */
-class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportView
+class WkHtml2PdfListView extends AbstractExportView
 {
     /**
      * Force the client to download PDF file when finish() is called.
@@ -207,7 +210,7 @@ class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportVi
     /**
      * Overwriting the render method to generate a PDF output
      *
-     * @throws Exception if wkhtml command did not succeed.
+     * @throws \Exception if wkhtml command did not succeed.
      * @return   void (never returns)
      *
      * Partly taken from https://code.google.com/p/wkhtmltopdf/wiki/IntegrationWithPhp
@@ -225,7 +228,7 @@ class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportVi
         $relativePath = str_replace($_SERVER['DOCUMENT_ROOT'], 'http://' . $_SERVER['HTTP_HOST'], $this->cssFilePath);
         $html = str_replace($this->cssFilePath, $relativePath, $html);
 
-        if ((int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('showHTML') == 1) {
+        if ((int)GeneralUtility::_GET('showHTML') == 1) {
             die($html);
         }
 
@@ -281,14 +284,15 @@ class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportVi
             . (($this->title != '') ? ' --title "' . $this->title . '"' : '')    // title
             . ' "' . $htmlDocument . '" -';
 
+
         $this->pdf = $this->pipeExec($wkCommand);
 
         if (strpos(strtolower($this->pdf['stderr']), 'error') !== false) {
-            throw new Exception('WKPDF command: ' . $wkCommand . ' raised WKPDF system error: <pre>' . $this->pdf['stderr'] . '</pre>', 1373448918);
+            throw new \Exception('WKPDF command: ' . $wkCommand . ' raised WKPDF system error: <pre>' . $this->pdf['stderr'] . '</pre>', 1373448918);
         }
 
         if ($this->pdf['stdout'] == '') {
-            throw new Exception('WKPDF command: ' . $wkCommand . ' didn\'t return any data. <pre>' . $this->pdf['stderr'] . '</pre>', 1373448919);
+            throw new \Exception('WKPDF command: ' . $wkCommand . ' didn\'t return any data. <pre>' . $this->pdf['stderr'] . '</pre>', 1373448919);
         }
 
         if (((int)$this->pdf['return']) > 1) {
@@ -317,7 +321,7 @@ class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportVi
      *
      * @param string $mode How two output (constants from this same class).
      * @param string $file The PDF's filename (the usage depends on $mode.
-     * @throws Exception if headers were already sent.
+     * @throws \Exception if headers were already sent.
      * @return string|boolean Depending on $mode, this may be success (boolean) or PDF (string).
      *
      * Taken from https://code.google.com/p/wkhtmltopdf/wiki/IntegrationWithPhp
@@ -343,7 +347,7 @@ class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportVi
                     header('Content-Length: ' . strlen($this->pdf));
                     echo $this->pdf;
                 } else {
-                    throw new Exception('WKPDF download headers were already sent.', 1373448921);
+                    throw new \Exception('WKPDF download headers were already sent.', 1373448921);
                 }
                 break;
             case self::PDF_ASSTRING:
@@ -360,14 +364,14 @@ class WkHtml2PdfListView extends \PunktDe\PtExtlist\View\Export\AbstractExportVi
                     header('Content-Disposition: inline; filename="' . basename($file) . '";');
                     echo $this->pdf;
                 } else {
-                    throw new Exception('WKPDF embed headers were already sent.', 1373448922);
+                    throw new \Exception('WKPDF embed headers were already sent.', 1373448922);
                 }
                 break;
             case self::PDF_SAVEFILE:
                 return file_put_contents($file, $this->pdf);
                 break;
             default:
-                throw new Exception('WKPDF invalid mode "' . htmlspecialchars($mode, ENT_QUOTES) . '".', 1373448923);
+                throw new \Exception('WKPDF invalid mode "' . htmlspecialchars($mode, ENT_QUOTES) . '".', 1373448923);
         }
         return false;
     }

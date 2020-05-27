@@ -34,7 +34,10 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter;
 
 use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
 use PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\DataProviderFactory;
+use PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\DataProviderInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
 use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
 
 /**
  * Class implements an abstract filter for all options filters
@@ -126,11 +129,11 @@ abstract class AbstractOptionsFilter extends AbstractFilter
         $singleCriteria = null;
 
         if ($fieldIdentifier->getIsRelation()) {
-            $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::relation($fieldName, current($this->filterValues));
+            $singleCriteria = Criteria::relation($fieldName, current($this->filterValues));
         } elseif (is_array($this->filterValues) && count($this->filterValues) == 1) {
-            $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues), $fieldIdentifier->getTreatValueAsString());
+            $singleCriteria = Criteria::equals($fieldName, current($this->filterValues), $fieldIdentifier->getTreatValueAsString());
         } elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
-            $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->filterValues);
+            $singleCriteria = Criteria::in($fieldName, $this->filterValues);
         }
 
         return $singleCriteria;
@@ -221,7 +224,7 @@ abstract class AbstractOptionsFilter extends AbstractFilter
 
 
     /**
-     * @return DataProvider_DataProviderInterface
+     * @return DataProviderInterface
      */
     protected function buildDataProvider()
     {

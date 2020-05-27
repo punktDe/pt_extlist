@@ -37,6 +37,7 @@ use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3Fluid\Fluid\View\TemplateView;
 
 /**
@@ -54,6 +55,15 @@ class RenderValue
      */
     protected static $cObj;
 
+    /**
+     * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController contains a backup of the current $GLOBALS['TSFE'] if used in BE mode
+     */
+    protected static $tsfeBackup;
+
+    /**
+     * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController contains a backup of the current $GLOBALS['TSFE'] if used in BE mode
+     */
+    protected static $tsfe;
 
 
     /**
@@ -265,8 +275,11 @@ class RenderValue
     {
         $renderObjectConfig['renderObj.']['setCurrent'] = $currentData;
 
-        Div::getCobj()->start($data);
-        return Div::getCobj()->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
+        $tsfe = self::simulateFrontendEnvironment();
+        $tsfe->cObj->start($data);
+        $result = $tsfe->cObj->cObjGetSingle($renderObjectConfig['renderObj'], $renderObjectConfig['renderObj.']);
+        self::resetFrontendEnvironment();
+        return $result;
     }
 
 
@@ -294,8 +307,12 @@ class RenderValue
      */
     public static function renderDataByConfigArray($data, $configArray)
     {
-        Div::getCobj()->start($data);
-        return Div::getCobj()->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
+        $tsfe = self::simulateFrontendEnvironment();
+        /** @var TypoScriptFrontendController $tsfe */
+        $tsfe->cObj->start($data);
+        $result = $tsfe->cObj->cObjGetSingle($configArray['_typoScriptNodeValue'], $configArray);
+        self::resetFrontendEnvironment();
+        return $result;
     }
 
 
@@ -348,34 +365,6 @@ class RenderValue
         return $content;
     }
 
-
-
-    /**
-     * return the cObj object
-     *
-     * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     * @deprecated Use Div::getCobj instead
-     */
-    public static function getCobj()
-    {
-        if (!self::$cObj || !is_object(self::$cObj)) {
-            if (TYPO3_MODE === 'FE') {
-                if (!is_a($GLOBALS['TSFE']->cObj, ContentObjectRenderer::class)) {
-                    $GLOBALS['TSFE']->newCObj();
-                }
-            } else {
-                GeneralUtility::makeInstance(FakeFrontendFactory::class)->createFakeFrontend();
-                $GLOBALS['TSFE']->newCObj();
-            }
-
-            self::$cObj = $GLOBALS['TSFE']->cObj;
-        }
-
-        return self::$cObj;
-    }
-
-
-
     /**
      * Build a fluid renderer object
      *
@@ -403,16 +392,23 @@ class RenderValue
      * Otherwise the input value is returned
      *
      * @param mixed $tsConfigValue
-     * @return rendered typoscript value or plain input value
+     * @return string rendered typoscript value or plain input value
      */
-    public static function stdWrapIfPlainArray($tsConfigValue)
+    /**
+     * @param $tsConfigValue
+     * @return string|null
+     */
+    public static function stdWrapIfPlainArray($tsConfigValue): ?string
     {
         if (!is_array($tsConfigValue)) {
             return $tsConfigValue;
         }
 
         $tsArray = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray(['tsConfigArray' => $tsConfigValue]);
-        $content = Div::getCobj()->cObjGetSingle($tsArray['tsConfigArray'], $tsArray['tsConfigArray.']);
+        /** @var TypoScriptFrontendController $tsfe */
+        $tsfe = self::simulateFrontendEnvironment();
+        $content = $tsfe->cObj->cObjGetSingle($tsArray['tsConfigArray'], $tsArray['tsConfigArray.']);
+        self::resetFrontendEnvironment();
 
         return $content;
     }
@@ -433,6 +429,41 @@ class RenderValue
 
         $tsArray = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray($tsConfigValue);
 
-        return Div::getCobj()->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
+        /** @var TypoScriptFrontendController $tsfe */
+        $tsfe = self::simulateFrontendEnvironment();
+        $result = $tsfe->cObj->cObjGetSingle($tsArray['cObject'], $tsArray['cObject.']);
+        self::resetFrontendEnvironment();
+        return $result;
+    }
+
+    /**
+     * Sets the $TSFE->cObjectDepthCounter in Backend mode
+     * This somewhat hacky work around is currently needed because the cObjGetSingle() function of \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer relies on this setting
+     */
+    protected static function simulateFrontendEnvironment()
+    {
+        static::$tsfeBackup = $GLOBALS['TSFE'];
+        if (!($GLOBALS['TSFE'] instanceof TypoScriptFrontendController)) {
+            static::$tsfeBackup = null;
+            if (!(self::$tsfe instanceof TypoScriptFrontendController)) {
+                $GLOBALS['TSFE'] = new \stdClass();
+                $GLOBALS['TSFE']->cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+                $GLOBALS['TSFE']->cObjectDepthCounter = 100;
+                self::$tsfe = $GLOBALS['TSFE'];
+            } else {
+                $GLOBALS['TSFE'] = self::$tsfe;
+            }
+        }
+        return $GLOBALS['TSFE'];
+    }
+
+    /**
+     * Resets $GLOBALS['TSFE'] if it was previously changed by simulateFrontendEnvironment()
+     *
+     * @see simulateFrontendEnvironment()
+     */
+    protected static function resetFrontendEnvironment()
+    {
+        $GLOBALS['TSFE'] = static::$tsfeBackup;
     }
 }

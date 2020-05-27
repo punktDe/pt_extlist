@@ -29,7 +29,10 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
 use Doctrine\DBAL\Driver\PDOStatement;
+use Doctrine\DBAL\Driver\ResultStatement;
+use Doctrine\DBAL\Statement;
 use PDO;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
@@ -46,7 +49,7 @@ use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSo
 class MySqlDataSource extends AbstractDataSource implements IterationDataSourceInterface
 {
     /**
-     * @var PDOStatement
+     * @var Statement
      */
     protected $statement;
 
@@ -89,7 +92,7 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
             $this->statement = $queryBuilder->execute();
             $this->stopTimeMeasure();
         } catch (\Exception $e) {
-            throw new \Exception('Error while trying to execute query on database! SQL-Statement: ' . $this->queryBuilder->getSQL().
+            throw new \Exception('Error while trying to execute query on database! SQL-Statement: ' . $queryBuilder->getSQL().
                 ' - Error message from PDO: ' . $e->getMessage() .
                 '. Further information from PDO_errorInfo: ' . $this->connection->errorInfo(), 1280322659);
         }
@@ -104,11 +107,11 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
      */
     public function fetchAll()
     {
-        if ($this->statement instanceof PDOStatement) {
+        if ($this->statement instanceof MysqliStatement) {
             return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
-        } else {
-            throw new \Exception('No queryBuilder defined to fetch data from. You have to prepare a statement first!', 1347951370);
         }
+        echo get_class($this->statement);
+        throw new \Exception('No queryBuilder defined to fetch data from. You have to prepare a statement first!', 1347951370);
     }
 
 
@@ -118,11 +121,10 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
      */
     public function fetchRow()
     {
-        if ($this->statement instanceof PDOStatement) {
+        if ($this->statement instanceof MysqliStatement) {
             return $this->statement->fetch(\PDO::FETCH_ASSOC);
-        } else {
-            throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
         }
+        throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
     }
 
 

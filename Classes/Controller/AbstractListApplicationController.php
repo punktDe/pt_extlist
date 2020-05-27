@@ -29,6 +29,7 @@ namespace PunktDe\PtExtlist\Controller;
  ***************************************************************/
 
 use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig;
 use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
 use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
 use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
@@ -221,9 +222,10 @@ abstract class AbstractListApplicationController extends AbstractController
     }
 
 
-
     /**
      * Alias action to use the unmodified pager templates
+     * @throws StopActionException
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function showAction()
     {
@@ -269,7 +271,7 @@ abstract class AbstractListApplicationController extends AbstractController
     /**
      * @param string $exportIdentifier
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     public function downloadAction($exportIdentifier)
     {
@@ -277,10 +279,10 @@ abstract class AbstractListApplicationController extends AbstractController
         $exportSettings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
 
         if (!is_array($exportSettings) || empty($exportSettings)) {
-            throw new Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
+            throw new \Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
         }
 
-        $exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilder, $exportSettings);
+        $exportConfig = new ExportConfig($this->configurationBuilder, $exportSettings);
 
         if (array_key_exists('exportListSettingsPath', $exportSettings)) {
             $exportListSettings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $exportSettings['exportListSettingsPath']);
@@ -288,7 +290,7 @@ abstract class AbstractListApplicationController extends AbstractController
             $exportListSettings = $this->configurationBuilder->getSettings();
         }
 
-        $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
+        $extListContext = ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
         $list = $extListContext->getList(true);
 
         $view = $this->objectManager->get($exportConfig->getViewClassName());
