@@ -317,7 +317,7 @@ abstract class AbstractFilter implements FilterInterface
     /**
      * Returns filter configuration of this filter
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     * @return FilterConfig
      */
     public function getFilterConfig()
     {

@@ -45,6 +45,9 @@ use PunktDe\PtExtlist\View\ConfigurableViewInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
@@ -297,7 +300,7 @@ abstract class AbstractController extends AbstractActionController
 
 
     /**
-     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @return ConfigurationBuilder
      * @throws \Exception
      */
     protected function buildConfigurationBuilder()
@@ -325,9 +328,9 @@ abstract class AbstractController extends AbstractActionController
     }
 
 
-
     /**
      * Reset session if ResetOnEmptySubmit is set in config and gpvars are empty
+     * @throws \Exception
      */
     protected function resetOnEmptySubmit()
     {
@@ -337,10 +340,10 @@ abstract class AbstractController extends AbstractActionController
         }
     }
 
-    
 
     /**
      * @return void
+     * @throws \Exception
      */
     protected function resetSessionOnResetParameter()
     {
@@ -378,7 +381,7 @@ abstract class AbstractController extends AbstractActionController
      * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
      * @throws \Exception
      */
-    protected function setViewConfiguration(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
+    protected function setViewConfiguration(ViewInterface $view)
     {
         parent::setViewConfiguration($view);
         $this->setCustomPathsInView($view);
@@ -396,7 +399,7 @@ abstract class AbstractController extends AbstractActionController
      * @return void
      * @api
      */
-    protected function initializeView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
+    protected function initializeView(ViewInterface $view)
     {
         $this->objectManager->get(ExtbaseContext::class)->setControllerContext($this->controllerContext);
         if (method_exists($view, 'setConfigurationBuilder')) {
@@ -454,7 +457,7 @@ abstract class AbstractController extends AbstractActionController
      *
      * @see processRequest() in parent
      */
-    public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response)
+    public function processRequest(RequestInterface $request, ResponseInterface $response)
     {
         parent::processRequest($request, $response);
         if (TYPO3_MODE === 'BE') {
@@ -468,10 +471,10 @@ abstract class AbstractController extends AbstractActionController
     /**
      * Set the TS defined custom paths in view
      *
-     * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
+     * @param ViewInterface $view
      * @throws \Exception
      */
-    protected function setCustomPathsInView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
+    protected function setCustomPathsInView(ViewInterface $view)
     {
         // TODO we do not get global settings from pt_extlist merged into list_identifier settings here. fix this.
         // Get template for current action from settings for list identifier

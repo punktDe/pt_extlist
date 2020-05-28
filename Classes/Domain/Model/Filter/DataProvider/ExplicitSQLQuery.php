@@ -2,14 +2,7 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
 
-use Doctrine\DBAL\Connection;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use PunktDe\PtExtbase\Assertions\Assert;
-use PunktDe\PtExtbase\Exception\Assertion;
-use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
-use PunktDe\PtExtlist\Utility\RenderValue;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 
 /***************************************************************
  *  Copyright notice
@@ -37,6 +30,16 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use Doctrine\DBAL\Connection;
+use PunktDe\PtExtbase\Logger\Logger;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Implements data provider for explicit defined SQL query
@@ -110,11 +113,18 @@ class ExplicitSQLQuery extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvid
 
 
     /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * Init the data provider
      * @throws Assertion
      */
     public function init()
     {
+        $this->logger = GeneralUtility::makeInstance(Logger::class);
+
         $sqlQuerySettings = $this->filterConfig->getSettings('optionsSqlQuery');
 
         foreach ($sqlQuerySettings as $type => $part) {
@@ -232,12 +242,10 @@ class ExplicitSQLQuery extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvid
 //        }
 
         ###TODO
+        $query = $this->queryBuilder->getSql();
         $data =  $this->queryBuilder->execute()->fetchAll();
 
-        ###TODO
-//        if (TYPO3_DLOG) {
-//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query]);
-//        }
+         $this->logger->debug('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist',  ['query' => $query]);
 
         return $data;
     }

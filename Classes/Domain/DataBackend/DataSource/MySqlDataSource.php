@@ -89,6 +89,7 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
     {
         try {
             $this->startTimeMeasure();
+            echo $queryBuilder->getSQL() . PHP_EOL;
             $this->statement = $queryBuilder->execute();
             $this->stopTimeMeasure();
         } catch (\Exception $e) {
@@ -110,7 +111,6 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
         if ($this->statement instanceof MysqliStatement) {
             return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
         }
-        echo get_class($this->statement);
         throw new \Exception('No queryBuilder defined to fetch data from. You have to prepare a statement first!', 1347951370);
     }
 

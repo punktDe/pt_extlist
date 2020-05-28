@@ -30,6 +30,7 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend;
 
 use PunktDe\PtExtbase\Assertions\Assert;
 use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtbase\Logger\Logger;
 use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
 use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig;
 use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfigCollection;
@@ -139,6 +140,12 @@ class MySqlDataBackend extends AbstractDataBackend
      */
     protected $rendererChainFactory;
 
+    /**
+     * @var Logger
+     */
+    protected $logger;
+
+
 
     /**
      * @param RendererChainFactory $rendererChainFactory
@@ -148,6 +155,13 @@ class MySqlDataBackend extends AbstractDataBackend
         $this->rendererChainFactory = $rendererChainFactory;
     }
 
+    /**
+     * @param Logger $logger
+     */
+    public function injectLogger(Logger $logger): void
+    {
+        $this->logger = $logger;
+    }
 
     /**
      * Factory method for data source
@@ -214,9 +228,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
         $rawData = $this->dataSource->executeQuery($queryBuilder)->fetchAll();
 
-//        if (TYPO3_DLOG) {
-//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / FetchAll', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
-//        }
+        $this->logger->debug($this->listIdentifier . '->listDataSelect / FetchAll', __CLASS__, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $queryBuilder->getSQL()]);
 
         $mappedListData = $this->dataMapper->getMappedListData($rawData);
         unset($rawData);
@@ -240,10 +252,7 @@ class MySqlDataBackend extends AbstractDataBackend
         $dataSource = clone $this->dataSource;
         $dataSource->executeQuery($queryBuilder);
 
-        ###TODO
-//        if (TYPO3_DLOG) {
-//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->listDataSelect / IterationListData', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $sqlQuery]);
-//        }
+        $this->logger->debug($this->listIdentifier . '->listDataSelect / IterationListData', __CLASS__, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $queryBuilder->getSQL()]);
 
         $iterationListData = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get(IterationListData::class);
         /** @var $iterationListData IterationListData */
@@ -312,7 +321,6 @@ class MySqlDataBackend extends AbstractDataBackend
                 $queryBuilder->setMaxResults($this->listQueryParts['MAXRESULT']);
             }
         }
-        print_r($this->listQueryParts);
         return $queryBuilder;
     }
 
@@ -612,9 +620,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
             $countResult = $this->dataSource->executeQuery($queryBuilder)->fetchAll();
 
-//            if (TYPO3_DLOG) {
-//                \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->getTotalItemsCount', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
-//            }
+            $this->logger->debug($this->listIdentifier . '->getTotalItemsCount', __CLASS__,  ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $queryBuilder->getSQL()]);
 
             if ($this->listQueryParts['GROUPBY']) {
                 $this->totalItemsCount = count($countResult);
@@ -651,9 +657,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
         $groupDataArray = $this->dataSource->executeQuery($queryBuilder)->fetchAll();
 
-//        if (TYPO3_DLOG) {
-//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->groupDataSelect', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $query]);
-//        }
+        $this->logger->debug($this->listIdentifier . '->groupDataSelect', __CLASS__, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $queryBuilder->getSQL()]);
 
         return $groupDataArray;
     }
@@ -749,9 +753,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
         $aggregates = $this->dataSource->executeQuery($aggregateSQLQuery)->fetchAll();
 
-//        if (TYPO3_DLOG) {
-//            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog($this->listIdentifier . '->aggregateQuery', 'pt_extlist', 1, ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery]);
-//        }
+        $this->logger->debug($this->listIdentifier . '->aggregateQuery', 'pt_extlist', ['executionTime' => $this->dataSource->getLastQueryExecutionTime(), 'query' => $aggregateSQLQuery->getSQL()]);
 
         return $aggregates[0];
     }

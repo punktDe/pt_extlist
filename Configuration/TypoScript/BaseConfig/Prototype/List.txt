@@ -9,8 +9,8 @@
 plugin.tx_ptextlist.prototype.list {
 
 	headerPartial = List/ListHeader.html
-	bodyPartial = ListBody.html
-	aggregateRowsPartial = AggregateRows.html
+	bodyPartial = List/ListBody.html
+	aggregateRowsPartial = List/AggregateRows.html
 
 	useSession = 1
 	useStateCache = 0

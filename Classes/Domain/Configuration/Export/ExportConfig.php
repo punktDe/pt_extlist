@@ -30,6 +30,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Export;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
 use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
 
 /**
