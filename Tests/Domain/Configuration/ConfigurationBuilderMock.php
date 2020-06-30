@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Tests\Domain\Configuration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+
 /**
  * Class implementing a mock for configuration builder
  *
@@ -34,7 +39,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends ConfigurationBuilder
+class ConfigurationBuilderMock extends ConfigurationBuilder
 {
     /**
      * Returns array of settings for current plugin configuration
@@ -57,7 +62,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends C
     public static function getInstance($settings = null, $overwriteSettings = null)
     {
         if (is_array($settings) && count($settings)) {
-            $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
+            $configurationBuilderMock = new ConfigurationBuilderMock($settings);
         } else {
             $settings = [
                 'listIdentifier' => 'test',
@@ -304,10 +309,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends C
             ];
 
             if (is_array($overwriteSettings)) {
-                \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($settings, $overwriteSettings);
+                ArrayUtility::mergeRecursiveWithOverrule($settings, $overwriteSettings);
             }
 
-            $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
+            $configurationBuilderMock = new ConfigurationBuilderMock($settings);
             $configurationBuilderMock->settings = $configurationBuilderMock->origSettings['listConfig'][$configurationBuilderMock->origSettings['listIdentifier']];
         }
         return $configurationBuilderMock;

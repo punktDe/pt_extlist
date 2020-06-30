@@ -7,21 +7,25 @@ namespace PunktDe\PtExtlist\Tests;
  */
 
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase;
 use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
 use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderInstancesContainer;
 use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererChainConfigFactory;
 use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
 use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInstancesContainer;
 use PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperFactory;
 use PunktDe\PtExtlist\Domain\DataBackend\Typo3DataBackend\Typo3DataBackend;
 use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollectionFactory;
 use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollectionFactory;
 use PunktDe\PtExtlist\Domain\Model\Sorting\SorterFactory;
+use PunktDe\PtExtlist\Tests\Domain\Configuration\ConfigurationBuilderMock;
 use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Class implements a base testcase for pt_extlist testcases
@@ -81,7 +85,7 @@ abstract class PtExtlistBaseTestcase extends AbstractBaseTestcase
     
     /**
      * Holds a configuration builder mock for testcase
-     * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
+     * @var ConfigurationBuilderMock
      */
     protected $configurationBuilderMock = null;
     
@@ -110,7 +114,7 @@ abstract class PtExtlistBaseTestcase extends AbstractBaseTestcase
      */
     protected function initDefaultConfigurationBuilderMock($overwriteSettings = null)
     {
-        $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance($this->settings, $overwriteSettings);
+        $this->configurationBuilderMock = ConfigurationBuilderMock::getInstance($this->settings, $overwriteSettings);
     }
     
     
@@ -134,7 +138,7 @@ abstract class PtExtlistBaseTestcase extends AbstractBaseTestcase
      *
      * @param string $className Name of class to be mocked
      * @param array $overrideMethods Methods to be overwritten in mocked class
-     * @return PHPUnit_Framework_MockObject_MockObject Mock instance of $className
+     * @return MockObject Mock instance of $className
      */
     public function getSimpleMock($className, $overrideMethods = [])
     {
@@ -166,7 +170,7 @@ abstract class PtExtlistBaseTestcase extends AbstractBaseTestcase
      * @param array $typoScriptSettingsForListIdentifier The settings array as we get it from configurationManager ATTENTION: This is not the settings array for the list identifier!!!
      * @param string $listIdentifier
      * @return DataBackendFactory
-     * @throws Exception if no list identifier can be determined
+     * @throws \Exception if no list identifier can be determined
      */
     public function getDataBackendFactoryMock($typoScriptSettingsForListIdentifier, $listIdentifier = null)
     {
@@ -174,7 +178,7 @@ abstract class PtExtlistBaseTestcase extends AbstractBaseTestcase
             $listIdentifier = $typoScriptSettingsForListIdentifier['listIdentifier'];
         }
         if (!$listIdentifier) {
-            throw new Exception('No list identifier was given and no list identifier could be found in given TS settings. 1363856864');
+            throw new \Exception('No list identifier was given and no list identifier could be found in given TS settings. 1363856864');
         }
         $configurationManagerMock = $this->getMock(ConfigurationManager::class, ['getConfiguration'], [], '', false);
         $configurationManagerMock->expects($this->any())->method('getConfiguration')->will($this->returnValue($typoScriptSettingsForListIdentifier)); /* @var $configurationManagerMock \TYPO3\CMS\Extbase\Configuration\ConfigurationManager */
@@ -189,7 +193,7 @@ abstract class PtExtlistBaseTestcase extends AbstractBaseTestcase
 
         $instancesContainer = GeneralUtility::makeInstance('DataBackendInstancesContainer'); /* @var $instancesContainer DataBackendInstancesContainer  */
 
-        $objectManagerMock = $this->getMock(\TYPO3\CMS\Extbase\Object\ObjectManager::class, ['get'], [], '', false);
+        $objectManagerMock = $this->getMock(ObjectManager::class, ['get'], [], '', false);
         $objectManagerMock->expects($this->any())
                 ->method('get')
                 ->with('Typo3DataBackend_Typo3DataBackend', $configurationBuilderFactory->getInstance($listIdentifier))
