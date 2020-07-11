@@ -104,6 +104,12 @@ class MySqlDataBackend extends AbstractDataBackend
 
 
     /**
+     * The baseFromClause from TSConfig
+     * @var string
+     */
+    protected $baseJoinClause;
+
+    /**
      * The baseGroupByClause from TSConfig
      *
      * @var string
@@ -280,6 +286,7 @@ class MySqlDataBackend extends AbstractDataBackend
         if (!is_array($this->listQueryParts)) {
             $this->buildSelectPart();
             $this->buildFromPart();
+            $this->buildJoinPart();
             $this->buildWherePartForListData();
             $this->buildOrderByPart();
             $this->buildGroupByPart();
@@ -440,6 +447,33 @@ class MySqlDataBackend extends AbstractDataBackend
         $this->listQueryParts['FROMALIAS'] = $items[1] ?? '';
     }
 
+    /**
+     * Builds from part from all parts of plugin
+     *
+     * @return string FROM part of query without 'FROM'
+     * @throws Assertion
+     */
+    /*public function buildJoinPart()
+    {
+        if (empty($this->baseJoinClause)) {
+
+        }
+
+        if ($this->baseJoinClause) {
+            $joinPart = trim($this->baseJoinClause);
+        }
+
+
+        Assert::isNotEmptyString($fromPart, ['message' => 'Backend must have a baseFromClause in TS! This is not given! 1280234420']);
+
+        $fromPart = trim($this->processQueryWithFluid($fromPart));
+        $items = GeneralUtility::trimExplode(' ', $fromPart);
+
+        Assert::isInRange(count($items), 1 ,2 , ['message' => 'baseFromClause of Backend in TS has not the correct values! This should table name and optional added bey space alias! 1280234420']);
+
+        $this->listQueryParts['FROMTABLE'] = trim($items[0]);
+        $this->listQueryParts['FROMALIAS'] = $items[1] ?? '';
+    }*/
 
     /**
      * Builds where part of query from all parts of plugin
