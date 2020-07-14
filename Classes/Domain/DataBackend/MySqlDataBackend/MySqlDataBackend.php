@@ -105,7 +105,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
     /**
      * The baseFromClause from TSConfig
-     * @var string
+     * @var array
      */
     protected $baseJoinClause;
 
@@ -197,6 +197,7 @@ class MySqlDataBackend extends AbstractDataBackend
         $this->baseWhereClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
         $this->baseFromClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
         $this->baseGroupByClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
+        $this->baseJoinClause = $this->backendConfiguration->getDataBackendSettings('baseJoinClause');
     }
 
 
@@ -304,6 +305,13 @@ class MySqlDataBackend extends AbstractDataBackend
 
             if (!empty($this->listQueryParts['WHERE'])) {
                 $queryBuilder->where($this->listQueryParts['WHERE']);
+            }
+
+            if (!empty($this->listQueryParts['JOIN'])) {
+                foreach ($this->listQueryParts['JOIN'] as $join) {
+                    $method = $join['METHOD'];
+                    $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'],$join['ON']);
+                }
             }
 
             if (!empty($this->listQueryParts['ORDERBY'])) {
@@ -444,36 +452,36 @@ class MySqlDataBackend extends AbstractDataBackend
         Assert::isInRange(count($items), 1 ,2 , ['message' => 'baseFromClause of Backend in TS has not the correct values! This should table name and optional added bey space alias! 1280234420']);
 
         $this->listQueryParts['FROMTABLE'] = trim($items[0]);
-        $this->listQueryParts['FROMALIAS'] = $items[1] ?? '';
+        $this->listQueryParts['FROMALIAS'] = trim($items[1]) ?: null;
     }
 
     /**
      * Builds from part from all parts of plugin
      *
-     * @return string FROM part of query without 'FROM'
      * @throws Assertion
      */
-    /*public function buildJoinPart()
+    public function buildJoinPart()
     {
         if (empty($this->baseJoinClause)) {
-
+            return;
         }
 
-        if ($this->baseJoinClause) {
-            $joinPart = trim($this->baseJoinClause);
+        Assert::isArray($this->baseJoinClause, ['message' => 'BaseJoinClause has to be an array in TS! This is not given! 1594734761']);
+
+        $this->listQueryParts['JOIN'] = [];
+        foreach ($this->baseJoinClause as $joinPart) {
+            $join = [];
+            $type = strtolower(trim($joinPart['type'])) ?: 'inner';
+
+            $join['FROMALIAS'] = trim($joinPart['fromAlias']);
+            $join['TABLE'] = trim($joinPart['table']);
+            $join['ALIAS'] = trim($joinPart['alias']) ?: trim($joinPart['table']);
+            $join['ON'] = trim($joinPart['on']);
+            $join['METHOD'] = $type . 'Join';
+
+            $this->listQueryParts['JOIN'][] = $join;
         }
-
-
-        Assert::isNotEmptyString($fromPart, ['message' => 'Backend must have a baseFromClause in TS! This is not given! 1280234420']);
-
-        $fromPart = trim($this->processQueryWithFluid($fromPart));
-        $items = GeneralUtility::trimExplode(' ', $fromPart);
-
-        Assert::isInRange(count($items), 1 ,2 , ['message' => 'baseFromClause of Backend in TS has not the correct values! This should table name and optional added bey space alias! 1280234420']);
-
-        $this->listQueryParts['FROMTABLE'] = trim($items[0]);
-        $this->listQueryParts['FROMALIAS'] = $items[1] ?? '';
-    }*/
+    }
 
     /**
      * Builds where part of query from all parts of plugin
@@ -648,6 +656,14 @@ class MySqlDataBackend extends AbstractDataBackend
             if (!empty($this->listQueryParts['WHERE'])) {
                 $queryBuilder->where($this->listQueryParts['WHERE']);
             }
+
+            if (!empty($this->listQueryParts['JOIN'])) {
+                foreach ($this->listQueryParts['JOIN'] as $join) {
+                    $method = $join['METHOD'];
+                    $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'],$join['ON']);
+                }
+            }
+
             if (!empty($this->listQueryParts['GROUPBY'])) {
                 $queryBuilder->groupBy($this->listQueryParts['GROUPBY']);
             }
