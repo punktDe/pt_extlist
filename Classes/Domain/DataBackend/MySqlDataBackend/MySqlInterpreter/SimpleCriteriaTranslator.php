@@ -71,7 +71,9 @@ class SimpleCriteriaTranslator implements \PunktDe\PtExtlist\Domain\DataBackend\
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName(DbUtils::getDefaultDatabase());
 
         if (is_array($criteria->getValue())) {
-            $escapedValues = $connection->quote($criteria->getValue(), Connection::PARAM_STR_ARRAY);
+            //$escapedValues = $connection->quote($criteria->getValue(), Connection::PARAM_STR_ARRAY);
+
+            $escapedValues = $criteria->getValue();
             $returnString = '(' . implode(',', $escapedValues) . ')';
         } elseif (is_numeric($criteria->getValue()) && !$criteria->getTreatValueAsString()) {
             $returnString = $criteria->getValue();
