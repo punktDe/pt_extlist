@@ -193,7 +193,7 @@ class MySqlDataBackend extends AbstractDataBackend
      */
     protected function initBackendByTsConfig()
     {
-        //$this->tables = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables'));
+        $this->tables = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('tables'));
         $this->baseWhereClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseWhereClause'));
         $this->baseFromClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseFromClause'));
         $this->baseGroupByClause = RenderValue::stdWrapIfPlainArray($this->backendConfiguration->getDataBackendSettings('baseGroupByClause'));
