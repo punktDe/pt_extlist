@@ -129,7 +129,7 @@ class Typo3DataBackend extends MySqlDataBackend
                 $typo3Tables = GeneralUtility::trimExplode(',', $this->tables, true);
 
                 foreach ($typo3Tables as $typo3Table) {
-                    list($table, $alias) = GeneralUtility::trimExplode(' ', $typo3Table, true);
+                    list($table, $aliasNotUsed) = GeneralUtility::trimExplode(' ', $typo3Table, true);
 
                     if (is_array($GLOBALS['TCA'][$table])) {
                         $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));

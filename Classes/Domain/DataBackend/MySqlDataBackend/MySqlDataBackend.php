@@ -309,7 +309,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
             if (!empty($this->listQueryParts['JOIN'])) {
                 foreach ($this->listQueryParts['JOIN'] as $join) {
-                    $method = $join['METHOD'];
+                    $method = $join['TYPE'] . 'Join';
                     $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'],$join['ON']);
                 }
             }
@@ -473,13 +473,11 @@ class MySqlDataBackend extends AbstractDataBackend
         $this->listQueryParts['JOIN'] = [];
         foreach ($this->baseJoinClause as $joinPart) {
             $join = [];
-            $type = strtolower(trim($joinPart['type'])) ?: 'inner';
-
             $join['FROMALIAS'] = trim($joinPart['fromAlias']);
             $join['TABLE'] = trim($joinPart['table']);
             $join['ALIAS'] = trim($joinPart['alias']) ?: trim($joinPart['table']);
             $join['ON'] = trim($joinPart['on']);
-            $join['METHOD'] = $type . 'Join';
+            $join['TYPE'] = strtolower(trim($joinPart['type'])) ?: 'inner';
 
             $this->listQueryParts['JOIN'][] = $join;
         }
@@ -661,7 +659,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
             if (!empty($this->listQueryParts['JOIN'])) {
                 foreach ($this->listQueryParts['JOIN'] as $join) {
-                    $method = $join['METHOD'];
+                    $method = $join['TYPE'] . 'Join';
                     $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'],$join['ON']);
                 }
             }
@@ -751,11 +749,10 @@ class MySqlDataBackend extends AbstractDataBackend
             $joinPart = '';
             if (!empty($this->listQueryParts['JOIN'])) {
                 foreach ($this->listQueryParts['JOIN'] as $join) {
-                    $joinPart .= ' LEFT JOIN ' . $join['TABLE'] . ' ' . $join['ALIAS'] . ' ON ' . $join['ON'];
+                    $joinPart .= ' ' . $join['TYPE'] . ' JOIN ' . $join['TABLE'] . ' ' . $join['ALIAS'] . ' ON ' . $join['ON'];
 
                 }
             }
-
 
             // if the list has a group by clause itself, we have to use the listQuery as subQuery
             $fromPart = '(' . ' SELECT ' .  $this->listQueryParts['SELECT'] . ' FROM ' . $this->listQueryParts['FROMTABLE'] . ' ' . $this->listQueryParts['FROMALIAS']. $joinPart . ' WHERE ' . $filterWherePart . ' GROUP BY ' .  $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
@@ -773,7 +770,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
             if (!empty($this->listQueryParts['JOIN'])) {
                 foreach ($this->listQueryParts['JOIN'] as $join) {
-                    $method = $join['METHOD'];
+                    $method = $join['TYPE'] . 'Join';
                     $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'],$join['ON']);
                 }
             }
