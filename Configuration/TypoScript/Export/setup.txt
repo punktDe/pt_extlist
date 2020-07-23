@@ -35,7 +35,7 @@ plugin.tx_ptextlist.settings.export {
 
 		excelExport < plugin.tx_ptextlist.prototype.export
 		excelExport {
-		    viewClassName = PunktDe\PtExtlist\View\Export\ExcelListView
+		    viewClassName = \PunktDe\PtExtlist\View\Export\ExcelListView
 		    fileExtension = xls
 
 		    stripTags = 1

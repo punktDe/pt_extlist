@@ -495,6 +495,14 @@ abstract class AbstractController extends AbstractActionController
                 throw new \Exception('Given template path and filename could not be found or resolved: ' . \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename), 1284655110);
             }
         }
+
+        $defaultPartialRootPaths = [
+            10 => 'EXT:pt_extlist/Resources/Private/Partials'
+        ];
+
+        $concretePartialRootPaths = array_merge($defaultPartialRootPaths, $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['partialPaths'] ?: []);
+
+        $view->setPartialRootPaths($concretePartialRootPaths);
     }
 
 

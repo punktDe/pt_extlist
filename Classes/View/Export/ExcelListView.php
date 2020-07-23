@@ -8,6 +8,7 @@ use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
 use PunktDe\PtExtlist\Domain\Model\Lists\Cell;
 use PunktDe\PtExtlist\Domain\Model\Lists\Row;
 use PunktDe\PtExtlist\ExtlistContext\ExtlistContextFactory;
+use PunktDe\PtExtlist\Utility\RenderValue;
 use TYPO3\CMS\Core\Error\Http\StatusException;
 
 /***************************************************************
@@ -57,14 +58,14 @@ class ExcelListView extends AbstractExportView
     /**
      * Holds an PHPExcel worksheet object
      *
-     * @var PHPExcel
+     * @var \PHPExcel
      */
     protected $objPHPExcel;
 
 
 
     /**
-     * @var PHPExcel_Worksheet
+     * @var \PHPExcel_Worksheet
      */
     protected $activeSheet;
 
@@ -162,7 +163,7 @@ class ExcelListView extends AbstractExportView
 
         $this->renderPostBodyRows();
 
-        $objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $this->fileFormat);
+        $objWriter = \PHPExcel_IOFactory::createWriter($this->objPHPExcel, $this->fileFormat);
 
         $this->saveOutputAndExit($objWriter);
     }
@@ -209,11 +210,11 @@ class ExcelListView extends AbstractExportView
         $this->initConfiguration();
 
         $this->checkRequirements();
-        $this->objPHPExcel = new PHPExcel();
+        $this->objPHPExcel = new \PHPExcel();
         $this->objPHPExcel->setActiveSheetIndex(0);
         $this->activeSheet = $this->objPHPExcel->getActiveSheet();
 
-        $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+        $this->templateVariableContainer = $this->baseRenderingContext->getVariableProvider();
         $this->columnConfigCollection = $this->configurationBuilder->buildColumnsConfiguration();
     }
 
@@ -238,7 +239,7 @@ class ExcelListView extends AbstractExportView
     protected function renderFreeText()
     {
         $activeSheet = $this->objPHPExcel->getActiveSheet();
-        $freeText = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->freeText);
+        $freeText = RenderValue::stdWrapIfPlainArray($this->freeText);
         $activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(['font' => ['bold' => true]]);
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, $freeText);
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, '');
@@ -552,9 +553,9 @@ class ExcelListView extends AbstractExportView
 
 
     /**
-     * @param PHPExcel_Writer_IWriter $objWriter
+     * @param \PHPExcel_Writer_IWriter $objWriter
      */
-    protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter)
+    protected function saveOutputAndExit(\PHPExcel_Writer_IWriter $objWriter)
     {
         $objWriter->save('php://output');
         exit();
@@ -565,7 +566,7 @@ class ExcelListView extends AbstractExportView
     /**
      * Checks requirements of Excel export to be working
      *
-     * @throws Exception
+     * @throws \Exception
      * @return void
      */
     private function checkRequirements()
@@ -574,14 +575,14 @@ class ExcelListView extends AbstractExportView
             $phpExcelPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist', 'Classes/Foreign/PHPExcel/Classes/PHPExcel.php');
 
             if (!file_exists($phpExcelPath)) {
-                throw new Exception('Library PHPExcel is required for using Excel export. Run "composer install" in page root directory or "git submodule update --init" in extension root directory', 1418830027);
+                throw new \Exception('Library PHPExcel is required for using Excel export. Run "composer install" in page root directory or "git submodule update --init" in extension root directory', 1418830027);
             }
 
             require_once($phpExcelPath);
         }
 
         if (!class_exists('XMLWriter')) {
-            throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled', 1316565594);
+            throw new \Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled', 1316565594);
         }
     }
 
