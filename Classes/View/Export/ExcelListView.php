@@ -214,7 +214,7 @@ class ExcelListView extends AbstractExportView
         $this->objPHPExcel->setActiveSheetIndex(0);
         $this->activeSheet = $this->objPHPExcel->getActiveSheet();
 
-        $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+        $this->templateVariableContainer = $this->baseRenderingContext->getVariableProvider();
         $this->columnConfigCollection = $this->configurationBuilder->buildColumnsConfiguration();
     }
 

@@ -4,6 +4,7 @@
 namespace PunktDe\PtExtlist\View\Export;
 
 use PunktDe\PtExtbase\Assertions\Assert;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -193,7 +194,7 @@ class WkHtml2PdfListView extends AbstractExportView
     {
         parent::initConfiguration();
 
-        $this->tempPdfBasePath = PATH_site.'typo3temp/';
+        $this->tempPdfBasePath = Environment::getPublicPath().'/typo3temp/';
 
         $this->cmd = 'wkhtmltopdf';
         // This method seems not to work to check, whether a command is available in unix
