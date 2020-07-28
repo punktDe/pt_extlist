@@ -129,6 +129,8 @@ class  SortingViewHelper extends ActionViewHelper
         
         $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 
+        $this->arguments['arguments'] = $argumentArray;
+        $this->setArguments($this->arguments);
         $output = parent::render();
 
         $this->templateVariableContainer->remove('sortingDirection');

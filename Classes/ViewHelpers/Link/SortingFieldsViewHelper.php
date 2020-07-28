@@ -120,6 +120,8 @@ class  SortingFieldsViewHelper extends ActionViewHelper
 
         $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 
+        $this->arguments['arguments'] = $argumentArray;
+        $this->setArguments($this->arguments);
         return parent::render();
     }
 }
