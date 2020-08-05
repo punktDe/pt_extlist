@@ -1,11 +1,18 @@
 <?php
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter;
+use PunktDe\PtExtbase\Tree\ExtJsJsonWriterVisitor;
+use PunktDe\PtExtbase\Tree\JsonTreeWriter;
+use PunktDe\PtExtbase\Tree\Node;
+use PunktDe\PtExtbase\Tree\Tree;
+use PunktDe\PtExtbase\Tree\TreeContext;
+use PunktDe\PtExtbase\Tree\TreeRepositoryBuilder;
 use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
 use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
 use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
 use PunktDe\PtExtlist\Utility\DbUtils;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
  *  Copyright notice
@@ -107,10 +114,10 @@ class TreeSelectFilter extends AbstractOptionsFilter
     protected $objectManager;
 
 
-//    /**
-//     * @var PunktDe_PtExtbase_Tree_TreeContext
-//     */
-//    protected $treeContext;
+    /**
+     * @var TreeContext
+     */
+    protected $treeContext;
 
 
     /**
@@ -120,15 +127,15 @@ class TreeSelectFilter extends AbstractOptionsFilter
     {
         ###TODO
         new \Exception('Is not available', 1589383569);
-        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $this->treeContext = $this->objectManager->get('PunktDe_PtExtbase_Tree_TreeContext');
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+        $this->treeContext = $this->objectManager->get(TreeContext::class);
         $this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
         $this->buildTree();
     }
 
 
-
     /**
+     * @throws \Exception
      * @see AbstractFilter::initFilterByTsConfig()
      *
      */
@@ -242,7 +249,7 @@ class TreeSelectFilter extends AbstractOptionsFilter
     {
         if ($this->treeRootNode) {
             $subTreeRootNode = $this->tree->getNodeByUid($this->treeRootNode);
-            $this->tree = PunktDe_PtExtbase_Tree_Tree::getInstanceByRootNode($subTreeRootNode);
+            $this->tree = Tree::getInstanceByRootNode($subTreeRootNode);
         }
 
 
@@ -252,13 +259,13 @@ class TreeSelectFilter extends AbstractOptionsFilter
         }
 
 
-        $arrayWriterVisitor = $this->objectManager->get('PunktDe_PtExtbase_Tree_ExtJsJsonWriterVisitor');
+        $arrayWriterVisitor = $this->objectManager->get(ExtJsJsonWriterVisitor::class);
         $arrayWriterVisitor->registerFirstVisitCallback($this, 'alterNodeArrayOnFirstVisit');
         $arrayWriterVisitor->registerLastVisitCallBack($this, 'alterNodeArrayOnLastVisit');
         $arrayWriterVisitor->setMultipleSelect($this->getMultiple());
         $arrayWriterVisitor->setSelection($this->filterValues);
 
-        $jsonTreeWriter = $this->objectManager->get('PunktDe_PtExtbase_Tree_JsonTreeWriter', [$arrayWriterVisitor], $arrayWriterVisitor);
+        $jsonTreeWriter = $this->objectManager->get(JsonTreeWriter::class, [$arrayWriterVisitor], $arrayWriterVisitor);
 
         return $jsonTreeWriter->writeTree($this->tree);
     }
@@ -266,11 +273,11 @@ class TreeSelectFilter extends AbstractOptionsFilter
 
 
     /**
-     * @return PunktDe_PtExtbase_Tree_Tree
+     * @return Tree
      */
     protected function buildTree()
     {
-        $treeRepositoryBuilder = PunktDe_PtExtbase_Tree_TreeRepositoryBuilder::getInstance();
+        $treeRepositoryBuilder = TreeRepositoryBuilder::getInstance();
         $treeRepositoryBuilder->setNodeRepositoryClassName($this->treeNodeRepository);
 
         $treeRepository = $treeRepositoryBuilder->buildTreeRepository();
@@ -286,7 +293,7 @@ class TreeSelectFilter extends AbstractOptionsFilter
 
 
     /**
-     * @param PunktDe_PtExtbase_Tree_Node $node
+     * @param Node $node
      * @param array $nodeArray
      * @return array
      */
@@ -300,7 +307,7 @@ class TreeSelectFilter extends AbstractOptionsFilter
 
 
     /**
-     * @param PunktDe_PtExtbase_Tree_Node $node
+     * @param Node $node
      * @param array $currentNode
      * @return array
      */
@@ -357,7 +364,7 @@ class TreeSelectFilter extends AbstractOptionsFilter
 
         foreach ($this->filterValues as $value) {
             $node = $this->tree->getNodeByUid($value);
-            if ($node instanceof PunktDe_PtExtbase_Tree_Node) {
+            if ($node instanceof Node) {
                 $displayValues[] = $node->getLabel();
             }
         }
@@ -379,12 +386,12 @@ class TreeSelectFilter extends AbstractOptionsFilter
 
         $treeNode = $this->tree->getNodeByUid($nodeUid);
 
-        if ($treeNode instanceof PunktDe_PtExtbase_Tree_Node) {
+        if ($treeNode instanceof Node) {
             $subTreeNodes = $treeNode->getSubNodes();
             $subtreeNodeIdArray = [];
 
             foreach ($subTreeNodes as $subTreeNode) {
-                /** @var PunktDe_PtExtbase_Tree_Node $subTreeNode */
+                /** @var Node $subTreeNode */
                 $subtreeNodeIdArray[] = $subTreeNode->getUid();
             }
         } else {

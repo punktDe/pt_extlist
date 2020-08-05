@@ -329,7 +329,7 @@ class MySqlDataBackend extends AbstractDataBackend
             if (!empty($this->listQueryParts['GROUPBY'])) {
                 // @TODO: possibly refactor this. Previous code below
                 // $queryBuilder->groupBy($this->listQueryParts['GROUPBY']);
-                $queryBuilder->add('GROUP BY', $this->listQueryParts['GROUPBY'], true);
+                $queryBuilder->add('groupBy', $this->listQueryParts['GROUPBY'], true);
             }
             if (!empty($this->listQueryParts['FIRSTRESULT'])) {
                 $queryBuilder->setFirstResult($this->listQueryParts['FIRSTRESULT']);
@@ -667,7 +667,7 @@ class MySqlDataBackend extends AbstractDataBackend
             if (!empty($this->listQueryParts['GROUPBY'])) {
                 // @TODO: possibly refactor this. Previous code below
                 // $queryBuilder->groupBy($this->listQueryParts['GROUPBY']);
-                $queryBuilder->add('GROUP BY', $this->listQueryParts['GROUPBY'], true);
+                $queryBuilder->add('groupBy', $this->listQueryParts['GROUPBY'], true);
             }
 
             $countResult = $this->dataSource->executeQuery($queryBuilder)->fetchAll();
@@ -739,30 +739,41 @@ class MySqlDataBackend extends AbstractDataBackend
          */
 
         if ($this->listQueryParts['GROUPBY'] && $filterConfig->getShowRowCount()) {
+
             $selectPart = $this->convertTableFieldToAlias($selectPart);
             $groupPart = $this->convertTableFieldToAlias($groupPart);
-            ###TODO
-            ///$sortingPart = $this->convertTableFieldToAlias($sortingPart);
+            $sortingPart = $this->convertTableFieldToAlias($sortingPart);
 
             $filterWherePart = $this->buildWherePart($excludeFilters);
 
-            $joinPart = '';
+            $queryBuilder->selectLiteral($this->listQueryParts['SELECT'])
+                ->from($this->listQueryParts['FROMTABLE'], $this->listQueryParts['FROMALIAS'] ?? null);
+
             if (!empty($this->listQueryParts['JOIN'])) {
                 foreach ($this->listQueryParts['JOIN'] as $join) {
-                    $joinPart .= ' ' . $join['TYPE'] . ' JOIN ' . $join['TABLE'] . ' ' . $join['ALIAS'] . ' ON ' . $join['ON'];
-
+                    $method = $join['TYPE'] . 'Join';
+                    $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'],$join['ON']);
                 }
             }
+            $queryBuilder->where($filterWherePart);
+
+            $queryBuilder->add('groupBy', $this->listQueryParts['GROUPBY'], true);
+
+
+            $sql = $queryBuilder->getSQL();
 
             // if the list has a group by clause itself, we have to use the listQuery as subQuery
-            $fromPart = '(' . ' SELECT ' .  $this->listQueryParts['SELECT'] . ' FROM ' . $this->listQueryParts['FROMTABLE'] . ' ' . $this->listQueryParts['FROMALIAS']. $joinPart . ' WHERE ' . $filterWherePart . ' GROUP BY ' .  $this->listQueryParts['GROUPBY'] . ') AS SUBQUERY ';
+            $fromPart = '(' . $sql  . ') AS SUBQUERY ';
+
+            /**  we need a new query builder without restriction see SUBQUERY */
+            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->listQueryParts['FROMTABLE']); /** @var  Connection $connection */
+            $queryBuilder = $connection->createQueryBuilder();
             $queryBuilder->selectLiteral($selectPart . ' FROM ' .  $fromPart);
 
-            unset($filterWherePart); // we confined the subquery, so we dont need this in the group query
         } else {
             $filterWherePart = $this->buildWherePart($excludeFilters);
             if ($filterWherePart != '') {
-                $filterWherePart = $filterWherePart . " \n";
+                $queryBuilder->where($filterWherePart);
             }
 
             $queryBuilder->selectLiteral($selectPart)
@@ -774,10 +785,6 @@ class MySqlDataBackend extends AbstractDataBackend
                     $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'],$join['ON']);
                 }
             }
-        }
-
-        if (!empty($filterWherePart)) {
-            $queryBuilder->where($filterWherePart);
         }
 
         if (!empty($sortingPart)) {
@@ -793,15 +800,12 @@ class MySqlDataBackend extends AbstractDataBackend
         }
 
         if (!empty($groupPart)) {
-            // @TODO: possibly refactor this. Previous code below
-            // $queryBuilder->groupBy($groupPart);
-            $queryBuilder->add('GROUP BY', $this->listQueryParts['GROUPBY'], true);
+            $queryBuilder->add('groupBy', $groupPart, true);
         }
-
-        //$query = implode(" \n", [$selectPart, $fromPart, $filterWherePart, $groupPart, $sortingPart]);
 
         ###TODO
         //$query = $this->processQueryWithFluid($query);
+
 
         return $queryBuilder;
     }

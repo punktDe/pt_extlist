@@ -136,10 +136,10 @@ class ExplicitSQLQuery extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvid
         $fromPart = trim(RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']));
         $items = GeneralUtility::trimExplode(' ', $fromPart);
 
-        Assert::isInRange(count($items), 1 ,2 , ['message' => 'baseFromClause of Backend in TS has not the correct values! This should table name and optional added bey space alias! 1280234420']);
+        Assert::isInRange(count($items), 1 ,2 , ['message' => 'baseFromClause of Backend in TS has not the correct values! This should be table name and optional alias added by space! 1280234420']);
 
         $fromTable= trim($items[0]);
-        $fromAlias = $items[1] ?? '';
+        $fromAlias = $items[1] ?? null;
 
         /** @var Connection $connection */
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($fromTable);
@@ -149,6 +149,18 @@ class ExplicitSQLQuery extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvid
             $this->queryBuilder->selectLiteral(RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']));
         }
         $this->queryBuilder->from($fromTable, $fromAlias);
+
+        if ($sqlQuerySettings['join']) {
+            foreach ($sqlQuerySettings['join'] as $joinPart) {
+                $joinFromAlias = trim($joinPart['fromAlias']);
+                $joinTable = trim($joinPart['table']);
+                $joinAlias = trim($joinPart['alias']) ?: trim($joinPart['table']);
+                $joinOn = trim($joinPart['on']);
+                $joinMethod = (strtolower(trim($joinPart['type'])) ?: 'inner') . 'Join';
+                $this->queryBuilder->$joinMethod($joinFromAlias, $joinTable, $joinAlias, $joinOn);
+            }
+        }
+
 
         if ($sqlQuerySettings['where']) {
             $this->queryBuilder->where(RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']));
@@ -171,7 +183,6 @@ class ExplicitSQLQuery extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvid
                 $this->queryBuilder->setMaxResults($items[0]);
             }
         }
-
 
         $this->filterField = trim($this->filterConfig->getSettings('filterField'));
         $this->displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('displayFields'));

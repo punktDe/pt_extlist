@@ -89,7 +89,7 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
     {
         try {
             $this->startTimeMeasure();
-            // echo $queryBuilder->getSQL() . PHP_EOL;
+             //echo $queryBuilder->getSQL() . PHP_EOL . '<br />';
             $this->statement = $queryBuilder->execute();
             $this->stopTimeMeasure();
         } catch (\Exception $e) {

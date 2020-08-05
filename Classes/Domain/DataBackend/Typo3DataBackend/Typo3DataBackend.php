@@ -35,6 +35,7 @@ use PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource;
 use PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSourceFactory;
 use PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlDataBackend;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\DefaultRestrictionContainer;
 use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -132,7 +133,11 @@ class Typo3DataBackend extends MySqlDataBackend
                     list($table, $aliasNotUsed) = GeneralUtility::trimExplode(' ', $typo3Table, true);
 
                     if (is_array($GLOBALS['TCA'][$table])) {
-                        $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+                        if (TYPO3_MODE === 'FE') {
+                            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+                        } else {
+                            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(DefaultRestrictionContainer::class));
+                        }
                     }
                 }
 
