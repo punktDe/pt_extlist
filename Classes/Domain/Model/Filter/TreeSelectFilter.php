@@ -51,10 +51,10 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  */
 class TreeSelectFilter extends AbstractOptionsFilter
 {
-//    /**
-//     * @var PunktDe_PtExtbase_Tree_Tree
-//     */
-//    protected $tree;
+    /**
+     * @var Tree
+     */
+    protected $tree;
 
 
 
@@ -125,8 +125,6 @@ class TreeSelectFilter extends AbstractOptionsFilter
      */
     public function initFilter()
     {
-        ###TODO
-        new \Exception('Is not available', 1589383569);
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class); /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
         $this->treeContext = $this->objectManager->get(TreeContext::class);
         $this->treeContext->setRespectEnableFields($this->treeRespectEnableFields);
@@ -149,7 +147,7 @@ class TreeSelectFilter extends AbstractOptionsFilter
 
         $this->treeNodeRepository = $this->filterConfig->getSettings('treeNodeRepository');
         if (!$this->treeNodeRepository || !class_exists($this->treeNodeRepository)) {
-            throw new \Exception('The treeNodeRepository with className ' . $this->treeRepository . ' could no be found. ', 1328459171);
+            throw new \Exception('The treeNodeRepository with className ' . $this->treeNodeRepository . ' could no be found. ', 1328459171);
         }
 
         $this->treeNamespace = trim($this->filterConfig->getSettings('treeNamespace'));
