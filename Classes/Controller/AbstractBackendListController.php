@@ -46,6 +46,6 @@ abstract class AbstractBackendListController extends AbstractListApplicationCont
         };
 
         parent::initializeAction();
-        $this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
+        // $this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
     }
 }

@@ -161,7 +161,7 @@ class IterationListData implements IterationListDataInterface
     public function current()
     {
         if ($this->currentRow === null) {
-            $this->currentRow = $this->dataSource->fetchRow();
+            $this->currentRow = $this->dataSource->fetchRow($this->index);
         }
 
         return $this->getProcessedCurrentRow();
@@ -177,7 +177,7 @@ class IterationListData implements IterationListDataInterface
      */
     public function next()
     {
-        $this->currentRow = $this->dataSource->fetchRow();
+        $this->currentRow = $this->dataSource->fetchRow($this->index);
         $this->index++;
     }
 
@@ -222,7 +222,7 @@ class IterationListData implements IterationListDataInterface
      */
     public function rewind()
     {
-        $this->dataSource->rewind();
+       // $this->dataSource->rewind();
         $this->index = 0;
         $this->currentRow = null;
     }

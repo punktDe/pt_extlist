@@ -116,13 +116,14 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
 
 
     /**
+     * @param int $index
      * @return mixed
      * @throws \Exception
      */
-    public function fetchRow()
+    public function fetchRow(int $index)
     {
         if ($this->statement instanceof MysqliStatement) {
-            return $this->statement->fetch(\PDO::FETCH_ASSOC);
+            return $this->statement->fetch(\PDO::FETCH_ASSOC, PDO::FETCH_ORI_ABS, $index);
         }
         throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
     }
@@ -136,13 +137,4 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
         return $this->statement->rowCount();
     }
 
-
-
-    /**
-     * @return mixed
-     */
-    public function rewind()
-    {
-        return $this->statement->fetch(\PDO::FETCH_ASSOC, \PDO::FETCH_ORI_FIRST);
-    }
 }

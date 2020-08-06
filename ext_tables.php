@@ -50,3 +50,5 @@ foreach ($pluginModes as $ident => $label) {
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_ptextlist_domain_model_bookmark_bookmark');
+
+$GLOBALS['TBE_STYLES']['skins']['gridelements']['stylesheetDirectories']['gridelements_structure'] = 'EXT:gridelements/Resources/Public/Backend/Css/Skin/';

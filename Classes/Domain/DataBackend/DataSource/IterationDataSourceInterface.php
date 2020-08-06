@@ -38,10 +38,12 @@ interface IterationDataSourceInterface
 {
     /**
      * Return data row as array
+     * @param int $index
+     *
      *
      * @return array
      */
-    public function fetchRow();
+    public function fetchRow(int $index);
 
 
     /**
@@ -51,9 +53,4 @@ interface IterationDataSourceInterface
      */
     public function count();
 
-
-    /**
-     * Rewind the cursor to the first row
-     */
-    public function rewind();
 }
