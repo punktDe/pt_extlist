@@ -29,8 +29,6 @@ namespace PunktDe\PtExtlist\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use PunktDe\PtExtbase\Div;
-use PunktDe\PtExtbase\Utility\FakeFrontendFactory;
 use PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface;
 use PunktDe\PtExtlist\Extbase\ExtbaseContext;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
@@ -38,7 +36,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3Fluid\Fluid\View\TemplateView;
+use \TYPO3\CMS\Fluid\View\TemplateView;
 
 /**
  * Utility to render values by renderObject or renderUserFunction
@@ -48,6 +46,7 @@ use TYPO3Fluid\Fluid\View\TemplateView;
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Utility_RenderValueTest
  */
+
 class RenderValue
 {
     /**
@@ -67,7 +66,7 @@ class RenderValue
 
 
     /**
-     * @var \TYPO3\CMS\Fluid\View\TemplateView
+     * @var TemplateView
      */
     protected static $fluidRenderer;
 
@@ -368,7 +367,7 @@ class RenderValue
     /**
      * Build a fluid renderer object
      *
-     * @return TYPO3\CMS\Fluid\View\TemplateView
+     * @return TemplateView
      */
     protected static function getFluidRenderer()
     {
