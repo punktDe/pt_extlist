@@ -1,10 +1,6 @@
 <?php
 namespace PunktDe\PtExtlist\Domain\Model\Filter;
 
-use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
-use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
-use PunktDe\PtExtlist\Utility\DbUtils;
-
 /***************************************************************
  *  Copyright notice
  *
@@ -31,6 +27,11 @@ use PunktDe\PtExtlist\Utility\DbUtils;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use DateTime;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
 
 /**
  * Filter for date range
@@ -294,10 +295,13 @@ class DateRangeFilter extends AbstractSingleValueFilter
         return $displayValue;
     }
 
+
+
     /**
      * @param $filterValue
      *
      * @return DateTime
+     * @throws \Exception
      */
     protected function buildDateObjectFromFilterValue($filterValue)
     {
