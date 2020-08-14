@@ -129,8 +129,17 @@ class Typo3DataBackend extends MySqlDataBackend
             if ($this->backendConfiguration->getDataBackendSettings('useEnableFields')) {
                 $typo3Tables = GeneralUtility::trimExplode(',', $this->tables, true);
 
+                $restrictionTables = [];
+
                 foreach ($typo3Tables as $typo3Table) {
-                    list($table, $aliasNotUsed) = GeneralUtility::trimExplode(' ', $typo3Table, true);
+                    list($table, $alias) = GeneralUtility::trimExplode(' ', $typo3Table, true);
+
+                    $tableAlias = $table;
+                    if(!empty($alias)) {
+                        $tableAlias = $alias;
+                    }
+
+                    $restrictionTables[] = $tableAlias;
 
                     if (is_array($GLOBALS['TCA'][$table])) {
                         if (TYPO3_MODE === 'FE') {
@@ -141,8 +150,8 @@ class Typo3DataBackend extends MySqlDataBackend
                     }
                 }
 
-                if ($typo3Tables) {
-                    $queryBuilder->limitRestrictionsToTables($typo3Tables);
+                if ($restrictionTables) {
+                    $queryBuilder->limitRestrictionsToTables($restrictionTables);
                 }
             }
         }
