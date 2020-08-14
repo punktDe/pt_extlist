@@ -36,6 +36,7 @@ use PunktDe\PtExtlist\Domain\DataBackend\DataSource\AbstractDataSource;
 use PunktDe\PtExtlist\Domain\DataBackend\Mapper\MapperInterface;
 use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
 use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Lists\Aggregates\AggregateListFactory;
 use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
 use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
 use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
@@ -432,7 +433,7 @@ abstract class AbstractDataBackend implements DataBackendInterface
      */
     public function getAggregateListData()
     {
-        returnAggregateListFactory::getAggregateListData($this, $this->configurationBuilder);
+        return AggregateListFactory::getAggregateListData($this, $this->configurationBuilder);
     }
 
 
