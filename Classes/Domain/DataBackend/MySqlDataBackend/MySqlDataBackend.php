@@ -28,8 +28,10 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Doctrine\DBAL\DBALException;
 use PunktDe\PtExtbase\Assertions\Assert;
 use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtbase\Exception\InternalException;
 use PunktDe\PtExtbase\Logger\Logger;
 use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
 use PunktDe\PtExtlist\Domain\Configuration\Data\Aggregates\AggregateConfig;
@@ -539,6 +541,7 @@ class MySqlDataBackend extends AbstractDataBackend
      *
      * @param array $excludeFilters Define filters from which no where clause should be returned (array('filterboxIdentifier' => array('filterIdentifier')))
      * @return string WHERE clause from filterboxcollection without 'WHERE'
+     * @throws \Exception
      */
     public function getWhereClauseFromFilterboxes($excludeFilters = [])
     {
@@ -562,6 +565,7 @@ class MySqlDataBackend extends AbstractDataBackend
      * @param Filterbox $filterbox
      * @param array $excludeFilters Filters from which no where clause should be returned
      * @return string WHERE clause from filterbox without 'WHERE'
+     * @throws \Exception
      */
     public function getWhereClauseFromFilterbox(Filterbox $filterbox, array $excludeFilters = [])
     {
@@ -585,6 +589,7 @@ class MySqlDataBackend extends AbstractDataBackend
      *
      * @param AbstractFilter $filter
      * @return string WHERE clause for given filter without 'WHERE'
+     * @throws \Exception
      */
     public function getWhereClauseFromFilter(AbstractFilter $filter)
     {
@@ -597,6 +602,7 @@ class MySqlDataBackend extends AbstractDataBackend
      * Builds order by part of query from all parts of plugin
      *
      * @return string ORDER BY part of query without 'ORDER BY'
+     * @throws InternalException
      */
     public function buildOrderByPart()
     {
@@ -609,6 +615,7 @@ class MySqlDataBackend extends AbstractDataBackend
      * Builds limit part of query from all parts of plugin
      *
      * @return string LIMIT part of query without 'LIMIT'
+     * @throws InternalException
      */
     public function buildLimitPart()
     {
@@ -644,6 +651,7 @@ class MySqlDataBackend extends AbstractDataBackend
      * Returns number of records for current settings without pager
      *
      * @return integer Total number of records for current settings
+     * @throws Assertion
      */
     public function getTotalItemsCount()
     {
@@ -701,6 +709,7 @@ class MySqlDataBackend extends AbstractDataBackend
      * @param array $excludeFilters List of filters to be excluded from query (<filterboxIdentifier>.<filterIdentifier>)
      * @param FilterConfig $filterConfig
      * @return array Array of group data with given fields as array keys
+     * @throws Assertion
      */
     public function getGroupData(Query $groupDataQuery, $excludeFilters = [],
                                  FilterConfig $filterConfig = null)
@@ -720,6 +729,7 @@ class MySqlDataBackend extends AbstractDataBackend
      * @param array $excludeFilters
      * @param FilterConfig $filterConfig
      * @return QueryBuilder
+     * @throws Assertion
      */
     protected function buildGroupDataQuery(Query $groupDataQuery, $excludeFilters = [],
                                             FilterConfig $filterConfig = null): QueryBuilder
@@ -832,18 +842,24 @@ class MySqlDataBackend extends AbstractDataBackend
      * Build the whole SQL Query for all aggregate fields
      *
      * @param AggregateConfigCollection $aggregateConfigCollection
-     * @return string
+     * @return QueryBuilder
+     * @throws DBALException
+     * @throws Assertion
      */
-    protected function buildAggregateSQLByConfigCollection(AggregateConfigCollection $aggregateConfigCollection)
+    protected function buildAggregateSQLByConfigCollection(AggregateConfigCollection $aggregateConfigCollection): QueryBuilder
     {
         $this->buildQuery();
 
-        $selectPart = 'SELECT ' . $this->buildAggregateFieldsSQLByConfigCollection($aggregateConfigCollection);
-        $fromPart = ' FROM (' . $this->listQueryParts['SELECT'] . $this->listQueryParts['FROMTABLE'] . ' ' . $this->listQueryParts['FROMALIAS'] . $this->listQueryParts['WHERE'] . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY';
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName('Shared');
 
-        $query = implode(" \n", [$selectPart, $fromPart]);
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = $connection->createQueryBuilder();
+        $queryBuilder->selectLiteral(
+            $this->buildAggregateFieldsSQLByConfigCollection($aggregateConfigCollection) .
+            ' FROM (SELECT ' . $this->listQueryParts['SELECT'] . ' FROM ' . $this->listQueryParts['FROMTABLE'] . ' ' . $this->listQueryParts['FROMALIAS'] . ' WHERE ' . $this->listQueryParts['WHERE'] . ' GROUP BY ' . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY'
+        );
 
-        return $query;
+        return $queryBuilder;
     }
 
 
@@ -852,6 +868,7 @@ class MySqlDataBackend extends AbstractDataBackend
      *
      * @param AggregateConfigCollection $aggregateConfigCollection
      * @return string
+     * @throws Assertion
      */
     protected function buildAggregateFieldsSQLByConfigCollection(AggregateConfigCollection $aggregateConfigCollection)
     {
@@ -870,6 +887,7 @@ class MySqlDataBackend extends AbstractDataBackend
      *
      * @param AggregateConfig $aggregateConfig
      * @return string
+     * @throws Assertion
      */
     protected function buildAggregateFieldSQLByConfig(AggregateConfig $aggregateConfig)
     {

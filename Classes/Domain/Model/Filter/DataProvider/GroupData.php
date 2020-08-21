@@ -3,6 +3,11 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
 
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -91,10 +96,10 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
     protected function setDisplayFieldsByTSConfig($displayFieldSettings)
     {
         if ($displayFieldSettings) {
-            $displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $displayFieldSettings);
+            $displayFields = GeneralUtility::trimExplode(',', $displayFieldSettings);
             $this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($displayFields);
         } else {
-            $fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('fieldIdentifier'));
+            $fieldIdentifierList = GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('fieldIdentifier'));
             $this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($fieldIdentifierList);
         }
     }
@@ -113,7 +118,7 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
         $renderedOptions = [];
         $options =& $this->getOptionsByFields($fields);
 
-        if (is_array($options) && count($options) === 0) {
+        if (is_array($options) && count($options) === 0 || $options === null) {
             return $renderedOptions;
         }
 
@@ -149,14 +154,14 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
      * Build the group data query to retrieve the group data
      *
      * @param array FieldConfig $fields
-     * @return \PunktDe\PtExtlist\Domain\QueryObject\Query
+     * @return Query
      */
     protected function buildGroupDataQuery($fields)
     {
-        $groupDataQuery = new \PunktDe\PtExtlist\Domain\QueryObject\Query();
+        $groupDataQuery = new Query();
 
         foreach ($fields as $selectField) {
-            $groupDataQuery->addField(\PunktDe\PtExtlist\Utility\DbUtils::getAliasedSelectPartByFieldConfig($selectField));
+            $groupDataQuery->addField(DbUtils::getAliasedSelectPartByFieldConfig($selectField));
         }
 
         if ($this->additionalTables != '') {
@@ -164,7 +169,7 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
         }
 
         foreach ($this->displayFields as $displayField) { /* @var $displayField FieldConfig */
-            $groupDataQuery->addSorting($displayField->getIdentifier(), \PunktDe\PtExtlist\Domain\QueryObject\Query::SORTINGSTATE_ASC);
+            $groupDataQuery->addSorting($displayField->getIdentifier(), Query::SORTINGSTATE_ASC);
         }
 
         if ($this->showRowCount) {
@@ -246,7 +251,7 @@ class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abst
         $this->setDisplayFieldsByTSConfig(trim($filterSettings['displayFields']));
 
         if (array_key_exists('excludeFilters', $filterSettings) && trim($filterSettings['excludeFilters'])) {
-            $this->excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $filterSettings['excludeFilters']);
+            $this->excludeFilters = GeneralUtility::trimExplode(',', $filterSettings['excludeFilters']);
         }
 
         if (array_key_exists('additionalTables', $filterSettings)) {

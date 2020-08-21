@@ -300,14 +300,14 @@ class DateRangeFilter extends AbstractSingleValueFilter
     /**
      * @param $filterValue
      *
-     * @return DateTime
+     * @return \DateTime
      * @throws \Exception
      */
     protected function buildDateObjectFromFilterValue($filterValue)
     {
-        $filterValueDateObject = DateTime::createFromFormat('Y-m-d/', $filterValue);
+        $filterValueDateObject = \DateTime::createFromFormat('Y-m-d/', $filterValue);
         if ($filterValueDateObject === false) {
-            $filterValueDateObject = new DateTime($filterValue);
+            $filterValueDateObject = new \DateTime($filterValue);
         }
 
         return $filterValueDateObject;
