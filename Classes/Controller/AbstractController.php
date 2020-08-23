@@ -305,6 +305,7 @@ abstract class AbstractController extends AbstractActionController
      */
     protected function buildConfigurationBuilder()
     {
+        $this->configurationBuilderFactory->setSettings($this->settings);
         $this->configurationBuilder = $this->configurationBuilderFactory->getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
     }
 

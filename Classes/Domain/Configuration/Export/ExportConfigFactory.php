@@ -32,6 +32,7 @@ namespace PunktDe\PtExtlist\Domain\Configuration\Export;
 
 use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class implements factory for export configuration
@@ -70,7 +71,7 @@ class ExportConfigFactory
         $selectedViewSettingsKey = $controllerSettings['Export']['download']['view'];
         $exportSettingsPath = explode('.', $selectedViewSettingsKey);
 
-        $exportSettings = ArrayUtility::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
+        $exportSettings = ArrayUtility::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath, '.');
         
         /* In this case we have to merge the prototype settings again because the prototype settings are filled from flexform....
          * This smells ... 
@@ -79,4 +80,5 @@ class ExportConfigFactory
         
         return $configurationBuilder->getMergedSettingsWithPrototype($exportSettings, 'export');
     }
+
 }

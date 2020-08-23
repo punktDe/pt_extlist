@@ -266,7 +266,7 @@ class FlexformDataProvider
     protected function getTSArrayByPath($typoScriptPath)
     {
         $pathArray = explode('.', $typoScriptPath);
-        $outTSArray = ArrayUtility::getValueByPath($this->extListTypoScript, $pathArray);
+        $outTSArray = ArrayUtility::getValueByPath($this->extListTypoScript, $pathArray, '.');
         if (!is_array($outTSArray)) {
             $outTSArray = [];
         }
