@@ -102,7 +102,7 @@ class CsvListView extends AbstractExportView
      */
     public function render($actionName = null)
     {
-        $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+        $this->templateVariableContainer = $this->baseRenderingContext->getVariableProvider();
 
         ob_clean();
 
