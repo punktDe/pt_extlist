@@ -28,6 +28,8 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
 
+use PunktDe\PtExtbase\Domain\Repository\PageRepository;
+
 /**
  * Implements data provider for grouped list data
  *
@@ -53,14 +55,14 @@ class PageTree extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Abstr
     protected $respectDeletedField;
 
     /**
-     * @var \PunktDe_PtExtbase_Domain_Repository_PageRepository
+     * @var PageRepository
      */
     protected $pageRepository;
 
     /**
-     * @param \PunktDe_PtExtbase_Domain_Repository_PageRepository $pageRepository
+     * @param PageRepository $pageRepository
      */
-    public function injectPageRepository(\PunktDe_PtExtbase_Domain_Repository_PageRepository $pageRepository): void
+    public function injectPageRepository(PageRepository $pageRepository): void
     {
         $this->pageRepository = $pageRepository;
     }
