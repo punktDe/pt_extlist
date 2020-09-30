@@ -43,7 +43,8 @@ foreach ($pluginModes as $ident => $label) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'pt_extlist',           // The extension name (in UpperCamelCase) or the extension key (in lower_underscore)
         $ident,                // A unique name of the plugin in UpperCamelCase
-        $label        // A title shown in the backend dropdown field
+        $label,        // A title shown in the backend dropdown field
+        'EXT:pt_extlist/ext_icon.svg'
     );
 }
 
