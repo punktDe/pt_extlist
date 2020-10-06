@@ -46,7 +46,6 @@ abstract class AbstractBackendListController extends AbstractListApplicationCont
         };
 
         parent::initializeAction();
-        // TODO: Maybe use assetCollector here to integrate CSS into backend
-        // $this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
+         $this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
     }
 }

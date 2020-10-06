@@ -36,6 +36,8 @@ use PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper\ObjectMapperConf
 use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /**
  * Column Config Object
@@ -283,9 +285,9 @@ class ColumnConfig
         }
 
         // Generate relative paths for sorting images
-        $this->sortingImageDefault = $headerInclusionUtility->getFileRelFileName($this->sortingImageDefault);
-        $this->sortingImageAsc = $headerInclusionUtility->getFileRelFileName($this->sortingImageAsc);
-        $this->sortingImageDesc = $headerInclusionUtility->getFileRelFileName($this->sortingImageDesc);
+        $this->sortingImageDefault = PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName($this->sortingImageDefault));
+        $this->sortingImageAsc = PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName($this->sortingImageAsc));
+        $this->sortingImageDesc = PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName($this->sortingImageDesc));
 
         // Build the objectMapperConfig
         if (array_key_exists('objectMapper', $this->settings)) {
