@@ -385,13 +385,11 @@ class MySqlDataBackend extends AbstractDataBackend
 
             foreach ($prepareStatements as $prepareStatement) {
                 if (trim($prepareStatement)) {
-                    throw new \Exception('deactivated function executePrepareStatements', 1589466778);
                     $this->dataSource->executeQuery($this->processQueryWithFluid($prepareStatement));
                 }
             }
         } else {
             if (trim($prepareStatements)) {
-                throw new \Exception('deactivated function executePrepareStatements', 1589466878);
                 $this->dataSource->executeQuery($this->processQueryWithFluid($prepareStatements));
             }
         }
@@ -756,7 +754,7 @@ class MySqlDataBackend extends AbstractDataBackend
 
             $filterWherePart = $this->buildWherePart($excludeFilters);
 
-            $queryBuilder->selectLiteral($this->listQueryParts['SELECT'])
+            $queryBuilder->selectLiteral($this->processQueryWithFluid($this->listQueryParts['SELECT']))
                 ->from($this->listQueryParts['FROMTABLE'], $this->listQueryParts['FROMALIAS'] ?? null);
 
             if (!empty($this->listQueryParts['JOIN'])) {
@@ -778,7 +776,7 @@ class MySqlDataBackend extends AbstractDataBackend
             /**  we need a new query builder without restriction see SUBQUERY */
             $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->listQueryParts['FROMTABLE']); /** @var  Connection $connection */
             $queryBuilder = $connection->createQueryBuilder();
-            $queryBuilder->selectLiteral($selectPart . ' FROM ' .  $fromPart);
+            $queryBuilder->selectLiteral($this->processQueryWithFluid($selectPart . ' FROM ' .  $fromPart));
 
         } else {
             $filterWherePart = $this->buildWherePart($excludeFilters);
@@ -786,7 +784,7 @@ class MySqlDataBackend extends AbstractDataBackend
                 $queryBuilder->where($filterWherePart);
             }
 
-            $queryBuilder->selectLiteral($selectPart)
+            $queryBuilder->selectLiteral($this->processQueryWithFluid($selectPart))
                 ->from($this->listQueryParts['FROMTABLE'], $this->listQueryParts['FROMALIAS'] ?? null);
 
             if (!empty($this->listQueryParts['JOIN'])) {
@@ -812,10 +810,6 @@ class MySqlDataBackend extends AbstractDataBackend
         if (!empty($groupPart)) {
             $queryBuilder->add('groupBy', $groupPart, true);
         }
-
-        ###TODO
-        //$query = $this->processQueryWithFluid($query);
-
 
         return $queryBuilder;
     }
