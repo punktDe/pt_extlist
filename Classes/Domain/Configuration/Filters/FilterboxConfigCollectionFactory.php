@@ -1,4 +1,10 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +31,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implementing factory for collection of filterbox configurations
  *
@@ -33,22 +38,22 @@
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollectionFactory
+class FilterboxConfigCollectionFactory
 {
     /**
-     * 
+     *  
      * @param $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection
+     * @return FilterboxConfigCollection
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $filterboxCollectionSettings = $configurationBuilder->getSettingsForConfigObject('filter');
 
 
-        $filterBoxConfigCollection = new Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigCollection($configurationBuilder);
+        $filterBoxConfigCollection = new FilterboxConfigCollection($configurationBuilder);
 
         foreach ($filterboxCollectionSettings as $filterboxIdentifier => $filterboxSettings) {
-            $filterboxConfiguration = Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);
+            $filterboxConfiguration = FilterboxConfigFactory::createInstance($configurationBuilder, $filterboxIdentifier, $filterboxSettings);
             
             $filterBoxConfigCollection->addFilterBoxConfig($filterboxConfiguration, $filterboxIdentifier);
         }

@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\View\Export;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +27,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements a view for rendering CSV values
  *
@@ -35,7 +36,7 @@
  * @subpackage Export
  * @see Tx_PtExtlist_Tests_View_List_CsvListViewTest
  */
-class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_AbstractExportView
+class CsvListView extends AbstractExportView
 {
     /**
      * @var string sets the output encoding
@@ -97,11 +98,11 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
     /**
      * Overwriting the render method to generate a CSV output
      *
-     * @return  void (never returns)
+     * @return   void (never returns)
      */
     public function render($actionName = null)
     {
-        $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+        $this->templateVariableContainer = $this->baseRenderingContext->getVariableProvider();
 
         ob_clean();
 
@@ -151,18 +152,18 @@ class Tx_PtExtlist_View_Export_CsvListView extends Tx_PtExtlist_View_Export_Abst
 
         // Rows
         foreach ($data as $listRow) {
-            /* @var $listRow Tx_PtExtlist_Domain_Model_List_Row */
+            /* @var $listRow Row */
 
             $row = [];
 
             if ($this->outputEncoding == 'UTF-8') {
                 foreach ($listRow as &$listCell) {
-                    /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                    /* @var $listCell Cell */
                     $row[] = $listCell->getValue();
                 }
             } else {
                 foreach ($listRow as &$listCell) {
-                    /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                    /* @var $listCell Cell */
                     $row[] = iconv('UTF-8', $this->outputEncoding, $listCell->getValue());
                 }
             }

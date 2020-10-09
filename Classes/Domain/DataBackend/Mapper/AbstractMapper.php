@@ -1,4 +1,11 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +32,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Abstract class for mapper classes
  *
@@ -35,19 +41,19 @@
  * @package Domain
  * @subpackage DataBackend\Mapper
  */
-abstract class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements Tx_PtExtlist_Domain_DataBackend_Mapper_MapperInterface
+abstract class AbstractMapper implements MapperInterface
 {
     /**
      * Holds mapping configurations
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var FieldConfigCollection
      */
     protected $fieldConfigurationCollection = null;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
 
@@ -62,9 +68,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements 
     /**
      * Sets the mapper configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration
+     * @param FieldConfigCollection $mapperConfiguration
      */
-    public function _injectMapperConfiguration(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $mapperConfiguration)
+    public function _injectMapperConfiguration(FieldConfigCollection $mapperConfiguration)
     {
         $this->fieldConfigurationCollection = $mapperConfiguration;
     }
@@ -72,9 +78,9 @@ abstract class Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper implements 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function _injectConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function _injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         $this->configurationBuilder = $configurationBuilder;
     }

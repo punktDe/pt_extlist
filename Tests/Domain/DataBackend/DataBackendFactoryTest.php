@@ -35,7 +35,7 @@
  * @author Daniel Lienert 
  * @package Tests
  * @subpackage Domain\DataBackend
- * @see Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+ * @see DataBackendFactory
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -53,7 +53,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_Pt
         $dataBackendFactory = $this->getDataBackendFactoryMock($this->getConfigForFirstDbe(), $listIdentifier);
 
         $dataBackend = $dataBackendFactory->getDataBackendInstanceByListIdentifier($listIdentifier);
-        $this->assertTrue(is_a($dataBackend, 'Tx_PtExtlist_Domain_DataBackend_DataBackendInterface'));
+        $this->assertTrue(is_a($dataBackend, 'DataBackendInterface'));
         $this->assertEquals($listIdentifier, $dataBackend->getConfigurationBuilder()->getListIdentifier());
     }
 
@@ -86,10 +86,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_Pt
             'listConfig' => [
                 'testBackend1' => [
                     'backendConfig' => [
-                        'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
-                        'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                        'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource',
-                        'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                        'dataBackendClass' => 'Typo3DataBackend_Typo3DataBackend',
+                        'dataMapperClass' => 'Mapper_ArrayMapper',
+                        'dataSourceClass' => 'DataSource_MySqlDataSource',
+                        'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                         'dataSource' => [
                             'testKey' => 'testValue',
                         ]
@@ -143,7 +143,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_Pt
                         'pagerConfigs' => [
                             'default' => [
                                 'templatePath' => 'EXT:pt_extlist/',
-                                'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                                'pagerClassName' => 'DefaultPager',
                                 'enabled' => '1'
                             ],
                         ],
@@ -164,10 +164,10 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_Pt
             'listConfig' => [
                 'testBackend2' => [
                     'backendConfig' => [
-                        'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
-                        'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                        'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource',
-                        'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                        'dataBackendClass' => 'Typo3DataBackend_Typo3DataBackend',
+                        'dataMapperClass' => 'Mapper_ArrayMapper',
+                        'dataSourceClass' => 'DataSource_MySqlDataSource',
+                        'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                         'dataSource' => [
                             'testKey' => 'testValue',
                         ]
@@ -221,7 +221,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataBackendFactoryTest extends Tx_Pt
                         'pagerConfigs' => [
                             'default' => [
                                 'templatePath' => 'EXT:pt_extlist/',
-                                'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                                'pagerClassName' => 'DefaultPager',
                                 'enabled' => '1'
                             ]
                         ]

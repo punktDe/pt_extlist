@@ -33,8 +33,8 @@
  * 
  * @author Daniel Lienert 
  * @package Tests
- * @subpackage Model\List\Header
- * @see Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory
+ * @subpackage Model\Lists\Header
+ * @see HeaderColumnFactory
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -50,10 +50,10 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Header_HeaderColumnFactoryTest extend
     
     public function testCreateInstance()
     {
-        $headerColumnFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumnFactory');
+        $headerColumnFactory = $this->objectManager->get('HeaderColumnFactory');
 
         $columnsConfiguration = $this->configurationBuilderMock->buildColumnsConfiguration();
         $instance = $headerColumnFactory->createInstance($columnsConfiguration->pop());
-        $this->assertTrue(is_a($instance, 'Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn'));
+        $this->assertTrue(is_a($instance, 'HeaderColumn'));
     }
 }

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -23,15 +27,13 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-
-
 /**
  * Abstact base class for component factories that use injected object manager.
  *
  * @author Michael Knoll <knoll@punkt.de>
  * @package Domain
  */
-abstract class Tx_PtExtlist_Domain_AbstractComponentFactory
+abstract class AbstractComponentFactory
 {
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager

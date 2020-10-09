@@ -35,7 +35,7 @@
 			<DEFAULT></DEFAULT>
 			<COBJ></COBJ>
 			<PROTOTYPE></PROTOTYPE>
-			<EXAMPLE>pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager</EXAMPLE>
+			<EXAMPLE>pagerClassName = DefaultPager</EXAMPLE>
 			<CHILDREN></CHILDREN>
 			<VARIANT></VARIANT>
 		</ENTRY>
@@ -1750,7 +1750,7 @@ Generated SQL: (table1.field1 LIKE "%test%") OR ((table1.field1 LIKE "%test2%") 
 selectFilter < plugin.tx_ptextlist.prototype.filter.select {
 	partialPath = Filter/Options/SelectFilter
 	filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
-	dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery
+	dataProviderClassName = PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\ExplicitSQLQuery
 	optionsSqlQuery {
 		select = cn_short_local
 		from = static_countries

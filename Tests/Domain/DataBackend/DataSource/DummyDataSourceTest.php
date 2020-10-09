@@ -34,13 +34,13 @@
  * @package Tests
  * @subpackage Domain\DataBackend\DataSource\DummyDataSource
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource
+ * @see DataSource_DummyDataSource
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_DummyDataSourceTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_DataSource_DummyDataSource');
+        $this->assertClassExists('DataSource_DummyDataSource');
     }
 }

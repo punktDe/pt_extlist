@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Export;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /**
  * Class implements configuration for export
  *
@@ -34,7 +41,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Export_ExportConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class ExportConfig extends AbstractExtlistConfiguration
 {
     /**
      * Add current date to filename
@@ -46,7 +53,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
 
     /**
      * Date forma string in php's date format
-     * 
+     *  
      * @var string
      */
     protected $dateFormat = 'Y-m-d';
@@ -78,7 +85,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
     /**
      * Mime Type for content inline display
      * See: http://de.selfhtml.org/diverses/mimetypen.htm
-     * 
+     *  
      * @var string
      */
     protected $contentType;
@@ -89,7 +96,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
      * DownloadType
      * D = Download
      * I = Show in Browser 
-     * 
+     *  
      * @var string
      */
     protected $downloadType = self::FORCE_DOWNLOAD;
@@ -116,7 +123,7 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfig extends Tx_PtExtlist
         $this->setRequiredValue('fileExtension', 'No file extension given for export file! 1284620580');
         
         $this->setRequiredValue('viewClassName', 'No viewClassName given for export file ' . $this->fileName . '1284563489');
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($this->viewClassName), ['message' => 'The class name "' . $this->viewClassName . '" for export view does not exist! 1284563683']);
+        Assert::isTrue(class_exists($this->viewClassName), ['message' => 'The class name "' . $this->viewClassName . '" for export view does not exist! 1284563683']);
                 
         $this->setBooleanIfExistsAndNotNothing('addDateToFilename');
         $this->setValueIfExistsAndNotNothing('dateFormat');

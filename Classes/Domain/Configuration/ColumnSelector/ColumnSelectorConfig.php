@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\ColumnSelector;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +29,14 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
 /**
  * Class implementing configuration for columnSelector
- * 
+ *  
  * @package Domain
  * @subpackage Configuration\ColumnSelector
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class ColumnSelectorConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
 {
     /**
      * Hide the columns from the listing which are visible by default

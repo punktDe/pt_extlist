@@ -41,7 +41,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilderMock = null;
     
@@ -90,7 +90,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest extends Tx_PtExtlist_
     {
         $filterbox = new Tx_PtExtlist_Domain_Model_Filter_Filterbox();
         $filterbox->_injectFilterboxConfiguration($this->filterBoxConfigurationMock);
-        $this->assertTrue(is_a($filterbox, 'Tx_PtExtbase_State_Session_SessionPersistableInterface'), 'Filterbox does not implement Tx_PtExtbase_State_Session_SessionPersistableInterface!');
+        $this->assertTrue(is_a($filterbox, 'PunktDe_PtExtbase_State_Session_SessionPersistableInterface'), 'Filterbox does not implement PunktDe_PtExtbase_State_Session_SessionPersistableInterface!');
         $this->assertTrue($filterbox->getObjectNamespace() == $filterbox->getListIdentifier() . '.filters.' . $filterbox->getfilterboxIdentifier() . '.' . Tx_PtExtlist_Domain_Model_Filter_Filterbox::OBJECT_NAMESPACE_SUFFIX);
     }
     

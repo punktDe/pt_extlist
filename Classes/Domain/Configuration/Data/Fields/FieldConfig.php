@@ -1,4 +1,8 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Configuration\Data\Fields;
+
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class Field Config
  *
@@ -35,7 +38,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class FieldConfig extends AbstractExtlistConfiguration
 {
     /**
      * Field Identifier
@@ -67,14 +70,14 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
     
     /**
      * Defines access on this column on usergroup level
-     * 
+     *  
      * @var array
      */
     protected $accessGroups = [];
     
     
     /**
-     * 
+     *  
      * Special string to be interpreted by the queryinterpreter
      * @var string
      */
@@ -114,9 +117,9 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
     {
         $this->setRequiredValue('identifier', 'No field identifier specified. 1277889450');
         
-        $this->table = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['table']);
-        $this->field = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['field']);
-        $this->special = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['special']);
+        $this->table = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($this->settings['table']);
+        $this->field = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($this->settings['field']);
+        $this->special = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($this->settings['special']);
         
         if (!trim($this->special) && (!trim($this->table) || !trim($this->field))) {
             throw new Exception('Configuration error for field: "'.$this->identifier.'" Either a table and a field or a special string has to be given! 1281353522');
@@ -136,7 +139,7 @@ class Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig extends Tx_PtExt
     
     
     
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $identifier, $settings)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $identifier, $settings)
     {
         $settings['identifier'] = $identifier;
         parent::__construct($configurationBuilder, $settings);

@@ -1,4 +1,11 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\View\Export;
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +32,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements a view for rendering PDF
  *
@@ -33,7 +39,7 @@
  * @package View
  * @subpackage Export
  */
-class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_AbstractExportView
+class PdfListView extends AbstractExportView
 {
     /**
      * @var string domPdf source absolute path
@@ -66,30 +72,31 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
      */
     protected $cssFilePath;
 
-    
+
     /**
      * Initialize additional class properties
+     * @throws Assertion
      */
     public function initConfiguration()
     {
         parent::initConfiguration();
         //echo 's';
         $this->templatePath = $this->exportConfiguration->getSettings('templatePath');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->templatePath, ['message' => 'No template path given for fluid export! 1284621481']);
+        Assert::isNotEmptyString($this->templatePath, ['message' => 'No template path given for fluid export! 1284621481']);
         $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->templatePath));
 
         $this->paperSize = strtolower($this->exportConfiguration->getSettings('paperSize'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->paperSize, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
+        Assert::isNotEmptyString($this->paperSize, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
         
         $this->paperOrientation = $this->exportConfiguration->getSettings('paperOrientation');
-        Tx_PtExtbase_Assertions_Assert::isInArray($this->paperOrientation, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
+        Assert::isInArray($this->paperOrientation, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
 
 
         $this->cssFilePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
+        Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
 
         $this->dompdfSourcePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('dompdfSourcePath'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_dir($this->dompdfSourcePath), ['message' => 'DomPdf source in path ' . $this->dompdfSourcePath . ' was not found. 1322753515']);
+        Assert::isTrue(is_dir($this->dompdfSourcePath), ['message' => 'DomPdf source in path ' . $this->dompdfSourcePath . ' was not found. 1322753515']);
         $this->dompdfSourcePath = substr($this->dompdfSourcePath, -1, 1) == '/' ? $this->dompdfSourcePath : $this->dompdfSourcePath . '/';
     }
 
@@ -115,7 +122,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
 
         /*
         $includePath = $this->dompdfSourcePath . 'include/';
-        
+
         // load includes
         require_once $includePath . 'dompdf.cls.php';
         require_once $includePath . 'frame_tree.cls.php';
@@ -173,7 +180,7 @@ class Tx_PtExtlist_View_Export_PdfListView extends Tx_PtExtlist_View_Export_Abst
     /**
      * Overwriting the render method to generate a CSV output
      *
-     * @return  void (never returns)
+     * @return   void (never returns)
      */
     public function render($actionName = null)
     {

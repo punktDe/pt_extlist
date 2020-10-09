@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Configuration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+
 /**
  * Factory for Configuration Builder
  *
@@ -35,10 +42,10 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderFactoryTests
  */
-class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
+class ConfigurationBuilderFactory
 {
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer
+     * @var ConfigurationBuilderInstancesContainer
      */
     private $configurationBuilderInstancesContainer;
 
@@ -46,7 +53,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
     
     /**
      * Holds an array of all extList settings
-     * 
+     *  
      * @var array
      */
     private $settings = null;
@@ -56,7 +63,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
     /**
      * Holds extbase context to determine FE / BE usage
      *
-     * @var Tx_PtExtlist_Extbase_ExtbaseContext
+     * @var ExtbaseContext
      */
     private $extbaseContext;
 
@@ -65,19 +72,19 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
     /**
      * Injects configuration manager (that holds TS settings) for usage with DI
      *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager
+     * @param ConfigurationManager $configurationManager
      */
-    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager)
+    public function injectConfigurationManager(ConfigurationManager $configurationManager)
     {
-        $this->settings = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+        $this->settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
     }
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer $instancesContainer
+     * @param ConfigurationBuilderInstancesContainer $instancesContainer
      */
-    public function injectConfigurationBuilderInstancesContainer(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderInstancesContainer $instancesContainer)
+    public function injectConfigurationBuilderInstancesContainer(ConfigurationBuilderInstancesContainer $instancesContainer)
     {
         $this->configurationBuilderInstancesContainer = $instancesContainer;
     }
@@ -106,9 +113,9 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
     /**
      * Injects extbase context (for determine FE / BE usage) for usage with DI
      *
-     * @param Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext
+     * @param ExtbaseContext $extbaseContext
      */
-    public function injectExtbaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext)
+    public function injectExtbaseContext(ExtbaseContext $extbaseContext)
     {
         $this->extbaseContext = $extbaseContext;
     }
@@ -121,8 +128,8 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
      * @static
      * @param string $listIdentifier the listidentifier of the list
      * @param boolean $resetConfigurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     * @throws Exception
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
+     * @throws \Exception
      */
     public function getInstance($listIdentifier = null, $resetConfigurationBuilder = false)
     {
@@ -131,7 +138,7 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
         }
 
         if ($listIdentifier == '') {
-            throw new Exception('No list identifier could be found in settings!', 1280230579);
+            throw new \Exception('No list identifier could be found in settings!', 1280230579);
         }
 
         if ($resetConfigurationBuilder) {
@@ -140,14 +147,14 @@ class Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
 
         if (!$this->configurationBuilderInstancesContainer->contains($listIdentifier)) {
             if (!is_array($this->settings['listConfig']) || !array_key_exists($listIdentifier, $this->settings['listConfig'])) {
-                throw new Exception('No list with listIdentifier ' . $listIdentifier . ' could be found in settings! Available are: ' .
+                throw new \Exception('No list with listIdentifier ' . $listIdentifier . ' could be found in settings! Available are: ' .
                     implode(', ', is_array($this->settings['listConfig']) ? array_keys($this->settings['listConfig']) : []),
                     1288110596
                 );
             }
 
             // TODO use object manager to instantiate the configuration builder object
-            $this->configurationBuilderInstancesContainer->add(new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->settings, $listIdentifier));
+            $this->configurationBuilderInstancesContainer->add(new ConfigurationBuilder($this->settings, $listIdentifier));
         }
 
         return $this->configurationBuilderInstancesContainer->get($listIdentifier);

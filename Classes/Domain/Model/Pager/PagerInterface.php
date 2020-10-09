@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Pager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -36,7 +38,7 @@
  * @author Michael Knoll
  * @author Christoph Ehscheidt
  */
-interface Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+interface PagerInterface
 {
     /**
      * Checks if this page browser is enabled

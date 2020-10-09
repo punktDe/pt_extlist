@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Bookmark;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+
 /**
  * Class implements configuration for bookmarks
  *
@@ -34,7 +41,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Bookmark_BookmarkConfgTest
  */
-class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class BookmarkConfig extends AbstractExtlistConfiguration
 {
     /**
      * Holds comma separated list of pids to search for bookmarks
@@ -116,7 +123,6 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
 
     /**
      * Initializes properties from given settings
-     *
      */
     protected function init()
     {
@@ -186,7 +192,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
     
     /**
      * Returns comma-separated list of fe groups to show bookmarks for
-     * 
+     *  
      * @return string
      */
     public function getGroupIdsToShowBookmarksFor()
@@ -198,7 +204,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
     
     /**
      * Returns true if group bookmarks should be shown
-     * 
+     *  
      * @return bool
      */
     public function getShowGroupBookmarks()
@@ -210,7 +216,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
     
     /**
      * Returns true if public bookmarks should be shown
-     * 
+     *  
      * @return bool
      */
     public function getShowPublicBookmarks()
@@ -222,7 +228,7 @@ class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig extends Tx_PtExt
     
     /**
      * Returns TRUE if private bookmarks should be shown
-     * 
+     *  
      * @return bool
      */
     public function getShowPrivateBookmarks()

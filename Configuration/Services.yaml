@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  PunktDe\PtExtlist\:
+    resource: '../Classes/*'
+
+  PunktDe\PtExtbase\State\GpVars\GpVarsInjectableInterface:
+    alias: PunktDe\PtExtlist\Domain\Model\Filter\StringFilter

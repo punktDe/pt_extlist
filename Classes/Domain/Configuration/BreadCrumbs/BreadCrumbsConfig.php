@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,15 +30,16 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
 
 /**
  * Class implementing configuration for breadcrumb
- * 
+ *  
  * @package Domain
  * @subpackage Configuration\BreadCrumbs
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class BreadCrumbsConfig extends AbstractExtlistConfiguration
 {
     /**
      * Holds configuration for showing reset links

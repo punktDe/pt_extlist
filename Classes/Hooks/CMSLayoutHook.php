@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Hooks;
+
+
 /***************************************************************
 *  Copyright notice
 *
@@ -23,6 +26,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Class implements hook for tx_cms_layout
@@ -30,7 +35,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Hooks
  * @author Daniel Lienert <daniel@lienert.cc>
  */
-class user_Tx_PtExtlist_Hooks_CMSLayoutHook
+class CMSLayoutHook
 {
     /**
      * Plugin mode determined from switchableControllerAction
@@ -40,7 +45,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
     
     
     /**
-     * @var unknown_type
+     * @var
      */
     protected $fluidRenderer;
     
@@ -48,9 +53,9 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
     
     /**
      * Render the Plugin Info
-     * 
-     * @param unknown_type $params
-     * @param unknown_type $pObj
+     *  
+     * @param  $params
+     * @param  $pObj
      */
     public function getExtensionSummary($params, &$pObj)
     {
@@ -94,7 +99,7 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
     
     /**
      * Init some values
-     * 
+     *  
      * @param array $data
      */
     protected function init($data)
@@ -102,8 +107,8 @@ class user_Tx_PtExtlist_Hooks_CMSLayoutHook
         $templatePathAndFilename = GeneralUtility::getFileAbsFileName('EXT:pt_extlist/Resources/Private/Templates/Backend/PluginInfo.html');
                 
         // Fluid
-        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $this->fluidRenderer = $objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->fluidRenderer = $objectManager->get(StandaloneView::class);
         $this->fluidRenderer->setTemplatePathAndFilename($templatePathAndFilename);
     }
 }

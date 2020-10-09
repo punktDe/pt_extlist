@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,20 +29,25 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
 
 /**
  * Class implementing filterbox controller.
- * 
+ *  
  * Filters are organized in filterboxes, so a single filter cannot be displayed "alone".
  * Hence this controller handles all filter-dependent actions.
- * 
+ *  
  * TODO think about avoiding redirect() in resetAction()
  *
  * @package Controller
  * @author Michael Knoll 
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controller_AbstractController
+class FilterboxController extends AbstractController
 {
     /**
      * Holds filterbox identifier to be rendered by this controller
@@ -52,8 +60,8 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     
     /**
      * Holds a pagerCollection.
-     * 
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     *  
+     * @var PagerCollection
      */
     protected $pagerCollection = null;
     
@@ -62,7 +70,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     /**
      * Holds an instance of filterbox collection for processed list
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     * @var FilterboxCollection
      */
     protected $filterboxCollection = null;
     
@@ -71,7 +79,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
     /**
      * Holds an instance of filterbox processed by this controller
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @var Filterbox
      */
     protected $filterbox = null;
 
@@ -81,13 +89,13 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      *
      * @param array $settings Settings container of the current extension
      * @return void
-     * @throws Tx_PtExtbase_Exception_Assertion
-     * @throws Exception
+     * @throws Assertion
+     * @throws \Exception
      */
     public function initializeAction()
     {
         parent::initializeAction();
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['filterboxIdentifier'], ['message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418']);
+        Assert::isNotEmptyString($this->settings['filterboxIdentifier'], ['message' => 'No filterbox identifier has been set. Set filterbox identifier in flexform! 1277889418']);
         $this->filterboxIdentifier = $this->settings['filterboxIdentifier'];
         $this->filterboxCollection = $this->dataBackend->getFilterboxCollection();
         $this->filterbox = $this->filterboxCollection->getFilterboxByFilterboxIdentifier($this->filterboxIdentifier, true);
@@ -121,11 +129,10 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
          *
          * 1. We check whether filter validates. If not, we set error in template and forward to 'show'
          * 2. Whenever a filter is submitted, this action is called. Previously active state of filter is stored in session, so
-         *	 we have to reset this. Active state for filterbox is set in init() of filterbox again, if GP vars are available.
+         * 	 we have to reset this. Active state for filterbox is set in init() of filterbox again, if GP vars are available.
          * 3. We have to reset the pagers, as changed filter state normally means changed pager state
          * 4. We check, whether we have a redirect on submit configured for this filter and do the redirect if we have done so
          */
-
         if (!$this->filterbox->validate()) {
             $this->view->assign('filtersDontValidate', true);
             $this->forward('show');
@@ -167,7 +174,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      *
      * @param string $filterboxIdentifier Identifier of filter which should be reset
      * @return string Rendered reset action
-     * @throws Exception
+     * @throws \Exception
      */
     public function resetAction($filterboxIdentifier)
     {
@@ -202,7 +209,7 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      *
      * @param string $fullQualifiedFilterIdentifier FilterboxIdentifier.FilterIdentifier Identifier of filter to be reseted
      * @return string Rendered resetFilter Action
-     * @throws Exception
+     * @throws \Exception
      */
     public function resetFilterAction($fullQualifiedFilterIdentifier)
     {
@@ -233,7 +240,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
 
     /**
      * Reset all pagers for this list.
-     *
      */
     protected function resetPagers()
     {
@@ -255,7 +261,6 @@ class Tx_PtExtlist_Controller_FilterboxController extends Tx_PtExtlist_Controlle
      *
      * If we have setting resetToDefaultSortingOnSubmit = 1 within FILTERBOX setting
      * we reset to default, otherwise we reset completely.
-     *
      */
     protected function resetSorter()
     {

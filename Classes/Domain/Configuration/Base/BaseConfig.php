@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Base;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * Class implements basic configuration parameters
  *
@@ -34,7 +43,7 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Base_BaseConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class BaseConfig extends AbstractExtlistConfiguration
 {
     /**
      * Session storage adapter for a uncached plugin
@@ -46,7 +55,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
     
     /**
      * Session storage adapter for a cached plugin
-     * 
+     *  
      * @var string
      */
     protected $cachedSessionStorageAdapter;
@@ -55,7 +64,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 
     /**
      * True, if we want to reset session data on empty submit
-     * 
+     *  
      * @var bool
      */
     protected $resetOnEmptySubmit = false;
@@ -79,8 +88,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
     /**
      * Template method for initializing this config object by injected
      * TypoScript settings.
-     * 
-     * @return void
+     * @throws \Exception
      */
     protected function init()
     {
@@ -88,7 +96,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
         $this->setBooleanIfExistsAndNotNothing('resetSessionOnResetParameter');
         $this->setRequiredValue('uncachedSessionStorageAdapter', 'No storage adapter for a uncached plugin has been given! 1302255094');
         $this->setRequiredValue('cachedSessionStorageAdapter', 'No storage adapter for a cached plugin has been given! 1302255109');
-        $this->useSession = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode() ? false : true;
+        $this->useSession = GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->isInCachedMode() ? false : true;
     }
     
     
@@ -125,7 +133,7 @@ class Tx_PtExtlist_Domain_Configuration_Base_BaseConfig extends Tx_PtExtlist_Dom
 
     /**
      * Returns true, if we want to reset session on empty submit
-     * 
+     *  
      * @return bool
      */
     public function getResetOnEmptySubmit()

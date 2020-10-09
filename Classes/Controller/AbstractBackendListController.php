@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +36,7 @@
  * @package Controller
  * @author Daniel Lienert
  */
-abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_PtExtlist_Controller_AbstractListApplicationController
+abstract class AbstractBackendListController extends AbstractListApplicationController
 {
     public function initializeAction()
     {
@@ -44,6 +46,6 @@ abstract class Tx_PtExtlist_Controller_AbstractBackendListController extends Tx_
         };
 
         parent::initializeAction();
-        $this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
+         $this->headerInclusionUtility->addCSSFile('EXT:pt_extlist/Resources/Public/CSS/Layout/Backend.css');
     }
 }

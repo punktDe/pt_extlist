@@ -39,7 +39,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
     /**
      * Holds a set of list headers to be rendered
      *
-     * @var Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory
+     * @var ListHeaderFactory
      */
     protected $listHeader;
     
@@ -62,7 +62,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
         $this->configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
 
 
-        $listHeaderFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory'); /* @var $listHeaderFactory Tx_PtExtlist_Domain_Model_List_Header_ListHeaderFactory */
+        $listHeaderFactory = $this->objectManager->get('ListHeaderFactory'); /* @var $listHeaderFactory ListHeaderFactory */
 
         $this->listHeader = $listHeaderFactory->createInstance($this->configurationBuilderMock);
         $this->captionRenderer = $this->objectManager->get('Tx_PtExtlist_Domain_Renderer_Default_CaptionRenderer');
@@ -87,7 +87,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
         $returnMethods['getLabel'] = 'LLL:EXT:pt_extlist/Tests/Domain/Renderer/locallang.xml:test';
         $returnMethods['getColoumnIdentifier'] = 'test';
 
-        $headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
+        $headerColumn = $this->getConfiguredMock('HeaderColumn', $methods, $returnMethods);
         
         $columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', ['isAccessable'], [], '', false);
         $columnConfigMock->expects($this->any())
@@ -98,7 +98,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
         
         
         // we need to give a list to the renderer
-        $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
+        $listHeader = new ListHeader($this->configurationBuilderMock->getListIdentifier());
         $listHeader->addHeaderColumn($headerColumn, 'test');
 
         $captions = $this->captionRenderer->renderCaptions($listHeader);
@@ -124,7 +124,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
         $returnMethods['getLabel'] = $ts;
         $returnMethods['getColumnIdentifier'] = 'bla';
 
-        $headerColumn = $this->getConfiguredMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', $methods, $returnMethods);
+        $headerColumn = $this->getConfiguredMock('HeaderColumn', $methods, $returnMethods);
 
         $columnConfigMock = $this->getAccessibleMock('Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig', ['isAccessable'], [], '', false);
         $columnConfigMock->expects($this->any())
@@ -133,7 +133,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CaptionRendererTest extends Tx_
 
         $headerColumn->injectColumnConfig($columnConfigMock);
 
-        $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
+        $listHeader = new ListHeader($this->configurationBuilderMock->getListIdentifier());
         $listHeader->addHeaderColumn($headerColumn, 'bla');
 
 

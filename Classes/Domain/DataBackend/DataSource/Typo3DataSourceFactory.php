@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,40 +29,47 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class implements data source for typo3 databases
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory
+class Typo3DataSourceFactory
 {
     /**
      * Create instance of typo3 data source
      *
      * @static
      * @param string $dataSourceClassName
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
+     * @param DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return Typo3DataSource
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public static function createInstance($dataSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+
+    public static function createInstance($dataSourceClassName, DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
-        $dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource $dataSource */
-        $dataSource->injectDbObject(self::createDataObject());
+        $dataSource = new $dataSourceClassName($dataSourceConfiguration); /** @var AbstractDataSource $dataSource */
+        $dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
         $dataSource->initialize();
         return $dataSource;
     }
 
 
     /**
-     * @static
-     * @return DatabaseConnection
+     * @param DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return Connection
+     * @throws \Doctrine\DBAL\DBALException
      */
-    protected static function createDataObject()
+    protected static function createDataObject(DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
-        return $GLOBALS['TYPO3_DB'];
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class); /** @var $connectionPool ConnectionPool */
+        return $connectionPool->getConnectionByName($dataSourceConfiguration->getDatabase());
     }
 }

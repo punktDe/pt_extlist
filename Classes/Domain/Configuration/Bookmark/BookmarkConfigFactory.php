@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Bookmark;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements factory for export configuration
  *
@@ -33,19 +39,18 @@
  * @subpackage Configuration\Bookmarks
  * @author Daniel Lienert 
  */
-
-class Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfigFactory
+class BookmarkConfigFactory
 {
     /**
      * Returns a instance of a bookmark configuration.
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+     *  
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return BookmarkConfig
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $bookmarksSettings = $configurationBuilder->getSettingsForConfigObject('bookmarks');
-        $bookmarkConfig = new Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig($configurationBuilder, $bookmarksSettings);
+        $bookmarkConfig = new BookmarkConfig($configurationBuilder, $bookmarksSettings);
         return $bookmarkConfig;
     }
 }

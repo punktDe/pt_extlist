@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Configuration;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+
 /**
  * Interface for configuration objects wich hold configuration for list columns
  *
@@ -33,28 +39,28 @@
  * @subpackage Configuration
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface extends Tx_PtExtlist_Domain_Configuration_RenderConfigInterface
+interface ColumnConfigInterface extends RenderConfigInterface
 {
     /**
      * Returns the identifier for the column
      * @return string
      */
     public function getColumnIdentifier();
-    
-    
+
+
     /**
      * Returns an array of field identifiers, the datafields assigned to this collumn
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
+     * @return FieldConfigCollection fieldIdentifier
      */
     public function getFieldIdentifier();
-    
-    
+
+
     /**
      * @abstract
      * @return void
      */
     public function getSpecialCell();
-    
+
 
     /**
      * @abstract

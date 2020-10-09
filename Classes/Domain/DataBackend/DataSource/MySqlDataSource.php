@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,44 +29,45 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
+use Doctrine\DBAL\Driver\PDOStatement;
+use Doctrine\DBAL\Driver\ResultStatement;
+use Doctrine\DBAL\Statement;
+use PDO;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+
+
 /**
  * Class implements data source for mysql databases
- * 
+ *  
  * @author Michael Knoll 
  * @package Domain
  * @subpackage DataBackend\DataSource
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_AbstractDataSource
-    implements Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+class MySqlDataSource extends AbstractDataSource implements IterationDataSourceInterface
 {
     /**
-     * Holds an instance of PDO for database connection
-     *
-     * @var PDO
-     */
-    protected $connection;
-
-
-    /**
-     * @var PDOStatement
+     * @var Statement
      */
     protected $statement;
 
-    
-    
+    /**
+     * @var \PDO
+     */
+    protected $connection;
+
     /**
      * Constructor for datasource
      *
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration
+     * @param DatabaseDataSourceConfiguration $configuration
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $configuration)
+    public function __construct(DatabaseDataSourceConfiguration $configuration)
     {
         $this->dataSourceConfiguration = $configuration;
     }
-    
-    
-    
+
     /**
      * Injector for database connection object
      *
@@ -74,26 +78,24 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
         $this->connection = $dbObject;
     }
 
-
     /**
      * Executes a query using current database connection
      *
      * @param $query
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
-     * @throws Exception
+     * @return MySqlDataSource
+     * @throws \Exception
      */
-    public function executeQuery($query)
+    public function executeQuery(QueryBuilder $queryBuilder)
     {
         try {
-            /* @var $statement PDOStatement */
             $this->startTimeMeasure();
-            $this->statement = $this->connection->prepare($query);
-            $this->statement->execute();
+             //echo $queryBuilder->getSQL() . PHP_EOL . '<br />';
+            $this->statement = $queryBuilder->execute();
             $this->stopTimeMeasure();
-        } catch (Exception $e) {
-            throw new Exception('Error while trying to execute query on database! SQL-Statement: ' . $query .
+        } catch (\Exception $e) {
+            throw new \Exception('Error while trying to execute query on database! SQL-Statement: ' . $queryBuilder->getSQL().
                 ' - Error message from PDO: ' . $e->getMessage() .
-                '. Further information from PDO_errorInfo: ' . $this->statement->errorInfo(), 1280322659);
+                '. Further information from PDO_errorInfo: ' . $this->connection->errorInfo(), 1280322659);
         }
 
         return $this;
@@ -102,29 +104,28 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
 
     /**
      * @return array
-     * @throws Exception
+     * @throws \Exception
      */
     public function fetchAll()
     {
-        if ($this->statement instanceof PDOStatement) {
-            return $this->statement->fetchall(PDO::FETCH_ASSOC);
-        } else {
-            throw new Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951370);
+        if ($this->statement instanceof MysqliStatement) {
+            return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
         }
+        throw new \Exception('No queryBuilder defined to fetch data from. You have to prepare a statement first!', 1347951370);
     }
 
 
     /**
+     * @param int $index
      * @return mixed
-     * @throws Exception
+     * @throws \Exception
      */
-    public function fetchRow()
+    public function fetchRow(int $index)
     {
-        if ($this->statement instanceof PDOStatement) {
-            return $this->statement->fetch(PDO::FETCH_ASSOC);
-        } else {
-            throw new Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
+        if ($this->statement instanceof MysqliStatement) {
+            return $this->statement->fetch(\PDO::FETCH_ASSOC, PDO::FETCH_ORI_ABS, $index);
         }
+        throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
     }
 
 
@@ -136,13 +137,4 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource extends Tx_PtEx
         return $this->statement->rowCount();
     }
 
-
-
-    /**
-     * @return mixed
-     */
-    public function rewind()
-    {
-        return $this->statement->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_FIRST);
-    }
 }

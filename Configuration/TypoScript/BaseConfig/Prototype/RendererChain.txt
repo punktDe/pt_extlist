@@ -14,7 +14,7 @@ plugin.tx_ptextlist.prototype.rendererChain {
 	
 	rendererConfigs {
 		100 {
-			rendererClassName = Tx_PtExtlist_Domain_Renderer_Default_Renderer
+			rendererClassName = PunktDe\PtExtlist\Domain\Renderer\Defaults\Renderer
 		}
 	}
 }

@@ -112,10 +112,10 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $viewMock = $this->getMock('\TYPO3\CMS\Fluid\View\TemplateView', ['assign'], [], '', false);
         $viewMock->expects($this->once())->method('assign')->with('filtersDontValidate', true);
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['reset'], [], '', false);
+        $pagerCollectionMock = $this->getMock('PagerCollection', ['reset'], [], '', false);
         $pagerCollectionMock->expects($this->once())->method('reset');
 
-        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', ['getSettings'], [], '', false);
+        $configurationBuilderMock = $this->getMock('ConfigurationBuilder', ['getSettings'], [], '', false);
         $configurationBuilderMock->expects($this->any())->method('getSettings')->will($this->returnValue(''));
 
         $filterboxControllerMock->_set('view', $viewMock);
@@ -156,10 +156,10 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxControllerMock->expects($this->once())->method('resetSorter');
         $filterboxControllerMock->_set('filterboxCollection', $filterboxCollectionMock);
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['reset'], [], '', false);
+        $pagerCollectionMock = $this->getMock('PagerCollection', ['reset'], [], '', false);
         $pagerCollectionMock->expects($this->once())->method('reset');
 
-        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', ['getSettings'], [], '', false);
+        $configurationBuilderMock = $this->getMock('ConfigurationBuilder', ['getSettings'], [], '', false);
         $configurationBuilderMock->expects($this->any())->method('getSettings')->will($this->returnValue(''));
 
         $filterboxControllerMock->_set('pagerCollection', $pagerCollectionMock);
@@ -191,7 +191,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxCollectionMock->addFilterbox($filterboxMock1, 'toBeResetted');
         $filterboxCollectionMock->addFilterBox($filterboxMock2, 'notToBeResetted');
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['reset'], [], '', false);
+        $pagerCollectionMock = $this->getMock('PagerCollection', ['reset'], [], '', false);
         $pagerCollectionMock->expects($this->once())->method('reset');
 
         $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), ['redirect', 'getFilterboxForControllerSettings', 'resetSorter'], [], '', false);
@@ -230,7 +230,7 @@ class Tx_PtExtlist_Tests_Controller_FilterboxControllerTestcase extends Tx_PtExt
         $filterboxMock->expects($this->once())->method('reset');
         $filterboxMock->expects($this->any())->method('getFilterboxConfiguration')->will($this->returnValue($filterboxConfigMock));
 
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['reset'], [], '', false);
+        $pagerCollectionMock = $this->getMock('PagerCollection', ['reset'], [], '', false);
         $pagerCollectionMock->expects($this->once())->method('reset');
 
         $filterboxControllerMock = $this->getMock($this->buildAccessibleProxy('Tx_PtExtlist_Controller_FilterboxController'), ['redirect', 'getFilterboxForControllerSettings'], [], '', false);

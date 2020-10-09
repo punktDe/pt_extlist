@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
+use PunktDe\PtExtlist\ExtlistContext\ExtlistContextFactory;
+use PunktDe\PtExtlist\View\Export\AbstractExportView;
+
 
 /**
  * Controller for export actions
@@ -33,7 +41,7 @@
  * @package Controller
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_AbstractController
+class ExportController extends AbstractController
 {
     /**
      * Reset ConfigurationBuilder for actions in this Controller
@@ -42,33 +50,27 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
      */
     protected $resetConfigurationBuilder = true;
 
-
-
     /**
      * @var string
      */
     protected $exportListIdentifier;
 
-
-
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     * @var ListFactory
      */
     protected $listFactory;
 
-
-
     /**
-     * @var Tx_PtExtlist_View_Export_AbstractExportView
+     * @var AbstractExportView
      */
     protected $view;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     * @param ListFactory $listFactory
      */
-    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    public function injectListFactory(ListFactory $listFactory)
     {
         $this->listFactory = $listFactory;
     }
@@ -77,6 +79,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -86,7 +89,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
         if (!$this->exportListIdentifier) {
             $this->exportListIdentifier = $this->listIdentifier;
         }
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->exportListIdentifier, ['message' => 'No export list identifier set.', 1316446015]);
+        Assert::isNotEmptyString($this->exportListIdentifier, ['message' => 'No export list identifier set.', 1316446015]);
     }
 
 
@@ -106,7 +109,7 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
      * Returns download for given parameters
      *
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     public function downloadAction()
     {
@@ -116,10 +119,10 @@ class Tx_PtExtlist_Controller_ExportController extends Tx_PtExtlist_Controller_A
             $exportListConfiguration = $this->settings['listConfig'][$this->exportListIdentifier];
             
             if (!is_array($exportListConfiguration)) {
-                throw new Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
+                throw new \Exception('No export list configuration found for listIdentifier ' . $this->exportListIdentifier, 1317116470);
             }
 
-            $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
+            $extListContext = ExtlistContextFactory::getContextByCustomConfiguration($exportListConfiguration, $this->listIdentifier, false);
             
             $list = $extListContext->getList(true);
         }

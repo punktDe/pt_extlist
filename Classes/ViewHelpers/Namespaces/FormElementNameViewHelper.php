@@ -27,7 +27,10 @@ namespace PunktDe\PtExtlist\ViewHelpers\Namespaces;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtbase\State\IdentifiableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * GPValueViewHelper
@@ -39,17 +42,37 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class FormElementNameViewHelper extends AbstractViewHelper
 {
+
+    /**
+     * Initialize arguments.
+     *
+     * @return void
+     * @author Sebastian Kurfürst <sebastian@typo3.org>
+     * @api
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('property', 'string', 'Property');
+        $this->registerArgument('object', 'mixed', 'IdentifiableInterface');
+        $this->registerArgument('addExtPrefix', 'bool', 'addExtPrefix');
+    }
+
+
     /**
      * render a key/value GET/POST-string within the namespace of the given object
      *
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param IdentifiableInterface $object
      * @param string $property , single property or propertyPath separated by '.'
      * @param boolean $addExtPrefix
      * @return string
-     * @throws \Tx_PtExtbase_Exception_Assertion
+     * @throws Assertion
      */
-    public function render(\Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix = false)
+    public function render()
     {
+        $property = $this->arguments['property'];
+        $object = $this->arguments['object'];
+        $addExtPrefix = $this->arguments['addExtPrefix'] ?? false;
+
         $formElementNameSpace = '';
 
         if ($addExtPrefix == true) {
@@ -70,7 +93,6 @@ class FormElementNameViewHelper extends AbstractViewHelper
      */
     protected function buildBracketedStringFromArray(array $nameChunks)
     {
-        $result = '';
         $result = array_shift($nameChunks);
 
         foreach ($nameChunks as $nameChunk) {
@@ -84,14 +106,14 @@ class FormElementNameViewHelper extends AbstractViewHelper
 
 
     /**
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param IdentifiableInterface $object
      * @return String
-     * @throws \Tx_PtExtbase_Exception_Assertion
+     * @throws Assertion
      */
-    public function getObjectNameSpace(\Tx_PtExtbase_State_IdentifiableInterface $object)
+    public function getObjectNameSpace(IdentifiableInterface $object)
     {
         $nameSpace = $object->getObjectNamespace();
-        \Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
+        Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
 
         return $nameSpace;
     }

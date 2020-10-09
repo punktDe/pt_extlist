@@ -32,8 +32,8 @@
  *
  * @author Daniel Lienert
  * @package Tests
- * @subpackage Domain\List\Aggregates
- * @see Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator
+ * @subpackage Domain\Lists\Aggregates
+ * @see Aggregates_ArrayAggregator
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -64,7 +64,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
         $aggregateConfigCollection = $this->configurationBuilderMock->buildAggregateDataConfig();
         $aggregateConfig = $aggregateConfigCollection->getAggregateConfigByIdentifier('sumField1');
 
-        $arrayAggregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
+        $arrayAggregator = new Aggregates_ArrayAggregator();
         $arrayAggregator->injectDataBackend($this->testDataBackend);
 
         $aggregate = $arrayAggregator->getAggregateByConfig($aggregateConfig);
@@ -78,7 +78,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
     {
         $aggregateConfig = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('sumField2', ['fieldIdentifier' => 'field2', 'method' => 'notExistingMethod'], $this->configurationBuilderMock);
 
-        $arrayAggregator = new Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator();
+        $arrayAggregator = new Aggregates_ArrayAggregator();
         $arrayAggregator->injectDataBackend($this->testDataBackend);
         try {
             $aggregate = $arrayAggregator->getAggregateByConfig($aggregateConfig);
@@ -99,7 +99,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
         $aggregateConfigMin = new Tx_PtExtlist_Domain_Configuration_Data_Aggregates_AggregateConfig('minField2', ['fieldIdentifier' => 'field2', 'method' => 'min'], $this->configurationBuilderMock);
 
 
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator');
+        $accessibleClassName = $this->buildAccessibleProxy('Aggregates_ArrayAggregator');
         $arrayAggregator = new $accessibleClassName;
 
         $arrayAggregator->injectDataBackend($this->testDataBackend);
@@ -122,7 +122,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
 
     public function testBuildFieldData()
     {
-        $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_List_Aggregates_ArrayAggregator');
+        $accessibleClassName = $this->buildAccessibleProxy('Aggregates_ArrayAggregator');
         $arrayAggregator = new $accessibleClassName;
 
         $arrayAggregator->injectDataBackend($this->testDataBackend);
@@ -135,17 +135,17 @@ class Tx_PtExtlist_Tests_Domain_Model_List_Aggregates_ArrayAggregatorTest extend
 
     protected function buildTestDataBackend()
     {
-        $this->testListData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $this->testListData = new ListData();
 
         foreach ($this->testData as $data) {
-            $row = new Tx_PtExtlist_Domain_Model_List_Row();
+            $row = new Row();
             $row->createAndAddCell($data / 10, 'field1');
             $row->createAndAddCell($data, 'field2');
             $row->createAndAddCell($data * 10, 'field3');
             $this->testListData->addRow($row);
         }
 
-        $this->testDataBackend = $this->getMock('Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend', ['getListData'], [], '', false);
+        $this->testDataBackend = $this->getMock('MySqlDataBackend_MySqlDataBackend', ['getListData'], [], '', false);
         $this->testDataBackend->expects($this->any())
                 ->method('getListData')
                 ->will($this->returnValue($this->testListData));

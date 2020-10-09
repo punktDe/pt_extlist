@@ -1,5 +1,10 @@
 <?php
 namespace PunktDe\PtExtlist\ViewHelpers\Sql;
+use PunktDe\PtExtlist\Domain\Model\Filter\DateRangeFilter;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +39,7 @@ namespace PunktDe\PtExtlist\ViewHelpers\Sql;
  * @author Daniel Lienert
  * @package ViewHelpers
  */
-class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FilterViewHelper extends AbstractViewHelper
 {
     /**
      * @var bool
@@ -43,7 +48,7 @@ class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelp
 
     public function initializeArguments()
     {
-        $this->registerArgument('filter', \Tx_PtExtlist_Domain_Model_Filter_FilterInterface::class, 'filter', true);
+        $this->registerArgument('filter', FilterInterface::class, 'filter', true);
         $this->registerArgument('filterField', 'string', 'filterField', false, '');
         $this->registerArgument('notActiveQuery', 'string', 'not active query', false, '1=1');
         parent::initializeArguments();
@@ -55,13 +60,13 @@ class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelp
      */
     public function render()
     {
-        /** @var \Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter */
+        /** @var FilterInterface $filter */
         $filter = $this->arguments['filter'];
         if (!$filter->isActive()) {
             return $this->arguments['notActiveQuery'];
         }
         $filterField = $this->arguments['filterField'];
-        if ($filter instanceof \Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter) {
+        if ($filter instanceof DateRangeFilter) {
             $calculatedTimestampBoundaries = $filter->getCalculatedTimestampBoundaries();
 
             if (is_array($filterField)) {
@@ -72,7 +77,7 @@ class FilterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelp
         }
 
         $filterValue = $filter->getValue();
-        $filterField = $filterField ? $filterField : \Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
+        $filterField = $filterField ? $filterField : DbUtils::getSelectPartByFieldConfigCollection($filter->getFilterConfig()->getFieldIdentifier());
 
         if (is_array($filterValue)) {
             return sprintf('%s in (%s)', $filterField, implode(', ', $filterValue));

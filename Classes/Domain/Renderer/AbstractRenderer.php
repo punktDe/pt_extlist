@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Renderer;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,19 +29,24 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\Renderer\RendererConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+
 /**
  * Abstract class for list renderers
- * 
+ *  
  * @package Domain
  * @subpackage Renderer
  * @author Christoph Ehscheidt 
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExtlist_Domain_Renderer_ConfigurableRendererInterface
+abstract class AbstractRenderer implements ConfigurableRendererInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+     * @var RendererConfig
      */
     protected $rendererConfiguration;
     
@@ -46,10 +54,10 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
     
     /**
      * Inject the Configuration Builder
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration
+     *  
+     * @param RendererConfig $rendererConfiguration
      */
-    public function _injectConfiguration(Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig $rendererConfiguration)
+    public function _injectConfiguration(RendererConfig $rendererConfiguration)
     {
         $this->rendererConfiguration = $rendererConfiguration;
     }
@@ -59,7 +67,7 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
      * (non-PHPdoc)
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderList()
      */
-    public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData)
+    public function renderList(ListData $listData)
     {
         return $listData;
     }
@@ -68,13 +76,13 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
     /**
      * This method makes existing renderer compatible to iteration list data
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Row $row
+     * @param Row $row
      * @param $rowIndex
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return Row
      */
-    public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex)
+    public function renderSingleRow(Row $row, $rowIndex)
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new ListData();
         $listData->addRow($row, $rowIndex);
         $this->renderList($listData);
         $renderedRow = $listData->getFirstRow();
@@ -88,7 +96,7 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
      * (non-PHPdoc)
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderCaptions()
      */
-    public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    public function renderCaptions(ListHeader $listHeader)
     {
         return $listHeader;
     }
@@ -99,7 +107,7 @@ abstract class Tx_PtExtlist_Domain_Renderer_AbstractRenderer implements Tx_PtExt
      * (non-PHPdoc)
      * @see Classes/Domain/Renderer/Tx_PtExtlist_Domain_Renderer_RendererInterface::renderAggregateList()
      */
-    public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData)
+    public function renderAggregateList(ListData $aggregateListData)
     {
         return $aggregateListData;
     }

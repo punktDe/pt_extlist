@@ -25,6 +25,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -137,7 +140,7 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
          * This loop renders the complete data set
          */
         foreach ($iterationListData as $row) {
-            /**  @var $row Tx_PtExtlist_Domain_Model_List_Row */
+            /**  @var $row Row */
         }
 
         $usedMemory = memory_get_usage(true) - $memoryBefore;
@@ -165,15 +168,15 @@ class Tx_PtExtlist_Tests_Performance_PerformanceTest extends Tx_PtExtlist_Tests_
         $tSString = $this->readTSString($this->baseConfigTSFile);
         $tSString .= $this->readTSString($extListConfigFile);
 
-        $parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
-        /** @var $parserInstance t3lib_tsparser */
+        $parserInstance = GeneralUtility::makeInstance(TypoScriptParser::class);
+        /** @var $parserInstance TypoScriptParser */
         $tSString = $parserInstance->checkIncludeLines($tSString);
         $parserInstance->parse($tSString);
 
 
         $tsSettings = $parserInstance->setup;
 
-        $typoScript = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
+        $typoScript = GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($tsSettings);
 
         return $typoScript['plugin']['tx_ptextlist'];
     }

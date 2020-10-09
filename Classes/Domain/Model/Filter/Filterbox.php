@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\State\IdentifiableInterface;
+use PunktDe\PtExtbase\State\Session\SessionPersistableInterface;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterboxConfig;
+use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
+
 /**
  * Class implements a filterbox which is a collection of filters
  *
@@ -35,9 +43,9 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_Filterbox
-    extends \PunktDe\PtExtbase\Collection\ObjectCollection
-    implements Tx_PtExtbase_State_IdentifiableInterface, Tx_PtExtbase_State_Session_SessionPersistableInterface
+class Filterbox
+    extends ObjectCollection
+    implements IdentifiableInterface, SessionPersistableInterface
 {
     /**
      * Holds a constant added to object namespace to
@@ -67,14 +75,14 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     /**
      * Holds an instance of the configuration
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+     * @var FilterboxConfig
      */
     protected $filterBoxConfig;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory
+     * @var FilterboxFactory
      */
     protected $filterboxFactory;
 
@@ -85,7 +93,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
      *
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface';
+    protected $restrictedClassName = FilterInterface::class;
 
 
 
@@ -99,16 +107,16 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 
 
     /**
-     * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+     * @var GetPostVarAdapterFactory
      */
     protected $gpVarsAdapterFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory
+     * @param GetPostVarAdapterFactory $gpVarsAdapterFactory
      */
-    public function injectGpVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $gpVarsAdapterFactory)
+    public function injectGpVarsAdapterFactory(GetPostVarAdapterFactory $gpVarsAdapterFactory)
     {
         $this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
     }
@@ -118,9 +126,9 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     /**
      * Injects filterbox configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration
+     * @param FilterboxConfig $filterboxConfiguration
      */
-    public function _injectFilterboxConfiguration(Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig $filterboxConfiguration)
+    public function _injectFilterboxConfiguration(FilterboxConfig $filterboxConfiguration)
     {
         $this->filterBoxConfig = $filterboxConfiguration;
         $this->listIdentifier = $filterboxConfiguration->getListIdentifier();
@@ -129,7 +137,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
 
 
 
-    public function _injectFilterboxFactory(Tx_PtExtlist_Domain_Model_Filter_FilterboxFactory $filterboxFactory)
+    public function _injectFilterboxFactory(FilterboxFactory $filterboxFactory)
     {
         $this->filterboxFactory = $filterboxFactory;
     }
@@ -158,7 +166,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     /**
      * Returns the filterbox configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig
+     * @return FilterboxConfig
      */
     public function getFilterboxConfiguration()
     {
@@ -194,7 +202,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     /**
      * Returns a new filterbox with accessable filters only.
      *
-     * @return Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @return Filterbox
      */
     public function getAccessableFilterbox()
     {
@@ -212,7 +220,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     {
         $this->isSubmittedFilterbox = false;
         foreach ($this->itemsArr as $filter) {
-            /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+            /* @var $filter FilterInterface */
             $filter->reset();
         }
     }
@@ -255,7 +263,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     {
         $validates = true;
         foreach ($this->itemsArr as $filter) {
-            /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+            /* @var $filter FilterInterface */
             if (!$filter->validate()) {
                 $validates = false;
             }
@@ -268,10 +276,10 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
     /**
      * Add Filter to Filterbox
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
+     * @param FilterInterface $filter
      * @param string $filterIdentifier
      */
-    public function addFilter(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter, $filterIdentifier)
+    public function addFilter(FilterInterface $filter, $filterIdentifier)
     {
         $this->addItem($filter, $filterIdentifier);
     }
@@ -282,7 +290,7 @@ class Tx_PtExtlist_Domain_Model_Filter_Filterbox
      * Returns filter by given filter identifier
      *
      * @param string $filterIdentifier
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     * @return FilterInterface
      */
     public function getFilterByFilterIdentifier($filterIdentifier)
     {

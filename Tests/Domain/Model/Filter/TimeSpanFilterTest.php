@@ -57,13 +57,13 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_TimeSpanFilterTest extends Tx_PtExt
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd
+     * @param FieldConfig $fieldStart
+     * @param FieldConfig $fieldEnd
      *	@dataProvider fieldsDataProvider
      * @return void
      * @test
      */
-    //public function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldStart, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldEnd, $resultingQuery) {
+    //public function buildTimeSpanFilterCriteria(FieldConfig $fieldStart, FieldConfig $fieldEnd, $resultingQuery) {
 
     //}
 }

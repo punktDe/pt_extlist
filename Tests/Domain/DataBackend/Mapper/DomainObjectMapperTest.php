@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage pt_extlist
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
+ * @see Mapper_DomainObjectMapper
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper'));
+        $this->assertTrue(class_exists('Mapper_DomainObjectMapper'));
     }
 
 
@@ -53,14 +53,14 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
     /** @test */
     public function getMappedListDataReturnsExpectedListData()
     {
-        $domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
+        $domainObjectMapper = new Mapper_DomainObjectMapper($this->configurationBuilderMock);
         $domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
         $mappedListData = $domainObjectMapper->getMappedListData($this->createMappingTestData());
         $this->assertEquals(count($mappedListData), 4);
-        $this->assertEquals(get_class($mappedListData[0]), 'Tx_PtExtlist_Domain_Model_List_Row');
+        $this->assertEquals(get_class($mappedListData[0]), 'Row');
         $this->assertEquals(count($mappedListData[0]), 2);
-        $row = $mappedListData[0]; /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
-        $this->assertEquals(get_class($row['field1']), 'Tx_PtExtlist_Domain_Model_List_Cell');
+        $row = $mappedListData[0]; /* @var $row Row */
+        $this->assertEquals(get_class($row['field1']), 'Cell');
         $this->assertEquals($row['field1']->getValue(), 'group 1');
     }
 
@@ -69,7 +69,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
     /** @test */
     public function getMappedListDataThrowsExceptionOnNonExistingMappingConfiguration()
     {
-        $domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
+        $domainObjectMapper = new Mapper_DomainObjectMapper($this->configurationBuilderMock);
         try {
             $domainObjectMapper->getMappedListData($this->createMappingTestData());
         } catch (Exception $e) {
@@ -83,7 +83,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
     /** @test */
     public function resolveObjectPathResolvesPathAsExpected()
     {
-        $domainObjectMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper($this->configurationBuilderMock);
+        $domainObjectMapper = new Mapper_DomainObjectMapper($this->configurationBuilderMock);
         $domainObjectMapper->_injectMapperConfiguration($this->createMapperConfiguration());
         $rightObjectMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', ['getName'], [], '', false);
         $rightObjectMock->expects($this->any())->method('getName')->will($this->returnValue('test'));
@@ -128,9 +128,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_Mapper_DomainObjectMapperTest extend
 
     protected function createMapperConfiguration()
     {
-        $mapperConfiguration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-        $field1Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', ['table' => '__self__', 'field' => 'title']);
-        $field2Configuration = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', ['table' => '__self__', 'field' => 'title']);
+        $mapperConfiguration = new FieldConfigCollection();
+        $field1Configuration = new FieldConfig($this->configurationBuilderMock, 'field1', ['table' => '__self__', 'field' => 'title']);
+        $field2Configuration = new FieldConfig($this->configurationBuilderMock, 'field2', ['table' => '__self__', 'field' => 'title']);
         $mapperConfiguration->addFieldConfig($field1Configuration);
         $mapperConfiguration->addFieldConfig($field2Configuration);
         return $mapperConfiguration;

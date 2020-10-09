@@ -1,4 +1,13 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +34,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements data provider for grouped list data
  *
@@ -34,17 +42,18 @@
  * @subpackage Model\Filter\DataProvider
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_FirstLetterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData
+class FirstLetter extends GroupData
 {
     /**
      * Build the group data query to retrieve the group data
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+     * @param array FieldConfig $fields
      * @return string
+     * @throws InternalException
      */
     protected function buildGroupDataQuery($fields)
     {
-        $groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $groupDataQuery = new Query();
 
         $displayField = $this->displayFields->getItemByIndex(0);
 
@@ -54,7 +63,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
 
         //TODO only works with SQL!
         $groupDataQuery->addField(sprintf('UPPER(LEFT(%1$s,1)) as firstLetter', $displayField->getTableFieldCombined()));
-        $groupDataQuery->addSorting('firstLetter', Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+        $groupDataQuery->addSorting('firstLetter', Query::SORTINGSTATE_ASC);
 
         if ($this->showRowCount) {
             // TODO only works with SQL!
@@ -72,7 +81,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
      * Returns an array of options to be displayed by filter
      * for a given array of fields
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @param array FieldConfig
      * @return array Options to be displayed by filter
      */
     protected function getRenderedOptionsByFields($fields)
@@ -131,7 +140,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
     {
         $missingLettersString = $this->filterConfig->getSettings('addLettersIfMissing');
         if ($missingLettersString) {
-            return \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $missingLettersString);
+            return GeneralUtility::trimExplode(',', $missingLettersString);
         } else {
             return null;
         }
@@ -147,7 +156,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter extends Tx_PtExt
      */
     protected function renderOptionData($optionData)
     {
-        $option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+        $option = RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
         return $option;
     }
 }

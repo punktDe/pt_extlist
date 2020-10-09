@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +29,15 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Sorting configuration for columns
- * 
+ *  
  * @package Domain
  * @subpackage Configuration\Columns  
  * @author Daniel Lienert
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig
+class SortingConfig
 {
     /**
      * Holds name of field for this sorting configuration
@@ -56,7 +59,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig
 
     /**
      * if this is set to true, the direction cannot be changed 
-     * 
+     *  
      * @var bool
      */
     protected $forceDirection;
@@ -77,11 +80,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig
     /**
      * Constructor for sorting configuration
      *
-     * @param $field
-     * @param $direction
-     * @param $forceDirection
+     * @param string $field
+     * @param int $direction
+     * @param bool $forceDirection
      */
-    public function __construct($field, $direction, $forceDirection, $label='')
+    public function __construct(string $field, int $direction, bool $forceDirection, string $label='')
     {
         // TODO assert that direction is 1 / 0 / -1
         $this->direction = $direction;
@@ -145,7 +148,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_SortingConfig
 
     /**
      * Getter for label for this sorting field configuration
-     * 
+     *  
      * @return string
      */
     public function getLabel()

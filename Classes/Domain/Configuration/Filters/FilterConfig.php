@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,8 +29,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+use PunktDe\PtExtlist\Domain\Configuration\RenderConfigInterface;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -39,8 +46,8 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
-    implements Tx_PtExtlist_Domain_Configuration_RenderConfigInterface
+class FilterConfig extends AbstractExtlistConfiguration
+    implements RenderConfigInterface
 {
     /**
      * Identifier of filterbox to which this filter belongs to
@@ -282,11 +289,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     /**
      * Build the filterconfig object
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
      * @param array $settings
      * @param string $filterBoxIdentifier
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $settings, $filterBoxIdentifier)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder, $settings, $filterBoxIdentifier)
     {
         $settings['filterboxIdentifier'] = $filterBoxIdentifier;
         parent::__construct($configurationBuilder, $settings);
@@ -334,14 +341,14 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
         $this->setValueIfExistsAndNotNothing('renderTemplate');
 
         if ($this->configValueExistsAndNotNothing('inactiveOption')) {
-            $this->inactiveOption = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
+            $this->inactiveOption = RenderValue::stdWrapIfPlainArray($this->settings['inactiveOption']);
             if (GeneralUtility::isFirstPartOfStr($this->inactiveOption, 'LLL:')) {
                 $this->inactiveOption = LocalizationUtility::translate($this->inactiveOption, '');
             }
         }
 
         if ($this->configValueExistsAndNotNothing('label')) {
-            $this->label = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->settings['label']);
+            $this->label = \PunktDe\PtExtlist\Utility\RenderValue::stdWrapIfPlainArray($this->settings['label']);
             if (GeneralUtility::isFirstPartOfStr($this->label, 'LLL:')) {
                 $this->label = LocalizationUtility::translate($this->label, '');
             }
@@ -399,7 +406,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
         if (!$this->defaultValue['cObject']) {
             foreach ($this->defaultValue as $key => $defaultValue) {
                 if (is_array($defaultValue)) {
-                    $this->defaultValue[$key] = Tx_PtExtlist_Utility_RenderValue::renderCObjectWithPlainArray($defaultValue);
+                    $this->defaultValue[$key] = RenderValue::renderCObjectWithPlainArray($defaultValue);
                 }
             }
 
@@ -412,7 +419,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
 
 
         // array and cObject - render
-        $this->defaultValue = Tx_PtExtlist_Utility_RenderValue::renderCObjectWithPlainArray($this->defaultValue);
+        $this->defaultValue = RenderValue::renderCObjectWithPlainArray($this->defaultValue);
     }
 
 
@@ -475,7 +482,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig extends Tx_PtExtlis
     }
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @return FieldConfigCollection
      */
     public function getFieldIdentifier()
     {

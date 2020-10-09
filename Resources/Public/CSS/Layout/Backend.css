@@ -82,7 +82,7 @@
     border: none;
 }
 
-label {
+.filter-label {
     font-weight: bold;
     color: #393939;
     float:left;

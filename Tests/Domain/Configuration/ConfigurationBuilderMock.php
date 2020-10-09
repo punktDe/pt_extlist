@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Tests\Domain\Configuration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+
 /**
  * Class implementing a mock for configuration builder
  *
@@ -34,7 +39,7 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+class ConfigurationBuilderMock extends ConfigurationBuilder
 {
     /**
      * Returns array of settings for current plugin configuration
@@ -52,12 +57,12 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
      * Returns a singleton instance of this class
      * @param array $settings The current settings for this extension.
      * @param array $overwriteSettings Overwrite the default settings
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder   Singleton instance of this class
+     * @return ConfigurationBuilder   Singleton instance of this class
      */
     public static function getInstance($settings = null, $overwriteSettings = null)
     {
         if (is_array($settings) && count($settings)) {
-            $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
+            $configurationBuilderMock = new ConfigurationBuilderMock($settings);
         } else {
             $settings = [
                 'listIdentifier' => 'test',
@@ -67,10 +72,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
 
                     'backend' => [
                         'mysql' => [
-                            'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
-                            'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                            'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource',
-                            'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                            'dataBackendClass' => 'MySqlDataBackend_MySqlDataBackend',
+                            'dataMapperClass' => 'Mapper_ArrayMapper',
+                            'dataSourceClass' => 'DataSource_MySqlDataSource',
+                            'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                         ]
                     ],
                     'column' => [
@@ -91,10 +96,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
                         'useIterationListData' => 1,
 
                         'backendConfig' => [
-                            'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
-                            'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                            'dataSourceClass' => 'Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource',
-                            'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                            'dataBackendClass' => 'Typo3DataBackend_Typo3DataBackend',
+                            'dataMapperClass' => 'Mapper_ArrayMapper',
+                            'dataSourceClass' => 'DataSource_Typo3DataSource',
+                            'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 
 
                             'dataSource' => [
@@ -216,7 +221,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
                                 'fieldIdentifier' => 'field4',
                                 'label' => 'Column 6',
                                 'objectMapper' => [
-                                    'class' => 'Tx_PtExtlist_Domain_Model_Bookmark_Bookmark',
+                                    'class' => 'Bookmark',
                                     'mapping' => [
                                         'label' => 'name'
                                     ]
@@ -259,7 +264,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
                             'pagerConfigs' => [
                                 'default' => [
                                     'templatePath' => 'EXT:pt_extlist/',
-                                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                                    'pagerClassName' => 'DefaultPager',
                                     'enabled' => '1'
                                 ],
                             ],
@@ -304,10 +309,10 @@ class Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock extends T
             ];
 
             if (is_array($overwriteSettings)) {
-                \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($settings, $overwriteSettings);
+                ArrayUtility::mergeRecursiveWithOverrule($settings, $overwriteSettings);
             }
 
-            $configurationBuilderMock = new Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock($settings);
+            $configurationBuilderMock = new ConfigurationBuilderMock($settings);
             $configurationBuilderMock->settings = $configurationBuilderMock->origSettings['listConfig'][$configurationBuilderMock->origSettings['listIdentifier']];
         }
         return $configurationBuilderMock;

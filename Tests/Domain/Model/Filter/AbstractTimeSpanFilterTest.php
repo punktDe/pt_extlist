@@ -78,11 +78,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
         $timeSpanFilterMock = $this->buildAccessibleAbstractTimeSpanFilter(); /** @var $timeSpanFilterMock Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter  */
         $fieldIdentifierArray = $timeSpanFilterMock->getDateFieldsConfigs();
 
-        $testField1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', ['field' => 'fieldName1', 'table' => 'tableName1']);
-        $testField2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', ['field' => 'fieldName2', 'table' => 'tableName2']);
+        $testField1 = new FieldConfig($this->configurationBuilderMock, 'field1', ['field' => 'fieldName1', 'table' => 'tableName1']);
+        $testField2 = new FieldConfig($this->configurationBuilderMock, 'field2', ['field' => 'fieldName2', 'table' => 'tableName2']);
 
-        $this->assertTrue(is_a($fieldIdentifierArray[10]['start'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-        $this->assertTrue(is_a($fieldIdentifierArray[10]['end'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+        $this->assertTrue(is_a($fieldIdentifierArray[10]['start'], 'FieldConfig'));
+        $this->assertTrue(is_a($fieldIdentifierArray[10]['end'], 'FieldConfig'));
         $this->assertEquals($testField1->getIdentifier(), $fieldIdentifierArray[10]['start']->getIdentifier());
         $this->assertEquals($testField2->getIdentifier(), $fieldIdentifierArray[10]['end']->getIdentifier());
     }
@@ -100,10 +100,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
         $timeSpanFilterMock = $this->buildAccessibleAbstractTimeSpanFilter($filterSettings); /** @var $timeSpanFilterMock Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter  */
         $fieldIdentifierArray = $timeSpanFilterMock->getDateFieldsConfigs();
 
-        $testField = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', ['field' => 'fieldName1', 'table' => 'tableName1']);
+        $testField = new FieldConfig($this->configurationBuilderMock, 'field1', ['field' => 'fieldName1', 'table' => 'tableName1']);
 
-        $this->assertTrue(is_a($fieldIdentifierArray[0]['start'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-        $this->assertTrue(is_a($fieldIdentifierArray[0]['end'], 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+        $this->assertTrue(is_a($fieldIdentifierArray[0]['start'], 'FieldConfig'));
+        $this->assertTrue(is_a($fieldIdentifierArray[0]['end'], 'FieldConfig'));
         $this->assertEquals($testField->getIdentifier(), $fieldIdentifierArray[0]['start']->getIdentifier());
         $this->assertEquals($testField->getIdentifier(), $fieldIdentifierArray[0]['end']->getIdentifier());
     }
@@ -178,14 +178,14 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest extends 
             $filterSettings = $this->defaultFilterSettings;
         }
 
-        $gpVarsAdapgerMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarsAdapter Tx_PtExtbase_State_GpVars_GpVarsAdapter */
+        $gpVarsAdapgerMock = $this->getMock('PunktDe_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarsAdapter PunktDe_PtExtbase_State_GpVars_GpVarsAdapter */
 
         $accessibleClassName = $this->buildAccessibleProxy('Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter');
         $abstractTimeSpanFilter = $this->getMockForAbstractClass($accessibleClassName); /* @var $abstractTimeSpanFilter Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter */
 
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
 
-        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock = new MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
 
         $abstractTimeSpanFilter->_injectFilterConfig($filterConfiguration);

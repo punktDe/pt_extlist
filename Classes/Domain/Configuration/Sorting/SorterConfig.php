@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Sorting;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +29,14 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
 /**
  * Class implementing configuration for sorter
- * 
+ *  
  * @package Domain
  * @subpackage Configuration\Sorting
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Sorting_SortingConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class SorterConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
 {
 }

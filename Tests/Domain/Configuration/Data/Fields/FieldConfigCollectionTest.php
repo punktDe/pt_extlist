@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage Domain\Configuration\Data\Fields
  * @author Daniel Lienert
- * @see Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+ * @see FieldConfigCollection
  */
 class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -75,14 +75,14 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionT
     /** @test */
     public function classExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection');
+        $this->assertClassExists('FieldConfigCollection');
     }
     
     
     
     public function testExceptionOnGettingNonAddedItem()
     {
-        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection = new FieldConfigCollection();
         try {
             $fieldConfigCollection->getFieldConfigByIdentifier('test');
         } catch (Exception $e) {
@@ -95,9 +95,9 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionT
     
     public function testAddGetCorrectItems()
     {
-        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', $this->aggregateSettings['field1']));
-        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', $this->aggregateSettings['field2']));
+        $fieldConfigCollection = new FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new FieldConfig($this->configurationBuilderMock, 'field1', $this->aggregateSettings['field1']));
+        $fieldConfigCollection->addFieldConfig(new FieldConfig($this->configurationBuilderMock, 'field2', $this->aggregateSettings['field2']));
         $fieldConfig1 = $fieldConfigCollection->getFieldConfigByIdentifier('field1');
         $this->assertEquals($fieldConfig1->getIdentifier(), 'field1');
         $fieldConfig2 = $fieldConfigCollection->getFieldConfigByIdentifier('field2');
@@ -107,29 +107,29 @@ class Tx_PtExtlist_Tests_Domain_Configuration_Data_Fields_FieldConfigCollectionT
     
     public function testExtractCollectionByIdentifierList()
     {
-        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', $this->aggregateSettings['field1']));
-        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', $this->aggregateSettings['field2']));
-        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field3', $this->aggregateSettings['field3']));
+        $fieldConfigCollection = new FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new FieldConfig($this->configurationBuilderMock, 'field1', $this->aggregateSettings['field1']));
+        $fieldConfigCollection->addFieldConfig(new FieldConfig($this->configurationBuilderMock, 'field2', $this->aggregateSettings['field2']));
+        $fieldConfigCollection->addFieldConfig(new FieldConfig($this->configurationBuilderMock, 'field3', $this->aggregateSettings['field3']));
         
         $extractFieldConfigCollection = $fieldConfigCollection->extractCollectionByIdentifierList(['field1', 'field3']);
         $this->assertEquals(count($extractFieldConfigCollection), 2);
-        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field1'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field3'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field1'), 'FieldConfig'));
+        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field3'), 'FieldConfig'));
     }
     
     public function testExtractCollectionByIdentifierListExtractAll()
     {
-        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
-        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field1', $this->aggregateSettings['field1']));
-        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field2', $this->aggregateSettings['field2']));
-        $fieldConfigCollection->addFieldConfig(new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'field3', $this->aggregateSettings['field3']));
+        $fieldConfigCollection = new FieldConfigCollection();
+        $fieldConfigCollection->addFieldConfig(new FieldConfig($this->configurationBuilderMock, 'field1', $this->aggregateSettings['field1']));
+        $fieldConfigCollection->addFieldConfig(new FieldConfig($this->configurationBuilderMock, 'field2', $this->aggregateSettings['field2']));
+        $fieldConfigCollection->addFieldConfig(new FieldConfig($this->configurationBuilderMock, 'field3', $this->aggregateSettings['field3']));
         
         
         $extractFieldConfigCollection = $fieldConfigCollection->extractCollectionByIdentifierList(['*']);
         $this->assertEquals(count($extractFieldConfigCollection), 3);
-        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field1'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field2'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
-        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field3'), 'Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig'));
+        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field1'), 'FieldConfig'));
+        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field2'), 'FieldConfig'));
+        $this->assertTrue(is_a($extractFieldConfigCollection->getFieldConfigByIdentifier('field3'), 'FieldConfig'));
     }
 }

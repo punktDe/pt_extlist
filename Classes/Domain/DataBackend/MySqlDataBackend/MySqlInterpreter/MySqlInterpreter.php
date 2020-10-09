@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,28 +29,38 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\DataBackend\AbstractQueryInterpreter;
+use PunktDe\PtExtlist\Domain\QueryObject\AndCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\FullTextCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\NotCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\OrCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Domain\QueryObject\RawSqlCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+
 /**
  * Interpreter for MySql queries
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Michael Knoll 
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreterTest
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+class MySqlInterpreter extends AbstractQueryInterpreter
 {
     /**
      * Holds class names for translating different types of criterias
      *
      * @var array
      */
-    protected static $translatorClasses = ['Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_SimpleCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_NotCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_FullTextCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_FullTextCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_RawSqlCriteriaTranslator'
+    protected static $translatorClasses = [SimpleCriteria::class   => SimpleCriteriaTranslator::class,
+                                           NotCriteria::class      => NotCriteriaTranslator::class,
+                                           OrCriteria::class       => OrCriteriaTranslator::class,
+                                           AndCriteria::class      => AndCriteriaTranslator::class,
+                                           FullTextCriteria::class => FullTextCriteriaTranslator::class,
+                                           RawSqlCriteria::class   => RawSqlCriteriaTranslator::class
     ];
      
      
@@ -55,18 +68,17 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Translates query's criterias into SQL string (without "WHERE")
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      * @return string
+     * @throws \Exception
      */
-    public static function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getCriterias(Query $query)
     {
         $criteriaArray = [];
         foreach ($query->getCriterias() as $criteria) {
             $criteriaArray[] = self::translateCriteria($criteria);
         }
-        $criteriaString = implode(' AND ', $criteriaArray);
-        
-        return $criteriaString;
+        return implode(' AND ', $criteriaArray);
     }
 
 
@@ -74,19 +86,18 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Translates given criteria into  SQL WHERE string (without 'WHERE')
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
-     * @throws Exception
+     * @param Criteria $criteria
+     * @throws \Exception
      * @return string
      */
-    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public static function translateCriteria($criteria)
     {
-        $criteriaString = '';
         $criteriaClass = get_class($criteria);
         if (array_key_exists($criteriaClass, self::$translatorClasses) && class_exists(self::$translatorClasses[$criteriaClass])) {
             $className = self::$translatorClasses[$criteriaClass];
             $criteriaString = call_user_func($className . '::translateCriteria', $criteria);
         } else {
-            throw new Exception('Unknown type of criteria ' . get_class($criteria) . ' 1320484761');
+            throw new \Exception('Unknown type of criteria ' . get_class($criteria) . ' 1320484761');
         }
         return $criteriaString;
     }
@@ -96,14 +107,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Returns SQL limit string without "LIMIT"
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      * @return string
      */
-    public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getLimit(Query $query)
     {
         $limit = $query->getLimit();
-        $limitString = preg_replace('/:/', ',', $limit);
-        return $limitString;
+        return  preg_replace('/:/', ',', $limit);
     }
     
     
@@ -111,21 +121,19 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Returns SQL sortings string without "ORDER BY"
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
-     * @return string
+     * @param Query $query
+     * @return array
      */
-    public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getSorting(Query $query): array
     {
-        $directionMap = [Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC => 'ASC',
-                              Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_DESC => 'DESC'];
+        $directionMap = [Query::SORTINGSTATE_ASC => 'ASC',
+                              Query::SORTINGSTATE_DESC => 'DESC'];
         
         $sortingsArray = [];
         foreach ($query->getSortings() as $field => $direction) {
-            $sortingsArray[] = $field . ' ' . $directionMap[$direction];
+            $sortingsArray[$field] = $directionMap[$direction];
         }
-        $sortingString = implode(', ', $sortingsArray);
-
-        return $sortingString;
+        return $sortingsArray;
     }
     
     
@@ -133,15 +141,13 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Returns translated select part of query without 'SELECT'
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+     * @param Query $query Query to be translated
      * @return string Translated SELECT part of query without 'SELECT'
      */
-    public static function getSelectPart(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getSelectPart(Query $query): string
     {
         $columnsArray = $query->getFields();
-        $selectString = '';
-        $selectString = implode(', ', $columnsArray);
-        return $selectString;
+        return implode(', ', $columnsArray);
     }
     
     
@@ -149,28 +155,25 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Returns translated from part of query without 'FROM'
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+     * @param Query $query Query to be translated
      * @return string Translated FROM part of query without 'FROM'
      */
-    public static function getFromPart(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getFromPart(Query $query)
     {
         $fromArray = $query->getFrom();
-        $fromString = '';
-        $fromString = implode(', ', $fromArray);
-        return $fromString;
+        return implode(', ', $fromArray);
     }
     
 
     /**
      * Returns translated group by fields with out the 'GROUP BY'
-     * 
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     *  
+     * @param Query $query
      * @return string group by part
      */
-    public static function getGroupBy(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getGroupBy(Query $query): string
     {
-        $groupByString = implode(', ', $query->getGroupBy());
-        return $groupByString;
+        return implode(', ', $query->getGroupBy());
     }
     
     
@@ -178,10 +181,11 @@ class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInt
     /**
      * Translates whole query with all keywords (SELECT, WHERE, FROM...)
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query to be translated
+     * @param Query $query Query to be translated
      * @return string Translated query with all keywords
+     * @throws \Exception
      */
-    public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function interpretQuery(Query $query): string
     {
         $sqlString = '';
         

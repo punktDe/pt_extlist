@@ -9,10 +9,10 @@
 plugin.tx_ptextlist.prototype.backend {
 
 	mysql {
-		dataBackendClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
-		dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
-		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
-		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
+		dataBackendClass = PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlDataBackend\MySqlDataBackend
+		dataSourceClass = PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource
+		dataMapperClass = PunktDe\PtExtlist\Domain\DataBackend\Mapper\ArrayMapper
+		queryInterpreterClass = PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter
 
 		dataSource {
 			host = localhost
@@ -25,23 +25,24 @@ plugin.tx_ptextlist.prototype.backend {
 	}
 
 	typo3 {
-		dataBackendClass = Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend
-		dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
-		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
-		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
+		dataBackendClass = PunktDe\PtExtlist\Domain\DataBackend\Typo3DataBackend\Typo3DataBackend
+		dataSourceClass = PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource
+		dataMapperClass = PunktDe\PtExtlist\Domain\DataBackend\Mapper\ArrayMapper
+		queryInterpreterClass = PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter\MySqlInterpreter
 
 		useEnableFields = 1
 
 		dataSource {
+		    database = Default
 			prepareStatements =
 		}
 	}
 
 	extbase {
-		dataBackendClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
-		dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_DomainObjectMapper
-		dataSourceClass = \TYPO3\CMS\Extbase\Persistence\Repository
-		queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter
+		dataBackendClass = PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseDataBackend
+		dataMapperClass = PunktDe\PtExtlist\Domain\DataBackend\Mapper\DomainObjectMapper
+		dataSourceClass = TYPO3\CMS\Extbase\Persistence\Repository
+		queryInterpreterClass = PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseDataBackend\ExtBaseInterpreter\ExtBaseInterpreter
 		repositoryClassName =
 		respectStoragePage = 0
 	}

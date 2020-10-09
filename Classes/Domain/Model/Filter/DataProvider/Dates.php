@@ -33,7 +33,7 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+class DataProvider_Dates extends DataProvider_AbstractDataProvider
 {
     /**
      * Array of filters to be excluded if options for this filter are determined
@@ -115,11 +115,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 
         foreach ($this->dateFieldConfigs as $key => $selectField) {
             if ($selectField['start'] == $selectField['end']) {
-                $aliasedSelectPart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $selectField['start']->getIdentifier();
+                $aliasedSelectPart = DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $selectField['start']->getIdentifier();
                 $query->addField($aliasedSelectPart);
             } else {
-                $aliasedSelectPartStart = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $this->buildFieldAlias($key, 'start');
-                $aliasedSelectPartEnd = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($selectField['end']) . ' AS ' . $this->buildFieldAlias($key, 'end');
+                $aliasedSelectPartStart = DbUtils::getSelectPartByFieldConfig($selectField['start']) . ' AS ' . $this->buildFieldAlias($key, 'start');
+                $aliasedSelectPartEnd = DbUtils::getSelectPartByFieldConfig($selectField['end']) . ' AS ' . $this->buildFieldAlias($key, 'end');
                 $query->addField($aliasedSelectPartStart);
                 $query->addField($aliasedSelectPartEnd);
             }
@@ -157,12 +157,12 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 
 
     /****************************************************************************************************************
-     * Methods implementing "Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface"
+     * Methods implementing "DataProvider_DataProviderInterface"
      *****************************************************************************************************************/
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::init()
      */
     public function init()
     {
@@ -173,7 +173,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::getRenderedOptions()
      */
     public function getRenderedOptions()
     {
@@ -187,11 +187,11 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
 
     /**
      * @param array $queryResult
-     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection Condensed time spans
+     * @return DataProvider_TimeSpanAlgorithm_TimeSpanCollection Condensed time spans
      */
     protected function buildCondensedTimeSpans($queryResult)
     {
-        $timeSpans = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
+        $timeSpans = new DataProvider_TimeSpanAlgorithm_TimeSpanCollection();
 
         foreach ($queryResult as $dateRanges) {
             foreach ($this->dateFieldConfigs as $key => $config) {
@@ -207,7 +207,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
                 $endDate = $dateRanges[$endField];
 
                 if (!empty($startDate) && !empty($endDate)) {
-                    $timeSpan = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_TimeSpan();
+                    $timeSpan = new DataProvider_TimeSpanAlgorithm_TimeSpan();
                     $timeSpan->setStartDate(new DateTime("@" . $startDate));
                     $timeSpan->getStartDate()->setTimezone(new DateTimeZone(date_default_timezone_get()));
                     $timeSpan->setEndDate(new DateTime("@" . $endDate));
@@ -217,7 +217,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates extends Tx_PtExtlist_D
             }
         }
 
-        $condensedTimeSpansAlgorithm = new Tx_PtExtlist_Domain_Model_Filter_DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm();
+        $condensedTimeSpansAlgorithm = new DataProvider_TimeSpanAlgorithm_CondensedTimeSpansAlgorithm();
         $condensedTimeSpansAlgorithm->setTimeSpans($timeSpans);
         return $condensedTimeSpansAlgorithm->process();
     }

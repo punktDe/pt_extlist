@@ -1,4 +1,8 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterFactory;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,16 +29,14 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
 /**
  * Class implementing ajax filterData controller.
- * 
+ *  
  * @package Controller
  * @author Daniel Lienert
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controller_AbstractController
+class AjaxFilterController extends AbstractController
 {
     /**
      * @param string $fullQualifiedFilterIdentifier
@@ -43,7 +45,7 @@ class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controll
     public function getFilterElementAction($fullQualifiedFilterIdentifier)
     {
         $filterConfig = $this->getFilterConfigByFullQualifiedFilterIdentifier($fullQualifiedFilterIdentifier);
-        $filter = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Filter_FilterFactory')->createInstance($filterConfig);
+        $filter = $this->objectManager->get(FilterFactory::class)->createInstance($filterConfig);
         
         $this->view->assign('filter', $filter);
     }
@@ -51,7 +53,7 @@ class Tx_PtExtlist_Controller_AjaxFilterController extends Tx_PtExtlist_Controll
 
     /**
      * @param $fullQualifiedFilterIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig
      */
     protected function getFilterConfigByFullQualifiedFilterIdentifier($fullQualifiedFilterIdentifier)
     {

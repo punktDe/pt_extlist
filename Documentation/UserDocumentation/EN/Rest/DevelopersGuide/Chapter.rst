@@ -49,7 +49,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StringFilter extends::
             return NULL;
         }
         
-        $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+        $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
         $filterValue = '%'.$this->filterValue.'%';
         
         $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::like($fieldName, $filterValue);

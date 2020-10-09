@@ -44,7 +44,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest ext
      */
     public function argumentDataProvider()
     {
-        $identifiableObjectFixture = new Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture();
+        $identifiableObjectFixture = new PunktDe_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture();
 
         $argumentData = [
             'oneWordPropertyWithoutPrefix' => [
@@ -78,7 +78,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest ext
 
 
     /**
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param \PunktDe_PtExtbase_State_IdentifiableInterface $object
      * @param $property
      * @param $addExtPrefix
      * @param $expectedResult
@@ -86,7 +86,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest ext
      * @test
      * @dataProvider argumentDataProvider
      */
-    public function render(\Tx_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix, $expectedResult)
+    public function render(\PunktDe_PtExtbase_State_IdentifiableInterface $object, $property, $addExtPrefix, $expectedResult)
     {
         $linkViewHelper = new FormElementNameViewHelper();
         $result = $linkViewHelper->render($object, $property, $addExtPrefix);
@@ -95,7 +95,7 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_FormElementNameViewHelperTest ext
 }
 
 
-class Tx_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture implements Tx_PtExtbase_State_IdentifiableInterface
+class PunktDe_Yag_Tests_ViewHelpers_Namespace_IdentifiableObjectFixture implements PunktDe_PtExtbase_State_IdentifiableInterface
 {
     /**
      * Generates an unique namespace for an object to be used

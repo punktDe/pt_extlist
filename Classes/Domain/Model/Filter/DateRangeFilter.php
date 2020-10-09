@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DateTime;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
+
 /**
  * Filter for date range
  *
@@ -33,7 +40,7 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+class DateRangeFilter extends AbstractSingleValueFilter
 {
     /**
      * From filter value (value to start date range)
@@ -76,17 +83,17 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
     /**
      * Creates filter query from filter value and settings
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria Criteria for current filter value (null, if empty)
+     * @param FieldConfig $fieldIdentifier
+     * @return Criteria Criteria for current filter value (null, if empty)
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
         $timestampBoundaries = $this->getCalculatedTimestampBoundaries();
-        $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+        $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
-        $criteria1 = Tx_PtExtlist_Domain_QueryObject_Criteria::greaterThanEquals($fieldName, $timestampBoundaries['filterValueFromTimestamp']);
-        $criteria2 = Tx_PtExtlist_Domain_QueryObject_Criteria::lessThanEquals($fieldName, $timestampBoundaries['filterValueToTimestamp']);
-        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::andOp($criteria1, $criteria2);
+        $criteria1 = Criteria::greaterThanEquals($fieldName, $timestampBoundaries['filterValueFromTimestamp']);
+        $criteria2 = Criteria::lessThanEquals($fieldName, $timestampBoundaries['filterValueToTimestamp']);
+        $criteria = Criteria::andOp($criteria1, $criteria2);
 
 
         return $criteria;
@@ -185,7 +192,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::setActiveState()
      */
     protected function setActiveState()
     {
@@ -288,16 +295,19 @@ class Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter extends Tx_PtExtlist_Doma
         return $displayValue;
     }
 
+
+
     /**
      * @param $filterValue
      *
-     * @return DateTime
+     * @return \DateTime
+     * @throws \Exception
      */
     protected function buildDateObjectFromFilterValue($filterValue)
     {
-        $filterValueDateObject = DateTime::createFromFormat('Y-m-d/', $filterValue);
+        $filterValueDateObject = \DateTime::createFromFormat('Y-m-d/', $filterValue);
         if ($filterValueDateObject === false) {
-            $filterValueDateObject = new DateTime($filterValue);
+            $filterValueDateObject = new \DateTime($filterValue);
         }
 
         return $filterValueDateObject;

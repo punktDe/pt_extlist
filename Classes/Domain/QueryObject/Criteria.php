@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\QueryObject;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements criteria for query objects. Besides an abstract base class for all other criteria,
  * this class acts as a factory for all criteria objects. 
@@ -35,15 +38,15 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_CriteriaTest
  */
-class Tx_PtExtlist_Domain_QueryObject_Criteria
+class Criteria
 {
     /**
      * Returns true, if given criteria is equal to this object
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be compared with this object
      * @return bool
      */
-    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public function isEqualTo(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         // This class is something like abstract, so it can't be equal to anything else!
         return false;
@@ -57,11 +60,11 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      * @param string $field Field name to compare value with
      * @param string $value Value to be compared
      * @param boolean $treatValueAsString
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria
      */
     public static function equals($field, $value, $treatValueAsString = false)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '=', $treatValueAsString);
+        return new \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria($field, $value, '=', $treatValueAsString);
     }
     
     
@@ -71,11 +74,11 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @param string $field Field name to compare value with
      * @param string $value Value to be compared
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria
      */
     public static function relation($field, $value)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '.');
+        return new \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria($field, $value, '.');
     }
     
     
@@ -85,11 +88,11 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @param string $field Field to be compared
      * @param string $value Value to be compared
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria
      */
     public static function greaterThan($field, $value)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '>');
+        return new \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria($field, $value, '>');
     }
     
     
@@ -99,11 +102,11 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @param string $field Field to be compared
      * @param string $value Value to be compared
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria
      */
     public static function greaterThanEquals($field, $value)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '>=');
+        return new \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria($field, $value, '>=');
     }
     
     
@@ -113,11 +116,11 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @param string $field Field to be compared with
      * @param string $value Value to be compared with
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria
      */
     public static function lessThan($field, $value)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '<');
+        return new \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria($field, $value, '<');
     }
     
     
@@ -127,11 +130,11 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @param string $field Field to be compared with
      * @param string $value Value to be comperd with
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria
      */
     public static function lessThanEquals($field, $value)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, '<=');
+        return new \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria($field, $value, '<=');
     }
     
     
@@ -141,11 +144,11 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @param string $field Field to be compared with
      * @param string $value Value to be compared with
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria
      */
     public static function like($field, $value)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($field, $value, 'LIKE');
+        return new \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria($field, $value, 'LIKE');
     }
     
     
@@ -155,11 +158,11 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @param string $needle Field to be compared with
      * @param array $haystack Values to compare content of field with
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria
      */
     public static function in($needle, $haystack)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_SimpleCriteria($needle, $haystack, 'IN');
+        return new \PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria($needle, $haystack, 'IN');
     }
     
     
@@ -167,13 +170,13 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
     /**
      * Returns a new 'and' criteria for two given criterias
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1 First criteria to be 'anded'
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2 Second criteria to be 'anded'
-     * @return Tx_PtExtlist_Domain_QueryObject_AndCriteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria1 First criteria to be 'anded'
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria2 Second criteria to be 'anded'
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\AndCriteria
      */
-    public static function andOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1, Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2)
+    public static function andOp(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria1, \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria2)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_AndCriteria($criteria1, $criteria2);
+        return new \PunktDe\PtExtlist\Domain\QueryObject\AndCriteria($criteria1, $criteria2);
     }
     
     
@@ -181,13 +184,13 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
     /**
      * Returns a new 'or' criteria for two given criterias
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1 First criteria to be 'ored'
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2 Second criteria to be 'ored'
-     * @return Tx_PtExtlist_Domain_QueryObject_OrCriteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria1 First criteria to be 'ored'
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria2 Second criteria to be 'ored'
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\OrCriteria
      */
-    public static function orOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria1, Tx_PtExtlist_Domain_QueryObject_Criteria $criteria2)
+    public static function orOp(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria1, \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria2)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_OrCriteria($criteria1, $criteria2);
+        return new \PunktDe\PtExtlist\Domain\QueryObject\OrCriteria($criteria1, $criteria2);
     }
     
     
@@ -195,12 +198,12 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
     /**
      * Returns a new 'not' criteria for a given criteria
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be negated
-     * @return Tx_PtExtlist_Domain_QueryObject_NotCriteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be negated
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\NotCriteria
      */
-    public static function notOp(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public static function notOp(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_NotCriteria($criteria);
+        return new \PunktDe\PtExtlist\Domain\QueryObject\NotCriteria($criteria);
     }
 
 
@@ -209,14 +212,14 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      * Returns a new 'fullText' criteria
      *
      * @static
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fields
      * @param string $searchString
      * @param array $searchParameter
-     * @return Tx_PtExtlist_Domain_QueryObject_FullTextCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\FullTextCriteria
      */
-    public static function fullText(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields, $searchString, array $searchParameter = [])
+    public static function fullText(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fields, $searchString, array $searchParameter = [])
     {
-        return new Tx_PtExtlist_Domain_QueryObject_FullTextCriteria($fields, $searchString, $searchParameter);
+        return new \PunktDe\PtExtlist\Domain\QueryObject\FullTextCriteria($fields, $searchString, $searchParameter);
     }
 
 
@@ -229,10 +232,10 @@ class Tx_PtExtlist_Domain_QueryObject_Criteria
      *
      * @static
      * @param $rawSqlString
-     * @return Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria
+     * @return \PunktDe\PtExtlist\Domain\QueryObject\RawSqlCriteria
      */
     public static function rawSql($rawSqlString)
     {
-        return new Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria($rawSqlString);
+        return new \PunktDe\PtExtlist\Domain\QueryObject\RawSqlCriteria($rawSqlString);
     }
 }

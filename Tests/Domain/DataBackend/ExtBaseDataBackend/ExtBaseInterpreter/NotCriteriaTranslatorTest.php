@@ -32,14 +32,14 @@
  * @package Tests
  * @subpackage Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
  * @author Michael Knoll
- * @see Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator
+ * @see ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslatorTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator');
+        $this->assertClassExists('ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator');
     }
 
 
@@ -67,7 +67,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterprete
         $notCriteria = $this->getMock('Tx_PtExtlist_Domain_QueryObject_NotCriteria', ['getCriteria'], [], '', false);
         $notCriteria->expects($this->any())->method('getCriteria')->will($this->returnValue($notCriteriaInnerCriteria));
 
-        $translatedQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator::translateCriteria($notCriteria, $extbaseQueryMock, $extbaseRepositoryMock);
+        $translatedQuery = ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator::translateCriteria($notCriteria, $extbaseQueryMock, $extbaseRepositoryMock);
         $this->assertTrue(is_a($translatedQuery->getConstraint(), '\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Comparison'));
         $translatedConstraint = $translatedQuery->getConstraint();
         $this->assertEquals($translatedConstraint->getOperator(), 2);

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,28 +30,32 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+
 /**
  * collection of aggregate row configs
  *
  * @package Domain
  * @subpackage Configuration\Aggregates
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class AggregateRowConfigCollection extends ObjectCollection
 {
     /**
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig';
+    protected $restrictedClassName = AggregateRowConfig::class;
     
     
     
     /**
      * Add rowconfig to collection
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig
+     *  
+     * @param AggregateRowConfig $aggregateRowConfig
      * @param integer $rowId
+     * @throws InternalException
      */
-    public function addAggregateRowConfig(Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig $aggregateRowConfig, $rowId)
+    public function addAggregateRowConfig(AggregateRowConfig $aggregateRowConfig, $rowId)
     {
         $this->addItem($aggregateRowConfig, $rowId);
     }
@@ -56,14 +64,16 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfigCollection 
     
     /** 
      * @param integer $rowId
-     * @return Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateRowConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Aggregates\AggregateRowConfig
+     * @throws InternalException
+     * @throws \Exception
      */
     public function getAggregateRowConfig($rowId)
     {
         if ($this->hasItem($rowId)) {
             return $this->getItemById($rowId);
         } else {
-            throw new Exception('The aggregate row with id ' . $rowId . ' does not exist! 1282922836');
+            throw new \Exception('The aggregate row with id ' . $rowId . ' does not exist! 1282922836');
         }
     }
 }

@@ -13,7 +13,7 @@ return [
         'enablecolumns'     => [
             'disabled' => 'hidden'
         ],
-        'iconfile'          => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('pt_extlist') . 'Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
+        'iconfile'          => 'EXT:pt_extlist/Resources/Public/Icons/icon_tx_ptextlist_domain_model_bookmark_bookmark.png'
     ],
     'interface' => [
         'showRecordFieldList' => 'name,description,list_id,fe_user,fe_group,is_public,create_date,content'
@@ -136,7 +136,7 @@ return [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'fe_users',
-                'foreign_class' => 'Tx_Extbase_Domain_Model_FrontendUser',
+                'foreign_class' => 'PunktDe_Extbase_Domain_Model_FrontendUser',
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems'      => 1,
@@ -151,7 +151,7 @@ return [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'fe_users',
-                'foreign_class' => 'Tx_Extbase_Domain_Model_FrontendUserGroup',
+                'foreign_class' => 'PunktDe_Extbase_Domain_Model_FrontendUserGroup',
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems'      => 1,

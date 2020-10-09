@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\ColumnSelector;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtlist\Domain\AbstractComponentFactoryWithState;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements a factory for the columnSelector.
  *
@@ -33,14 +40,14 @@
  * @package pt_extlist
  * @subpackage Domain\Model\columnSelector
  */
-class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
+class ColumnSelectorFactory
+    extends AbstractComponentFactoryWithState
     implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
      * Holds singleton instances of column selectors for each list
      *
-     * @var array<Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector>
+     * @var array<\PunktDe\PtExtlist\Domain\Model\ColumnSelector\ColumnSelector>
      */
     private $instances = [];
 
@@ -49,15 +56,15 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
     /**
      * Factory method for returning a singleton instance of a column selector
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return ColumnSelector
      */
-    public function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $listIdentifier = $configurationBuilder->getListIdentifier();
 
         if ($this->instances[$listIdentifier] === null) {
-            $this->instances[$listIdentifier] = new  Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector();
+            $this->instances[$listIdentifier] = new  ColumnSelector();
             $this->instances[$listIdentifier]->setConfiguration($configurationBuilder->buildColumnSelectorConfiguration());
 
             // Inject settings from session.

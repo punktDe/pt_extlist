@@ -37,7 +37,7 @@ require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
  * @subpackage Tests\Performance\TestDataBackend
  *
  */
-class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain_DataBackend_AbstractDataBackend
+class Tx_PtExtlist_Tests_Performance_TestDataBackend extends AbstractDataBackend
 {
     /**
      * @var integer
@@ -93,7 +93,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_List_IterationListDataInterface|void
+     * @return IterationListDataInterface|void
      */
     public function getIterationListData()
     {
@@ -102,7 +102,7 @@ class Tx_PtExtlist_Tests_Performance_TestDataBackend extends Tx_PtExtlist_Domain
 
         $dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($this->rowCount, $this->colCount);
 
-        $iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
+        $iterationListData = new IterationListData();
         $iterationListData->_injectDataSource($dataSource);
         $iterationListData->_injectDataMapper($this->dataMapper);
         $iterationListData->_injectRenderChain($rendererChain);

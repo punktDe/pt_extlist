@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,22 +27,23 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements data source for typo3 databases
- * 
+ *  
  * @author Daniel Lienert
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-interface Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterface
+interface IterationDataSourceInterface
 {
     /**
      * Return data row as array
+     * @param int $index
+     *
      *
      * @return array
      */
-    public function fetchRow();
+    public function fetchRow(int $index);
 
 
     /**
@@ -50,9 +53,4 @@ interface Tx_PtExtlist_Domain_DataBackend_DataSource_IterationDataSourceInterfac
      */
     public function count();
 
-
-    /**
-     * Rewind the cursor to the first row
-     */
-    public function rewind();
 }

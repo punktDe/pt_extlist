@@ -1,4 +1,14 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Filters;
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,20 +35,19 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class Filterbox Config 
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Filters
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Filters_FilterboxConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class FilterboxConfig extends ObjectCollection
 {
     /**
      * Hash map between filter identifier and numeric filter index
-     * 
+     *  
      * @var array
      */
     protected $filterIdentifierToFilterIndex;
@@ -56,7 +65,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
     /**
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig';
+    protected $restrictedClassName = FilterConfig::class;
     
     
     
@@ -123,7 +132,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
 
     /**
      * If set to true, this filterbox has been submitted in current request
-     * 
+     *  
      * @var bool
      */
     protected $isSubmittedFilterbox = false;
@@ -132,7 +141,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
 
     /**
      * Target PID to submit filterbox to
-     * 
+     *  
      * @var string
      */
     protected $submitToPage;
@@ -151,20 +160,20 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
     /**
      * Holds an instance of configuration builder
      *
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      */
     protected $configurationBuilder;
     
     
     
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param string $filterboxIdentifier
      * @param array $filterBoxSettings
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings)
+    public function __construct(ConfigurationBuilder $configurationBuilder, $filterboxIdentifier, $filterBoxSettings)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'FilterboxIdentifier must not be empty! 1277889451']);
+        Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'FilterboxIdentifier must not be empty! 1277889451']);
         
         $this->configurationBuilder = $configurationBuilder;
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
@@ -178,7 +187,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
     /**
      * Getter for configuration builder
      *
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder
      */
     public function getConfigurationBuilder()
     {
@@ -190,10 +199,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
     /**
      * Add FilterConfig to the FilterboxConfig
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      * @param $filterIndex
+     * @throws InternalException
      */
-    public function addFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig, $filterIndex)
+    public function addFilterConfig(FilterConfig $filterConfig, $filterIndex)
     {
         $this->addItem($filterConfig, $filterIndex);
         $this->filterIdentifierToFilterIndex[$filterConfig->getFilterIdentifier()] = $filterIndex;
@@ -203,9 +213,10 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
     
     /**
      * Get the filterconfig by filterIdentifier
-     * 
+     *  
      * @param string $filterIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     * @return FilterConfig
+     * @throws InternalException
      */
     public function getFilterConfigByFilterIdentifier($filterIdentifier)
     {
@@ -218,7 +229,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
      * Set the optional settings
      *
      * @param array $filterBoxSettings
-     * @throws Exception
+     * @throws \Exception
      */
     protected function setOptionalSettings($filterBoxSettings)
     {
@@ -243,7 +254,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
             if (array_key_exists('action', $redirectSettings)) {
                 $this->redirectOnSubmitActionName = $redirectSettings['action'];
             } else {
-                throw new Exception('You have redirect on submit configured for your filterbox ' . $this->getFilterboxIdentifier() . ' but have set no action to redirect to. You always have to set an action, even if it is nonesense! 1313610240');
+                throw new \Exception('You have redirect on submit configured for your filterbox ' . $this->getFilterboxIdentifier() . ' but have set no action to redirect to. You always have to set an action, even if it is nonesense! 1313610240');
             }
             if (array_key_exists('pageId', $redirectSettings)) {
                 $this->redirectOnSubmitPageId = $redirectSettings['pageId'];
@@ -270,11 +281,11 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
      */
     protected function setExcludeFilters($excludeFiltersString)
     {
-        $excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $excludeFiltersString);
+        $excludeFilters = GeneralUtility::trimExplode(',', $excludeFiltersString);
         foreach ($excludeFilters as $excludedFilter) {
             list($filterboxIdentifier, $filterIdentifier) = explode('.', $excludedFilter);
-            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416']);
-            Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterIdentifier, ['message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417']);
+            Assert::isNotEmptyString($filterboxIdentifier, ['message' => 'You have not set a filterboxIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845416']);
+            Assert::isNotEmptyString($filterIdentifier, ['message' => 'You have not set a filterIdentifier in your excludeFilter configuration for filterbox ' . $this->getFilterboxIdentifier() . ' 1315845417']);
             if (!is_array($this->excludeFilters[$filterboxIdentifier]) || !in_array($filterIdentifier, $this->excludeFilters[$filterboxIdentifier])) {
                 $this->excludeFilters[$filterboxIdentifier][] = $filterIdentifier;
             }
@@ -327,7 +338,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
     
     /**
      * Returns action name used for redirect after filterbox submits
-     * 
+     *  
      * @return string
      */
     public function getRedirectOnSubmitActionName()
@@ -339,7 +350,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
     
     /**
      * Returns controller name used for redirect after filterbox submits
-     * 
+     *  
      * @return string
      */
     public function getRedirectOnSubmitControllerName()
@@ -351,7 +362,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
     
     /**
      * Returns page id of page to which should be redirected after filterbox submits
-     * 
+     *  
      * @return integer
      */
     public function getRedirectOnSubmitPageId()
@@ -386,7 +397,7 @@ class Tx_PtExtlist_Domain_Configuration_Filters_FilterboxConfig extends \PunktDe
 
     /**
      * Getter for target PID to send submit request for this filterbox
-     * 
+     *  
      * @return Target PID to send submit request of this filterbox
      */
     public function getSubmitToPage()

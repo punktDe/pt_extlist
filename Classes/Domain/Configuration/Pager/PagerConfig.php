@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Pager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
+
 /**
  * Class implements configuration for pager
  *
@@ -36,11 +43,11 @@
  * @author Christoph Ehscheidt
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class PagerConfig extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
 {
     /**
      * The pager identifier.
-     * 
+     *  
      * @var string
      */
     protected $pagerIdentifier;
@@ -64,7 +71,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
     
     /**
      * Holds the templatePath to override default extbase settings.
-     * 
+     *  
      * @var string
      */
     protected $templatePath = null;
@@ -72,7 +79,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
     
     /**
      * Global value for all filters
-     * 
+     *  
      * @var integer
      */
     protected $itemsPerPage;
@@ -95,11 +102,11 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @param array $pagerIdentifier
+     * @param ConfigurationBuilder $configurationBuilder
+     * @param string $pagerIdentifier
      * @param array $settings
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $pagerIdentifier,  array $settings)
+    public function __construct(ConfigurationBuilder $configurationBuilder, string $pagerIdentifier,  array $settings)
     {
         $settings['pagerIdentifier'] = $pagerIdentifier;
         parent::__construct($configurationBuilder, $settings);
@@ -109,7 +116,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig extends Tx_PtExtlist_D
 
     /**
      * Returns the pager identifier.
-     * 
+     *  
      * @return string
      */
     public function getPagerIdentifier()

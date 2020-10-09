@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\View;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,33 +30,35 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\View\BaseView as PtExtbaseBaseView;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements base view for all pt_extlist views. 
- * 
+ *  
  * Class type for base view can be changed by changing pt_extlist AbstractController::resolveView()
  *
  * @author Daniel Lienert 
  * @author Michael Knoll
  * @package View
  */
-
-class Tx_PtExtlist_View_BaseView
-    extends Tx_PtExtbase_View_BaseView
-    implements Tx_PtExtlist_View_ConfigurableViewInterface
+abstract class BaseView
+    extends PtExtbaseBaseView
+    implements ConfigurableViewInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
     
     
     /**
      * Inject the configurationBuilder
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     *  
+     * @param ConfigurationBuilder $configurationBuilder
      * @return mixed|void
      */
-    public function setConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function setConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         $this->configurationBuilder = $configurationBuilder;
     }

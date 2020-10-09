@@ -1,4 +1,18 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\ExtBaseDataBackend\ExtBaseInterpreter;
+
+use PunktDe\PtExtlist\Domain\QueryObject\AndCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\NotCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\OrCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query as GenericQuery;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,64 +39,63 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Query interpreter for ExtBase data backend. Translates queries into extbase query objects
- * 
+ *  
  * TODO by calling static methods in Translator class, we have no loose coupling here. Change this by using instance of translator class.
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\ExtBaseDataBackend\ExtBaseInterpreter
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreterTest
  */
-class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtBaseInterpreter extends Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter
+class ExtBaseInterpreter extends \PunktDe\PtExtlist\Domain\DataBackend\AbstractQueryInterpreter
 {
-    protected static $translatorClasses = ['Tx_PtExtlist_Domain_QueryObject_SimpleCriteria' => 'Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_NotCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_OrCriteria'     => 'Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator',
-                                                'Tx_PtExtlist_Domain_QueryObject_AndCriteria'    => 'Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator',
+    protected static $translatorClasses = [SimpleCriteria::class => SimpleCriteriaTranslator::class,
+                                                NotCriteria::class   => NotCriteriaTranslator::class,
+                                                OrCriteria::class     => OrCriteriaTranslator::class,
+                                                AndCriteria::class    => AndCriteriaTranslator::class,
     ];
     
     
     /**
-     * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getCriterias()
+     * @see AbstractQueryInterpreter::getCriterias()
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      */
-    public static function getCriterias(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getCriterias(Query $query)
     {
     }
     
     
     
     /**
-     * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getLimit()
+     * @see AbstractQueryInterpreter::getLimit()
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      */
-    public static function getLimit(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getLimit(Query $query)
     {
     }
     
     
     
     /**
-     * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::getSorting()
+     * @see AbstractQueryInterpreter::getSorting()
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      */
-    public static function getSorting(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getSorting(Query $query)
     {
     }
     
     
     
     /**
-     * @see Tx_PtExtlist_Domain_DataBackend_AbstractQueryInterpreter::interpretQuery()
+     * @see AbstractQueryInterpreter::interpretQuery()
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      */
-    public static function interpretQuery(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function interpretQuery(Query $query)
     {
     }
     
@@ -91,13 +104,14 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
     /**
      * Translates a query into an extbase query
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
-     * @param \TYPO3\CMS\Extbase\Persistence\Repository $repository
-     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+     * @param Query $query
+     * @param Repository $repository
+     * @return GenericQuery
+     * @throws \Exception
      */
-    public static function interpretQueryByRepository(Tx_PtExtlist_Domain_QueryObject_Query $query, \TYPO3\CMS\Extbase\Persistence\Repository $repository)
+    public static function interpretQueryByRepository(Query $query, Repository $repository)
     {
-        $emptyExtbaseQuery = $repository->createQuery(); /* @var $emptyExtbaseQuery \TYPO3\CMS\Extbase\Persistence\Generic\Query */
+        $emptyExtbaseQuery = $repository->createQuery(); /* @var $emptyExtbaseQuery GenericQuery */
         
         $constrainedExtbaseQuery = self::setAllCriteriasOnExtBaseQueryByQueryObject($query, $emptyExtbaseQuery, $repository);
         $limitedExtbaseQuery = self::setLimitOnExtBaseQueryByQueryObject($query, $constrainedExtbaseQuery);
@@ -111,14 +125,15 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
     /**
      * Sets criterias from given query object on given extbase query object. Returns manipulated extbase query object
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
-     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
-     * @param \TYPO3\CMS\Extbase\Persistence\Repository $repository
-     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+     * @param Query $query
+     * @param GenericQuery $extbaseQuery
+     * @param Repository $repository
+     * @return GenericQuery
+     * @throws \Exception
      */
-    public static function setAllCriteriasOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery, \TYPO3\CMS\Extbase\Persistence\Repository $repository)
+    public static function setAllCriteriasOnExtBaseQueryByQueryObject(Query $query, GenericQuery $extbaseQuery, Repository $repository)
     {
-        foreach ($query->getCriterias() as $criteria) { /* @var $criteria Tx_PtExtlist_Domain_QueryObject_SimpleCriteria */
+        foreach ($query->getCriterias() as $criteria) { /* @var $criteria SimpleCriteria */
             $extbaseQuery = self::setCriteriaOnExtBaseQueryByCriteria($criteria, $extbaseQuery, $repository);
         }
 
@@ -130,34 +145,34 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
     /**
      * Translates given criteria and adds it to extbase query criterias
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria
-     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
-     * @param \TYPO3\CMS\Extbase\Persistence\Repository $repository
-     * @throws Exception
-     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+     * @param Criteria $criteria
+     * @param GenericQuery $extbaseQuery
+     * @param Repository $repository
+     * @throws \Exception
+     * @return GenericQuery
      */
-    public static function setCriteriaOnExtBaseQueryByCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria, \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery, \TYPO3\CMS\Extbase\Persistence\Repository $repository)
+    public static function setCriteriaOnExtBaseQueryByCriteria(Criteria $criteria, GenericQuery $extbaseQuery, Repository $repository)
     {
         $criteriaClass = get_class($criteria);
         switch ($criteriaClass) {
-            case 'Tx_PtExtlist_Domain_QueryObject_SimpleCriteria':
-                $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_SimpleCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
+            case SimpleCriteria::class:
+                $extbaseQuery = SimpleCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
                 break;
             
-            case 'Tx_PtExtlist_Domain_QueryObject_AndCriteria':
-                $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_AndCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
+            case AndCriteria::class:
+                $extbaseQuery = AndCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
                 break;
             
-            case 'Tx_PtExtlist_Domain_QueryObject_OrCriteria':
-                $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_OrCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
+            case OrCriteria::class:
+                $extbaseQuery = OrCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
                 break;
 
-            case 'Tx_PtExtlist_Domain_QueryObject_NotCriteria':
-                $extbaseQuery = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_NotCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
+            case NotCriteria::class:
+                $extbaseQuery = NotCriteriaTranslator::translateCriteria($criteria, $extbaseQuery, $repository);
                 break;
 
             default:
-                throw new Exception('Unkown criteria type ' . $criteriaClass . ' 1299224408');
+                throw new \Exception('Unkown criteria type ' . $criteriaClass . ' 1299224408');
                 break;
         }
         
@@ -169,11 +184,11 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
     /**
      * Sets a limit on an extbase query by given query object. Returns manipulated extbase query.
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
-     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery
-     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query
+     * @param Query $query
+     * @param GenericQuery $extbaseQuery
+     * @return GenericQuery
      */
-    public static function setLimitOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery)
+    public static function setLimitOnExtBaseQueryByQueryObject(Query $query, GenericQuery $extbaseQuery)
     {
         if ($query->getLimit() != '') {
             list($offset, $limit) = explode(':', $query->getLimit());
@@ -192,17 +207,17 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
     /**
      * Sets sortings on an extbase query by given query object. Returns manipulated extbase query.
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query Query object to get sortings from
-     * @param \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery Query object to set sortings on
-     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Query Manipulated ExtBase query object
+     * @param Query $query Query object to get sortings from
+     * @param GenericQuery $extbaseQuery Query object to set sortings on
+     * @return GenericQuery Manipulated ExtBase query object
      */
-    public static function setSortingOnExtBaseQueryByQueryObject(Tx_PtExtlist_Domain_QueryObject_Query $query, \TYPO3\CMS\Extbase\Persistence\Generic\Query $extbaseQuery)
+    public static function setSortingOnExtBaseQueryByQueryObject(Query $query, GenericQuery $extbaseQuery)
     {
         $sortings = $query->getSortings();
         $extBaseSortings = [];
 
         foreach ($sortings as $field => $direction) { /* sorting is array('field' => 'Direction: 1 | -1') */
-            $extBaseDirection = $direction == Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC ? \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING : \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+            $extBaseDirection = $direction == Query::SORTINGSTATE_ASC ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING;
             $extBaseSortings[$field] = $extBaseDirection;
         }
         
@@ -221,9 +236,9 @@ class Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseInterpreter_ExtB
     /**
      * Translates group by part of query
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Query $query
+     * @param Query $query
      */
-    public static function getGroupBy(Tx_PtExtlist_Domain_QueryObject_Query $query)
+    public static function getGroupBy(Query $query)
     {
     }
 }

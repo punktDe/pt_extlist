@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Renderer;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,31 +30,33 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implementing factory for for the renderer chain configuration
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Renderer
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererChainConfigFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfigFactory
+class RendererChainConfigFactory
 {
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return RendererChainConfig
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $rendererChainConfiguration = null;
         $rendererChainSettings = $configurationBuilder->getSettingsForConfigObject('rendererChain');
 
         if (is_array($rendererChainSettings['rendererConfigs'])) {
             ksort($rendererChainSettings['rendererConfigs']);
-            $rendererChainConfiguration = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererChainConfig($configurationBuilder, $rendererChainSettings);
+            $rendererChainConfiguration = new RendererChainConfig($configurationBuilder, $rendererChainSettings);
 
             foreach ($rendererChainSettings['rendererConfigs'] as $rendererIdentifier => $rendererSettings) {
-                $rendererConfiguration = Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory::getRendererConfiguration($configurationBuilder, $rendererSettings);
+                $rendererConfiguration = RendererConfigFactory::getRendererConfiguration($configurationBuilder, $rendererSettings);
                 $rendererChainConfiguration->addRendererConfig($rendererConfiguration, $rendererIdentifier);
             }
         }

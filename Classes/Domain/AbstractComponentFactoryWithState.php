@@ -1,4 +1,11 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain;
+
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -23,34 +30,32 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-
-
 /**
  * Abstact base class for component factories that use injected object manager.
  *
  * @author Michael Knoll <knoll@punkt.de>
  * @package Domain
  */
-abstract class Tx_PtExtlist_Domain_AbstractComponentFactoryWithState extends Tx_PtExtlist_Domain_AbstractComponentFactory
+abstract class AbstractComponentFactoryWithState extends \PunktDe\PtExtlist\Domain\AbstractComponentFactory
 {
     /**
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+     * @var \PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory
      */
     protected $getPostVarsAdapterFactory;
 
 
 
     /**
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -58,9 +63,9 @@ abstract class Tx_PtExtlist_Domain_AbstractComponentFactoryWithState extends Tx_
 
 
     /**
-     * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory
+     * @param GetPostVarAdapterFactory $getPostVarAdapterFactory
      */
-    public function injectGetPostVarAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory)
+    public function injectGetPostVarAdapterFactory(GetPostVarAdapterFactory $getPostVarAdapterFactory)
     {
         $this->getPostVarsAdapterFactory = $getPostVarAdapterFactory;
     }

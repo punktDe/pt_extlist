@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,24 +30,29 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\NotCriteria;
+
 /**
  * Translator for AND criteria
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_NotCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+class NotCriteriaTranslator implements CriteriaTranslatorInterface
 {
     /**
      * translate NOT criteria to string
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Tx_PtExtlist_Domain_QueryObject_NotCriteria
+     * @param NotCriteria
      * @return string
+     * @throws \Exception
      */
-    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria  $criteria)
+    public static function translateCriteria(Criteria  $criteria)
     {
-        return 'NOT (' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getCriteria()) . ')';
+        return 'NOT (' . MySqlInterpreter::translateCriteria($criteria->getCriteria()) . ')';
     }
 }

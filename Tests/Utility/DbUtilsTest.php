@@ -32,7 +32,7 @@
  * @package Tests
  * @subpackage Utility
  * @author Michael Knoll
- * @see Tx_PtExtlist_Utility_DbUtils
+ * @see DbUtils
  */
 class Tx_PtExtlist_Tests_Utility_DbUtilsTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -45,16 +45,16 @@ class Tx_PtExtlist_Tests_Utility_DbUtilsTest extends Tx_PtExtlist_Tests_BaseTest
 
     public function testGetAliasedSelectPartByFieldConfigTableAndField()
     {
-        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', ['field' => 'field', 'table' => 'table']);
-        $this->assertEquals('table.field AS test', Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfig));
+        $fieldConfig = new FieldConfig($this->configurationBuilderMock, 'test', ['field' => 'field', 'table' => 'table']);
+        $this->assertEquals('table.field AS test', DbUtils::getAliasedSelectPartByFieldConfig($fieldConfig));
     }
     
 
 
     public function testGetAliasedSelectPartByFieldConfigSpecialString()
     {
-        $fieldConfig = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
-        $this->assertEquals('(special) AS test', Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($fieldConfig));
+        $fieldConfig = new FieldConfig($this->configurationBuilderMock, 'test', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
+        $this->assertEquals('(special) AS test', DbUtils::getAliasedSelectPartByFieldConfig($fieldConfig));
     }
 
 
@@ -64,14 +64,14 @@ class Tx_PtExtlist_Tests_Utility_DbUtilsTest extends Tx_PtExtlist_Tests_BaseTest
      */
     public function getAliasedSelectPartByFieldConfigCollection()
     {
-        $fieldConfig1 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test1', ['field' => 'field', 'table' => 'table']);
-        $fieldConfig2 = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig($this->configurationBuilderMock, 'test2', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
+        $fieldConfig1 = new FieldConfig($this->configurationBuilderMock, 'test1', ['field' => 'field', 'table' => 'table']);
+        $fieldConfig2 = new FieldConfig($this->configurationBuilderMock, 'test2', ['field' => 'field', 'table' => 'table', 'special' => 'special']);
 
-        $fieldConfigCollection = new Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection();
+        $fieldConfigCollection = new FieldConfigCollection();
         $fieldConfigCollection->addFieldConfig($fieldConfig1);
         $fieldConfigCollection->addFieldConfig($fieldConfig2);
 
-        $return = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfigCollection($fieldConfigCollection);
+        $return = DbUtils::getSelectPartByFieldConfigCollection($fieldConfigCollection);
         $this->assertEquals('table.field, (special)', $return);
     }
 }

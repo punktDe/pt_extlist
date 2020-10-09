@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Link;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtbase\State\GpVars\GpVarsAdapter;
+use PunktDe\PtExtbase\State\IdentifiableInterface;
+use PunktDe\PtExtlist\Domain\Configuration\Lists\ListConfig;
+
 /**
  * Link manager provides all links used in this plugin
  * TODO: implement shortlinks
@@ -34,17 +44,17 @@
  * @subpackage Link
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Link_LinkManager
+class LinkManager
 {
     /**
-     * @var Tx_PtExtbase_State_GpVars_GpVarsAdapter
+     * @var GpVarsAdapter
      */
     protected $getPostVarAdapter;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_List_ListConfig
+     * @var ListConfig
      */
     protected $listConfiguration;
 
@@ -52,9 +62,9 @@ class Tx_PtExtlist_Domain_Link_LinkManager
 
     /**
      * Inject the get post var adapter
-     * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapter
+     * @param GpVarsAdapter $getPostVarAdapter
      */
-    public function injectGetPostVarAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $getPostVarAdapter)
+    public function injectGetPostVarAdapter(GpVarsAdapter $getPostVarAdapter)
     {
         $this->getPostVarAdapter = $getPostVarAdapter;
     }
@@ -65,7 +75,7 @@ class Tx_PtExtlist_Domain_Link_LinkManager
      * Inject the List configuration
      * @param $listConfig
      */
-    public function injectListConfiguration(Tx_PtExtlist_Domain_Configuration_List_ListConfig $listConfig)
+    public function injectListConfiguration(ListConfig $listConfig)
     {
         $this->listConfiguration = $listConfig;
     }
@@ -75,10 +85,10 @@ class Tx_PtExtlist_Domain_Link_LinkManager
     /**
      * Build and return the argument array for the given object
      *
-     * @param Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param IdentifiableInterface $object
      * @param array $properties
      */
-    public function buildArgumentArrayForObject(Tx_PtExtbase_State_IdentifiableInterface $object, array $properties)
+    public function buildArgumentArrayForObject(IdentifiableInterface $object, array $properties)
     {
     }
 }

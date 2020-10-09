@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,26 +30,31 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\AndCriteria;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+
 /**
  * Translator for AND criteria
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_AndCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+class AndCriteriaTranslator implements CriteriaTranslatorInterface
 {
     /**
      * return translated criteria string
-     * @param \Tx_PtExtlist_Domain_QueryObject_AndCriteria|\Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Tx_PtExtlist_Domain_QueryObject_AndCriteria
+     * @param AndCriteria|Criteria $criteria
      * @return string
+     * @throws \Exception
      */
-    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public static function translateCriteria($criteria)
     {
-        $andCriteriaString = '(' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getFirstCriteria());
+        $andCriteriaString = '(' . MySqlInterpreter::translateCriteria($criteria->getFirstCriteria());
         $andCriteriaString .= ') AND (';
-        $andCriteriaString .= Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
+        $andCriteriaString .= MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
         
         return $andCriteriaString;
     }

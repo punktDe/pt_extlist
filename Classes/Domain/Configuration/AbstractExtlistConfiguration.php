@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Configuration\AbstractConfiguration;
+
+
 /**
  * Class implements an abstract configuration object
  *
@@ -34,11 +42,11 @@
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration extends \PunktDe\PtExtbase\Configuration\AbstractConfiguration
+abstract class AbstractExtlistConfiguration extends AbstractConfiguration
 {
     /**
      * The listidentifier this config object belings to
-     * 
+     *  
      * @var string
      */
     protected $listIdentifier;
@@ -47,11 +55,11 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration ex
     
     /**
      * Constructor for configuration object
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     *  
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $settings
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings = [])
+    public function __construct(ConfigurationBuilder $configurationBuilder, array $settings = [])
     {
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
         parent::__construct($configurationBuilder, $settings);
@@ -62,7 +70,7 @@ abstract class Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration ex
     /**
      * Returns a reference to the extlist configurationbuilder
      *
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @return ConfigurationBuilder
      */
     public function getConfigurationBuilder()
     {

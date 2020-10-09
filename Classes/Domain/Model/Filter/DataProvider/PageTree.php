@@ -28,6 +28,8 @@
 
 namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
 
+use PunktDe\PtExtbase\Domain\Repository\PageRepository;
+
 /**
  * Implements data provider for grouped list data
  *
@@ -35,7 +37,7 @@ namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+class PageTree extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\AbstractDataProvider
 {
     /**
      * @var int
@@ -53,14 +55,14 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
     protected $respectDeletedField;
 
     /**
-     * @var \Tx_PtExtbase_Domain_Repository_PageRepository
+     * @var PageRepository
      */
     protected $pageRepository;
 
     /**
-     * @param \Tx_PtExtbase_Domain_Repository_PageRepository $pageRepository
+     * @param PageRepository $pageRepository
      */
-    public function injectPageRepository(\Tx_PtExtbase_Domain_Repository_PageRepository $pageRepository): void
+    public function injectPageRepository(PageRepository $pageRepository): void
     {
         $this->pageRepository = $pageRepository;
     }
@@ -104,7 +106,7 @@ class PageTree extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDa
         foreach ($pageTree as $pageUid => $pageData) {
             $pageObject = $pageData['pageObject'];
 
-            if ($pageObject instanceof \Tx_PtExtbase_Domain_Model_Page) {
+            if ($pageObject instanceof \PunktDe_PtExtbase_Domain_Model_Page) {
                 $valueData[$pageUid] = [
                     'value' => sprintf('%s%s (%s)', str_repeat(' - ', $depth), $pageObject->getTitle(), $pageObject->getUid())
                 ];

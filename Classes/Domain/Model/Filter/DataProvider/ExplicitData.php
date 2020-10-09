@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +27,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements data provider for explicit defined data in typoscript
  *
@@ -36,11 +37,18 @@
  * @subpackage Model\Filter\DataProvider
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_ExplicitDataTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
+class ExplicitData extends AbstractDataProvider
 {
     /**
      * array of options defined in typoscript
-     * 
+     *  
      * @var array
      */
     protected $tsOptions;
@@ -49,16 +57,16 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::getRenderedOptions()
      */
-    public function getRenderedOptions()
+    public function getRenderedOptions(): array
     {
         $renderedOptions = [];
         
         foreach ($this->tsOptions as $key => $option) {
             if (is_array($option)) {
-                if (\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($option['value'], 'LLL:')) {
-                    $optionData['allDisplayFields'] = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($option['value'], '');
+                if (GeneralUtility::isFirstPartOfStr($option['value'], 'LLL:')) {
+                    $optionData['allDisplayFields'] = LocalizationUtility::translate($option['value'], '');
                 } else {
                     $optionData['allDisplayFields'] = $option['value'];
                 }
@@ -66,14 +74,14 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
                 $optionKey = $option['key'];
             } else {
                 $optionKey = $key;
-                if (\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($option, 'LLL:')) {
-                    $optionData['allDisplayFields'] = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($option, '');
+                if (GeneralUtility::isFirstPartOfStr($option, 'LLL:')) {
+                    $optionData['allDisplayFields'] = LocalizationUtility::translate($option, '');
                 } else {
                     $optionData['allDisplayFields'] = trim($option);
                 }
             }
 
-            $renderedOptions[$optionKey] = ['value' => Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
+            $renderedOptions[$optionKey] = ['value' => RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig),
                                                      'selected' => false];
         }
         
@@ -81,26 +89,29 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData extends Tx_PtEx
     }
 
 
-    
+
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     * @throws Assertion
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::init()
      */
-    public function init()
+    public function init(): void
     {
         $this->initDataProviderByTsConfig($this->filterConfig->getSettings());
     }
 
-    
-    
+
+
     /**
      * Init the dataProvider by TS-conifg
-     * 
+     *
      * @param array $filterSettings
+     *
+     * @throws Assertion
      */
-    protected function initDataProviderByTsConfig($filterSettings)
+    protected function initDataProviderByTsConfig($filterSettings): void
     {
         $this->tsOptions = $this->filterConfig->getSettings('options');
-        Tx_PtExtbase_Assertions_Assert::isArray($this->tsOptions, ['message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006']);
+        Assert::isArray($this->tsOptions, ['message' => 'Options configured by TS has to be an array, '.gettype($this->tsOptions).' given! 1284142006']);
     }
 }

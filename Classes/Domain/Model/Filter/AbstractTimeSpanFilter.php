@@ -1,4 +1,10 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -35,12 +41,12 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractTimeSpanFilterTest
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
+abstract class AbstractTimeSpanFilter extends AbstractFilter
 {
     /**
      * Holds timestamp of start-time for filter
      *
-     * @var DateTime
+     * @var \DateTime
      */
     protected $filterValueStart = null;
 
@@ -49,7 +55,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
     /**
      * Holds time stamp of end-time for filter
      *
-     * @var DateTime
+     * @var \DateTime
      */
     protected $filterValueEnd = null;
 
@@ -75,7 +81,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
     /**
      * Build the filterCriteria for a timeSpan filter
      *
-     * @return Tx_PtExtlist_Domain_QueryObject_Criteria
+     * @return Criteria
      */
     protected function buildFilterCriteriaForAllFields()
     {
@@ -85,7 +91,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
             $singleCriteria = $this->buildTimeSpanFilterCriteria($dateFieldTuple['start'], $dateFieldTuple['end']);
 
             if ($criteria) {
-                $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::orOp($criteria, $singleCriteria);
+                $criteria = Criteria::orOp($criteria, $singleCriteria);
             } else {
                 $criteria = $singleCriteria;
             }
@@ -98,11 +104,11 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 
     /**
      * @abstract
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $startField
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $endField
+     * @param FieldConfig $startField
+     * @param FieldConfig $endField
      * @return void
      */
-    abstract protected function buildTimeSpanFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $startField, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $endField);
+    abstract protected function buildTimeSpanFilterCriteria(FieldConfig $startField, FieldConfig $endField);
 
 
     /**
@@ -111,7 +117,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
      */
     protected function initGenericFilterByTSConfig()
     {
-        Tx_PtExtbase_Assertions_Assert::isString($this->filterConfig->getSettings('dbTimeFormat'), ['message' => 'No dbTimeFormat defined for filter ' . $this->filterIdentifier . ' 1314579114']);
+        Assert::isString($this->filterConfig->getSettings('dbTimeFormat'), ['message' => 'No dbTimeFormat defined for filter ' . $this->filterIdentifier . ' 1314579114']);
         ;
         $this->dbTimeFormat = $this->filterConfig->getSettings('dbTimeFormat');
 
@@ -234,7 +240,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::reset()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::reset()
      */
     public function reset()
     {
@@ -249,7 +255,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
      * @param $fieldIdentifier
      * @return void
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
         // This method can not be used in a timeSpan filter
     }
@@ -257,7 +263,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::setActiveState()
      */
     protected function setActiveState()
     {
@@ -268,7 +274,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractTimeSpanFilter extends T
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::initFilter()
      */
     protected function initFilter()
     {

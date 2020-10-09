@@ -1,4 +1,12 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\View\Export;
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,9 +33,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
-
 /**
  * Class implements a view for rendering PDF using the WKHTML2PDF rendering engine.
  *
@@ -45,7 +50,7 @@
  * @package View
  * @subpackage Export
  */
-class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Export_AbstractExportView
+class WkHtml2PdfListView extends AbstractExportView
 {
     /**
      * Force the client to download PDF file when finish() is called.
@@ -189,7 +194,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
     {
         parent::initConfiguration();
 
-        $this->tempPdfBasePath = PATH_site.'typo3temp/';
+        $this->tempPdfBasePath = Environment::getPublicPath().'/typo3temp/';
 
         $this->cmd = 'wkhtmltopdf';
         // This method seems not to work to check, whether a command is available in unix
@@ -206,8 +211,8 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
     /**
      * Overwriting the render method to generate a PDF output
      *
-     * @throws Exception if wkhtml command did not succeed.
-     * @return  void (never returns)
+     * @throws \Exception if wkhtml command did not succeed.
+     * @return   void (never returns)
      *
      * Partly taken from https://code.google.com/p/wkhtmltopdf/wiki/IntegrationWithPhp
      */
@@ -224,7 +229,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
         $relativePath = str_replace($_SERVER['DOCUMENT_ROOT'], 'http://' . $_SERVER['HTTP_HOST'], $this->cssFilePath);
         $html = str_replace($this->cssFilePath, $relativePath, $html);
 
-        if ((int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('showHTML') == 1) {
+        if ((int)GeneralUtility::_GET('showHTML') == 1) {
             die($html);
         }
 
@@ -280,14 +285,15 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
             . (($this->title != '') ? ' --title "' . $this->title . '"' : '')    // title
             . ' "' . $htmlDocument . '" -';
 
+
         $this->pdf = $this->pipeExec($wkCommand);
 
         if (strpos(strtolower($this->pdf['stderr']), 'error') !== false) {
-            throw new Exception('WKPDF command: ' . $wkCommand . ' raised WKPDF system error: <pre>' . $this->pdf['stderr'] . '</pre>', 1373448918);
+            throw new \Exception('WKPDF command: ' . $wkCommand . ' raised WKPDF system error: <pre>' . $this->pdf['stderr'] . '</pre>', 1373448918);
         }
 
         if ($this->pdf['stdout'] == '') {
-            throw new Exception('WKPDF command: ' . $wkCommand . ' didn\'t return any data. <pre>' . $this->pdf['stderr'] . '</pre>', 1373448919);
+            throw new \Exception('WKPDF command: ' . $wkCommand . ' didn\'t return any data. <pre>' . $this->pdf['stderr'] . '</pre>', 1373448919);
         }
 
         if (((int)$this->pdf['return']) > 1) {
@@ -316,7 +322,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
      *
      * @param string $mode How two output (constants from this same class).
      * @param string $file The PDF's filename (the usage depends on $mode.
-     * @throws Exception if headers were already sent.
+     * @throws \Exception if headers were already sent.
      * @return string|boolean Depending on $mode, this may be success (boolean) or PDF (string).
      *
      * Taken from https://code.google.com/p/wkhtmltopdf/wiki/IntegrationWithPhp
@@ -342,7 +348,7 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
                     header('Content-Length: ' . strlen($this->pdf));
                     echo $this->pdf;
                 } else {
-                    throw new Exception('WKPDF download headers were already sent.', 1373448921);
+                    throw new \Exception('WKPDF download headers were already sent.', 1373448921);
                 }
                 break;
             case self::PDF_ASSTRING:
@@ -359,14 +365,14 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
                     header('Content-Disposition: inline; filename="' . basename($file) . '";');
                     echo $this->pdf;
                 } else {
-                    throw new Exception('WKPDF embed headers were already sent.', 1373448922);
+                    throw new \Exception('WKPDF embed headers were already sent.', 1373448922);
                 }
                 break;
             case self::PDF_SAVEFILE:
                 return file_put_contents($file, $this->pdf);
                 break;
             default:
-                throw new Exception('WKPDF invalid mode "' . htmlspecialchars($mode, ENT_QUOTES) . '".', 1373448923);
+                throw new \Exception('WKPDF invalid mode "' . htmlspecialchars($mode, ENT_QUOTES) . '".', 1373448923);
         }
         return false;
     }
@@ -404,22 +410,22 @@ class Tx_PtExtlist_View_Export_WkHtml2PdfListView extends Tx_PtExtlist_View_Expo
     private function initTypoScriptSettings()
     {
         $this->fluidTemplatePath = $this->exportConfiguration->getSettings('templatePath');
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fluidTemplatePath, ['message' => 'No template path given for fluid export! 1284621481']);
+        Assert::isNotEmptyString($this->fluidTemplatePath, ['message' => 'No template path given for fluid export! 1284621481']);
         $this->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->fluidTemplatePath));
 
         // TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further information on parameters!
         // --page-size	<Size>	Set paper size to: A4, Letter, etc. (default A4)
         $this->size = strtolower($this->exportConfiguration->getSettings('paperSize'));
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->size, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
+        Assert::isNotEmptyString($this->size, ['message' => 'No PaperSize given for the PDF output! 1322585559']);
 
         // TODO take a look at http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf_0.10.0_rc2-doc.html for further informatoin on parameters
         // --orientation	<orientation>	Set orientation to Landscape or Portrait (default Portrait)
         $this->orient = $this->exportConfiguration->getSettings('paperOrientation');
-        Tx_PtExtbase_Assertions_Assert::isInArray($this->orient, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
+        Assert::isInArray($this->orient, ['portrait', 'landscape'], ['message' => 'The Orientation must either be portrait or landscape! 1322585560']);
 
 
         $this->cssFilePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->exportConfiguration->getSettings('cssFilePath'));
-        Tx_PtExtbase_Assertions_Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
+        Assert::isTrue(file_exists($this->cssFilePath), ['message' => 'The CSS File with the filename ' . $this->cssFilePath . ' can not be found. 1322587627']);
 
         $this->additionalWkhtmlParams = $this->exportConfiguration->getSettings('additionalWkhtmlParams');
 

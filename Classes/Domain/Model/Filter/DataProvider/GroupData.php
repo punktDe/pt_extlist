@@ -1,4 +1,13 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +34,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements data provider for grouped list data
  *
@@ -33,7 +41,7 @@
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+class GroupData extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\AbstractDataProvider
 {
     /**
      * Show the group row count
@@ -56,7 +64,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
     /**
      * Holds the filter value to be used when filter is submitted
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
      */
     protected $filterField;
 
@@ -65,7 +73,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
     /**
      * Holds an collection of fieldconfigs to be used as displayed values for the filter (the options that can be selected)
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
      */
     protected $displayFields = null;
 
@@ -88,10 +96,10 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
     protected function setDisplayFieldsByTSConfig($displayFieldSettings)
     {
         if ($displayFieldSettings) {
-            $displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $displayFieldSettings);
+            $displayFields = GeneralUtility::trimExplode(',', $displayFieldSettings);
             $this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($displayFields);
         } else {
-            $fieldIdentifierList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('fieldIdentifier'));
+            $fieldIdentifierList = GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('fieldIdentifier'));
             $this->displayFields = $this->dataBackend->getFieldConfigurationCollection()->extractCollectionByIdentifierList($fieldIdentifierList);
         }
     }
@@ -102,7 +110,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
      * Returns an array of options to be displayed by filter
      * for a given array of fields
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @param array FieldConfig
      * @return array Options to be displayed by filter
      */
     protected function getRenderedOptionsByFields($fields)
@@ -110,7 +118,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
         $renderedOptions = [];
         $options =& $this->getOptionsByFields($fields);
 
-        if (is_array($options) && count($options) === 0) {
+        if (is_array($options) && count($options) === 0 || $options === null) {
             return $renderedOptions;
         }
 
@@ -130,7 +138,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
     /**
      * Get the raw data from the database
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $fields
      * @return array
      */
     protected function getOptionsByFields($fields)
@@ -145,23 +153,23 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
     /**
      * Build the group data query to retrieve the group data
      *
-     * @param array Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fields
-     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     * @param array FieldConfig $fields
+     * @return Query
      */
     protected function buildGroupDataQuery($fields)
     {
-        $groupDataQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $groupDataQuery = new Query();
 
         foreach ($fields as $selectField) {
-            $groupDataQuery->addField(Tx_PtExtlist_Utility_DbUtils::getAliasedSelectPartByFieldConfig($selectField));
+            $groupDataQuery->addField(DbUtils::getAliasedSelectPartByFieldConfig($selectField));
         }
 
         if ($this->additionalTables != '') {
             $groupDataQuery->addFrom($this->additionalTables);
         }
 
-        foreach ($this->displayFields as $displayField) { /* @var $displayField Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
-            $groupDataQuery->addSorting($displayField->getIdentifier(), Tx_PtExtlist_Domain_QueryObject_Query::SORTINGSTATE_ASC);
+        foreach ($this->displayFields as $displayField) { /* @var $displayField FieldConfig */
+            $groupDataQuery->addSorting($displayField->getIdentifier(), Query::SORTINGSTATE_ASC);
         }
 
         if ($this->showRowCount) {
@@ -170,7 +178,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
         }
 
         $groupFields = [];
-        foreach ($this->getFieldsRequiredToBeSelected() as $field) { /* @var $field Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+        foreach ($this->getFieldsRequiredToBeSelected() as $field) { /* @var $field FieldConfig */
             $groupFields[] = $field->getIdentifier();
         }
 
@@ -243,7 +251,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
         $this->setDisplayFieldsByTSConfig(trim($filterSettings['displayFields']));
 
         if (array_key_exists('excludeFilters', $filterSettings) && trim($filterSettings['excludeFilters'])) {
-            $this->excludeFilters = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $filterSettings['excludeFilters']);
+            $this->excludeFilters = GeneralUtility::trimExplode(',', $filterSettings['excludeFilters']);
         }
 
         if (array_key_exists('additionalTables', $filterSettings)) {
@@ -261,7 +269,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
      * Get the field config object by fieldIdentifier string
      *
      * @param string $fieldIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig
      */
     protected function resolveFieldConfig($fieldIdentifier)
     {
@@ -271,12 +279,12 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
 
 
     /****************************************************************************************************************
-     * Methods implementing "Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface"
+     * Methods implementing "DataProvider_DataProviderInterface"
      *****************************************************************************************************************/
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::init()
      */
     public function init()
     {
@@ -287,7 +295,7 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData extends Tx_PtExtli
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::getRenderedOptions()
      */
     public function getRenderedOptions()
     {

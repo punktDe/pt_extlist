@@ -181,9 +181,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
                 'displayFields' => 'field1,field2',
                 'filterField' => 'field1'
             ], 'test');
-        $gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarAdapterMock Tx_PtExtbase_State_GpVars_GpVarsAdapter */
+        $gpVarAdapterMock = $this->getMock('PunktDe_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarAdapterMock PunktDe_PtExtbase_State_GpVars_GpVarsAdapter */
 
-        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock = new MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
 
         $selectFilter->_injectFilterConfig($filterConfiguration);
@@ -231,9 +231,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
                 'fieldIdentifier' => 'field1',
                 'displayField' => 'field2'
             ], 'test');
-        $sessionManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', [], [], '', false);
+        $sessionManagerMock = $this->getMock('PunktDe_PtExtbase_State_Session_SessionPersistenceManager', [], [], '', false);
 
-        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock = new MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
         $selectFilter->_injectDataBackend($dataBackendMock);
 
@@ -362,9 +362,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest extends T
         $abstractOptionsFilter = $this->getMockForAbstractClass($accessibleClassName);
 
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->defaultFilterSettings, 'test');
-        $gpVarAdapterMock = $this->getMock('Tx_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarAdapterMock Tx_PtExtbase_State_GpVars_GpVarsAdapter */
+        $gpVarAdapterMock = $this->getMock('PunktDe_PtExtbase_State_GpVars_GpVarsAdapter', [], [], '', false); /* @var $gpVarAdapterMock PunktDe_PtExtbase_State_GpVars_GpVarsAdapter */
 
-        $dataBackendMock = new Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
+        $dataBackendMock = new MySqlDataBackend_MySqlDataBackend($this->configurationBuilderMock);
         $dataBackendMock->_injectFieldConfigurationCollection($this->configurationBuilderMock->buildFieldsConfiguration());
 
         /* @var $abstractOptionsFilter Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter */

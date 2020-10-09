@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\BreadCrumbs;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,16 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\AbstractComponentFactory;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
+use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * Class implements a factory for a collection of breadcrumbs
  *
@@ -34,9 +48,9 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactory
-    implements \TYPO3\CMS\Core\SingletonInterface
+class BreadCrumbCollectionFactory
+    extends AbstractComponentFactory
+    implements SingletonInterface
 {
     /**
      * Holds an array of instances for each list identifier
@@ -50,14 +64,14 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
     /**
      * Factory method creates instance of breadcrumbs collection as list identifier-specific singleton
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return BreadCrumbCollection
      */
-    public function getInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function getInstanceByConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
     {
         if (!array_key_exists($configurationBuilder->getListIdentifier(), $this->instances)
             || $this->instances[$configurationBuilder->getListIdentifier()] == null) {
-            $filterboxCollectionFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory'); /* @var $filterboxCollectionFactory Tx_PtExtlist_Domain_Model_Filter_FilterboxCollectionFactory */
+            $filterboxCollectionFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(FilterboxCollectionFactory::class); /* @var $filterboxCollectionFactory FilterboxCollectionFactory */
         
             $filterboxCollection = $filterboxCollectionFactory->createInstance($configurationBuilder, false);
             $breadCrumbCollection = $this->getInstanceByFilterboxCollection($configurationBuilder, $filterboxCollection);
@@ -72,24 +86,24 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
     /**
      * Factory method creates instance of breadcrumbs collection for a given filterbox collection
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection
-     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection
+     * @param ConfigurationBuilder $configurationBuilder
+     * @param FilterboxCollection $filterboxCollection
+     * @return BreadCrumbCollection
      */
-    public function getInstanceByFilterboxCollection(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection $filterboxCollection)
+    public function getInstanceByFilterboxCollection(ConfigurationBuilder $configurationBuilder, FilterboxCollection $filterboxCollection)
     {
         if (!array_key_exists($filterboxCollection->getListIdentifier(), $this->instances)
             || $this->instances[$filterboxCollection->getListIdentifier()] == null) {
-            $breadCrumbCollection = new Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollection();
+            $breadCrumbCollection = new BreadCrumbCollection();
             $breadCrumbCollection->injectConfigurationBuilder($configurationBuilder);
 
-            $getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+            $getPostVarsAdapterFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(GetPostVarAdapterFactory::class); /* @var $getPostVarsAdapterFactory GetPostVarAdapterFactory */
 
             $gpVarsAdapter = $getPostVarsAdapterFactory->getInstance();
             $gpVarsAdapter->injectParametersInObject($breadCrumbCollection);
 
-            foreach ($filterboxCollection as $filterbox) { /* @var $filterbox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
-                foreach ($filterbox as $filter) { /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+            foreach ($filterboxCollection as $filterbox) { /* @var $filterbox Filterbox */
+                foreach ($filterbox as $filter) { /* @var $filter FilterInterface */
                     if ($filter->isActive()) {
                         $breadcrumb = $filter->getFilterBreadCrumb();
 

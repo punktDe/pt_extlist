@@ -43,9 +43,9 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
                 ],
                 'backend' => [
                     'mysql' => [
-                        'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
-                        'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                        'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                        'dataBackendClass' => 'MySqlDataBackend_MySqlDataBackend',
+                        'dataMapperClass' => 'Mapper_ArrayMapper',
+                        'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
                         'dataSourceClass' => '\TYPO3\CMS\Extbase\Persistence\Repository',
 
                     ]
@@ -58,11 +58,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
                      'test' => [
 
                          'backendConfig' => [
-                             'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
-                             'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                             'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
-                             'dataSourceClass' => 'Tx_Extbase_Persistence_Repository',
-                             'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
+                             'dataBackendClass' => 'Typo3DataBackend_Typo3DataBackend',
+                             'dataMapperClass' => 'Mapper_ArrayMapper',
+                             'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                             'dataSourceClass' => 'PunktDe_Extbase_Persistence_Repository',
+                             'repositoryClassName' => 'PunktDe_Extbase_Domain_Repository_FrontendUserGroupRepository'
 
                          ],
                         
@@ -132,7 +132,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
                              ]
                         ],
                         'pager' => [
-                            'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                            'pagerClassName' => 'DefaultPager',
                             'itemsPerPage'   => '10',
                             'enabled' => '1'
                         ],
@@ -151,7 +151,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend'));
+        $this->assertTrue(class_exists('ExtBaseDataBackend_ExtBaseDataBackend'));
     }
     
     
@@ -159,7 +159,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     public function testInjectDataSource()
     {
         $dataSourceMock = $this->getMock('\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository', [], [], '', false);
-        $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
+        $extBaseDataBackend = new ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         $extBaseDataBackend->_injectDataSource($dataSourceMock);
     }
     
@@ -168,7 +168,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
     public function testThrowExceptionOnInjectingWrongDataSource()
     {
         $dataSourceMock = $this->getMock('Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTest', [], [], '', false);
-        $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
+        $extBaseDataBackend = new ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         try {
             $extBaseDataBackend->_injectDataSource($dataSourceMock);
         } catch (Exception $e) {
@@ -193,11 +193,11 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
         $extBaseDataBackend = $this->getPreparedExtbaseDataBackend();
         
         // create fake query settings
-        $querySettingsMock = $this->getMock('Tx_Extbase_Persistence_Typo3QuerySettings', array('setRespectStoragePage'), array(), '', FALSE);
+        $querySettingsMock = $this->getMock('PunktDe_Extbase_Persistence_Typo3QuerySettings', array('setRespectStoragePage'), array(), '', FALSE);
         $querySettingsMock->expects($this->any())->method('setRespectStoragePage');
         
         // overwrite datasource to return fake query object
-        $queryObjectMock = $this->getMock('Tx_Extbase_Persistence_Query', array('count', 'getQuerySettings'), array(), '', FALSE);
+        $queryObjectMock = $this->getMock('PunktDe_Extbase_Persistence_Query', array('count', 'getQuerySettings'), array(), '', FALSE);
         $queryObjectMock->expects($this->any())->method('count')->will($this->returnValue(10));
         $queryObjectMock->expects($this->any())->method('getQuerySettings')->will($this->returnValue($querySettingsMock));
 
@@ -208,7 +208,7 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
 
         $queryObjectMock->setQuerySettings($querySettingsMock); // Set this here, as getQuerySettings() will check on query settings to be existing!
         
-        $repositoryMock = $this->getMock('Tx_Extbase_Domain_Repository_FrontendUserGroupRepository', array(), array('createQuery'), '', FALSE);
+        $repositoryMock = $this->getMock('PunktDe_Extbase_Domain_Repository_FrontendUserGroupRepository', array(), array('createQuery'), '', FALSE);
         $repositoryMock->expects($this->any())->method('createQuery')->will($this->returnValue($queryObjectMock));
         
         $extBaseDataBackend->_injectDataSource($repositoryMock);
@@ -253,16 +253,16 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_ExtBaseDataBackend_ExtBaseBackendTes
      * 
      * Data backend can be customized by injection different components
      *
-     * @return Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend
+     * @return ExtBaseDataBackend_ExtBaseDataBackend
      */
     protected function getPreparedExtbaseDataBackend()
     {
-        $dataSource = Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
-        $extBaseDataBackend = new Tx_PtExtlist_Domain_DataBackend_ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
+        $dataSource = ExtBaseDataBackend_ExtBaseDataBackend::createDataSource($this->configurationBuilderMock);
+        $extBaseDataBackend = new ExtBaseDataBackend_ExtBaseDataBackend($this->configurationBuilderMock);
         $extBaseDataBackend->_injectDataSource($dataSource);
         $extBaseDataBackend->_injectBackendConfiguration($this->configurationBuilderMock->buildDataBackendConfiguration());
         
-        $pagerCollectionMock = $this->getMock('Tx_PtExtlist_Domain_Model_Pager_PagerCollection', ['isEnabled', 'getCurrentPage', 'getItemsPerPage'], [], '', false);
+        $pagerCollectionMock = $this->getMock('PagerCollection', ['isEnabled', 'getCurrentPage', 'getItemsPerPage'], [], '', false);
         $pagerCollectionMock->expects($this->any())->method('isEnabled')->will($this->returnValue(true));
         $pagerCollectionMock->expects($this->any())->method('getCurrentPage')->will($this->returnValue(1));
         $pagerCollectionMock->expects($this->any())->method('getItemsPerPage')->will($this->returnValue(1));

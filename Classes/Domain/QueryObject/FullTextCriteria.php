@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\QueryObject;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements a criteria for special fullTextSearch
  *
@@ -34,12 +37,12 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_FullTextCriteriaTest
  */
-class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
+class FullTextCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
 {
     /**
      * Holds the fields for which the criteria holds
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection
      */
     protected $fields;
     
@@ -63,14 +66,14 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
     /**
      * Constructor for criteria. Takes a collection of fields and a search string.
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fields
      * @param string $searchString
      * @param array $searchParameter
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection $fields, $searchString, array $searchParameter = [])
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection $fields, $searchString, array $searchParameter = [])
     {
-        Tx_PtExtbase_Assertions_Assert::isPositiveInteger($fields->count(), ['message' => 'No field given to search in! 1313532571']);
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($searchString, ['message' => 'SearchString must not be empty! 1313532596']);
+        Assert::isPositiveInteger($fields->count(), ['message' => 'No field given to search in! 1313532571']);
+        Assert::isNotEmptyString($searchString, ['message' => 'SearchString must not be empty! 1313532596']);
         $this->fields = $fields;
         $this->searchString = $searchString;
         $this->searchParameter = $searchParameter;
@@ -79,12 +82,12 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
     
     
    /**
-    * Returns true, if criteria is equal to this object
-    *
-    * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
-    * @return bool
-    */
-    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+     * Returns true, if criteria is equal to this object
+     *
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be compared with this object
+     * @return bool
+     */
+    public function isEqualTo(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         if (!is_a($criteria, __CLASS__)) {
             return false;
@@ -103,7 +106,7 @@ class Tx_PtExtlist_Domain_QueryObject_FullTextCriteria extends Tx_PtExtlist_Doma
     /**
      * Returns field for which criteria holds
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection Field name of criteria
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection Field name of criteria
      */
     public function getFields()
     {

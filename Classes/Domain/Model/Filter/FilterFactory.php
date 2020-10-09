@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\AbstractComponentFactoryWithState;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+
 /**
  * Class implements factory for filter objects
  * 
@@ -34,21 +44,19 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-    implements \TYPO3\CMS\Core\SingletonInterface
+class FilterFactory extends AbstractComponentFactoryWithState implements SingletonInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+     * @var DataBackendFactory
      */
     private $dataBackendFactory;
 
 
 
     /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     * @param ObjectManagerInterface $objectManager
      */
-    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    public function injectObjectManager(ObjectManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
     }
@@ -60,9 +68,9 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
      *
      * TODO think about how we get rid of this cyclic dependency!
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+     * @param DataBackendFactory $dataBackendFactory
      */
-    public function setDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory)
+    public function setDataBackendFactory(DataBackendFactory $dataBackendFactory)
     {
         $this->dataBackendFactory = $dataBackendFactory;
     }
@@ -72,12 +80,12 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
     /**
      * Creates an instance of a filter for a given configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     * @param FilterConfig $filterConfig
+     * @return FilterInterface
      */
-    public function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig)
+    public function createInstance(FilterConfig $filterConfig)
     {
-        $filter = $this->createFilterObject($filterConfig->getFilterClassName()); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
+        $filter = $this->createFilterObject($filterConfig->getFilterClassName()); /* @var $filter FilterInterface */
         $filter->_injectFilterConfig($filterConfig);
 
         $sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance();
@@ -98,14 +106,14 @@ class Tx_PtExtlist_Domain_Model_Filter_FilterFactory
      * Creates filter object for given filter class name
      *
      * @param string $filterClassName
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     * @return FilterInterface
      */
     private function createFilterObject($filterClassName)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($filterClassName, ['message' => 'No filter class name given, check TS configuration! 1277889459']);
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($filterClassName), ['message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460']);
-        $filter = $this->objectManager->get($filterClassName); /* @var $filter Tx_PtExtlist_Domain_Model_Filter_FilterInterface */
-        Tx_PtExtbase_Assertions_Assert::isTrue(is_a($filter, 'Tx_PtExtlist_Domain_Model_Filter_FilterInterface'), ['message' => 'Given filter class does not implement filter interface! 1277889461']);
+        Assert::isNotEmptyString($filterClassName, ['message' => 'No filter class name given, check TS configuration! 1277889459']);
+        Assert::isTrue(class_exists($filterClassName), ['message' => 'Given filter class ' . $filterClassName . ' does not exist or is not loaded! 1277889460']);
+        $filter = $this->objectManager->get($filterClassName); /* @var $filter FilterInterface */
+        Assert::isTrue(is_a($filter, FilterInterface::class), ['message' => 'Given filter class does not implement filter interface! 1277889461']);
         $filter->_injectGpVarsAdapter($this->getPostVarsAdapterFactory->getInstance());
         return $filter;
     }

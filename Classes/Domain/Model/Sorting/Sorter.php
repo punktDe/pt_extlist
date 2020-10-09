@@ -1,4 +1,11 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Sorting;
+
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Configuration\Sorting\SorterConfig;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,10 +32,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements sorter for handling all kinds of sorting.
- * 
+ *  
  * Object that influence sorting can register here and get sorting
  * states and reset commands if necessary.
  *
@@ -37,12 +43,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Sorting_SorterTest
  */
-class Tx_PtExtlist_Domain_Model_Sorting_Sorter
+class Sorter
 {
     /**
      * Array that holds sorters to be observerd by sorter
      *
-     * @var array<Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface>
+     * @var array<SortingObserverInterface>
      */
     protected $sortingObservers;
     
@@ -51,7 +57,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Holds sorter configuration
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig
+     * @var SorterConfig
      */
     protected $sorterConfiguration;
     
@@ -60,7 +66,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Holds a collection of sorting states that are used for sorting
      *
-     * @var Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     * @var SortingStateCollection
      */
     protected $sortingStateCollection;
     
@@ -69,18 +75,18 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Registers sorter that can influence sorting.
      *
-     * @param Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver
+     * @param SortingObserverInterface $sortingObserver
      */
-    public function registerSortingObserver(Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface $sortingObserver)
+    public function registerSortingObserver(SortingObserverInterface $sortingObserver)
     {
         $this->sortingObservers[] = $sortingObserver;
         $sortingObserver->registerSorter($this);
     }
 
 
-
     /**
      * Removes all registered sorting observers and resets sorting state collection
+     * @throws InternalException
      */
     public function removeAllSortingObservers()
     {
@@ -93,9 +99,9 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Injector for sorter configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration
+     * @param SorterConfig $sorterConfiguration
      */
-    public function _injectSorterConfig(Tx_PtExtlist_Domain_Configuration_Sorting_SorterConfig $sorterConfiguration)
+    public function _injectSorterConfig(SorterConfig $sorterConfiguration)
     {
         $this->sorterConfiguration = $sorterConfiguration;
     }
@@ -104,7 +110,8 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
     /**
      * Returns current sorting state collection of this sorter
      *
-     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     * @return SortingStateCollection
+     * @throws InternalException
      */
     public function getSortingStateCollection()
     {
@@ -123,7 +130,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
      */
     public function reset()
     {
-        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver SortingObserverInterface */
             $sortingObserver->resetSorting();
         }
     }
@@ -135,11 +142,10 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
      */
     public function resetToDefault()
     {
-        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+        foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver SortingObserverInterface */
             $sortingObserver->resetToDefaultSorting();
         }
     }
-
 
 
     /**
@@ -147,14 +153,15 @@ class Tx_PtExtlist_Domain_Model_Sorting_Sorter
      * and getting their sorting informations.
      *
      * @return void
+     * @throws \PunktDe\PtExtbase\Exception\InternalException
      */
     protected function buildSortingStateCollection()
     {
-        $this->sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+        $this->sortingStateCollection = new SortingStateCollection();
 
         // Gather sorting states from registered sorting observers
         if (is_array($this->sortingObservers)) {
-            foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver Tx_PtExtlist_Domain_Model_Sorting_SortingObserverInterface */
+            foreach ($this->sortingObservers as $sortingObserver) { /* @var $sortingObserver SortingObserverInterface */
                 $sortingStateCollectionFromObserver = $sortingObserver->getSortingStateCollection();
                 foreach ($sortingStateCollectionFromObserver as $sortingStateFromSortingObserver) {
                     $this->sortingStateCollection->addSortingState($sortingStateFromSortingObserver);

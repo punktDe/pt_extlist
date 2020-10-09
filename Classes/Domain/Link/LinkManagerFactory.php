@@ -1,4 +1,12 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Link;
+
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +33,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a factory for the link manager
  *
@@ -33,12 +40,12 @@
  * @subpackage Link
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Link_LinkManagerFactory
+class LinkManagerFactory
 {
     /**
      * Array of singleton instance of link manager object
      *
-     * @var Tx_PtExtlist_Domain_Link_LinkManager
+     * @var LinkManager
      */
     private static $instances;
     
@@ -46,21 +53,21 @@ class Tx_PtExtlist_Domain_Link_LinkManagerFactory
     
     /**
      * Factory method for link manager 
-     * 
+     *  
      * @param string listIdentifier
-     * @return Tx_PtExtlist_Domain_Link_LinkManager 
+     * @return LinkManager
      */
     public static function getInstance($listIdentifier)
     {
         if (self::$instances[$listIdentifier] == null) {
 
             // TODO resolve this properly with Dependency Injection once we have cascading container
-            #$configurationBuilder = Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory::getInstance($listIdentifier);
-            $configurationBuilderFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory'); /* @var $configurationBuilderFactory Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory */
+            #$configurationBuilder = ConfigurationBuilderFactory::getInstance($listIdentifier);
+            $configurationBuilderFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationBuilderFactory::class); /* @var $configurationBuilderFactory ConfigurationBuilderFactory */
             $configurationBuilder = $configurationBuilderFactory->getInstance($listIdentifier);
-            $getPostVarsAdapterFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory'); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
+            $getPostVarsAdapterFactory = GeneralUtility::makeInstance(ObjectManager::class)->get(GetPostVarAdapterFactory::class); /* @var $getPostVarsAdapterFactory Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory */
 
-            self::$instances[$listIdentifier] = new Tx_PtExtlist_Domain_Link_LinkManager();
+            self::$instances[$listIdentifier] = new LinkManager();
             self::$instances[$listIdentifier]->injectGetPostVarAdapater($getPostVarsAdapterFactory->getInstance());
             self::$instances[$listIdentifier]->injectListConfiguration($configurationBuilder->buildListConfiguration());
         }

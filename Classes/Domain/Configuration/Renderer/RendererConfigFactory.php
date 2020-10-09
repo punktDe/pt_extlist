@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Renderer;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,27 +30,30 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Class implements a factory for renderer configurations
- * 
+ *  
  * @author Daniel Lienet 
  * @package Domain
  * @subpackage Configuration\Renderer
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Renderer_RendererConfigFactoryTest
  */
-class Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfigFactory
+class RendererConfigFactory
 {
     /**
      * Returns a renderer configuration for given renderer settings
      *
      * @param array $rendererSettings
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return RendererConfig
      */
-    public static function getRendererConfiguration(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, $rendererSettings)
+    public static function getRendererConfiguration(ConfigurationBuilder $configurationBuilder, $rendererSettings)
     {
-        Tx_PtExtbase_Assertions_Assert::isArray($rendererSettings, ['message' => 'No renderer settings found. 1281087488']);
-        $config = new Tx_PtExtlist_Domain_Configuration_Renderer_RendererConfig($configurationBuilder, $rendererSettings);
+        Assert::isArray($rendererSettings, ['message' => 'No renderer settings found. 1281087488']);
+        $config = new RendererConfig($configurationBuilder, $rendererSettings);
         return $config;
     }
 }

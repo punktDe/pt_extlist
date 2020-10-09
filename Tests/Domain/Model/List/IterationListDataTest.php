@@ -37,12 +37,12 @@ require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_ext
  * @author Michael Knoll
  * @package Tests
  * @subpackage Model\List
- * @see Tx_PtExtlist_Domain_Model_List_IterationListData
+ * @see IterationListData
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_IterationListData
+     * @var IterationListData
      */
     protected $fixture;
 
@@ -66,19 +66,19 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtEx
     /**
      * @param $rows
      * @param $cols
-     * @return Tx_PtExtlist_Domain_Model_List_IterationListData
+     * @return IterationListData
      */
     protected function getIterationListDataObject($rows, $cols)
     {
         $this->initDefaultConfigurationBuilderMock();
 
         $dataSource = new Tx_PtExtlist_Tests_Performance_TestDataSource($rows, $cols);
-        $dataMapper = new Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper($this->configurationBuilderMock);
+        $dataMapper = new Mapper_ArrayMapper($this->configurationBuilderMock);
 
         $rendererChainConfiguration = $this->configurationBuilderMock->buildRendererChainConfiguration();
         $rendererChain = $this->rendererChainFactory->getRendererChain($rendererChainConfiguration);
 
-        $fixture = new Tx_PtExtlist_Domain_Model_List_IterationListData();
+        $fixture = new IterationListData();
         $fixture->_injectDataSource($dataSource);
         $fixture->_injectDataMapper($dataMapper);
         $fixture->_injectRenderChain($rendererChain);
@@ -153,7 +153,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtEx
 
         foreach ($this->fixture as $row) {
             $counter++;
-            $this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row, 'Returned false in Iteration ' . $counter);
+            $this->assertInstanceOf('Row', $row, 'Returned false in Iteration ' . $counter);
         }
     }
 
@@ -209,6 +209,6 @@ class Tx_PtExtlist_Tests_Domain_Model_List_IterationListDataTest extends Tx_PtEx
         $row = $this->fixture->current();
 
         $this->assertTrue(is_object($row));
-        $this->assertInstanceOf('Tx_PtExtlist_Domain_Model_List_Row', $row);
+        $this->assertInstanceOf('Row', $row);
     }
 }

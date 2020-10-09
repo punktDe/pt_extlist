@@ -36,7 +36,7 @@ use PunktDe\PtExtlist\ViewHelpers\Namespaces\GPArrayViewHelper;
  * @subpackage Domain\Model\ViewHelpers\NameSpace
  * @see GPArrayViewHelper
  */
-class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_PtExtlst_Tests_BaseTestcase
+class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends PunktDe_PtExtlst_Tests_BaseTestcase
 {
     /**
      * @var Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock
@@ -90,16 +90,16 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_
     
     public function testRenderWithObject()
     {
-        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', ['addSessionRelatedArguments'], [], '', false);
+        $sessionPersistenceManagerMock = $this->getMock('PunktDe_PtExtbase_State_Session_SessionPersistenceManager', ['addSessionRelatedArguments'], [], '', false);
         $sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
-        $sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', ['getInstance'], [], '', false);
+        $sessionPersistenceManagerBuilderMock = $this->getMock('PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder', ['getInstance'], [], '', false);
         $sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
-        /* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+        /* @var $sessionPersistenceManagerBuilderMock PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 
         $linkViewHelper = new GPArrayViewHelper();
         $linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
         
-        $object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', ['getObjectNamespace', 'getLabel']);
+        $object = $this->getMock('HeaderColumn', ['getObjectNamespace', 'getLabel']);
         $object->expects($this->once())
             ->method('getObjectNamespace')
             ->will($this->returnValue('listName.objectType.objectName'));
@@ -118,17 +118,17 @@ class Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest extends Tx_
     
     public function testRenderWithObjectAndValue()
     {
-        $sessionPersistenceManagerMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManager', ['addSessionRelatedArguments'], [], '', false);
+        $sessionPersistenceManagerMock = $this->getMock('PunktDe_PtExtbase_State_Session_SessionPersistenceManager', ['addSessionRelatedArguments'], [], '', false);
         $sessionPersistenceManagerMock->expects($this->any())->method('addSessionRelatedArguments');
-        $sessionPersistenceManagerBuilderMock = $this->getMock('Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder', ['getInstance'], [], '', false);
+        $sessionPersistenceManagerBuilderMock = $this->getMock('PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder', ['getInstance'], [], '', false);
         $sessionPersistenceManagerBuilderMock->expects($this->any())->method('getInstance')->will($this->returnValue($sessionPersistenceManagerMock));
-        /* @var $sessionPersistenceManagerBuilderMock Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
+        /* @var $sessionPersistenceManagerBuilderMock PunktDe_PtExtbase_State_Session_SessionPersistenceManagerBuilder */
 
         $linkViewHelper = new GPArrayViewHelper();
 
         $linkViewHelper->injectSessionPersistenceManagerBuilder($sessionPersistenceManagerBuilderMock);
         
-        $object = $this->getMock('Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', ['getObjectNamespace']);
+        $object = $this->getMock('HeaderColumn', ['getObjectNamespace']);
         $object->expects($this->once())
             ->method('getObjectNamespace')
             ->will($this->returnValue('listName.objectType.objectName'));

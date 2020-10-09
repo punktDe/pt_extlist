@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
+use PunktDe\PtExtlist\Utility\RenderValue;
+
 /**
  * Class implements a filter for settings static values
  * 
@@ -33,7 +41,7 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
+class StaticValueFilter extends AbstractFilter
 {
     /**
      * Holds the current filter value
@@ -44,13 +52,13 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @param FieldConfig $fieldIdentifier
+     * @return SimpleCriteria
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
-        $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
-        $criteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, $this->filterValue, $fieldIdentifier->getTreatValueAsString());
+        $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+        $criteria = Criteria::equals($fieldName, $this->filterValue, $fieldIdentifier->getTreatValueAsString());
 
         return $criteria;
     }
@@ -61,7 +69,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
      */
     protected function initFilterByTsConfig()
     {
-        $filterValue = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('filterValue'));
+        $filterValue = RenderValue::stdWrapIfPlainArray($this->filterConfig->getSettings('filterValue'));
         $this->filterValue = $filterValue;
     }
 
@@ -87,7 +95,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
     /**
      * Returns the current filtervalues of this filter
      *
-     * @return variant
+     * @return string
      */
     public function getValue()
     {
@@ -97,7 +105,7 @@ class Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter extends Tx_PtExtlist_Do
 
     /**
      * @param $filterValue
-     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+     * @return AbstractSingleValueFilter
      */
     public function setFilterValue($filterValue)
     {

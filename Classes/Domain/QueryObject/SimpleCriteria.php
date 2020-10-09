@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\QueryObject;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,18 +30,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+
 /**
  * Implements a simple criteria which works like
- * 
+ *  
  * <field><operator><value>
- * 
+ *  
  * 'testfield' = 'testvalue'
  *
  * @package Domain
  * @subpackage QueryObject
  * @author Michael Knoll 
  */
-class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
+class SimpleCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
 {
     /**
      * Holds the field name for which the criteria holds
@@ -82,8 +88,8 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
      */
     public function __construct($field = '', $value, $operator, $treatValueAsString = false)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1282849697']);
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($operator, ['message' => 'Operator must not be empty! 1282849699']);
+        Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1282849697']);
+        Assert::isNotEmptyString($operator, ['message' => 'Operator must not be empty! 1282849699']);
         $this->field = $field;
         $this->value = $value;
         $this->operator = $operator;
@@ -93,12 +99,12 @@ class Tx_PtExtlist_Domain_QueryObject_SimpleCriteria extends Tx_PtExtlist_Domain
     
     
    /**
-    * Returns true, if criteria is equal to this object
-    *
-    * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be compared with this object
-    * @return bool
-    */
-    public function isEqualTo(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+     * Returns true, if criteria is equal to this object
+     *
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be compared with this object
+     * @return bool
+     */
+    public function isEqualTo(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         if (!is_a($criteria, __CLASS__)) {
             return false;

@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,6 +29,12 @@
  ***************************************************************/
 
 
+use PunktDe\PtExtlist\Domain\Model\BreadCrumbs\BreadCrumb;
+use PunktDe\PtExtlist\Domain\Model\BreadCrumbs\BreadCrumbCollectionFactory;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+
+
 /**
  * Controller for filter breadcrumbs widget
  *
@@ -34,12 +42,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Controller_BreadCrumbsControllerTest
  */
-class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Controller_AbstractController
+class BreadCrumbsController extends AbstractController
 {
     /**
      * Holds an instance of filterbox collection processed by this controller
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     * @var FilterboxCollection
      */
     protected $filterboxCollection;
     
@@ -47,24 +55,24 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
     
     /**
      * Holds a pagerCollection.
-     * 
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     *  
+     * @var PagerCollection
      */
     protected $pagerCollection = null;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory
+     * @var BreadCrumbCollectionFactory
      */
     protected $breadCrumbsCollectionFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory $breadCrumbsCollectionFactory
+     * @param BreadCrumbCollectionFactory $breadCrumbsCollectionFactory
      */
-    public function injectBreadCrumbsCollectionFactory(Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory $breadCrumbsCollectionFactory)
+    public function injectBreadCrumbsCollectionFactory(BreadCrumbCollectionFactory $breadCrumbsCollectionFactory)
     {
         $this->breadCrumbsCollectionFactory = $breadCrumbsCollectionFactory;
     }
@@ -74,6 +82,8 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
     /**
      * Overwrites initAction for setting properties
      * and enabling easy testing
+     *
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -97,7 +107,7 @@ class Tx_PtExtlist_Controller_BreadCrumbsController extends Tx_PtExtlist_Control
         
         // Ugly hack, to check whether there really exists a breadcrumb 
         $breadcrumbsHaveMessage = false;
-        foreach ($breadcrumbs as $breadcrumb) { /* @var $breadcrumb Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb */
+        foreach ($breadcrumbs as $breadcrumb) { /* @var $breadcrumb BreadCrumb */
             if ($breadcrumb->getMessage() != '') {
                 $breadcrumbsHaveMessage = true;
             }

@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,11 +28,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterboxCollection;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
+use PunktDe\PtExtbase\Utility\HeaderInclusion;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+use PunktDe\PtExtlist\ExtlistContext\ExtlistContext;
+use PunktDe\PtExtlist\ExtlistContext\ExtlistContextFactory;
 
 /**
  * This controller is meant to be used in a backend module, as in backend context we have only one controller
  */
-abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends Tx_PtExtlist_Controller_AbstractController
+abstract class AbstractListApplicationController extends AbstractController
 {
     /**
      * @var string relative path under settings of this extension to the extlist typoScript configuration
@@ -65,12 +76,10 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     /******************************************************
      * End of configuration section
      */
-
-
     /**
      * Holds an instance of filterbox collection for processed list
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterboxCollection
+     * @var FilterboxCollection
      */
     protected $filterboxCollection = null;
 
@@ -79,68 +88,66 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     /**
      * Holds an instance of filterbox processed by this controller
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_Filterbox
+     * @var Filterbox
      */
     protected $filterbox = null;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     * @var PagerCollection
      */
     protected $pagerCollection = null;
 
 
 
     /**
-     * @var Tx_PtExtlist_ExtlistContext_ExtlistContext
+     * @var ExtlistContext
      */
     protected $extListContext;
 
 
 
     /**
-     * @var Tx_PtExtbase_Utility_HeaderInclusion
+     * @var HeaderInclusion
      */
     protected $headerInclusionUtility;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     * @var ListFactory
      */
     protected $listFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_ExtlistContext_ExtlistContextFactory
+     * @var ExtlistContextFactory
      */
     protected $extlistContextFactory;
 
 
+   /**
+    * @param ExtlistContextFactory $extlistContextFactory
+    */
+   public function injectExtlistContextFactory(ExtlistContextFactory $extlistContextFactory)
+   {
+       $this->extlistContextFactory = $extlistContextFactory;
+   }
 
     /**
-     * @param Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility
+     * @param HeaderInclusion $headerInclusionUtility
      */
-    public function injectHeaderInclusionUtility(Tx_PtExtbase_Utility_HeaderInclusion $headerInclusionUtility)
+    public function injectHeaderInclusionUtility(HeaderInclusion $headerInclusionUtility)
     {
         $this->headerInclusionUtility = $headerInclusionUtility;
     }
 
-
-
-    public function injectExtlistContextFactory(Tx_PtExtlist_ExtlistContext_ExtlistContextFactory $extlistContextFactory)
-    {
-        $this->extlistContextFactory = $extlistContextFactory;
-    }
-
-
-
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     * @param ListFactory $listFactory
      */
-    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    public function injectListFactory(ListFactory $listFactory)
     {
         $this->listFactory = $listFactory;
     }
@@ -186,14 +193,14 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     /**
      * Sets list identifier for this controller
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function initListIdentifier()
     {
         $settings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $this->extlistTypoScriptSettingsPath);
 
         if (!$this->extlistTypoScriptSettingsPath) {
-            throw new Exception('No extlist typoscript settings path given', 1330188161);
+            throw new \Exception('No extlist typoscript settings path given', 1330188161);
         }
         $this->listIdentifier = array_pop(explode('.', $this->extlistTypoScriptSettingsPath));
         $this->extListContext = $this->extlistContextFactory->getContextByCustomConfigurationNonStatic($settings, $this->listIdentifier);
@@ -206,8 +213,8 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     /**
      * Build the configuration builder with settings from the given extlistTypoScriptConfigurationPath
      *
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     * @throws Exception
+     * @return ConfigurationBuilder
+     * @throws \Exception
      */
     protected function buildConfigurationBuilder()
     {
@@ -215,9 +222,10 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     }
 
 
-
     /**
      * Alias action to use the unmodified pager templates
+     * @throws StopActionException
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function showAction()
     {
@@ -263,7 +271,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
     /**
      * @param string $exportIdentifier
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     public function downloadAction($exportIdentifier)
     {
@@ -271,10 +279,10 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
         $exportSettings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $exportSettingsPath);
 
         if (!is_array($exportSettings) || empty($exportSettings)) {
-            throw new Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
+            throw new \Exception('No export settings found within the path ' . $exportSettingsPath, 1331644291);
         }
 
-        $exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($this->configurationBuilder, $exportSettings);
+        $exportConfig = new ExportConfig($this->configurationBuilder, $exportSettings);
 
         if (array_key_exists('exportListSettingsPath', $exportSettings)) {
             $exportListSettings = \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $exportSettings['exportListSettingsPath']);
@@ -282,7 +290,7 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
             $exportListSettings = $this->configurationBuilder->getSettings();
         }
 
-        $extListContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
+        $extListContext = ExtlistContextFactory::getContextByCustomConfiguration($exportListSettings, $this->listIdentifier, false);
         $list = $extListContext->getList(true);
 
         $view = $this->objectManager->get($exportConfig->getViewClassName());
@@ -336,7 +344,6 @@ abstract class Tx_PtExtlist_Controller_AbstractListApplicationController extends
 
     /**
      * Reset all pagers for this list.
-     *
      */
     protected function resetPagers()
     {

@@ -1,4 +1,10 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\StateAdapter;
+
+use PunktDe\PtExtbase\State\GpVars\GpVarsAdapter;
+use PunktDe\PtExtbase\State\GpVars\GpVarsAdapterFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,34 +31,33 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a factory for GET/POST Var Adapter.
- * 
+ *  
  * Class is an adapter for pt_extbase's gpvarsAdapter. Sets extension namespace of pt_extlist on generic factory method.
  *
  * @package Domain
  * @subpackage StateAdapter
  */
-class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements \TYPO3\CMS\Core\SingletonInterface
+class GetPostVarAdapterFactory implements SingletonInterface
 {
     /**
-     * @var Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory
+     * @var GpVarsAdapterFactory
      */
     protected $gpVarsAdapterFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Extbase_ExtbaseContext
+     * @var \PunktDe\PtExtlist\Extbase\ExtbaseContext
      */
     protected $extbaseContext;
 
 
     /**
-     * @param Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory
+     * @param GpVarsAdapterFactory $gpVarsAdapterFactory
      */
-    public function injectGpVarsAdapterFactory(Tx_PtExtbase_State_GpVars_GpVarsAdapterFactory $gpVarsAdapterFactory)
+    public function injectGpVarsAdapterFactory(GpVarsAdapterFactory $gpVarsAdapterFactory)
     {
         $this->gpVarsAdapterFactory = $gpVarsAdapterFactory;
     }
@@ -60,9 +65,9 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements \TYPO
 
 
     /**
-     * @param Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext
+     * @param \PunktDe\PtExtlist\Extbase\ExtbaseContext $extbaseContext
      */
-    public function injectExtbaseContext(Tx_PtExtlist_Extbase_ExtbaseContext $extbaseContext)
+    public function injectExtbaseContext(\PunktDe\PtExtlist\Extbase\ExtbaseContext $extbaseContext)
     {
         $this->extbaseContext = $extbaseContext;
     }
@@ -70,8 +75,8 @@ class Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory implements \TYPO
 
     /**
      * Factory method for GET/POST Var Adapter.
-     * 
-     * @return Tx_PtExtbase_State_GpVars_GpVarsAdapter Singleton instance of GET/POST Var Adapter.
+     *  
+     * @return GpVarsAdapter Singleton instance of GET/POST Var Adapter.
      */
     public function getInstance()
     {

@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Sorting;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtbase\Exception\InternalException;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
+
 /**
  * Class implements a collection of sorting states.
  *
@@ -33,20 +44,22 @@
  * @subpackage Domain\Model\Sorting
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class SortingStateCollection extends ObjectCollection
 {
     /**
      * Factory method to create a sorting state from a given session array
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $sessionArray
-     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection
+     * @return SortingStateCollection
+     * @throws InternalException
+     * @throws \Exception
      */
-    public static function getInstanceBySessionArray(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionArray)
+    public static function getInstanceBySessionArray(ConfigurationBuilder $configurationBuilder, array $sessionArray)
     {
-        $sortingStateCollection = new Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection();
+        $sortingStateCollection = new SortingStateCollection();
         foreach ($sessionArray as $sortingStateSessionArray) {
-            $sortingStateCollection->addSortingState(Tx_PtExtlist_Domain_Model_Sorting_SortingState::getInstanceBySessionArray($configurationBuilder, $sortingStateSessionArray));
+            $sortingStateCollection->addSortingState(SortingState::getInstanceBySessionArray($configurationBuilder, $sortingStateSessionArray));
         }
         return $sortingStateCollection;
     }
@@ -58,18 +71,20 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\
      *
      * @var string
      */
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Model_Sorting_SortingState';
+    protected $restrictedClassName = SortingState::class;
 
 
     /**
      * Adds a given field and direction to sorting state
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field
+     * @param FieldConfig $field
      * @param integer $direction
+     * @throws InternalException
+     * @throws \Exception
      */
-    public function addSortingByFieldAndDirection(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $field, $direction)
+    public function addSortingByFieldAndDirection(FieldConfig $field, $direction)
     {
-        $sortingState = new Tx_PtExtlist_Domain_Model_Sorting_SortingState($field, $direction);
+        $sortingState = new SortingState($field, $direction);
         $this->addItem($sortingState, $field->getIdentifier());
     }
 
@@ -77,9 +92,10 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\
     /**
      * Adds a sorting state to this collection
      *
-     * @param Tx_PtExtlist_Domain_Model_Sorting_SortingState $sortingState
+     * @param SortingState $sortingState
+     * @throws InternalException
      */
-    public function addSortingState(Tx_PtExtlist_Domain_Model_Sorting_SortingState $sortingState)
+    public function addSortingState(SortingState $sortingState)
     {
         $this->addItem($sortingState, $sortingState->getField()->getIdentifier());
     }
@@ -87,24 +103,26 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\
 
     /**
      * @param $sortingStateIdentifier
-     * @return Tx_PtExtlist_Domain_Model_Sorting_SortingState
+     * @return SortingState
+     * @throws InternalException
      */
     public function getSortingState($sortingStateIdentifier)
     {
         if ($this->hasItem($sortingStateIdentifier)) {
             return $this->getItemById($sortingStateIdentifier);
         }
+        return null;
     }
 
     /**
      * Returns an array of field configs that are contained by this sorting state collection
      *
-     * @return array<Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig>
+     * @return array<FieldConfig>
      */
     public function getSortedFields()
     {
         $sortedFields = [];
-        foreach ($this->itemsArr as $sortingState) {
+        foreach ($this->itemsArr as $sortingState) { /** @var $sortingState SortingState */
             $sortedFields[] = $sortingState->getField();
         }
         return $sortedFields;
@@ -114,13 +132,13 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\
     /**
      * Returns a query object with sortings for this sorting state collection
      *
-     * @return Tx_PtExtlist_Domain_QueryObject_Query
+     * @return Query
      */
     public function getSortingsQuery()
     {
-        $sortingsQuery = new Tx_PtExtlist_Domain_QueryObject_Query();
+        $sortingsQuery = new Query();
         foreach ($this->itemsArr as $sortingState) {
-            /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+            /* @var $sortingState SortingState */
             $sortingsQuery->addSorting($sortingState->getField()->getIdentifier(), $sortingState->getDirection());
         }
         return $sortingsQuery;
@@ -139,7 +157,7 @@ class Tx_PtExtlist_Domain_Model_Sorting_SortingStateCollection extends \PunktDe\
     {
         $sessionPersistableArray = [];
         foreach ($this->itemsArr as $sortingState) {
-            /* @var $sortingState Tx_PtExtlist_Domain_Model_Sorting_SortingState */
+            /* @var $sortingState SortingState */
             $sessionPersistableArray[] = $sortingState->getSessionPersistableArray();
         }
         return $sessionPersistableArray;

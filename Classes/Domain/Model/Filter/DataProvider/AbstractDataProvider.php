@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,19 +31,23 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+
 /**
  * Implements data provider for grouped list data
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider implements Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
+abstract class AbstractDataProvider implements DataProviderInterface
 {
     /**
      * Filter configuration object
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     * @var FilterConfig
      */
     protected $filterConfig;
 
@@ -47,7 +56,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvide
     /**
      * Holds a reference to solr dataBackend
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @var DataBackendInterface
      */
     protected $dataBackend;
 
@@ -56,10 +65,10 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvide
     /**
      * Injects dataBackend into data provider
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param DataBackendInterface $dataBackend
      * @return void
      */
-    public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend)
+    public function _injectDataBackend(DataBackendInterface $dataBackend)
     {
         $this->dataBackend = $dataBackend;
     }
@@ -68,9 +77,9 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvide
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::injectFilterConfig()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::injectFilterConfig()
      */
-    public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig)
+    public function _injectFilterConfig(FilterConfig $filterConfig)
     {
         $this->filterConfig = $filterConfig;
     }
@@ -91,7 +100,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvide
 
         $optionData['allDisplayFields'] = implode(' ', $values);
 
-        $option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+        $option = \PunktDe\PtExtlist\Utility\RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
 
         return $option;
     }

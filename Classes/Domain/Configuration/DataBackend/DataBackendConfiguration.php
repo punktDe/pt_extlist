@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\DataBackend;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /**
  * Databackend configuration class. Holds configuration parameters for the dataBackend
  *
@@ -33,7 +41,7 @@
  * @subpackage Configuration\DataBackend
  * @author Daniel Lienert 
  */
-class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
+class DataBackendConfiguration extends \PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration
 {
     /**
      * Holds th classname of the databackend class
@@ -66,7 +74,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
     
     
     /**
-     * 
+     *  
      * Array of databackendspecific settings
      * @var array
      */
@@ -77,9 +85,9 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
     /**
      * Constructor for data backend configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function __construct(ConfigurationBuilder $configurationBuilder)
     {
         parent::__construct($configurationBuilder, $configurationBuilder->getSettingsForConfigObject('dataBackend'));
 
@@ -99,8 +107,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
      */
     protected function checkAndSetDataBackendClass($dataBackendClassName)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataBackendClassName, ['message' => 'dataBackendClass must not be empty! 1281178473']);
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataBackendClassName), ['message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1281178474']);
+        Assert::isNotEmptyString($dataBackendClassName, ['message' => 'dataBackendClass must not be empty! 1281178473']);
+        Assert::isTrue(class_exists($dataBackendClassName), ['message' =>' Data Backend class ' . $dataBackendClassName . ' does not exist! 1281178474']);
         $this->dataBackendClass = $dataBackendClassName;
     }
     
@@ -112,8 +120,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
      */
     protected function checkAndSetDataMapperClass($dataMapperClassName)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataMapperClassName, ['message' => 'dataMapperClass must not be empty! 1281178475']);
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataMapperClassName), ['message' =>' Datamapper class ' . $dataMapperClassName . ' does not exist! 1281178476']);
+        Assert::isNotEmptyString($dataMapperClassName, ['message' => 'dataMapperClass must not be empty! 1281178475']);
+        Assert::isTrue(class_exists($dataMapperClassName), ['message' =>' Datamapper class ' . $dataMapperClassName . ' does not exist! 1281178476']);
         $this->dataMapperClass = $dataMapperClassName;
     }
 
@@ -124,8 +132,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
      */
     protected function checkAndSetDataSourceClass($dataSourceClassName)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($dataSourceClassName, ['message' => 'dataSourceClassName must not be empty! 1337589668']);
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataSourceClassName), ['message' =>' DataSourceClass ' . $dataSourceClassName . ' does not exist! 1337589669']);
+        Assert::isNotEmptyString($dataSourceClassName, ['message' => 'dataSourceClassName must not be empty! 1337589668']);
+        Assert::isTrue(class_exists($dataSourceClassName), ['message' =>' DataSourceClass ' . $dataSourceClassName . ' does not exist! 1337589669']);
         $this->dataSourceClass = $dataSourceClassName;
     }
 
@@ -137,8 +145,8 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfiguration ext
      */
     protected function checkAndSetQueryInterpreterClass($queryInterpreterClassName)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($queryInterpreterClassName, ['message' => 'queryInterpreterClass must not be empty! 1281178538']);
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($queryInterpreterClassName), ['message' =>' QueryInterpreter class ' . $queryInterpreterClassName . ' does not exist! 1281178539']);
+        Assert::isNotEmptyString($queryInterpreterClassName, ['message' => 'queryInterpreterClass must not be empty! 1281178538']);
+        Assert::isTrue(class_exists($queryInterpreterClassName), ['message' =>' QueryInterpreter class ' . $queryInterpreterClassName . ' does not exist! 1281178539']);
         $this->queryInterpreterClass = $queryInterpreterClassName;
     }
     

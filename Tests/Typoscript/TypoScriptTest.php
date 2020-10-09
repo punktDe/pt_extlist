@@ -25,6 +25,9 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -73,9 +76,9 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
     public function testConfigurationBuilderWithTypo3Backend()
     {
         $settings = $this->buildTypoScriptConfigForConfigBuilder('t3BackendTestList');
-        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder = new ConfigurationBuilder($settings, 't3BackendTestList');
         $dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
-        $this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
+        $this->assertTrue(is_a($dataBackendConfig, 'DatabackendConfiguration'));
     }
     
     
@@ -83,9 +86,9 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
     public function testConfigurationBuilderWithMysqlBackend()
     {
         $settings = $this->buildTypoScriptConfigForConfigBuilder('mysqlBackendTestList');
-        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder = new ConfigurationBuilder($settings, 't3BackendTestList');
         $dataBackendConfig = $configurationBuilder->buildDataBackendConfiguration();
-        $this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
+        $this->assertTrue(is_a($dataBackendConfig, 'DatabackendConfiguration'));
     }
 
     
@@ -93,7 +96,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
     public function testBuildColumnsConfiguration()
     {
         $settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder = new ConfigurationBuilder($settings, 't3BackendTestList');
     }
     
     
@@ -102,7 +105,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
     {
         $this->markTestIncomplete('TODO refactor all rendering');
         $settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder = new ConfigurationBuilder($settings, 't3BackendTestList');
         $configurationBuilder->buildRendererConfiguration();
     }
 
@@ -111,7 +114,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
     public function testBuildPagerConfiguration()
     {
         $settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder = new ConfigurationBuilder($settings, 't3BackendTestList');
         $configurationBuilder->buildPagerConfiguration();
     }
 
@@ -120,7 +123,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
     public function testBuildFilterBoxConfiguration()
     {
         $settings = $this->buildTypoScriptConfigForConfigBuilder('tsTestList');
-        $configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($settings, 't3BackendTestList');
+        $configurationBuilder = new ConfigurationBuilder($settings, 't3BackendTestList');
         $configurationBuilder->buildFilterConfiguration();
     }
 
@@ -132,7 +135,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
         $TSString .=$this->loadTestList();
         
     
-        $parserInstance = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+        $parserInstance = GeneralUtility::makeInstance(TypoScriptParser::class);
         $parserInstance->parse($TSString);
         
         //$cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tslib_cObj');
@@ -140,7 +143,7 @@ class Tx_PtExtlist_Tests_Typoscript_TypoScriptTest extends Tx_PtExtlist_Tests_Ba
 
         $tsSettings = $parserInstance->setup;
 
-        $settings =  GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($tsSettings);
+        $settings =  GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($tsSettings);
         
         $settings['plugin']['tx_ptextlist']['settings']['listIdentifier'] = $listIdentifier;
         

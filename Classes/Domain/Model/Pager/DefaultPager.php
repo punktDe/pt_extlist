@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Pager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,9 +27,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
-
 /**
  * Class implements default pager for pt_extlist
  *
@@ -36,7 +35,7 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+class DefaultPager implements PagerInterface
 {
     /**
      * The pager identifier.
@@ -87,7 +86,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
     /**
      * Holds pager configuration for this pager
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
+     * @var \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig
      */
     protected $pagerConfiguration;
 
@@ -114,9 +113,9 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
     /**
      * Constructor for pager
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration Configuration to be used for pager
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig $pagerConfiguration Configuration to be used for pager
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfiguration)
+    public function __construct(\PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig $pagerConfiguration)
     {
         $this->pagerConfiguration = $pagerConfiguration;
         $this->enabled = $pagerConfiguration->getEnabled();
@@ -194,7 +193,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getItemsPerPage()
+     * @see PagerInterface::getItemsPerPage()
      */
     public function getItemsPerPage()
     {
@@ -216,7 +215,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPages()
+     * @see PagerInterface::getPages()
      */
     public function getPages()
     {
@@ -232,7 +231,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
     /**
      * Returns pager configuration
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Pager\PagerConfig
      */
     public function getPagerConfiguration()
     {
@@ -283,7 +282,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getItemCount()
+     * @see PagerInterface::getItemCount()
      */
     public function getItemCount()
     {
@@ -319,7 +318,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowFirstLink()
+     * @see Classes/Domain/Model/Pager/PagerInterface::getShowFirstLink()
      */
     public function getShowFirstLink()
     {
@@ -329,7 +328,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowLastLink()
+     * @see Classes/Domain/Model/Pager/PagerInterface::getShowLastLink()
      */
     public function getShowLastLink()
     {
@@ -339,7 +338,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowNextLink()
+     * @see Classes/Domain/Model/Pager/PagerInterface::getShowNextLink()
      */
     public function getShowNextLink()
     {
@@ -349,7 +348,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getShowPreviousLink()
+     * @see Classes/Domain/Model/Pager/PagerInterface::getShowPreviousLink()
      */
     public function getShowPreviousLink()
     {
@@ -359,7 +358,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getLastPage()
+     * @see Classes/Domain/Model/Pager/PagerInterface::getLastPage()
      */
     public function getLastPage()
     {
@@ -370,7 +369,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getFirstPage()
+     * @see Classes/Domain/Model/Pager/PagerInterface::getFirstPage()
      */
     public function getFirstPage()
     {
@@ -380,7 +379,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getPreviousPage()
+     * @see Classes/Domain/Model/Pager/PagerInterface::getPreviousPage()
      */
     public function getPreviousPage()
     {
@@ -393,7 +392,7 @@ class Tx_PtExtlist_Domain_Model_Pager_DefaultPager implements Tx_PtExtlist_Domai
 
 
     /**
-     * @see Classes/Domain/Model/Pager/Tx_PtExtlist_Domain_Model_Pager_PagerInterface::getNextPage()
+     * @see Classes/Domain/Model/Pager/PagerInterface::getNextPage()
      */
     public function getNextPage()
     {

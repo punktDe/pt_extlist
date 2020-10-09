@@ -143,17 +143,17 @@ class Tx_PtExtlist_Tests_View_List_CsvListViewTest extends Tx_PtExtlist_Tests_Ba
         $templateVariableContainer = new \TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer();
 
 
-        $header = new Tx_PtExtlist_Domain_Model_List_Row();
+        $header = new Row();
         $header->createAndAddCell('header1Value', 'col1');
         $header->createAndAddCell('header2Value', 'col2');
         $header->createAndAddCell('header3Value', 'col3');
 
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
         $row->createAndAddCell('col1Value', 'col1');
         $row->createAndAddCell('col2Value', 'col2');
         $row->createAndAddCell('col3Value', 'col3');
 
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new ListData();
         $listData->addRow($row);
 
         $templateVariableContainer->add('listCaptions', $header);

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\QueryObject;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Implements a criteria for sending raw sql queries to databackend
  *
@@ -37,7 +40,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_RawSqlCriteriaTest
  */
-class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain_QueryObject_Criteria
+class RawSqlCriteria extends \PunktDe\PtExtlist\Domain\QueryObject\Criteria
 {
     /**
      * Holds raw SQL string of criteria
@@ -65,7 +68,7 @@ class Tx_PtExtlist_Domain_QueryObject_RawSqlCriteria extends Tx_PtExtlist_Domain
 
     /**
      * Getter for raw sql string
-     * 
+     *  
      * @return string
      */
     public function getRawSqlString()

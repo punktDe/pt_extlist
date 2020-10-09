@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Bookmark;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtlist\Domain\AbstractComponentFactoryWithState;
+use PunktDe\PtExtlist\Domain\Repository\Bookmark\BookmarkRepository;
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * Factory for bookmark manager
  *
@@ -34,9 +44,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_Bookmarks_BookmarkManagerFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactoryWithState
-    implements \TYPO3\CMS\Core\SingletonInterface
+class BookmarkManagerFactory extends AbstractComponentFactoryWithState implements SingletonInterface
 {
     /**
      * Holds an array of instances for each list identifier
@@ -48,16 +56,16 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository
+     * @var BookmarkRepository
      */
     protected $bookmarkRepository;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository $bookmarkRepository
+     * @param BookmarkRepository $bookmarkRepository
      */
-    public function injectBookmarkRepository(Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository $bookmarkRepository)
+    public function injectBookmarkRepository(BookmarkRepository $bookmarkRepository)
     {
         $this->bookmarkRepository = $bookmarkRepository;
     }
@@ -67,10 +75,10 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
     /**
      * Returns an instance of bookmark manager for a given configuration builder
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager
      */
-    public function getInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function getInstanceByConfigurationBuilder(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $listIdentifier = $configurationBuilder->getListIdentifier();
         if (!array_key_exists($listIdentifier, $this->instances) || $this->instances[$listIdentifier] === null) {
@@ -84,16 +92,16 @@ class Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
     /**
      * Creates a new instance of bookmark manager for given configuration builder
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+     * @param \PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder
+     * @return \PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager
      */
-    protected function createNewInstanceByConfigurationBuilder(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    protected function createNewInstanceByConfigurationBuilder(\PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder $configurationBuilder)
     {
         $bookmarksConfiguration = $configurationBuilder->buildBookmarkConfiguration();
 
         $this->bookmarkRepository->setBookmarkStoragePid($bookmarksConfiguration->getBookmarkPid());
         
-        $bookmarkManager = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager', $configurationBuilder->getListIdentifier()); /* @var $bookmarkManager Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager */
+        $bookmarkManager = $this->objectManager->get(BookmarkManager::class, $configurationBuilder->getListIdentifier()); /* @var $bookmarkManager BookmarkManager */
         $bookmarkManager->_injectConfigurationBuilder($configurationBuilder);
         $bookmarkManager->_injectSessionPersistenceManager($this->sessionPersistenceManagerBuilder->getInstance());
         $bookmarkManager->buildBookmarkConfig();

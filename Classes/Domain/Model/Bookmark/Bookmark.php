@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Bookmark;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtbase\State\IdentifiableInterface;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  * Class implements a bookmark domain object to store session information for filters etc.
  * 
@@ -35,9 +43,9 @@
  * @entity
  * @see Tx_PtExtlist_Tests_Domain_Model_Bookmark_BookmarkTest
  */
-class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
-    extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-    implements Tx_PtExtbase_State_IdentifiableInterface
+class Bookmark
+    extends AbstractEntity
+    implements IdentifiableInterface
 {
     const PTEXTLIST_BOOKMARK_PUBLIC = 1;
     const PTEXTLIST_BOOKMARK_PRIVATE = 2;
@@ -126,7 +134,7 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     
     
     /**
-     * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
+     * @see PunktDe_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
      *
      * @return String
      */
@@ -140,9 +148,9 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     /**
      * Getter for PID
      *
-     * @return integer
+     * @return int
      */
-    public function getPid()
+    public function getPid(): int
     {
         return $this->pid;
     }
@@ -236,9 +244,9 @@ class Tx_PtExtlist_Domain_Model_Bookmark_Bookmark
     /**
      * Setter for PID
      *
-     * @param integer $pid
+     * @param int $pid
      */
-    public function setPid($pid)
+    public function setPid(int $pid): void
     {
         $this->pid = $pid;
     }

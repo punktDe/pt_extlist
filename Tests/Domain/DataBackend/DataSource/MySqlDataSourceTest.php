@@ -33,14 +33,14 @@
  * @author Daniel Lienert
  * @package Tests
  * @subpackage Domain/DataBackend/DataSource
- * @see Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+ * @see DataSource_MySqlDataSource
  */
 class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource'));
+        $this->assertTrue(class_exists('DataSource_MySqlDataSource'));
     }
     
     
@@ -48,8 +48,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
     public function testInjectDataSource()
     {
         $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
-        $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
+        $dataSourceConfig = new DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
+        $mysqlDataSource = new DataSource_MySqlDataSource($dataSourceConfig);
         $pdo = new PDO("sqlite::memory:");
         $mysqlDataSource->injectDbObject($pdo);
     }
@@ -61,8 +61,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
     public function executeQuery()
     {
         $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
-        $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
+        $dataSourceConfig = new DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
+        $mysqlDataSource = new DataSource_MySqlDataSource($dataSourceConfig);
         
         $fakedReturnArray = ['test' => 'test'];
         
@@ -89,8 +89,8 @@ class Tx_PtExtlist_Tests_Domain_DataBackend_DataSource_MySqlDataSourceTest exten
     public function errorOnDbError()
     {
         $configurationBuilderMock = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $dataSourceConfig = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
-        $mysqlDataSource = new Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource($dataSourceConfig);
+        $dataSourceConfig = new DataSource_DatabaseDataSourceConfiguration($configurationBuilderMock->buildDataBackendConfiguration()->getDataSourceSettings());
+        $mysqlDataSource = new DataSource_MySqlDataSource($dataSourceConfig);
         
         $pdoMock = $this->getMock('TestPDO', ['prepare']);
         $pdoMock->expects($this->once())

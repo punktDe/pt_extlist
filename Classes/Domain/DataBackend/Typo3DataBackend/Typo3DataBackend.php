@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\DataBackend\Typo3DataBackend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSource;
+use PunktDe\PtExtlist\Domain\DataBackend\DataSource\Typo3DataSourceFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlDataBackend;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\DefaultRestrictionContainer;
+use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+
 /**
  * Data backend for TYPO3 database
  *
@@ -35,23 +49,45 @@
  * @subpackage DataBackend\Typo3DataBackend
  *
  * TODO implement T3 db object methods for query (hidden fields, deleted rows etc...)
- *  
+ *    
  */
-class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
+class Typo3DataBackend extends MySqlDataBackend
 {
+
+    /**
+     * Builder for SQL query. Gathers information from
+     * all parts of plugin (ts-config, pager, filters etc.)
+     * and generates SQL query out of this information
+     *
+     * @return QueryBuilder
+     * @throws Assertion
+     */
+    public function buildQuery($execute= false): QueryBuilder
+    {
+        $queryBuilder = parent::buildQuery($execute);
+
+        $this->setQueryBuilderRestrictions(
+            $queryBuilder
+        );
+
+        return $queryBuilder;
+    }
+
+
     /**
      * Factory method for data source
-     * 
+     *  
      * Only DataBackend knows, which data source to use and how to instantiate it.
      * So there cannot be a generic factory for data sources and data backend factory cannot instantiate it either!
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource Data source object for this data backend
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return Typo3DataSource Data source object for this data backend
+     * @throws \Exception
      */
-    public static function createDataSource(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function createDataSource(ConfigurationBuilder $configurationBuilder)
     {
-        $dataSourceConfiguration = new Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
-        $dataSource =  Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
+        $dataSourceConfiguration = new DatabaseDataSourceConfiguration($configurationBuilder->buildDataBackendConfiguration()->getDataSourceSettings());
+        $dataSource =  Typo3DataSourceFactory::createInstance($configurationBuilder->buildDataBackendConfiguration()->getDataSourceClass(), $dataSourceConfiguration);
         return $dataSource;
     }
     
@@ -73,52 +109,51 @@ class Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend extends 
         } else {
             $wherePart = $baseWhereClause.$whereClauseFromFilterBoxes;
         }
-     
-        if ($this->backendConfiguration->getDataBackendSettings('useEnableFields')) {
-            $wherePart .= $wherePart ? $this->getTypo3SpecialFieldsWhereClause() : substr($this->getTypo3SpecialFieldsWhereClause(), 5);
-        }
-        
-        return $wherePart;
+
+        return $this->processQueryWithFluid($wherePart);
     }
-    
-    
+
+
+
     /**
      * Build and return whereClause part with TYPO3 enablefields criterias
      * for all tables which are defined in backendConfig.tables and in TCA
-     * 
-     * @return string whereClause part with TYPO3 enablefields criterias
+     *
+     * @param $queryBuilder QueryBuilder
      */
-    protected function getTypo3SpecialFieldsWhereClause()
+    protected function setQueryBuilderRestrictions(&$queryBuilder): void
     {
-        $typo3Tables = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->tables, true);
-        $specialFieldsWhereClause = '';
+        if ($queryBuilder) {
+            $queryBuilder->getRestrictions()->removeAll();
 
-        foreach ($typo3Tables as $typo3Table) {
-            list($table, $alias) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $typo3Table, true);
-            $alias = trim($alias);
+            if ($this->backendConfiguration->getDataBackendSettings('useEnableFields')) {
+                $typo3Tables = GeneralUtility::trimExplode(',', $this->tables, true);
 
-            if (is_array($GLOBALS['TCA'][$table])) {
-                $specialFieldsWhereClauseSnippet = Tx_PtExtbase_Div::getCobj()->enableFields($table);
+                $restrictionTables = [];
 
-                if ($alias) {
-                    // Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after
-                    $specialFieldsWhereClauseSnippet = str_replace(' ' . $table . '.',  ' ' . $alias . '.', $specialFieldsWhereClauseSnippet);
-                    // Make sure not to replace parts of table names with wrong aliases! So check for ' ' to come before and '.' to come after
-                    $specialFieldsWhereClauseSnippet = str_replace('`' . $table . '`.',  '`' . $alias . '`.', $specialFieldsWhereClauseSnippet);
-                    // Make sure not to replace parts of table names with wrong aliases! So check for '(' to come before and '.' to come after
-                    $specialFieldsWhereClauseSnippet = str_replace('(' . $table . '.',  '(' . $alias . '.', $specialFieldsWhereClauseSnippet);
-                    // Make sure not to replace parts of table names with wrong aliases! So check for ',' to come before and '.' to come after
-                    $specialFieldsWhereClauseSnippet = str_replace(',' . $table . '.',  ',' . $alias . '.', $specialFieldsWhereClauseSnippet);
+                foreach ($typo3Tables as $typo3Table) {
+                    list($table, $alias) = GeneralUtility::trimExplode(' ', $typo3Table, true);
+
+                    $tableAlias = $table;
+                    if(!empty($alias)) {
+                        $tableAlias = $alias;
+                    }
+
+                    $restrictionTables[] = $tableAlias;
+
+                    if (is_array($GLOBALS['TCA'][$table])) {
+                        if (TYPO3_MODE === 'FE') {
+                            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+                        } else {
+                            $queryBuilder->setRestrictions(GeneralUtility::makeInstance(DefaultRestrictionContainer::class));
+                        }
+                    }
                 }
 
-                if (trim($specialFieldsWhereClauseSnippet) === 'AND') {
-                    $specialFieldsWhereClauseSnippet = '';
+                if ($restrictionTables) {
+                    $queryBuilder->limitRestrictionsToTables($restrictionTables);
                 }
-
-                $specialFieldsWhereClause .= $specialFieldsWhereClauseSnippet;
             }
         }
-        
-        return $specialFieldsWhereClause;
     }
 }

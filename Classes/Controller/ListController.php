@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,6 +30,10 @@
  ***************************************************************/
 
 
+use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory;
+
 /**
  * Controller for all list actions
  *
@@ -34,12 +41,12 @@
  * @author Michael Knoll
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_AbstractController
+class ListController extends AbstractController
 {
     /**
      * Holds an instance of list renderer
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     * @var RendererChain
      */
     protected $rendererChain;
 
@@ -48,23 +55,23 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
     /**
      * Holds an instance of the renderer chain factory
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     * @var RendererChainFactory
      */
     protected $rendererChainFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     * @var ListFactory
      */
     protected $listFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     * @param ListFactory $listFactory
      */
-    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    public function injectListFactory(ListFactory $listFactory)
     {
         $this->listFactory = $listFactory;
     }
@@ -72,9 +79,9 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+     * @param RendererChainFactory $rendererChainFactory
      */
-    public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
+    public function injectRendererChainFactory(RendererChainFactory $rendererChainFactory)
     {
         $this->rendererChainFactory = $rendererChainFactory;
     }
@@ -83,6 +90,8 @@ class Tx_PtExtlist_Controller_ListController extends Tx_PtExtlist_Controller_Abs
 
     /**
      * Initializes controller
+     *
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     public function initializeAction()
     {

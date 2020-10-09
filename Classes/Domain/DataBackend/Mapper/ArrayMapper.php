@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\Mapper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements a mapper that maps array data to list data structure for a given
  * fields configuration.
@@ -34,7 +37,7 @@
  * @subpackage DataBackend\Mapper
  * @author Michael Knoll
  */
-class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Domain_DataBackend_Mapper_AbstractMapper
+class ArrayMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\AbstractMapper
 {
     /**
      * Maps given array data to list data structure.
@@ -42,7 +45,7 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
      * If a configuration is given, this configuration is used to map the fields
      *
      * @param array $arrayData Raw data array to be mapped to list data structure
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData
      */
     public function getMappedListData(array &$arrayData)
     {
@@ -65,14 +68,14 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
      * a cell in the list data structure
      *
      * @param array $arrayData Raw array to be mapped
-     * @return Tx_PtExtlist_Domain_Model_List_ListData Mapped list data structure
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData Mapped list data structure
      */
     protected function mapWithoutConfiguration(array &$arrayData)
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
         foreach ($arrayData as &$row) {
             $row = $this->processRowForMapping($row);
-            $mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+            $mappedRow = new \PunktDe\PtExtlist\Domain\Model\Lists\Row();
 
             foreach ($row as $columnName => $value) {
                 $mappedRow->createAndAddCell($value, $columnName);
@@ -89,11 +92,11 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
      * Maps raw list data with given mapper configuration.
      *
      * @param array $arrayData Raw array to be mapped
-     * @return Tx_PtExtlist_Domain_Model_List_ListData Mapped list data structure
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\ListData Mapped list data structure
      */
     protected function mapWithConfiguration(array &$arrayData)
     {
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $listData = new \PunktDe\PtExtlist\Domain\Model\Lists\ListData();
 
         foreach ($arrayData as $row) {
             $mappedRow = $this->mapRowWithConfiguration($this->processRowForMapping($row));
@@ -107,12 +110,12 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 
     /**
      * @param array $rowData
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row
      */
     public function getMappedRow(array &$rowData)
     {
         if (is_null($this->fieldConfigurationCollection)) {
-            $mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+            $mappedRow = new \PunktDe\PtExtlist\Domain\Model\Lists\Row();
             foreach ($rowData as $columnName => $value) {
                 $mappedRow->createAndAddCell($value, $columnName);
             }
@@ -129,13 +132,13 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
      * Maps a single row of a list data structure with given configuration.
      *
      * @param array $row   Row of raw list data array
-     * @return Tx_PtExtlist_Domain_Model_List_Row  Mapped row
+     * @return \PunktDe\PtExtlist\Domain\Model\Lists\Row  Mapped row
      */
     protected function mapRowWithConfiguration(array &$row)
     {
-        $mappedRow = new Tx_PtExtlist_Domain_Model_List_Row();
+        $mappedRow = new \PunktDe\PtExtlist\Domain\Model\Lists\Row();
         foreach ($this->fieldConfigurationCollection as $mapping) {
-            /* @var $mapping Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig */
+            /* @var $mapping FieldConfig */
             $mappedCellValue = $this->getMappedCellValue($mapping, $row);
             $mappedRow->createAndAddCell($mappedCellValue, $mapping->getIdentifier());
         }
@@ -150,12 +153,12 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
     /**
      * Maps a field of raw data to a cell of a list data structure
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping Mapping for this field / cell
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping Mapping for this field / cell
      * @param array $row   Raw row of list data array
      * @throws Exception if array key defined in the mapping does not exist in the array
      * @return string  Value of raw data array field corresponding to given mapping
      */
-    protected function getMappedCellValue(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping, array &$row)
+    protected function getMappedCellValue(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping, array &$row)
     {
         if (array_key_exists($mapping->getIdentifier(), $row)) {
             if ($this->fieldConfigurationCollection[$mapping->getIdentifier()]->getExpandGroupRows()) {
@@ -170,11 +173,11 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping
      * @param array $row
      * @throws Exception
      */
-    protected function handleMappingError(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping, array $row)
+    protected function handleMappingError(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping, array $row)
     {
         throw new Exception('Array key ' . $mapping->getIdentifier() . ' does not exist in row. Perhaps wrong mapping configuration?', 1280317751);
     }
@@ -184,10 +187,10 @@ class Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper extends Tx_PtExtlist_Do
      * Expand the field by delimiter
      *
      * @param array $row
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping
+     * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping
      * @return array
      */
-    protected function expandGroupedData(&$row, Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $mapping)
+    protected function expandGroupedData(&$row, \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping)
     {
         return explode($mapping->getExpandGroupRowsSeparator(), $row[$mapping->getIdentifier()]);
     }

@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +29,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class implements data source for mysql databases
  *
@@ -34,7 +37,7 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlProfilingDataSource extends Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+class MySqlProfilingDataSource extends MySqlDataSource
 {
     private static $queryCounter = 1;
 
@@ -78,13 +81,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlProfilingDataSource extend
     public function executeQuery($query)
     {
         // Added to log select queries
-        foreach ($this->preProcessHookObjects as $preProcessHookObject) { /* @var $preProcessHookObject Tx_SandstormmediaPlumber_Hooks_Hook */
+        foreach ($this->preProcessHookObjects as $preProcessHookObject) { /* @var $preProcessHookObject PunktDe_SandstormmediaPlumber_Hooks_Hook */
             $preProcessHookObject->extlist_preProcessAction(self::$queryCounter++ . ' ' . $query);
         }
         $result = parent::executeQuery($query);
 
         // Added to log select queries
-        foreach ($this->postProcessHookObjects as $postProcessHookObject) { /* @var $postProcessHookObject Tx_SandstormmediaPlumber_Hooks_Hook */
+        foreach ($this->postProcessHookObjects as $postProcessHookObject) { /* @var $postProcessHookObject PunktDe_SandstormmediaPlumber_Hooks_Hook */
             $postProcessHookObject->extlist_postProcessAction();
         }
         return $result;

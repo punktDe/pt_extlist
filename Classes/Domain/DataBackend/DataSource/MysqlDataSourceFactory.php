@@ -1,4 +1,8 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
+
+use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+
 /**
  * Class implements data source for mysql databases
  *
@@ -33,17 +39,17 @@
  * @package Domain
  * @subpackage DataBackend\DataSource
  */
-class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory
+class MysqlDataSourceFactory
 {
     /**
      * Create instance of mysql data source
      *
      * @static
      * @param string $datSourceClassName
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-     * @return Tx_PtExtlist_Domain_DataBackend_DataSource_MySqlDataSource
+     * @param DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return \PunktDe\PtExtlist\Domain\DataBackend\DataSource\MySqlDataSource
      */
-    public static function createInstance($datSourceClassName, Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    public static function createInstance($datSourceClassName, DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
         $dataSource = new $datSourceClassName($dataSourceConfiguration);
         $dataSource->injectDbObject(self::createDataObject($dataSourceConfiguration));
@@ -55,11 +61,11 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory
      * Create Database Object
      *
      * @static
-     * @param Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration
-     * @return PDO
-     * @throws Exception
+     * @param DatabaseDataSourceConfiguration $dataSourceConfiguration
+     * @return \PDO
+     * @throws \Exception
      */
-    protected static function createDataObject(Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration $dataSourceConfiguration)
+    protected static function createDataObject(DatabaseDataSourceConfiguration $dataSourceConfiguration)
     {
         $dsn = sprintf('mysql:dbname=%s;host=%s;port=%s',
                 $dataSourceConfiguration->getDatabaseName(),
@@ -67,13 +73,13 @@ class Tx_PtExtlist_Domain_DataBackend_DataSource_MysqlDataSourceFactory
                 $dataSourceConfiguration->getPort());
 
         try {
-            $pdo = new PDO($dsn,
+            $pdo = new \PDO($dsn,
                     $dataSourceConfiguration->getUsername(),
                     $dataSourceConfiguration->getPassword(),
-                    [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]
+                    [\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]
             );
-        } catch (Exception $e) {
-            throw new Exception('Unable to establish MYSQL Databse Connection: ' . $e->getMessage(),  1281215132);
+        } catch (\Exception $e) {
+            throw new \Exception('Unable to establish MYSQL Databse Connection: ' . $e->getMessage(),  1281215132);
         }
 
         return $pdo;

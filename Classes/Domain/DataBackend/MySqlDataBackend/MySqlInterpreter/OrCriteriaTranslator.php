@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\DataBackend\MySqlDataBackend\MySqlInterpreter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,27 +30,30 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\DataBackend\CriteriaTranslatorInterface;
+
 /**
  * Translator for AND criteria
- * 
+ *  
  * @package Domain
  * @subpackage DataBackend\MySqlDataBackend\MySqlInterpreter
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter_CriteriaTest
  */
-class Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_OrCriteriaTranslator implements Tx_PtExtlist_Domain_DataBackend_CriteriaTranslatorInterface
+class OrCriteriaTranslator implements CriteriaTranslatorInterface
 {
     /**
      * translate or criteria to string
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Tx_PtExtlist_Domain_QueryObject_OrCriteria
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Tx_PtExtlist_Domain_QueryObject_OrCriteria
      * @return string
+     * @throws \Exception
      */
-    public static function translateCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public static function translateCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
-        $orCriteriaString = '(' . Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getFirstCriteria());
+        $orCriteriaString = '(' . MySqlInterpreter::translateCriteria($criteria->getFirstCriteria());
         $orCriteriaString .= ') OR (';
-        $orCriteriaString .= Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
+        $orCriteriaString .= MySqlInterpreter::translateCriteria($criteria->getSecondCriteria()) . ')';
         
         return $orCriteriaString;
     }

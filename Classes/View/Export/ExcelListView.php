@@ -1,4 +1,16 @@
 <?php
+
+namespace PunktDe\PtExtlist\View\Export;
+
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ColumnConfigCollection;
+use PunktDe\PtExtlist\Domain\Model\Filter\AbstractFilter;
+use PunktDe\PtExtlist\Domain\Model\Filter\Filterbox;
+use PunktDe\PtExtlist\Domain\Model\Lists\Cell;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+use PunktDe\PtExtlist\ExtlistContext\ExtlistContextFactory;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\Error\Http\StatusException;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -41,19 +53,19 @@
  * @subpackage Export
  * @see Tx_PtExtlist_Tests_View_List_ExcelListViewTest
  */
-class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_AbstractExportView
+class ExcelListView extends AbstractExportView
 {
     /**
      * Holds an PHPExcel worksheet object
      *
-     * @var PHPExcel
+     * @var \PHPExcel
      */
     protected $objPHPExcel;
 
 
 
     /**
-     * @var PHPExcel_Worksheet
+     * @var \PHPExcel_Worksheet
      */
     protected $activeSheet;
 
@@ -69,7 +81,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfigCollection
+     * @var ColumnConfigCollection
      */
     protected $columnConfigCollection;
 
@@ -151,7 +163,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
         $this->renderPostBodyRows();
 
-        $objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, $this->fileFormat);
+        $objWriter = \PHPExcel_IOFactory::createWriter($this->objPHPExcel, $this->fileFormat);
 
         $this->saveOutputAndExit($objWriter);
     }
@@ -198,11 +210,11 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         $this->initConfiguration();
 
         $this->checkRequirements();
-        $this->objPHPExcel = new PHPExcel();
+        $this->objPHPExcel = new \PHPExcel();
         $this->objPHPExcel->setActiveSheetIndex(0);
         $this->activeSheet = $this->objPHPExcel->getActiveSheet();
 
-        $this->templateVariableContainer = $this->baseRenderingContext->getTemplateVariableContainer();
+        $this->templateVariableContainer = $this->baseRenderingContext->getVariableProvider();
         $this->columnConfigCollection = $this->configurationBuilder->buildColumnsConfiguration();
     }
 
@@ -227,7 +239,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     protected function renderFreeText()
     {
         $activeSheet = $this->objPHPExcel->getActiveSheet();
-        $freeText = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($this->freeText);
+        $freeText = RenderValue::stdWrapIfPlainArray($this->freeText);
         $activeSheet->getStyleByColumnAndRow(0, $this->rowNumber)->applyFromArray(['font' => ['bold' => true]]);
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, $freeText);
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber++, '');
@@ -241,7 +253,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     protected function renderFilterStates()
     {
         $activeSheet = $this->objPHPExcel->getActiveSheet();
-        $extlistContext = Tx_PtExtlist_ExtlistContext_ExtlistContextFactory::getContextByListIdentifier($this->exportConfiguration->getListIdentifier());
+        $extlistContext = ExtlistContextFactory::getContextByListIdentifier($this->exportConfiguration->getListIdentifier());
         $filterBoxCollection = $extlistContext->getFilterBoxCollection();
 
         $activeSheet->setCellValueByColumnAndRow(0, $this->rowNumber, 'Filter');
@@ -249,9 +261,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         $this->rowNumber++;
 
         foreach ($filterBoxCollection as $filterBox) {
-            /** @var $filterBox Tx_PtExtlist_Domain_Model_Filter_Filterbox */
+            /** @var $filterBox Filterbox */
             foreach ($filterBox as $filter) {
-                /** @var $filter Tx_PtExtlist_Domain_Model_Filter_AbstractFilter */
+                /** @var $filter AbstractFilter */
                 $activeSheet->setCellValueByColumnAndRow(
                     0,
                     $this->rowNumber,
@@ -270,10 +282,10 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter
+     * @param AbstractFilter $filter
      * @return string
      */
-    protected function renderFilterValues(Tx_PtExtlist_Domain_Model_Filter_AbstractFilter $filter)
+    protected function renderFilterValues(AbstractFilter $filter)
     {
         $filterValue = $filter->getDisplayValue();
 
@@ -306,7 +318,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
         if ($this->templateVariableContainer->exists('listCaptions')) {
             foreach ($this->templateVariableContainer['listCaptions'] as $columnIdentifier => $caption) {
 
-                /* @var $caption Tx_PtExtlist_Domain_Model_List_Cell */
+                /* @var $caption Cell */
                 $this->activeSheet->setCellValueByColumnAndRow($columnNumber, $this->rowNumber, strip_tags($caption->getValue()));
 
                 $excelSettings = $this->getExcelSettingsByColumnIdentifier($columnIdentifier);
@@ -330,9 +342,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     }
 
 
-
     /**
      * render all body rows
+     * @throws StatusException
      */
     protected function renderBody()
     {
@@ -342,9 +354,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
         // Rows
         foreach ($this->templateVariableContainer['listData'] as $listRow) {
-            /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+            /* @var $row Row */
             foreach ($listRow as $columnIdentifier => $listCell) {
-                /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                /* @var $listCell Cell */
 
                 $cellValue = $listCell->getValue();
 
@@ -391,12 +403,12 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
         // Rows
         foreach ($this->templateVariableContainer['aggregateRows'] as $aggregateRow) {
-            /* @var $row Tx_PtExtlist_Domain_Model_List_Row */
+            /* @var $row Row */
 
             $columnNumber = 0;
 
             foreach ($aggregateRow as $columnIdentifier => $aggregateCell) {
-                /* @var $listCell Tx_PtExtlist_Domain_Model_List_Cell */
+                /* @var $listCell Cell */
 
                 $cellValue = $aggregateCell->getValue();
                 if ($this->stripTags) {
@@ -541,9 +553,9 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
 
 
     /**
-     * @param PHPExcel_Writer_IWriter $objWriter
+     * @param \PHPExcel_Writer_IWriter $objWriter
      */
-    protected function saveOutputAndExit(PHPExcel_Writer_IWriter $objWriter)
+    protected function saveOutputAndExit(\PHPExcel_Writer_IWriter $objWriter)
     {
         $objWriter->save('php://output');
         exit();
@@ -554,7 +566,7 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
     /**
      * Checks requirements of Excel export to be working
      *
-     * @throws Exception
+     * @throws \Exception
      * @return void
      */
     private function checkRequirements()
@@ -563,14 +575,14 @@ class Tx_PtExtlist_View_Export_ExcelListView extends Tx_PtExtlist_View_Export_Ab
             $phpExcelPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pt_extlist', 'Classes/Foreign/PHPExcel/Classes/PHPExcel.php');
 
             if (!file_exists($phpExcelPath)) {
-                throw new Exception('Library PHPExcel is required for using Excel export. Run "composer install" in page root directory or "git submodule update --init" in extension root directory', 1418830027);
+                throw new \Exception('Library PHPExcel is required for using Excel export. Run "composer install" in page root directory or "git submodule update --init" in extension root directory', 1418830027);
             }
 
             require_once($phpExcelPath);
         }
 
         if (!class_exists('XMLWriter')) {
-            throw new Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled', 1316565594);
+            throw new \Exception('Library XMLWriter is required for using Excel export. You have to set up PHP with XMLWriter enabled', 1316565594);
         }
     }
 

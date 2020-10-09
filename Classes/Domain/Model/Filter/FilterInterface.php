@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +29,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
+use PunktDe\PtExtbase\State\GpVars\GpVarsAdapter;
+use PunktDe\PtExtbase\State\Session\SessionPersistableInterface;
+use PunktDe\PtExtbase\State\GpVars\GpVarsInjectableInterface;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
 
 /**
  * Interface for all filter classes
@@ -35,43 +43,41 @@
  * @subpackage Model\Filter
  * @author Michael Knoll
  */
-interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
-    Tx_PtExtbase_State_Session_SessionPersistableInterface,
-    Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface
+interface FilterInterface extends SessionPersistableInterface, GpVarsInjectableInterface
 {
     /**
      * Injector for filter configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      */
-    public function _injectFilterConfig(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig);
+    public function _injectFilterConfig(FilterConfig $filterConfig);
 
 
 
     /**
      * Injector for get / post vars adapter
      *
-     * @param Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter
+     * @param GpVarsAdapter $gpVarAdapter
      */
-    public function _injectGpVarsAdapter(Tx_PtExtbase_State_GpVars_GpVarsAdapter $gpVarAdapter);
+    public function _injectGpVarsAdapter(GpVarsAdapter $gpVarAdapter);
 
 
 
     /**
      * Injector for associated data backend
      *
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend
+     * @param DataBackendInterface $dataBackend
      */
-    public function _injectDataBackend(Tx_PtExtlist_Domain_DataBackend_DataBackendInterface $dataBackend);
+    public function _injectDataBackend(DataBackendInterface $dataBackend);
 
 
 
     /**
      * Injects filterbox to which this filter is associated to
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox
+     * @param Filterbox $filterbox
      */
-    public function _injectFilterbox(Tx_PtExtlist_Domain_Model_Filter_Filterbox $filterbox);
+    public function _injectFilterbox(Filterbox $filterbox);
 
 
 
@@ -105,7 +111,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
     /**
      * Returns query object for this filter
      *
-     * @return Tx_PtExtlist_Domain_QueryObject_Query Query object that describes criterias for this filter
+     * @return Query Query object that describes criterias for this filter
      */
     public function getFilterQuery();
 
@@ -150,7 +156,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
     /**
      * Returns filter configuration of this filter
      *
-     * @return Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig
+     * @return FilterConfig
      */
     public function getFilterConfig();
 
@@ -159,7 +165,7 @@ interface Tx_PtExtlist_Domain_Model_Filter_FilterInterface extends
     /**
      * Returns filter breadcrumb for this filter
      *
-     * @return Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb
+     * @return BreadCrumb
      */
     public function getFilterBreadCrumb();
 

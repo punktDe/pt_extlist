@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Aggregates;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,17 +28,23 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Configuration\AbstractConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Aggregate Column Config Object 
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Configuration\Aggregates
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Aggregates_AggregateColumnConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends \PunktDe\PtExtbase\Configuration\AbstractConfiguration implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface
+class AggregateColumnConfig extends AbstractConfiguration implements ColumnConfigInterface
 {
     /** 
      * @var string
@@ -43,19 +52,19 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
     protected $columnIdentifier;
 
 
-    
+
     /** 
      * @var array
      */
     protected $aggregateDataIdentifier;
 
 
-    
+
     /**
      * @var array
      */
     protected $renderUserFunctions = null;
-    
+
 
 
     /**
@@ -71,7 +80,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
      * @var bool
      */
     protected $cacheRendering;
-    
+
 
 
     /**
@@ -90,48 +99,49 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $settings
      * @param string $columnIdentifier
-     * @return \Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig
+     * @return AggregateColumnConfig
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $settings, $columnIdentifier)
+    public function __construct(ConfigurationBuilder $configurationBuilder, array $settings, string $columnIdentifier)
     {
         $settings['columnIdentifier'] = $columnIdentifier;
         parent::__construct($configurationBuilder, $settings);
     }
-    
-    
-                                                                             
+
+
+
     /**
      * (non-PHPdoc)
      * @see \PunktDe\PtExtbase\Configuration\AbstractConfiguration::init()
+     * @throws \Exception
      */
     protected function init()
     {
         // required
         $this->setRequiredValue('columnIdentifier', 'Column identifier for aggregate not given 1282916617');
-        
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], ['message' => 'Aggregate data identifier not given for aggregate column "'.$this->columnIdentifier.'" 1282916619']);
+
+        Assert::isNotEmptyString($this->settings['aggregateDataIdentifier'], ['message' => 'Aggregate data identifier not given for aggregate column "'.$this->columnIdentifier.'" 1282916619']);
         $this->aggregateDataIdentifier = GeneralUtility::trimExplode(',', $this->settings['aggregateDataIdentifier']);
-        
+
         // optional
         $this->setValueIfExistsAndNotNothing('renderTemplate');
         $this->setValueIfExistsAndNotNothing('cellCSSClass');
         $this->setBooleanIfExistsAndNotNothing('cacheRendering');
-        
+
         if (array_key_exists('renderUserFunctions', $this->settings) && is_array($this->settings['renderUserFunctions'])) {
             asort($this->settings['renderUserFunctions']);
             $this->renderUserFunctions = $this->settings['renderUserFunctions'];
         }
 
         if (array_key_exists('renderObj', $this->settings)) {
-            $this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
+            $this->renderObj = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
         }
     }
 
-    
-    
+
+
     /**
      * @return string columnIdentifier
      */
@@ -139,9 +149,9 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
     {
         return $this->columnIdentifier;
     }
-    
-    
-    
+
+
+
     /**
      * @return array aggregateDataIdentifier
      */
@@ -149,13 +159,13 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
     {
         return $this->aggregateDataIdentifier;
     }
-    
-    
-    
+
+
+
     /**
      * This method exists to fullfill the interface
      * The renderer expects the method to map da data to the column
-     * 
+     *  
      * (non-PHPdoc)
      * @see Classes/Domain/Configuration/Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface::getFieldIdentifier()
      */
@@ -163,14 +173,14 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
     {
         return $this->aggregateDataIdentifier;
     }
-    
-    
-    
+
+
+
     public function getSpecialCell()
     {
         return '';
     }
-    
+
 
 
     public function getContainsArrayData()
@@ -179,7 +189,7 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
     }
 
 
-    
+
     /**
      * @return array
      */
@@ -187,9 +197,9 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
     {
         return $this->renderObj;
     }
-    
-    
-    
+
+
+
     /**
      * @return array
      */
@@ -197,9 +207,9 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
     {
         return $this->renderUserFunctions;
     }
-    
-    
-    
+
+
+
     /**
     * @return string renderTemplate
     */
@@ -207,8 +217,8 @@ class Tx_PtExtlist_Domain_Configuration_Aggregates_AggregateColumnConfig extends
     {
         return $this->renderTemplate;
     }
-    
-    
+
+
 
     /**
      * @return string

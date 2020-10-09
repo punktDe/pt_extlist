@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,29 +31,35 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtlist\Domain\AbstractComponentFactory;
+use PunktDe\PtExtlist\Domain\Configuration\Filters\FilterConfig;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+
 /**
  * Implements factory for options filter data provider
- * 
+ *  
  * @author Daniel Lienert 
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_DataProviderFactoryTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
-    extends Tx_PtExtlist_Domain_AbstractComponentFactory
-    implements \TYPO3\CMS\Core\SingletonInterface
+class DataProviderFactory
+    extends AbstractComponentFactory
+    implements SingletonInterface
 {
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+     * @var DataBackendFactory
      */
     protected $dataBackendFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+     * @param DataBackendFactory $dataBackendFactory
      */
-    public function injectDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory)
+    public function injectDataBackendFactory(DataBackendFactory $dataBackendFactory)
     {
         $this->dataBackendFactory = $dataBackendFactory;
     }
@@ -57,16 +68,16 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
     
     /**
      * Create a dataprovider for options filter data
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
-     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
+     *  
+     * @param FilterConfig $filterConfig
+     * @return DataProviderInterface
      */
-    public function createInstance(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig)
+    public function createInstance(FilterConfig $filterConfig)
     {
         $dataProviderClassName = $this->determineDataProviderClass($filterConfig);
         $dataProvider = $this->objectManager->get($dataProviderClassName);
-        Tx_PtExtbase_Assertions_Assert::isInstanceOf($dataProvider, 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface', ['message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125']);
-        /* @var $dataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface */
+        Assert::isInstanceOf($dataProvider, DataProviderInterface::class, ['message' => 'The Dataprovider "' . $dataProviderClassName . ' does not implement the required interface! 1283536125']);
+        /* @var $dataProvider DataProviderInterface */
 
         $dataProvider->_injectFilterConfig($filterConfig);
         $dataProvider->_injectDataBackend($this->dataBackendFactory->getDataBackendInstanceByListIdentifier($filterConfig->getListIdentifier()));
@@ -81,21 +92,21 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
      * Determine the dataProvider to use for filter options
      *
      * TODO: Test me!
-     * @param Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig
+     * @param FilterConfig $filterConfig
      * @return string dataProviderClass
      */
-    protected function determineDataProviderClass(Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig $filterConfig)
+    protected function determineDataProviderClass(FilterConfig $filterConfig)
     {
         if ($filterConfig->getSettings('dataProviderClassName')) {
             $dataProviderClassName = $filterConfig->getSettings('dataProviderClassName');
         } else {
             if ($filterConfig->getSettings('options')) {
-                $dataProviderClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitData';
+                $dataProviderClassName = ExplicitData::class;
             } else {
-                $dataProviderClassName = 'Tx_PtExtlist_Domain_Model_Filter_DataProvider_GroupData';
+                $dataProviderClassName = GroupData::class;
             }
         }
-        Tx_PtExtbase_Assertions_Assert::isTrue(class_exists($dataProviderClassName), ['message' => 'The defined DataProviderClass "'.$dataProviderClassName.'" does not exist! 1283535558']);
+        Assert::isTrue(class_exists($dataProviderClassName), ['message' => 'The defined DataProviderClass "'.$dataProviderClassName.'" does not exist! 1283535558']);
         return $dataProviderClassName;
     }
 }

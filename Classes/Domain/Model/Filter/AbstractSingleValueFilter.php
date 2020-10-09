@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +36,7 @@
  * @package Domain
  * @subpackage Model\Filter
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
+abstract class AbstractSingleValueFilter extends AbstractFilter
 {
     /**
      * Holds the current filter value
@@ -59,7 +61,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 
     /**
      * @param $filterValue
-     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+     * @return AbstractSingleValueFilter
      */
     public function setFilterValue($filterValue)
     {
@@ -106,7 +108,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter
+     * @return AbstractSingleValueFilter
      */
     public function reset()
     {
@@ -164,7 +166,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::setActiveState()
      */
     protected function setActiveState()
     {
@@ -175,7 +177,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractSingleValueFilter extend
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::initFilter()
      */
     protected function initFilter()
     {

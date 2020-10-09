@@ -26,8 +26,13 @@ namespace PunktDe\PtExtlist\ViewHelpers\Namespaces;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\State\IdentifiableInterface;
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
 use PunktDe\PtExtbase\Utility\NamespaceUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * GPValueViewHelper
@@ -44,39 +49,54 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * 
  * @see Tx_PtExtlist_Tests_ViewHelpers_Namespace_GPArrayViewHelperTest
  */
-class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class GPArrayViewHelper extends AbstractViewHelper
 {
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
+    }
+
+    /**
+     * Initialize arguments.
+     *
+     * @return void
+     * @author Sebastian Kurfürst <sebastian@typo3.org>
+     * @api
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('arguments', 'string', 'Arguments');
+        $this->registerArgument('object', 'object', 'IdentifiableInterface');
+        $this->registerArgument('nameSpace', 'string', 'nameSpace');
     }
 
     /**
      * render build key/value GET/POST-array within the namespace of the given object
      *
      * @param string $arguments : list of arguments
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param IdentifiableInterface $object
      *    either as list of 'key : value' pairs
      *  or as list of properties wich are then recieved from the object
      * @param string $nameSpace
      * @return array GPArray of objects namespace
-     * @throws \Tx_PtExtbase_Exception_Assertion
      */
-    public function render($arguments, $object = null, $nameSpace = '')
+    public function render()
     {
-        $argumentStringArray = $this->getArgumentArray($arguments);
+        $object = $this->arguments['object'] ?? null;
+        $nameSpace = $this->arguments['nameSpace'] ?? '';
+        $argumentStringArray = $this->getArgumentArray($this->arguments['arguments']);
         $argumentArray = [];
         
         foreach ($argumentStringArray as $key => $value) {
@@ -99,15 +119,14 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
     /**
      * Use the objects getter to get the value
      *
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param IdentifiableInterface $object
      * @param string $property
      * @return mixed value
-     * @throws \Tx_PtExtbase_Exception_Assertion
      */
-    protected function getObjectValue(\Tx_PtExtbase_State_IdentifiableInterface $object, $property)
+    protected function getObjectValue(IdentifiableInterface $object, $property)
     {
         $getterMethod = 'get'.ucfirst($property);
-        \Tx_PtExtbase_Assertions_Assert::isTrue(method_exists($object, $getterMethod), ['message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630']);
+        Assert::isTrue(method_exists($object, $getterMethod), ['message' => 'The Object' . get_class($object) . ' has no getter method "'  . $getterMethod . '" ! 1280929630']);
         
         return $object->$getterMethod();
     }
@@ -139,16 +158,15 @@ class GPArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
     /**
      * Get the valueArray with the right objectNamespace
      *
-     * @param \Tx_PtExtbase_State_IdentifiableInterface $object
+     * @param IdentifiableInterface $object
      * @param string $key
      * @param string $value
      * @return array
-     * @throws \Tx_PtExtbase_Exception_Assertion
      */
-    public function buildObjectValueArray(\Tx_PtExtbase_State_IdentifiableInterface $object, $key, $value)
+    public function buildObjectValueArray(IdentifiableInterface $object, $key, $value)
     {
         $nameSpace = $object->getObjectNamespace();
-        \Tx_PtExtbase_Assertions_Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
+        Assert::isNotEmptyString($nameSpace, ['message' => 'No ObjectNamespace returned from Obejct ' . get_class($object) . '! 1280771624']);
         
         return $this->buildNamespaceValueArray($nameSpace, $key, $value);
     }

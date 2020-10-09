@@ -37,10 +37,8 @@ use TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository;
  * @author Daniel Lienert
  * @package Domain
  * @subpackage Model\Filter\DataProvider
- *
  */
-
-class SysCategory extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+class SysCategory extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\AbstractDataProvider
 {
 
     /**
@@ -66,7 +64,7 @@ class SysCategory extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_Abstrac
     /**
      * (non-PHPdoc)
      * @throws \Exception
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::init()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::init()
      */
     public function init()
     {
@@ -92,13 +90,13 @@ class SysCategory extends \Tx_PtExtlist_Domain_Model_Filter_DataProvider_Abstrac
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/DataProvider/Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface::getRenderedOptions()
+     * @see Classes/Domain/Model/Filter/DataProvider/DataProvider_DataProviderInterface::getRenderedOptions()
      */
     public function getRenderedOptions()
     {
         $categories = $this->getCategoryRecords();
 
-        foreach ($categories as $category) { /** @var  \TYPO3\CMS\Extbase\Domain\Model\Category $category */
+        foreach ($categories as $category) { /** @var   \TYPO3\CMS\Extbase\Domain\Model\Category $category */
             $optionKey = $category->getUid();
 
             $renderedOptions[$optionKey]['value'] = $category->getTitle();

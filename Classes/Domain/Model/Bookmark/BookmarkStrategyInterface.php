@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Bookmark;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,21 +37,21 @@
  * @subpackage Model\Bookmarks
  * @see Tests/Domain/Security/SecurityFactoryTest.php
  */
-interface Tx_PtExtlist_Domain_Model_Bookmark_BookmarkStrategyInterface
+interface BookmarkStrategyInterface
 {
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Bookmark $bookmark
      * @param array $sessionData
      * @return array merged SessionData
      */
-    public function mergeSessionAndBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, array $sessionData);
+    public function mergeSessionAndBookmark(Bookmark $bookmark, array $sessionData);
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param Bookmark $bookmark
+     * @param ConfigurationBuilder $configurationBuilder
      * @param array $sessionData
      * @return void
      */
-    public function addContentToBookmark(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark, Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder, array $sessionData);
+    public function addContentToBookmark(Bookmark $bookmark, ConfigurationBuilder $configurationBuilder, array $sessionData);
 }

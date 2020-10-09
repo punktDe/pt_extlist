@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +28,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Model\ColumnSelector\ColumnSelectorFactory;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListFactory;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChain;
+use PunktDe\PtExtlist\Domain\Renderer\RendererChainFactory;
 
 /**
  * Controller for filter column selector widget
@@ -34,12 +40,12 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Controller_ColumnSelectorControllerTest
  */
-class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Controller_AbstractController
+class ColumnSelectorController extends AbstractController
 {
     /**
      * Holds an instance of list renderer
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChain
+     * @var RendererChain
      */
     protected $rendererChain;
 
@@ -48,21 +54,21 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
     /**
      * Holds an instance of the renderer chain factory
      *
-     * @var Tx_PtExtlist_Domain_Renderer_RendererChainFactory
+     * @var RendererChainFactory
      */
     protected $rendererChainFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory
+     * @var ColumnSelectorFactory
      */
     protected $columnSelectorFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_List_ListFactory
+     * @var ListFactory
      */
     protected $listFactory;
 
@@ -70,9 +76,9 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory
+     * @param RendererChainFactory $rendererChainFactory
      */
-    public function injectRendererChainFactory(Tx_PtExtlist_Domain_Renderer_RendererChainFactory $rendererChainFactory)
+    public function injectRendererChainFactory(RendererChainFactory $rendererChainFactory)
     {
         $this->rendererChainFactory = $rendererChainFactory;
     }
@@ -80,9 +86,9 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory
+     * @param ListFactory $listFactory
      */
-    public function injectListFactory(Tx_PtExtlist_Domain_Model_List_ListFactory $listFactory)
+    public function injectListFactory(ListFactory $listFactory)
     {
         $this->listFactory = $listFactory;
     }
@@ -90,9 +96,9 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory
+     * @param ColumnSelectorFactory $columnSelectorFactory
      */
-    public function injectColumnSelectorFactory(Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelectorFactory $columnSelectorFactory)
+    public function injectColumnSelectorFactory(ColumnSelectorFactory $columnSelectorFactory)
     {
         $this->columnSelectorFactory = $columnSelectorFactory;
     }
@@ -102,6 +108,8 @@ class Tx_PtExtlist_Controller_ColumnSelectorController extends Tx_PtExtlist_Cont
     /**
      * Overwrites initAction for setting properties
      * and enabling easy testing
+     *
+     * @throws \Exception
      */
     public function initializeAction()
     {

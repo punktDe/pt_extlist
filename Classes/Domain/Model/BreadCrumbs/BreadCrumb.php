@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\BreadCrumbs;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\State\IdentifiableInterface;
+use PunktDe\PtExtlist\Domain\Configuration\BreadCrumbs\BreadCrumbsConfig;
+use PunktDe\PtExtlist\Domain\Model\Filter\FilterInterface;
+
 /**
  * Class implements a filter breadcrumb
  *
@@ -34,7 +42,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbTest
  */
-class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_State_IdentifiableInterface
+class BreadCrumb implements IdentifiableInterface
 {
     /**
      * The listIdentifier for which this pager is active.
@@ -48,7 +56,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_S
     /**
      * Associated filter object
      *
-     * @var Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     * @var FilterInterface
      */
     protected $filter;
 
@@ -75,7 +83,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_S
     /**
      * Holds an instance of breadcrumbs configuration
      *
-     * @var Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig
+     * @var BreadCrumbsConfig
      */
     protected $breadCrumbsConfiguration;
     
@@ -84,9 +92,9 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_S
     /**
      * Constructor for breadcrumb. Takes filter object to show breadcrumb for as parameter
      *
-     * @param Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter
+     * @param FilterInterface $filter
      */
-    public function __construct(Tx_PtExtlist_Domain_Model_Filter_FilterInterface $filter)
+    public function __construct(FilterInterface $filter)
     {
         $this->filter = $filter;
         $this->listIdentifier = $filter->getListIdentifier();
@@ -97,9 +105,9 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_S
     /**
      * Injects breadcrumb configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig $breadCrumbsConfig
+     * @param BreadCrumbsConfig $breadCrumbsConfig
      */
-    public function injectBreadCrumbsConfiguration(Tx_PtExtlist_Domain_Configuration_BreadCrumbs_BreadCrumbsConfig $breadCrumbsConfig)
+    public function injectBreadCrumbsConfiguration(BreadCrumbsConfig $breadCrumbsConfig)
     {
         $this->breadCrumbsConfiguration = $breadCrumbsConfig;
     }
@@ -107,7 +115,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_S
 
 
     /**
-     * @see Tx_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
+     * @see PunktDe_PtExtbase_State_IdentifiableInterface::getObjectNamespace()
      *
      * @return String
      */
@@ -121,7 +129,7 @@ class Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumb implements Tx_PtExtbase_S
     /**
      * Getter for filter object
      *
-     * @return Tx_PtExtlist_Domain_Model_Filter_FilterInterface
+     * @return FilterInterface
      */
     public function getFilter()
     {

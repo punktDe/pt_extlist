@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Export;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class implements factory for export configuration
  *
@@ -33,19 +41,18 @@
  * @subpackage Configuration\Export
  * @author Daniel Lienert 
  */
-
-class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory
+class ExportConfigFactory
 {
     /**
      * Returns a instance of a export configuration.
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
-     * @return Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+     *  
+     * @param ConfigurationBuilder $configurationBuilder
+     * @return ExportConfig
      */
-    public static function getInstance(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public static function getInstance(ConfigurationBuilder $configurationBuilder)
     {
         $exportSettings = self::getExportSettingsForCurrentView($configurationBuilder);
-        $exportConfig = new Tx_PtExtlist_Domain_Configuration_Export_ExportConfig($configurationBuilder, $exportSettings);
+        $exportConfig = new ExportConfig($configurationBuilder, $exportSettings);
         
         return $exportConfig;
     }
@@ -53,18 +60,18 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory
     
     /**
      * Get the settings 
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     *  
+     * @param ConfigurationBuilder $configurationBuilder
      * @return array
      */
-    protected static function getExportSettingsForCurrentView(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    protected static function getExportSettingsForCurrentView(ConfigurationBuilder $configurationBuilder)
     {
         $allExportSettings = $configurationBuilder->getSettingsForConfigObject('export');
         $controllerSettings = $configurationBuilder->getSettings('controller');
         $selectedViewSettingsKey = $controllerSettings['Export']['download']['view'];
         $exportSettingsPath = explode('.', $selectedViewSettingsKey);
 
-        $exportSettings = \TYPO3\CMS\Extbase\Utility\ArrayUtility::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath);
+        $exportSettings = ArrayUtility::getValueByPath($configurationBuilder->getSettings(), $exportSettingsPath, '.');
         
         /* In this case we have to merge the prototype settings again because the prototype settings are filled from flexform....
          * This smells ... 
@@ -73,4 +80,5 @@ class Tx_PtExtlist_Domain_Configuration_Export_ExportConfigFactory
         
         return $configurationBuilder->getMergedSettingsWithPrototype($exportSettings, 'export');
     }
+
 }

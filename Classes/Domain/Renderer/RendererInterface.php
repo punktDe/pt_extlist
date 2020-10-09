@@ -1,4 +1,10 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\Renderer;
+
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+use PunktDe\PtExtlist\Domain\Model\Lists\ListData;
+use PunktDe\PtExtlist\Domain\Model\Lists\Row;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,54 +31,54 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Interface for list renderers
- * 
+ *  
  * @package Domain
  * @subpackage Renderer
  * @author Christoph Ehscheidt 
  * @author Michael Knoll 
  * @author Daniel Lienert 
  */
-interface Tx_PtExtlist_Domain_Renderer_RendererInterface
+interface RendererInterface
 {
     /**
      * Renders the given list through TypoScript.
      * Also uses the column definitions.
-     * 
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $listData
-     * @return Tx_PtExtlist_Domain_Model_List_ListData
+     *  
+     * @param ListData $listData
+     * @return ListData
      */
-    public function renderList(Tx_PtExtlist_Domain_Model_List_ListData $listData);
+    public function renderList(ListData $listData);
     
     
     
     /**
      * Renders the column captions out of the TS definition
-     * 
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
-     * @return Tx_PtExtlist_Domain_Model_List_Header_ListHeader 
+     *  
+     * @param ListHeader $listHeader
+     * @return ListHeader
      */
-    public function renderCaptions(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader);
+    public function renderCaptions(ListHeader $listHeader);
     
     
     
     /**
      * Returns a rendered aggregate list for a given row of aggregates
      *
-     * @param Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData
-     * @return Tx_PtExtlist_Domain_Model_List_ListData Rendererd List of aggregate rows
+     * @param ListData $aggregateListData
+     * @return ListData Rendererd List of aggregate rows
      */
-    public function renderAggregateList(Tx_PtExtlist_Domain_Model_List_ListData $aggregateListData);
+    public function renderAggregateList(ListData $aggregateListData);
 
 
 
     /**
      * @abstract
-     * @param Tx_PtExtlist_Domain_Model_List_Row $row
+     * @param Row $row
      * @param $rowIndex
-     * @return Tx_PtExtlist_Domain_Model_List_Row
+     * @return Row
+     *
      */
-    public function renderSingleRow(Tx_PtExtlist_Domain_Model_List_Row $row, $rowIndex);
+    public function renderSingleRow(Row $row, $rowIndex);
 }

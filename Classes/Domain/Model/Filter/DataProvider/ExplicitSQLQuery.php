@@ -1,4 +1,9 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter\DataProvider;
+
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +30,16 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+
+use Doctrine\DBAL\Connection;
+use PunktDe\PtExtbase\Logger\Logger;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use PunktDe\PtExtbase\Assertions\Assert;
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtlist\Utility\RenderValue;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Implements data provider for explicit defined SQL query
@@ -34,7 +48,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
  * @package Domain
  * @subpackage Model\Filter\DataProvider
  */
-class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_PtExtlist_Domain_Model_Filter_DataProvider_AbstractDataProvider
+class ExplicitSQLQuery extends \PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\AbstractDataProvider
 {
     /**
      * @var string
@@ -93,19 +107,23 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
 
 
     /**
-     * @var DatabaseConnection
+     * @var QueryBuilder
      */
-    protected $dbObj;
-
+    protected $queryBuilder;
 
 
     /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * Init the data provider
+     * @throws Assertion
      */
     public function init()
     {
-        // TODO use DI here!
-        $this->dbObj = $GLOBALS['TYPO3_DB'];
+        $this->logger = GeneralUtility::makeInstance(Logger::class);
 
         $sqlQuerySettings = $this->filterConfig->getSettings('optionsSqlQuery');
 
@@ -115,40 +133,71 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
             }
         }
 
+        $fromPart = trim(RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']));
+        $items = GeneralUtility::trimExplode(' ', $fromPart);
+
+        Assert::isInRange(count($items), 1 ,2 , ['message' => 'baseFromClause of Backend in TS has not the correct values! This should be table name and optional alias added by space! 1280234420']);
+
+        $fromTable= trim($items[0]);
+        $fromAlias = $items[1] ?? null;
+
+        /** @var Connection $connection */
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($fromTable);
+        $this->queryBuilder = $connection->createQueryBuilder();
+
         if ($sqlQuerySettings['select']) {
-            $this->selectPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']);
+            $this->queryBuilder->selectLiteral(RenderValue::stdWrapIfPlainArray($sqlQuerySettings['select']));
         }
-        if ($sqlQuerySettings['from']) {
-            $this->fromPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['from']);
-        }
-        if ($sqlQuerySettings['where']) {
-            $this->wherePart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']);
-        }
-        if ($sqlQuerySettings['orderBy']) {
-            $this->orderByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['orderBy']);
-        }
-        if ($sqlQuerySettings['groupBy']) {
-            $this->groupByPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['groupBy']);
-        }
-        if ($sqlQuerySettings['limit']) {
-            $this->limitPart = Tx_PtExtlist_Utility_RenderValue::stdWrapIfPlainArray($sqlQuerySettings['limit']);
+        $this->queryBuilder->from($fromTable, $fromAlias);
+
+        if ($sqlQuerySettings['join']) {
+            foreach ($sqlQuerySettings['join'] as $joinPart) {
+                $joinFromAlias = trim($joinPart['fromAlias']);
+                $joinTable = trim($joinPart['table']);
+                $joinAlias = trim($joinPart['alias']) ?: trim($joinPart['table']);
+                $joinOn = trim($joinPart['on']);
+                $joinMethod = (strtolower(trim($joinPart['type'])) ?: 'inner') . 'Join';
+                $this->queryBuilder->$joinMethod($joinFromAlias, $joinTable, $joinAlias, $joinOn);
+            }
         }
 
+
+        if ($sqlQuerySettings['where']) {
+            $this->queryBuilder->where(RenderValue::stdWrapIfPlainArray($sqlQuerySettings['where']));
+        }
+
+        if ($sqlQuerySettings['orderBy']) {
+            $items = GeneralUtility::trimExplode(' ', $sqlQuerySettings['orderBy']);
+            $this->queryBuilder->orderBy($items[0], $items[1] ?? '');
+
+        }
+        if ($sqlQuerySettings['groupBy']) {
+            $this->queryBuilder->groupBy(RenderValue::stdWrapIfPlainArray($sqlQuerySettings['groupBy']));
+        }
+        if ($sqlQuerySettings['limit']) {
+            $items = GeneralUtility::trimExplode(',', RenderValue::stdWrapIfPlainArray($sqlQuerySettings['limit']));
+            if ($items > 1) {
+                $this->queryBuilder->setFirstResult($items[0]);
+                $this->queryBuilder->setMaxResults($items[1]);
+            } else {
+                $this->queryBuilder->setMaxResults($items[0]);
+            }
+        }
 
         $this->filterField = trim($this->filterConfig->getSettings('filterField'));
         $this->displayFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->filterConfig->getSettings('displayFields'));
 
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->filterField, ['info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957']);
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->selectPart, ['info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958']);
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($this->fromPart, ['info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959']);
+        Assert::isNotEmptyString($this->filterField, ['info' => 'No filter field is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221957']);
+        Assert::isNotEmptyString($sqlQuerySettings['select'], ['info' => 'No Select part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221958']);
+        Assert::isNotEmptyString($sqlQuerySettings['from'], ['info' => 'No from part is given for filter ' . $this->filterConfig->getFilterIdentifier() . ' 1315221959']);
     }
-
 
 
     /**
      * Return the rendered filterOptions
      *
      * @return array filter options
+     * @throws \Exception
      */
     public function getRenderedOptions()
     {
@@ -181,31 +230,33 @@ class Tx_PtExtlist_Domain_Model_Filter_DataProvider_ExplicitSQLQuery extends Tx_
             }
         }
         $optionData['allDisplayFields'] = implode(' ', $values);
-        $option = Tx_PtExtlist_Utility_RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
+        $option = RenderValue::renderByConfigObjectUncached($optionData, $this->filterConfig);
         return $option;
     }
 
 
 
     /**
-     * @throws Exception
+     * @throws \Exception
      * @return array of options
      */
     protected function getDataFromSqlServer()
     {
-        $query = $this->dbObj->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
+        /** @var QueryBuilder $queryBuilder */
 
-        $dataSource = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
+        //$query = $this->dbObj->SELECTquery($this->selectPart, $this->fromPart, $this->wherePart, $this->groupByPart, $this->orderByPart, $this->limitPart); // this method only combines the parts
 
-        if (!method_exists($dataSource, 'executeQuery')) {
-            throw new Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider!', 1315216209);
-        }
+        //$dataSource = DataBackendFactory::getInstanceByListIdentifier($this->filterConfig->getListIdentifier())->getDataSource();
 
-        $data =  $dataSource->executeQuery($query)->fetchAll();
+//        if (!method_exists($dataSource, 'executeQuery')) {
+//            throw new \Exception('The defined dataSource has no method executeQuery and is therefore not usable with this dataProvider!', 1315216209);
+//        }
 
-        if (TYPO3_DLOG) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::devLog('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist', 1, ['executionTime' => $dataSource->getLastQueryExecutionTime(), 'query' => $query]);
-        }
+        ###TODO
+        $query = $this->queryBuilder->getSql();
+        $data =  $this->queryBuilder->execute()->fetchAll();
+
+         $this->logger->debug('MYSQL QUERY : ' . $this->filterConfig->getListIdentifier() . ' -> Filter::ExplicitSQLQuery', 'pt_extlist',  ['query' => $query]);
 
         return $data;
     }

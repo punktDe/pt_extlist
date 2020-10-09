@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,6 +30,14 @@
  ***************************************************************/
 
 
+use PunktDe\PtExtlist\Domain\Configuration\Bookmark\BookmarkConfig;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\Bookmark;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory;
+use PunktDe\PtExtlist\Domain\Repository\Bookmark\BookmarkRepository;
+use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
 /**
  * Class implementing bookmarks controller
  *
@@ -35,12 +46,12 @@
  * @author David "Dex" Vogt
  * @see Tx_PtExtlist_Tests_Controller_BookmarkControllerTest
  */
-class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller_AbstractController
+class BookmarkController extends AbstractController
 {
     /**
      * Holds an instance of bookmarks repository
      *
-     * @var Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository
+     * @var BookmarkRepository
      */
     protected $bookmarkRepository;
     
@@ -49,7 +60,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds an instance of persistence manager
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      */
     protected $persistenceManager;
     
@@ -58,7 +69,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds an instance of bookmark manager
      *
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+     * @var BookmarkManager
      */
     protected $bookmarkManager;
 
@@ -67,7 +78,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds an instance of bookmark manager factory
      *
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+     * @var BookmarkManagerFactory
      */
     protected $bookmarkManagerFactory;
 
@@ -76,7 +87,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds configuration object for bookmark settings
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Bookmark_BookmarkConfig
+     * @var BookmarkConfig
      */
     protected $bookmarkConfiguration;
 
@@ -85,16 +96,16 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Holds an instance of the FE-UserGroup Repository
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
+     * @var FrontendUserGroupRepository
      */
     protected $feUserGroupRepository;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository $bookmarkRepository
+     * @param BookmarkRepository $bookmarkRepository
      */
-    public function injectBookmarkRepository(Tx_PtExtlist_Domain_Repository_Bookmark_BookmarkRepository $bookmarkRepository)
+    public function injectBookmarkRepository(BookmarkRepository $bookmarkRepository)
     {
         $this->bookmarkRepository = $bookmarkRepository;
     }
@@ -102,9 +113,9 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+     * @param PersistenceManager $persistenceManager
      */
-    public function injectPersistenceManager(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager)
+    public function injectPersistenceManager(PersistenceManager $persistenceManager)
     {
         $this->persistenceManager = $persistenceManager;
     }
@@ -112,9 +123,9 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
 
     /**
-     * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository $feUserGroupRepository
+     * @param FrontendUserGroupRepository $feUserGroupRepository
      */
-    public function injectFeUserGroupRepository(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository $feUserGroupRepository)
+    public function injectFeUserGroupRepository(FrontendUserGroupRepository $feUserGroupRepository)
     {
         $this->feUserGroupRepository = $feUserGroupRepository;
     }
@@ -123,7 +134,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
 
     /**
      * Initializes and sets dependent objects
-     *
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -136,7 +147,7 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     
     /**
      * Renders show action for bookmark controller
-     * 
+     *  
      * @return string The rendered HTML source for this action
      */
     public function showAction()
@@ -179,12 +190,12 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Saves the current session state as a bookmark
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $newBookmark
+     * @param Bookmark $newBookmark
      * @return void
      */
-    public function saveAction(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $newBookmark)
+    public function saveAction(Bookmark $newBookmark)
     {
-        if ($newBookmark->getType()!=Tx_PtExtlist_Domain_Model_Bookmark_Bookmark::PTEXTLIST_BOOKMARK_GROUP) {
+        if ($newBookmark->getType()!=Bookmark::PTEXTLIST_BOOKMARK_GROUP) {
             $newBookmark->setFeGroup(null);
         }
 
@@ -203,9 +214,9 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Action for deleting a bookmark
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark Bookmark to be deleted
+     * @param Bookmark $bookmark Bookmark to be deleted
      */
-    public function deleteAction(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function deleteAction(Bookmark $bookmark)
     {
         if ($bookmark->getFeUser()->getUid() == $this->feUser->getUid() || $this->bookmarkConfiguration->getUserCanDeleteAll()) {
             $this->bookmarkRepository->remove($bookmark);
@@ -221,9 +232,9 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Action for restoring saved bookmarks
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Bookmark $bookmark
      */
-    public function restoreAction(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function restoreAction(Bookmark $bookmark)
     {
         $this->forward('show');
     }
@@ -246,11 +257,11 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Action for creating a new bookmark
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Bookmark $bookmark
      * @@ignorevalidation $bookmark
      * @return string The rendered new action
      */
-    public function newAction(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark=null)
+    public function newAction(Bookmark $bookmark=null)
     {
         // Assign groups for group bookmarks
         $groups = ['0' => ' '];
@@ -270,9 +281,9 @@ class Tx_PtExtlist_Controller_BookmarkController extends Tx_PtExtlist_Controller
     /**
      * Creates a new bookmark and forwards to show action
      *
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark
+     * @param Bookmark $bookmark
      */
-    public function createAction(Tx_PtExtlist_Domain_Model_Bookmark_Bookmark $bookmark)
+    public function createAction(Bookmark $bookmark)
     {
         // Check whether user is allowed to create public bookmarks 
         if ($this->request->hasArgument('isPublic') && $this->request->getArgument('isPublic') == '1') {

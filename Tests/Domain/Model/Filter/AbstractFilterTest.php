@@ -65,7 +65,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractFilterTest extends Tx_PtExt
     public function gpVarAdapterCanBeInjected()
     {
         $filter = $this->getExtendingFilterMock();
-        $gpVarAdapter = new Tx_PtExtbase_State_GpVars_GpVarsAdapter('dummy_namespace');
+        $gpVarAdapter = new PunktDe_PtExtbase_State_GpVars_GpVarsAdapter('dummy_namespace');
         $filter->_injectGpVarsAdapter($gpVarAdapter);
     }
 

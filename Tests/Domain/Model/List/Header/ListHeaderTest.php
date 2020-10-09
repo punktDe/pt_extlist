@@ -33,14 +33,14 @@
  * 
  * @author Daniel Lienert 
  * @package Tests
- * @subpackage Model\List\Header
- * @see Tx_PtExtlist_Domain_Model_List_Header_ListHeader
+ * @subpackage Model\Lists\Header
+ * @see ListHeader
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_Header_ListHeaderTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
     /** @test */
     public function assertThatClassExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Header_ListHeader');
+        $this->assertClassExists('ListHeader');
     }
 }

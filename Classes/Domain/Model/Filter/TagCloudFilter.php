@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\DataProviderFactory;
+
 /**
  * Class implements the tagCloud filter
  * 
@@ -34,10 +40,10 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_TagCloudFilterTest
  */
-class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter
+class TagCloudFilter extends AbstractOptionsFilter
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+     * @var DataProviderFactory
      */
     protected $dataProviderFactory;
 
@@ -84,7 +90,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     * @see AbstractFilter::initFilter()
      */
     protected function initFilter()
     {
@@ -107,7 +113,7 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
 
 
     /**
-     * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
+     * @see PunktDe_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
      * @return array
      */
     public function _persistToSession()
@@ -123,12 +129,12 @@ class Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter extends Tx_PtExtlist_Domai
     protected function initColors()
     {
         $minColorHex = $this->filterConfig->getSettings('minColor');
-        if (substr($minColorHex, 0, 1) == '#') {
+        if (substr($minColorHex, 0, 1) === '#') {
             $minColorHex = substr($minColorHex, 1);
         }
         
         $maxColorHex = $this->filterConfig->getSettings('maxColor');
-        if (substr($maxColorHex, 0, 1) == '#') {
+        if (substr($maxColorHex, 0, 1) === '#') {
             $maxColorHex = substr($maxColorHex, 1);
         }
         

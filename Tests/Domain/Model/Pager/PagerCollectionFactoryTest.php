@@ -29,7 +29,7 @@
 /**
  * Testcase for pager collection factory
  *
- * @see Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory
+ * @see PagerCollectionFactory
  */
 class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends Tx_PtExtlist_Tests_BaseTestcase
 {
@@ -41,9 +41,9 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
                 ],
                 'backend' => [
                     'mysql' => [
-                        'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend',
-                        'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                        'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                        'dataBackendClass' => 'MySqlDataBackend_MySqlDataBackend',
+                        'dataMapperClass' => 'Mapper_ArrayMapper',
+                        'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 
 
                     ]
@@ -56,11 +56,11 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
                      'Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectioFactoryTest' => [
                         
                         'backendConfig' => [
-                                'dataBackendClass' => 'Tx_PtExtlist_Domain_DataBackend_Typo3DataBackend_Typo3DataBackend',
-                                'dataMapperClass' => 'Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper',
-                                'queryInterpreterClass' => 'Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
+                                'dataBackendClass' => 'Typo3DataBackend_Typo3DataBackend',
+                                'dataMapperClass' => 'Mapper_ArrayMapper',
+                                'queryInterpreterClass' => 'MySqlDataBackend_MySqlInterpreter_MySqlInterpreter',
 
-                                'repositoryClassName' => 'Tx_Extbase_Domain_Repository_FrontendUserGroupRepository'
+                                'repositoryClassName' => 'PunktDe_Extbase_Domain_Repository_FrontendUserGroupRepository'
 
                         ],
                         
@@ -109,7 +109,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
                             'pagerConfigs' => [
                                 'default' => [
                                     'templatePath' => 'EXT:pt_extlist/',
-                                    'pagerClassName' => 'Tx_PtExtlist_Domain_Model_Pager_DefaultPager',
+                                    'pagerClassName' => 'DefaultPager',
                                     'enabled' => '1'
                                 ],
                             ],
@@ -129,10 +129,10 @@ class Tx_PtExtlist_Tests_Domain_Model_Pager_PagerCollectionFactoryTest extends T
     
     public function testGetInstance()
     {
-        $pagerCollectionFactory = $this->objectManager->get('Tx_PtExtlist_Domain_Model_Pager_PagerCollectionFactory');
+        $pagerCollectionFactory = $this->objectManager->get('PagerCollectionFactory');
         $pagerCollection = $pagerCollectionFactory->getInstance($this->configurationBuilderMock);
         
-        $this->assertIsA($pagerCollection, 'Tx_PtExtlist_Domain_Model_Pager_PagerCollection'); /* @var $pagerCollection Tx_PtExtlist_Domain_Model_Pager_PagerCollection */
+        $this->assertIsA($pagerCollection, 'PagerCollection'); /* @var $pagerCollection PagerCollection */
         
         $this->assertEquals(1, $pagerCollection->count());
         

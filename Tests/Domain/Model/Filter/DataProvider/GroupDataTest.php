@@ -171,7 +171,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_GroupDataTest extends 
             ];
         }
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $this->defaultFilterSettings, 'test');
-        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+        $dataBackend = DataBackendFactory::createDataBackend($this->configurationBuilderMock);
         $accessibleGroupDataProvider->_injectDataBackend($dataBackend);
         $accessibleGroupDataProvider->_injectFilterConfig($filterConfiguration);
         $accessibleGroupDataProvider->init();

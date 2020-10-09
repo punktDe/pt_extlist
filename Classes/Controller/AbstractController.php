@@ -1,4 +1,6 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +28,27 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
+use PunktDe\PtExtbase\Controller\AbstractActionController;
+use PunktDe\PtExtbase\Lifecycle\Manager;
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManager;
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilderFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendFactory;
+use PunktDe\PtExtlist\Domain\DataBackend\DataBackendInterface;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManager;
+use PunktDe\PtExtlist\Domain\Model\Bookmark\BookmarkManagerFactory;
+use PunktDe\PtExtlist\Domain\StateAdapter\GetPostVarAdapterFactory;
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use PunktDe\PtExtlist\View\BaseView;
+use PunktDe\PtExtlist\View\ConfigurableViewInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Abstract controller for all pt_extlist controllers
@@ -35,10 +57,10 @@
  * @author Daniel Lienert
  * @package Controller
  */
-abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_Controller_AbstractActionController
+abstract class AbstractController extends AbstractActionController
 {
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManager
+     * @var BookmarkManager
      */
     protected $bookmarkManager;
 
@@ -56,7 +78,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Holds instance of lifecycle manager
      *
-     * @var Tx_PtExtbase_Lifecycle_Manager
+     * @var Manager
      */
     protected $lifecycleManager;
 
@@ -65,7 +87,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -74,22 +96,21 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Holds instance of configuration builder factory
      *
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory
+     * @var ConfigurationBuilderFactory
      */
     protected $configurationBuilderFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var ConfigurationBuilder
+     *
      */
     protected $configurationBuilder;
 
-
-
     /**
      *
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendInterface
+     * @var DataBackendInterface
      */
     protected $dataBackend;
 
@@ -116,28 +137,28 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @var Tx_PtExtbase_State_Session_SessionPersistenceManager
+     * @var SessionPersistenceManager
      */
     protected $sessionPersistenceManager;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_DataBackend_DataBackendFactory
+     * @var DataBackendFactory
      */
     protected $dataBackendFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+     * @var GetPostVarAdapterFactory
      */
     protected $getPostVarsAdapterFactory;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory
+     * @var BookmarkManagerFactory
      */
     protected $bookmarkManagerFactory;
 
@@ -146,14 +167,14 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Holds an instance of fe user repository
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+     * @var FrontendUserRepository
      */
     protected $feUserRepository;
 
 
 
     /**
-     * @var Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory
+     * @var GetPostVarAdapterFactory
      */
     protected $getPostVarAdapterFactory;
 
@@ -162,10 +183,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Constructor for all plugin controllers
      *
-     * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager Lifecycle manager to be injected via DI
-     * @param Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder Session persistence manager to be injected via DI
+     * @param Manager $lifecycleManager Lifecycle manager to be injected via DI
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder Session persistence manager to be injected via DI
      */
-    public function __construct(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager, Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function __construct(Manager $lifecycleManager, SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
         parent::__construct($lifecycleManager);
@@ -174,9 +195,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory
+     * @param DataBackendFactory $dataBackendFactory
      */
-    public function injectDataBackendFactory(Tx_PtExtlist_Domain_DataBackend_DataBackendFactory $dataBackendFactory)
+    public function injectDataBackendFactory(DataBackendFactory $dataBackendFactory)
     {
         $this->dataBackendFactory = $dataBackendFactory;
     }
@@ -184,9 +205,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory
+     * @param ConfigurationBuilderFactory $configurationBuilderFactory
      */
-    public function injectConfigurationBuilderFactory(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilderFactory $configurationBuilderFactory)
+    public function injectConfigurationBuilderFactory(ConfigurationBuilderFactory $configurationBuilderFactory)
     {
         $this->configurationBuilderFactory = $configurationBuilderFactory;
     }
@@ -194,9 +215,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory
+     * @param GetPostVarAdapterFactory $getPostVarsAdapterFactory
      */
-    public function injectGetPostVarsAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarsAdapterFactory)
+    public function injectGetPostVarsAdapterFactory(GetPostVarAdapterFactory $getPostVarsAdapterFactory)
     {
         $this->getPostVarsAdapterFactory = $getPostVarsAdapterFactory;
     }
@@ -204,9 +225,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory
+     * @param BookmarkManagerFactory $bookmarkManagerFactory
      */
-    public function injectBookmarkManagerFactory(Tx_PtExtlist_Domain_Model_Bookmark_BookmarkManagerFactory $bookmarkManagerFactory)
+    public function injectBookmarkManagerFactory(BookmarkManagerFactory $bookmarkManagerFactory)
     {
         $this->bookmarkManagerFactory = $bookmarkManagerFactory;
     }
@@ -214,9 +235,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository
+     * @param FrontendUserRepository $feUserRepository
      */
-    public function injectFeUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository)
+    public function injectFeUserRepository(FrontendUserRepository $feUserRepository)
     {
         $this->feUserRepository = $feUserRepository;
     }
@@ -224,9 +245,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtbase_Lifecycle_Manager $lifecycleManager
+     * @param Manager $lifecycleManager
      */
-    public function injectLifecycleManager(Tx_PtExtbase_Lifecycle_Manager $lifecycleManager)
+    public function injectLifecycleManager(Manager $lifecycleManager)
     {
         $this->lifecycleManager = $lifecycleManager;
     }
@@ -234,9 +255,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @param Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory
+     * @param GetPostVarAdapterFactory $getPostVarAdapterFactory
      */
-    public function injectGetPostVarAdapterFactory(Tx_PtExtlist_Domain_StateAdapter_GetPostVarAdapterFactory $getPostVarAdapterFactory)
+    public function injectGetPostVarAdapterFactory(GetPostVarAdapterFactory $getPostVarAdapterFactory)
     {
         $this->getPostVarAdapterFactory = $getPostVarAdapterFactory;
     }
@@ -244,7 +265,7 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
     /**
      * @return void
-     * @throws Exception
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -265,32 +286,33 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Sets list identifier for this controller
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function initListIdentifier()
     {
         if ($this->settings['listIdentifier'] != '') {
             $this->listIdentifier = $this->settings['listIdentifier'];
         } else {
-            throw new Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in FlexForm 1363797701');
+            throw new \Exception('No list identifier set! List controller cannot be initialized without a list identifier. Most likely you have not set a list identifier in FlexForm 1363797701');
         }
     }
 
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
-     * @throws Exception
+     * @return ConfigurationBuilder
+     * @throws \Exception
      */
     protected function buildConfigurationBuilder()
     {
+        $this->configurationBuilderFactory->setSettings($this->settings);
         $this->configurationBuilder = $this->configurationBuilderFactory->getInstance($this->listIdentifier, $this->resetConfigurationBuilder);
     }
 
 
 
     /**
-     * @return void
+     * @throws \Exception
      */
     protected function buildAndInitSessionPersistenceManager()
     {
@@ -307,9 +329,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     }
 
 
-
     /**
      * Reset session if ResetOnEmptySubmit is set in config and gpvars are empty
+     * @throws \Exception
      */
     protected function resetOnEmptySubmit()
     {
@@ -319,10 +341,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
         }
     }
 
-    
 
     /**
      * @return void
+     * @throws \Exception
      */
     protected function resetSessionOnResetParameter()
     {
@@ -336,20 +358,21 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
 
     /**
-     * @return Tx_PtExtbase_State_Session_SessionPersistenceManager
+     * @return SessionPersistenceManager
+     * @throws \Exception
      */
     protected function buildSessionPersistenceManager()
     {
         // Determine class name of session storage class to use for session persistence
         if (TYPO3_MODE === 'FE') {
-            $sessionPersistenceStorageAdapterClassName = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->isInCachedMode()
+            $sessionPersistenceStorageAdapterClassName = GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->isInCachedMode()
                 ? $this->configurationBuilder->buildBaseConfiguration()->getCachedSessionStorageAdapter() // We are in cached mode
                 : $this->configurationBuilder->buildBaseConfiguration()->getUncachedSessionStorageAdapter(); // We are in uncached mode
         } else {
-            $sessionPersistenceStorageAdapterClassName = Tx_PtExtbase_State_Session_SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
+            $sessionPersistenceStorageAdapterClassName = SessionPersistenceManager::STORAGE_ADAPTER_BROWSER_SESSION;
         }
         // Instantiate session storage for determined class name
-        $sessionStorageAdapter = call_user_func($sessionPersistenceStorageAdapterClassName . '::getInstance');
+        $sessionStorageAdapter = GeneralUtility::makeInstance($sessionPersistenceStorageAdapterClassName);
         $this->sessionPersistenceManager = $this->sessionPersistenceManagerBuilder->getInstance($sessionStorageAdapter);
     }
 
@@ -357,9 +380,9 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
 
     /**
      * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
-     * @return void
+     * @throws \Exception
      */
-    protected function setViewConfiguration(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
+    protected function setViewConfiguration(ViewInterface $view)
     {
         parent::setViewConfiguration($view);
         $this->setCustomPathsInView($view);
@@ -377,11 +400,11 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
      * @return void
      * @api
      */
-    protected function initializeView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
+    protected function initializeView(ViewInterface $view)
     {
-        $this->objectManager->get('Tx_PtExtlist_Extbase_ExtbaseContext')->setControllerContext($this->controllerContext);
+        $this->objectManager->get(ExtbaseContext::class)->setControllerContext($this->controllerContext);
         if (method_exists($view, 'setConfigurationBuilder')) {
-            /* @var $view Tx_PtExtlist_View_ConfigurableViewInterface */
+            /* @var $view ConfigurableViewInterface */
             $view->setConfigurationBuilder($this->configurationBuilder);
         }
         $this->view->assign('config', $this->configurationBuilder);
@@ -435,12 +458,12 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
      *
      * @see processRequest() in parent
      */
-    public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response)
+    public function processRequest(RequestInterface $request, ResponseInterface $response)
     {
         parent::processRequest($request, $response);
         if (TYPO3_MODE === 'BE') {
             // if we are in BE mode, this ist the last line called
-            $this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
+            $this->lifecycleManager->updateState(Manager::END);
         }
     }
 
@@ -449,10 +472,10 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
     /**
      * Set the TS defined custom paths in view
      *
-     * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
-     * @throws Exception
+     * @param ViewInterface $view
+     * @throws \Exception
      */
-    protected function setCustomPathsInView(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view)
+    protected function setCustomPathsInView(ViewInterface $view)
     {
         // TODO we do not get global settings from pt_extlist merged into list_identifier settings here. fix this.
         // Get template for current action from settings for list identifier
@@ -466,25 +489,33 @@ abstract class Tx_PtExtlist_Controller_AbstractController extends Tx_PtExtbase_C
             $templatePathAndFilename = $this->templatePathAndFileName;
         }
         if (isset($templatePathAndFilename) && strlen($templatePathAndFilename) > 0) {
-            if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename))) {
-                /* @var $view Tx_PtExtlist_View_BaseView */
-                $view->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename));
+            if (file_exists(GeneralUtility::getFileAbsFileName($templatePathAndFilename))) {
+                /* @var $view BaseView */
+                $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($templatePathAndFilename));
             } else {
-                throw new Exception('Given template path and filename could not be found or resolved: ' . \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename), 1284655110);
+                throw new \Exception('Given template path and filename could not be found or resolved: ' . \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templatePathAndFilename), 1284655110);
             }
         }
-    }
 
+        $defaultPartialRootPaths = [
+            10 => 'EXT:pt_extlist/Resources/Private/Partials'
+        ];
+
+        $concretePartialRootPaths = array_merge($defaultPartialRootPaths, $this->settings['listConfig'][$this->listIdentifier]['controller'][$this->request->getControllerName()][$this->request->getControllerActionName()]['partialPaths'] ?: []);
+
+        $view->setPartialRootPaths($concretePartialRootPaths);
+    }
 
 
     /**
      * (non-PHPdoc)
      *
+     * @throws StopActionException
      * @see redirect() in parent
      */
     protected function redirect($actionName, $controllerName = null, $extensionName = null, array $arguments = null, $pageUid = null, $delay = 0, $statusCode = 303)
     {
-        $this->lifecycleManager->updateState(Tx_PtExtbase_Lifecycle_Manager::END);
+        $this->lifecycleManager->updateState(Manager::END);
         parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
     }
 

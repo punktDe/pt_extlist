@@ -76,7 +76,7 @@ class Tx_PtExtlist_Tests_Domain_Model_Filter_DataProvider_TagCloudTest extends T
         $accessibleTagCloudDataProvider = new $accessibleClassName;
         /* @var $accessibleTagCloudDataProvider Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud */
         $filterConfiguration = new Tx_PtExtlist_Domain_Configuration_Filters_FilterConfig($this->configurationBuilderMock, $filterSettings, 'test');
-        $dataBackend = Tx_PtExtlist_Domain_DataBackend_DataBackendFactory::createDataBackend($this->configurationBuilderMock);
+        $dataBackend = DataBackendFactory::createDataBackend($this->configurationBuilderMock);
         $accessibleTagCloudDataProvider->_injectDataBackend($dataBackend);
         $accessibleTagCloudDataProvider->_injectFilterConfig($filterConfiguration);
         $accessibleTagCloudDataProvider->init();

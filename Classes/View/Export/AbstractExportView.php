@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\View\Export;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig;
+use PunktDe\PtExtlist\View\BaseView;
+use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
+
 /**
  * Abstract view for exports. This class acts as a base class for
  * all exports. It handles settings for export and header generation etc.
@@ -36,12 +46,12 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_View_Export_AbstractExportViewTest
  */
-abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_View_BaseView
+abstract class AbstractExportView extends BaseView
 {
     /**
      * Export configuration object
      *
-     * @var Tx_PtExtlist_Domain_Configuration_Export_ExportConfig
+     * @var ExportConfig
      */
     protected $exportConfiguration;
 
@@ -62,9 +72,9 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_Export_ExportConfig $exportConfiguration
+     * @param  ExportConfig $exportConfiguration
      */
-    public function setExportConfiguration(Tx_PtExtlist_Domain_Configuration_Export_ExportConfig $exportConfiguration)
+    public function setExportConfiguration(ExportConfig $exportConfiguration)
     {
         $this->exportConfiguration = $exportConfiguration;
     }
@@ -85,7 +95,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
      * (non-PHPdoc)
      * @see \TYPO3\CMS\Fluid\View\TemplateView::canRender()
      */
-    public function canRender(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext)
+    public function canRender(ControllerContext $controllerContext)
     {
         return true;
     }
@@ -95,7 +105,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
     /**
      * Helper method for generating file name from TS config
      *
-     * @return  string      File name of Export File
+     * @return   string      File name of Export File
      */
     protected function getFilenameFromTs()
     {
@@ -119,26 +129,26 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
      *
      * Functionality is taken from FPDF!
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function sendHeader()
     {
         switch ($this->exportConfiguration->getDownloadType()) {
 
-            case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::OPEN_IN_BROWSER:
+            case \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig::OPEN_IN_BROWSER:
 
                 if ($this->exportConfiguration->getContentType()) {
                     header('Content-Type: ' . $this->exportConfiguration->getContentType());
                 }
 
                 if (headers_sent()) {
-                    throw new Exception('Some data has already been output to browser, can\'t send Export file.', 1283945901);
+                    throw new \Exception('Some data has already been output to browser, can\'t send Export file.', 1283945901);
                 }
 
                 header('Content-disposition: inline; filename="' . $this->getFilenameFromTs() . '"');
                 break;
 
-            case Tx_PtExtlist_Domain_Configuration_Export_ExportConfig::FORCE_DOWNLOAD:
+            case \PunktDe\PtExtlist\Domain\Configuration\Export\ExportConfig::FORCE_DOWNLOAD:
 
                 if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
                     header('Content-Type: application/force-download, charset=' . $this->exportConfiguration->getSettings('outputEncoding'));
@@ -150,7 +160,7 @@ abstract class Tx_PtExtlist_View_Export_AbstractExportView extends Tx_PtExtlist_
                 break;
 
             default:
-                throw new Exception('No valid download handling set for Export file!', 1283945902);
+                throw new \Exception('No valid download handling set for Export file!', 1283945902);
         }
     }
 }

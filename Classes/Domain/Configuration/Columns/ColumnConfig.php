@@ -1,4 +1,7 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Columns;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +28,16 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use PunktDe\PtExtbase\Utility\HeaderInclusion;
+use PunktDe\PtExtlist\Domain\Configuration\AbstractExtlistConfiguration;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnConfigInterface;
+use PunktDe\PtExtlist\Domain\Configuration\Columns\ObjectMapper\ObjectMapperConfig;
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /**
  * Column Config Object
@@ -35,9 +47,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Configuration\Columns
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Columns_ColumnConfigTest
  */
-class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
-    extends Tx_PtExtlist_Domain_Configuration_AbstractExtlistConfiguration
-    implements Tx_PtExtlist_Domain_Configuration_ColumnConfigInterface
+class ColumnConfig
+    extends AbstractExtlistConfiguration
+    implements ColumnConfigInterface
 {
     /**
      * @var string
@@ -47,7 +59,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection
+     * @var FieldConfigCollection
      */
     protected $fieldIdentifier;
 
@@ -89,7 +101,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
+     * @var ObjectMapperConfig
      */
     protected $objectMapperConfig = null;
 
@@ -118,7 +130,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     * @var SortingConfigCollection
      */
     protected $sortingConfigCollection = null;
 
@@ -217,7 +229,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
      */
     protected function init()
     {
-        $headerInclusionUtility = GeneralUtility::makeInstance('Tx_PtExtbase_Utility_HeaderInclusion');
+        $headerInclusionUtility = GeneralUtility::makeInstance(HeaderInclusion::class);
 
         $this->setRequiredValue('columnIdentifier', 'Column identifier not given 1277889446');
         $this->setRequiredValue('fieldIdentifier', 'Field identifier for Column "' . $this->columnIdentifier . '" not given 1277889447');
@@ -252,7 +264,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
         }
 
         if (array_key_exists('renderObj', $this->settings)) {
-            $this->renderObj = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
+            $this->renderObj = GeneralUtility::makeInstance(TypoScriptService::class)->convertPlainArrayToTypoScriptArray(['renderObj' => $this->settings['renderObj']]);
         }
 
         /* Sorting configuration is set as follows:
@@ -261,11 +273,11 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
               3. If we don't have either, we use first field identifier and make this sorting field of column
          */
         if (array_key_exists('sortingFields', $this->settings)) {
-            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
+            $this->sortingConfigCollection = SortingConfigCollectionFactory::getInstanceBySortingFieldsSettings($this->settings['sortingFields']);
         } elseif (array_key_exists('sorting', $this->settings) && trim($this->settings['sorting'])) {
-            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
+            $this->sortingConfigCollection = SortingConfigCollectionFactory::getInstanceBySortingSettings($this->settings['sorting']);
         } else {
-            $this->sortingConfigCollection = Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
+            $this->sortingConfigCollection = SortingConfigCollectionFactory::getInstanceByFieldConfiguration($this->fieldIdentifier);
         }
 
         if (array_key_exists('accessGroups', $this->settings)) {
@@ -273,13 +285,13 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
         }
 
         // Generate relative paths for sorting images
-        $this->sortingImageDefault = $headerInclusionUtility->getFileRelFileName($this->sortingImageDefault);
-        $this->sortingImageAsc = $headerInclusionUtility->getFileRelFileName($this->sortingImageAsc);
-        $this->sortingImageDesc = $headerInclusionUtility->getFileRelFileName($this->sortingImageDesc);
+        $this->sortingImageDefault = PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName($this->sortingImageDefault));
+        $this->sortingImageAsc = PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName($this->sortingImageAsc));
+        $this->sortingImageDesc = PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName($this->sortingImageDesc));
 
         // Build the objectMapperConfig
         if (array_key_exists('objectMapper', $this->settings)) {
-            $this->objectMapperConfig = new Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
+            $this->objectMapperConfig = new ObjectMapperConfig($this->configurationBuilder, $this->settings['objectMapper']);
         }
     }
 
@@ -313,7 +325,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfigCollection fieldIdentifier
+     * @return \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfigCollection fieldIdentifier
      */
     public function getFieldIdentifier()
     {
@@ -373,7 +385,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_SortingConfigCollection
+     * @return SortingConfigCollection
      */
     public function getSortingConfig()
     {
@@ -459,7 +471,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 
 
     /**
-     * @return string;
+     * @return string ;
      */
     public function getCellCSSClass()
     {
@@ -491,7 +503,7 @@ class Tx_PtExtlist_Domain_Configuration_Columns_ColumnConfig
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Configuration_Columns_ObjectMapper_ObjectMapperConfig
+     * @return ObjectMapperConfig
      */
     public function getObjectMapperConfig()
     {

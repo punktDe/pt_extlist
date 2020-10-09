@@ -33,7 +33,7 @@
  * @author Daniel Lienert
  * @package Tests
  * @subpackage Domain\Model\List
- * @see Tx_PtExtlist_Domain_Model_List_Cell
+ * @see Cell
  */
 class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\Testing\Unit\AbstractBaseTestcase
 {
@@ -52,7 +52,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\T
      */
     public function classExists()
     {
-        $this->assertClassExists('Tx_PtExtlist_Domain_Model_List_Cell');
+        $this->assertClassExists('Cell');
     }
 
 
@@ -88,7 +88,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\T
      */
     public function toStringTest($value, $expected)
     {
-        $cell = new Tx_PtExtlist_Domain_Model_List_Cell($value);
+        $cell = new Cell($value);
         $this->assertEquals($expected, $cell->__toString());
     }
 
@@ -99,7 +99,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\T
      */
     public function setByArray()
     {
-        $cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+        $cell = new Cell();
 
         $cell->setByArray($this->testDataArray);
 
@@ -117,7 +117,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_CellTest extends \PunktDe\PtExtbase\T
      */
     public function getByArray()
     {
-        $cell = new Tx_PtExtlist_Domain_Model_List_Cell();
+        $cell = new Cell();
         $cell->setValue('testValue');
         $cell->setRowIndex(1);
         $cell->setColumnIndex(2);

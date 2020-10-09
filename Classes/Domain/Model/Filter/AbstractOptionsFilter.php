@@ -1,4 +1,9 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Model\Filter;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +31,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig;
+use PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\DataProviderFactory;
+use PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\DataProviderInterface;
+use PunktDe\PtExtlist\Domain\QueryObject\Criteria;
+use PunktDe\PtExtlist\Domain\QueryObject\SimpleCriteria;
+use PunktDe\PtExtlist\Utility\DbUtils;
+
 /**
  * Class implements an abstract filter for all options filters
  *
@@ -35,7 +48,7 @@
  * @subpackage Model\Filter
  * @see Tx_PtExtlist_Tests_Domain_Model_Filter_AbstractOptionsFilterTest
  */
-abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx_PtExtlist_Domain_Model_Filter_AbstractFilter
+abstract class AbstractOptionsFilter extends AbstractFilter
 {
     /**
      * Holds an array of filter values
@@ -56,16 +69,16 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
     /**
-     * @var Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory
+     * @var DataProviderFactory
      */
     protected $dataProviderFactory;
 
 
 
     /**
-     * @param Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory
+     * @param DataProviderFactory $dataProviderFactory
      */
-    public function injectDataProviderFactory(Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderFactory $dataProviderFactory)
+    public function injectDataProviderFactory(DataProviderFactory $dataProviderFactory)
     {
         $this->dataProviderFactory = $dataProviderFactory;
     }
@@ -73,7 +86,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
     /**
-     * @see Tx_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
+     * @see PunktDe_PtExtbase_State_Session_SessionPersistableInterface::persistToSession()
      * @return array
      */
     public function _persistToSession()
@@ -85,7 +98,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::reset()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::reset()
      */
     public function reset()
     {
@@ -96,7 +109,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilter()
+     * @see AbstractFilter::initFilter()
      */
     protected function initFilter()
     {
@@ -107,20 +120,20 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
     /**
      * Build the criteria for a single field
      *
-     * @param Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier
-     * @return Tx_PtExtlist_Domain_QueryObject_SimpleCriteria
+     * @param FieldConfig $fieldIdentifier
+     * @return SimpleCriteria
      */
-    protected function buildFilterCriteria(Tx_PtExtlist_Domain_Configuration_Data_Fields_FieldConfig $fieldIdentifier)
+    protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
-        $fieldName = Tx_PtExtlist_Utility_DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
+        $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
         $singleCriteria = null;
 
         if ($fieldIdentifier->getIsRelation()) {
-            $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::relation($fieldName, current($this->filterValues));
+            $singleCriteria = Criteria::relation($fieldName, current($this->filterValues));
         } elseif (is_array($this->filterValues) && count($this->filterValues) == 1) {
-            $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::equals($fieldName, current($this->filterValues), $fieldIdentifier->getTreatValueAsString());
+            $singleCriteria = Criteria::equals($fieldName, current($this->filterValues), $fieldIdentifier->getTreatValueAsString());
         } elseif (is_array($this->filterValues) && count($this->filterValues) > 1) {
-            $singleCriteria = Tx_PtExtlist_Domain_QueryObject_Criteria::in($fieldName, $this->filterValues);
+            $singleCriteria = Criteria::in($fieldName, $this->filterValues);
         }
 
         return $singleCriteria;
@@ -130,7 +143,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
     /**
      * (non-PHPdoc)
-     * @see Classes/Domain/Model/Filter/Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::setActiveState()
+     * @see Classes/Domain/Model/Filter/AbstractFilter::setActiveState()
      */
     protected function setActiveState()
     {
@@ -144,7 +157,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByGpVars()
+     * @see AbstractFilter::initFilterByGpVars()
      *
      */
     protected function initFilterByGpVars()
@@ -167,7 +180,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterBySession()
+     * @see AbstractFilter::initFilterBySession()
      *
      */
     protected function initFilterBySession()
@@ -180,7 +193,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
     /**
-     * @see Tx_PtExtlist_Domain_Model_Filter_AbstractFilter::initFilterByTsConfig()
+     * @see AbstractFilter::initFilterByTsConfig()
      *
      */
     protected function initFilterByTsConfig()
@@ -211,7 +224,7 @@ abstract class Tx_PtExtlist_Domain_Model_Filter_AbstractOptionsFilter extends Tx
 
 
     /**
-     * @return Tx_PtExtlist_Domain_Model_Filter_DataProvider_DataProviderInterface
+     * @return DataProviderInterface
      */
     protected function buildDataProvider()
     {

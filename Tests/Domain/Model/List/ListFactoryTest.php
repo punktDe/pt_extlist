@@ -45,7 +45,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
     
     public function testSetup()
     {
-        $this->assertTrue(class_exists('Tx_PtExtlist_Domain_Model_List_ListFactory'));
+        $this->assertTrue(class_exists('ListFactory'));
     }
 
 
@@ -58,10 +58,10 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
         $overwriteSettings['listConfig']['test']['useIterationListData'] = 0;
         $this->initDefaultConfigurationBuilderMock($overwriteSettings);
 
-        $listData = new Tx_PtExtlist_Domain_Model_List_ListData();
-        $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
+        $listData = new ListData();
+        $listHeader = new ListHeader($this->configurationBuilderMock->getListIdentifier());
         
-        $backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', ['getListData', 'getListHeader'], [$this->configurationBuilderMock]);
+        $backendMock = $this->getMock('DummyDataBackend', ['getListData', 'getListHeader'], [$this->configurationBuilderMock]);
         $backendMock->expects($this->any())
             ->method('getListData')
             ->will($this->returnValue($listData));
@@ -70,7 +70,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
             ->will($this->returnValue($listHeader));
             
         $list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
-                    ->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
+                    ->get('ListFactory')
                     ->createList($backendMock, $this->configurationBuilderMock);
         
         $this->assertEquals($listData, $list->getListData());
@@ -87,11 +87,11 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
         $overwriteSettings['listConfig']['test']['useIterationListData'] = 1;
         $this->initDefaultConfigurationBuilderMock($overwriteSettings);
 
-        $iterationListData = new Tx_PtExtlist_Domain_Model_List_IterationListData();
-        $listHeader = new Tx_PtExtlist_Domain_Model_List_Header_ListHeader($this->configurationBuilderMock->getListIdentifier());
-        $aggregateListData = new Tx_PtExtlist_Domain_Model_List_ListData();
+        $iterationListData = new IterationListData();
+        $listHeader = new ListHeader($this->configurationBuilderMock->getListIdentifier());
+        $aggregateListData = new ListData();
 
-        $backendMock = $this->getMock('Tx_PtExtlist_Domain_DataBackend_DummyDataBackend', ['getIterationListData', 'getListHeader', 'getAggregateListData'], [$this->configurationBuilderMock]);
+        $backendMock = $this->getMock('DummyDataBackend', ['getIterationListData', 'getListHeader', 'getAggregateListData'], [$this->configurationBuilderMock]);
         $backendMock->expects($this->any())
             ->method('getIterationListData')
             ->will($this->returnValue($iterationListData));
@@ -103,7 +103,7 @@ class Tx_PtExtlist_Tests_Domain_Model_List_ListFactoryTest extends Tx_PtExtlist_
             ->will($this->returnValue($aggregateListData));
 
         $list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')
-                        ->get('Tx_PtExtlist_Domain_Model_List_ListFactory')
+                        ->get('ListFactory')
                         ->createList($backendMock, $this->configurationBuilderMock);
 
         $this->assertEquals($iterationListData, $list->getIterationListData());

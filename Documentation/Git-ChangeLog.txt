@@ -212,7 +212,7 @@ f406d8e 2010-09-15 15:12:58 +0200 (Lwam Berhane) message: Merge branch 'master' 
 3eb555a 2010-09-15 15:12:53 +0200 (Lwam Berhane) message: FIX: Renaming
 96ac85f 2010-09-15 15:10:11 +0200 (Lwam Berhane) message: FIX: renaming desaster
 bcb529a 2010-09-15 15:00:28 +0200 (Daniel Lienert) message: ADD: Test for FlexFormProvider
-88d2fee 2010-09-15 14:46:42 +0200 (Lwam Berhane) message: englische version für pt_extlist verfügbar
+88d2fee 2010-09-15 14:46:42 +0200 (Lwam Berhane) message: englische version fï¿½r pt_extlist verfï¿½gbar
 b4f3507 2010-09-15 13:51:46 +0200 (Daniel Lienert) message: CHG: Renamed Documentation Folder
 d78729b 2010-09-15 13:49:27 +0200 (Daniel Lienert) message: ADD: FlexformDataProvider for providing select options in flexform CHG: Flexform to use dataproviders for listidentifiers and exportTypes
 d90d506 2010-09-15 09:36:03 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
@@ -417,7 +417,7 @@ f147d27 2010-08-30 13:50:50 +0200 (Michael Knoll) message: ADD: Added flexform c
 c6c1fac 2010-08-30 13:37:49 +0200 (Michael Knoll) message: ADD: Added CRUD actions to bookmarks controller, tests and extension configuration
 49f255f 2010-08-30 12:56:42 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
 8c3fb05 2010-08-30 12:56:34 +0200 (Christoph Ehscheidt) message: CHG: FilterboxFactory build Filterbox with only accessable filters.
-df666dc 2010-08-30 09:43:41 +0200 (Daniel Lienert) message: FIX´: Wrong error message
+df666dc 2010-08-30 09:43:41 +0200 (Daniel Lienert) message: FIXï¿½: Wrong error message
 b9b4492 2010-08-30 09:39:12 +0200 (Daniel Lienert) message: RFT: HeaderColumn, moved calculation of sorting state from getter to builderMethod
 62d444e 2010-08-29 23:58:19 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://elendil-extlist/var/git/punkt.de/pt_extlist
 5f413da 2010-08-30 00:10:11 +0200 (Michael Knoll) message: ADD: Added flexform config and localconf for bookmarks show action
@@ -470,7 +470,7 @@ a26866a 2010-08-24 12:15:36 +0200 (Christoph Ehscheidt) message: FIX: Pager temp
 9535da8d 2010-08-24 11:36:52 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
 05eb2a5 2010-08-24 11:36:38 +0200 (Christoph Ehscheidt) message: ADD: Resetting pagers on a filterbox reset event.
 2664a73 2010-08-22 12:33:25 +0200 (Daniel Lienert) message: CHG: Completed firstLetterFilter RFT: Some Changes on AbstractGroupdataFilter at addinactiveOption
-5ae0a0f 2010-08-22 10:18:07 +0200 (Daniel Lienert) message: RFT: Filter API- ä
+5ae0a0f 2010-08-22 10:18:07 +0200 (Daniel Lienert) message: RFT: Filter API- ï¿½
 32ce1e2 2010-08-22 02:32:07 +0200 (Daniel Lienert) message: RFT: AbstractGroupDataFilter and concrete filters - optionDefault is now array(selected => boolean, value => "value")
 be6a5d9 2010-08-22 01:52:44 +0200 (Daniel Lienert) message: RFT: AbstractGroupDataFilter
 5b4279f 2010-08-19 21:02:24 +0200 (Michael Knoll) message: RFT: Some code formatting & comments
@@ -501,9 +501,9 @@ de15a47 2010-08-19 14:50:20 +0200 (Christoph Ehscheidt) message: Merge branch 'm
 cdfd4c1 2010-08-19 14:50:09 +0200 (Christoph Ehscheidt) message: RFT: PagerController displays pager defined by flexform
 648f656 2010-08-19 14:49:33 +0200 (Christoph Ehscheidt) message: RFT: PagerFactory creates a instance for each pagerIdentifier in list
 7a49273 2010-08-19 13:28:50 +0200 (Christoph Ehscheidt) message: RFT: Allow to configure pager in flexform.
-4b0d6bc 2010-08-19 13:04:21 +0200 (Michael Knoll) message: ÂTASK: commit before pull
+4b0d6bc 2010-08-19 13:04:21 +0200 (Michael Knoll) message: ï¿½TASK: commit before pull
 229cd95 2010-08-19 13:03:41 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
-0a2c334 2010-08-19 13:03:33 +0200 (Michael Knoll) message: ÂTASK: commit before pull
+0a2c334 2010-08-19 13:03:33 +0200 (Michael Knoll) message: ï¿½TASK: commit before pull
 029876b 2010-08-19 14:34:02 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
 ea05fea 2010-08-19 13:01:47 +0200 (Daniel Lienert) message: FIX: Configuration
 98ab9e0 2010-08-19 12:23:40 +0200 (Christoph Ehscheidt) message: ADD: pager controller asigns more than one pager to view
@@ -586,7 +586,7 @@ de32629 2010-08-17 11:47:25 +0200 (Christoph Ehscheidt) message: ADD: pager.item
 f3128c4 2010-08-15 11:34:46 +0200 (Daniel Lienert) message: ADD: Interface for Configobjects that return renderConfig
 1839fd8 2010-08-13 19:47:37 +0200 (Daniel Lienert) message: ADD: Filter with cObject ... not functional by now :(
 cc33db4 2010-08-13 17:40:24 +0200 (Daniel Lienert) message: FIX: Failed Integration Test :(
-7db9cbe 2010-08-13 17:34:18 +0200 (Daniel Lienert) message: RFT: Some Changes in DemoListConfigä-
+7db9cbe 2010-08-13 17:34:18 +0200 (Daniel Lienert) message: RFT: Some Changes in DemoListConfigï¿½-
 2a532b7 2010-08-13 17:33:41 +0200 (Daniel Lienert) message: RFT: All fields used in filters are now fieldIdentifiers
 2f42c0a 2010-08-13 17:32:20 +0200 (Daniel Lienert) message: RFT: Removed strange and unused utility methods and moved method from MYsqlBackend to utility
 2fb68cc 2010-08-13 16:00:59 +0200 (Daniel Lienert) message: CHG: Support for enablefields in Typo3Backend
@@ -690,7 +690,7 @@ ea61461 2010-08-09 14:12:31 +0200 (Daniel Lienert) message: ADD: Special to Fiel
 efcd554 2010-08-09 13:54:11 +0200 (Christoph Ehscheidt) message: ADD: partial template for list body.
 e6188a6 2010-08-09 13:48:37 +0200 (Christoph Ehscheidt) message: Merge branch 'master' of ssh://devel/var/git/typo3/extensions/generic/pt_extlist
 ca4e597 2010-08-09 13:48:34 +0200 (Christoph Ehscheidt) message: RFT: optimized renderer by passing references.
-56dfa42 2010-08-09 13:45:32 +0200 (Michael Knoll) message: CHG: Databackend uses field ID as alias. Array mapper returns data with field ID as keyÂ
+56dfa42 2010-08-09 13:45:32 +0200 (Michael Knoll) message: CHG: Databackend uses field ID as alias. Array mapper returns data with field ID as keyï¿½
 bc6c28a 2010-08-09 13:39:16 +0200 (Daniel Lienert) message: ADD: special to fieldconfig
 6aaacd7 2010-08-09 13:19:46 +0200 (Christoph Ehscheidt) message: CHG: Renderer: comma seperated fieldIdentifiers working
 dd24561 2010-08-09 13:19:22 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
@@ -824,7 +824,7 @@ a93fcab 2010-08-03 17:31:53 +0200 (Michael Knoll) message: Merge branch 'master'
 e2a9540 2010-08-03 17:20:06 +0200 (Daniel Lienert) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
 12e5efe 2010-08-03 17:20:02 +0200 (Daniel Lienert) message: CHG: demolist setup.txt
 e3fb77d 2010-08-03 17:18:23 +0200 (Michael Knoll) message: Merge branch 'master' of ssh://devel.intern.punkt.de/var/git/typo3/extensions/generic/pt_extlist
-6492cc5 2010-08-03 17:18:15 +0200 (Michael Knoll) message: ADD: Added testcase for pager controllerÂ
+6492cc5 2010-08-03 17:18:15 +0200 (Michael Knoll) message: ADD: Added testcase for pager controllerï¿½
 6002c44 2010-08-03 16:38:50 +0200 (Christoph Ehscheidt) message: CHG: hudson test
 2a74a48 2010-08-03 16:22:00 +0200 (Christoph Ehscheidt) message: FIX: Hudson Test
 d246b46 2010-08-03 16:17:23 +0200 (Christoph Ehscheidt) message: ADD: Hudson Fail Test.
@@ -938,7 +938,7 @@ b20f998 2010-07-29 09:45:02 +0200 (Christoph Ehscheidt) message: Merge branch 'm
 2aafd50 2010-07-28 17:34:29 +0200 (Daniel Lienert) message: RFT: HeaderColumn*
 6071972 2010-07-28 17:33:43 +0200 (Daniel Lienert) message: ADD: Classes to hold teh sorting config
 d379def 2010-07-28 17:33:13 +0200 (Daniel Lienert) message: ADD: New Column Settings
-7c41586 2010-07-28 17:03:01 +0200 (Michael Knoll) message: ADD: Added testcase for typo3 data sourceÂ
+7c41586 2010-07-28 17:03:01 +0200 (Michael Knoll) message: ADD: Added testcase for typo3 data sourceï¿½
 69a2b18 2010-07-28 16:14:27 +0200 (Michael Knoll) message: ADD: Added classes for t3tables data backend
 53bf1b3 2010-07-28 15:57:35 +0200 (Michael Knoll) message: RFT: Changed tests to work with moved files
 7b8d1c5 2010-07-28 15:55:25 +0200 (Michael Knoll) message: RFT: Moved some files
@@ -1009,7 +1009,7 @@ e0a6515 2010-07-26 15:58:50 +0200 (Michael Knoll) message: ADD: Added some trans
 f1610c9 2010-07-26 15:55:09 +0200 (Daniel Lienert) message: CHG: add translator methods criteria translator classes
 6341dfc 2010-07-26 15:33:50 +0200 (Michael Knoll) message: ADD: Added base classes for query translator for mysql
 44128b9 2010-07-26 14:37:17 +0200 (Michael Knoll) message: DEL: Deleted testcases for old query object
-35f4e5c 2010-07-26 14:36:13 +0200 (Michael Knoll) message: DEL: DeÃleted old folder structure
+35f4e5c 2010-07-26 14:36:13 +0200 (Michael Knoll) message: DEL: Deï¿½leted old folder structure
 be7ff17 2010-07-26 13:52:59 +0200 (Michael Knoll) message: ADD: Added interface, tests and folder structure for mysql interpreter
 39d9a02 2010-07-26 13:38:18 +0200 (Michael Knoll) message: RFT: Changed folder structure for data backend in tests
 be71a88 2010-07-26 13:34:27 +0200 (Michael Knoll) message: RFT: Changed folder structure for data backend
@@ -1024,7 +1024,7 @@ d0b492a 2010-07-23 19:21:00 +0200 (Michael Knoll) message: Added testcase for or
 838ad51 2010-07-23 19:04:36 +0200 (Michael Knoll) message: ADD: Added some comments to criteria class
 f92cd53 2010-07-23 18:55:18 +0200 (Michael Knoll) message: ADD: Added tests for simple criteria
 d7c45dd 2010-07-23 18:49:18 +0200 (Michael Knoll) message: ADD: Added some comments to simple criteria
-11c03eb 2010-07-23 18:38:42 +0200 (Michael Knoll) message: ÂADD: Added some criterias for query object
+11c03eb 2010-07-23 18:38:42 +0200 (Michael Knoll) message: ï¿½ADD: Added some criterias for query object
 3d4057c 2010-07-23 14:45:36 +0200 (Michael Knoll) message: ADD: Added folders and class and tests for query object
 88c4b72 2010-07-21 16:57:52 +0200 (Christoph Ehscheidt) message: CHG: changed the pager update
 ed304ec 2010-07-21 10:02:39 +0200 (Christoph Ehscheidt) message: ADD: doc comments
@@ -1066,7 +1066,7 @@ a7fc9f5 2010-06-30 18:17:41 +0200 (Michael Knoll) message: FIX: Fixed session pe
 5b706ac 2010-06-30 17:58:08 +0200 (Michael Knoll) message: ADD: Added testcase for string filter. Made string filter session persistable
 2ec53b3 2010-06-30 15:41:54 +0200 (Michael Knoll) message: CHG: Added some comments
 1762313 2010-06-30 15:26:04 +0200 (Michael Knoll) message: ADD: Added interface for pager. Added injector for pager in data backend class. RFT: Changed data backend interface for injectors
-a49bfa4 2010-06-30 14:23:45 +0200 (Michael Knoll) message: ÂRFT: Made Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase work again
+a49bfa4 2010-06-30 14:23:45 +0200 (Michael Knoll) message: ï¿½RFT: Made Tx_PtExtlist_Tests_Domain_Model_Filter_FilterFactory_testcase work again
 6fcc51a 2010-06-30 14:20:44 +0200 (Michael Knoll) message: RFT: Made Tx_PtExtlist_Tests_Domain_Model_Filter_FilterboxFactory_testcase run again
 36aecd1 2010-06-30 13:46:22 +0200 (Michael Knoll) message: RFT: Moved some stubs into right directory
 558ce8b 2010-06-30 13:38:28 +0200 (Michael Knoll) message: RFT: Made Filterbox testcase run again
@@ -1096,7 +1096,7 @@ d58d21e 2010-06-29 13:33:25 +0200 (Michael Knoll) message: FIX: Fixed testcases 
 879a1ca 2010-06-29 12:43:47 +0200 (Michael Knoll) message: ADD: Added controller for filterbox. Added testcase for controller for filterbox
 091123f 2010-06-29 12:10:47 +0200 (Michael Knoll) message: ADD: Added setup test for filter controller
 2cc5c57 2010-06-29 11:52:27 +0200 (Michael Knoll) message: ADD: Added testcase for filter controller
-9757335 2010-06-23 18:00:59 +0200 (Daniel Lienert) message: CHG: Tx_PtExtlist_Domain_DataBackend_DataBackendFactory:createDataBackend and inject methods
+9757335 2010-06-23 18:00:59 +0200 (Daniel Lienert) message: CHG: DataBackendFactory:createDataBackend and inject methods
 a8d022f 2010-06-23 15:46:07 +0200 (Michael Knoll) message: CHG: DataBackendFactory now offers singleton instances for each list identifier
 9b089be 2010-06-23 15:21:14 +0200 (Michael Knoll) message: ADD: Testcase for DataBackendFactory FIX: DataBackendFactory ADD: Mock for ConfigurationBuilder. TASK: Merged AbstracFilter
 b595b22 2010-06-23 15:18:17 +0200 (Michael Knoll) message: ADD: Testcase for DataBackendFactory FIX: DataBackendFactory ADD: Mock for ConfigurationBuilder

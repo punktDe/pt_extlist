@@ -27,6 +27,10 @@ namespace PunktDe\PtExtlist\ViewHelpers\Link;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Exception\Assertion;
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
+use PunktDe\PtExtlist\Domain\QueryObject\Query;
 use PunktDe\PtExtlist\ViewHelpers\Namespaces\GPArrayViewHelper;
 use \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 
@@ -45,7 +49,7 @@ class  SortingFieldsViewHelper extends ActionViewHelper
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
@@ -53,9 +57,9 @@ class  SortingFieldsViewHelper extends ActionViewHelper
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -66,7 +70,8 @@ class  SortingFieldsViewHelper extends ActionViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('header', 'Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn', 'Header', true);
+        parent::initializeArguments();
+        $this->registerArgument('header', HeaderColumn::class, 'Header', true);
         $this->registerArgument('fieldAndDirection', 'array', 'Field and Direction', true);
     }
 
@@ -90,18 +95,20 @@ class  SortingFieldsViewHelper extends ActionViewHelper
      * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
      * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
      * @return string Rendered link
-     * @throws \Tx_PtExtbase_Exception_Assertion
+     * @throws Assertion
      */
-    public function render($action = null, array $arguments = [], $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [], $addQueryStringMethod = null)
+    public function render()
     {
         $header = $this->arguments['header'];
+
+        $action = $this->arguments['action'];
         if ($action === null) {
             $action = 'sort';
         }
         $fieldAndDirection = $this->arguments['fieldAndDirection'];
         $sortingFieldParams = [];
 
-        $sortingDirection = \Tx_PtExtlist_Domain_QueryObject_Query::invertSortingState($fieldAndDirection['currentDirection']);
+        $sortingDirection = Query::invertSortingState($fieldAndDirection['currentDirection']);
         $sortingFieldParams[] = $fieldAndDirection['field'] . ':' . $sortingDirection;
 
         # echo "current direction for field " . $fieldAndDirection['field'] . " = " . $fieldAndDirection['currentDirection'] . " link direction = " . $sortingDirection;
@@ -113,6 +120,8 @@ class  SortingFieldsViewHelper extends ActionViewHelper
 
         $this->sessionPersistenceManagerBuilder->getInstance()->addSessionRelatedArguments($argumentArray);
 
-        return parent::render($action, $argumentArray, null, null, null, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
+        $this->arguments['arguments'] = $argumentArray;
+        $this->setArguments($this->arguments);
+        return parent::render();
     }
 }

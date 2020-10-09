@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\Pager;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Collection\ObjectCollection;
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+
+
 /**
  * Class implements pager configuration collection
  *
@@ -34,17 +42,24 @@
  * @author Daniel Lienert
  * @see Tx_PtExtlist_Tests_Domain_Configuration_Pager_PagerConfigCollectionTest
  */
-class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends \PunktDe\PtExtbase\Collection\ObjectCollection
+class PagerConfigCollection extends ObjectCollection
 {
+    /**
+     * @var string
+     */
     protected $listIdentifier;
-    protected $restrictedClassName = 'Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig';
+
+    /**
+     * @var string
+     */
+    protected $restrictedClassName = PagerConfig::class;
     
     
     
     /**
-     * @param Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function __construct(Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder $configurationBuilder)
+    public function __construct(ConfigurationBuilder $configurationBuilder)
     {
         $this->listIdentifier = $configurationBuilder->getListIdentifier();
     }
@@ -53,11 +68,11 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends \Pun
     
     /**
      * Add pagerconig to list
-     * 
-     * @param Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfig
+     *  
+     * @param PagerConfig $pagerConfig
      * @param string $pagerIdentifier
      */
-    public function addPagerConfig(Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig $pagerConfig, $pagerIdentifier)
+    public function addPagerConfig(PagerConfig $pagerConfig, $pagerIdentifier)
     {
         $this->addItem($pagerConfig, $pagerIdentifier);
     }
@@ -66,7 +81,7 @@ class Tx_PtExtlist_Domain_Configuration_Pager_PagerConfigCollection extends \Pun
     
     /**
      * @param string $pagerIdentifier
-     * @return Tx_PtExtlist_Domain_Configuration_Pager_PagerConfig
+     * @return PagerConfig
      */
     public function getPagerConfig($pagerIdentifier)
     {

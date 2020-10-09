@@ -1,4 +1,8 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Exception;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,12 +29,11 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
- * 
+ *  
  *
  * @package Exception
  */
-class Tx_PtExtlist_Exception_InvalidBackendException extends \TYPO3\CMS\Extbase\Exception
+class InvalidBackendException extends \TYPO3\CMS\Extbase\Exception
 {
 }

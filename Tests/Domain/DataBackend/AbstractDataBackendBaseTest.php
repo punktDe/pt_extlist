@@ -26,6 +26,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtlist\Domain\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -64,7 +67,7 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
     /**
      * Holds an instance of extlist configuration builder
      *
-     * @var Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder
+     * @var ConfigurationBuilder
      */
     protected $configurationBuilder;
 
@@ -79,7 +82,7 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			
 			    prototype {
 			    
-			       pager.pagerConfigs.default.pagerClassName = Tx_PtExtlist_Domain_Model_Pager_DefaultPager
+			       pager.pagerConfigs.default.pagerClassName = DefaultPager
 	   			   pager.pagerConfigs.default.enabled = 1
 	   			   pager.pagerConfigs.default.templatePath = EXT:pt_extlist/
 			    
@@ -92,10 +95,10 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			    
 			        backendConfig {
 			
-			            dataBackendClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlDataBackend
-			            dataSourceClass = Tx_PtExtlist_Domain_DataBackend_DataSource_Typo3DataSource
-			            dataMapperClass = Tx_PtExtlist_Domain_DataBackend_Mapper_ArrayMapper
-			            queryInterpreterClass = Tx_PtExtlist_Domain_DataBackend_MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
+			            dataBackendClass = MySqlDataBackend_MySqlDataBackend
+			            dataSourceClass = DataSource_Typo3DataSource
+			            dataMapperClass = Mapper_ArrayMapper
+			            queryInterpreterClass = MySqlDataBackend_MySqlInterpreter_MySqlInterpreter
 			            
 			            datasource {
 			                host = " . TYPO3_db_host . "
@@ -128,9 +131,9 @@ abstract class Tx_PtExtlist_Tests_Domain_DataBackend_AbstractDataBackendBaseTest
 			        }
 			   }
 			}";
-        $this->typoScriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser');
+        $this->typoScriptParser = GeneralUtility::makeInstance(TypoScriptParser::class);
         $this->typoScriptParser->parse($this->tsConfigString);
-        $this->tsConfig = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Service\TypoScriptService')->convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
-        $this->configurationBuilder = new Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder($this->tsConfig['plugin']['tx_ptextlist']['settings'], 'list1');
+        $this->tsConfig = GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($this->typoScriptParser->setup);
+        $this->configurationBuilder = new ConfigurationBuilder($this->tsConfig['plugin']['tx_ptextlist']['settings'], 'list1');
     }
 }

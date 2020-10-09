@@ -1,403 +1,437 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
 <T3DataStructure>
-  <sheets>
-  
-    <!--##########################-->
-    <!-- Tab for general settings -->
-    <!--##########################-->
-    <sDefault>
-      <ROOT>
-        <TCEforms>
-          <sheetTitle>General Options</sheetTitle>
-        </TCEforms>
-        <type>array</type>
-        <el>
+    <sheets>
 
-          <settings.listIdentifier>
-            <TCEforms>
-              <label>List Identifier</label>
-				<onChange>reload</onChange>
-              <config>
-                <type>select</type>
-                	<items>
-						<numIndex index="0" type="array">
-							<numIndex index="0">[Please select a defined listConfig]</numIndex>
-							<numIndex index="1"></numIndex>
-						</numIndex>
-					</items>
-					<default></default>
-					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedListConfigs</itemsProcFunc>
-              </config>
-            </TCEforms>
-          </settings.listIdentifier>
-          
-          
-          <switchableControllerActions>
-            <TCEforms>
-              <label>Plugin type</label>
-				<displayCond>FIELD:settings.listIdentifier:REQ:true</displayCond>
-				<onChange>reload</onChange>
-				<config>
-                <type>select</type>
-                <items type="array">
-                  <numIndex index="1" type="array">
-                    <numIndex index="0">List</numIndex>
-                    <numIndex index="1">List->list;List->sort</numIndex>
-                  </numIndex>
-                  <numIndex index="2" type="array">
-                    <numIndex index="0">Export</numIndex>
-                    <numIndex index="1">Export->showLink;Export->download</numIndex>
-                  </numIndex>
-                  <numIndex index="3" type="array">
-                    <numIndex index="0">Filterbox</numIndex>
-                    <numIndex index="1">Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</numIndex>
-                  </numIndex>
-                  <numIndex index="4" type="array">
-                    <numIndex index="0">Pager</numIndex>
-                    <numIndex index="1">Pager->show</numIndex>
-                  </numIndex>
-                  <numIndex index="5" type="array">
-                    <numIndex index="0">Bookmark</numIndex>
-                    <numIndex index="1">Bookmark->show;Bookmark->save;Bookmark->delete;Bookmark->restore</numIndex>
-                  </numIndex>
-                  <numIndex index="6" type="array">
-                    <numIndex index="0">Breadcrumbs</numIndex>
-                    <numIndex index="1">BreadCrumbs->index;BreadCrumbs->resetFilter</numIndex>
-                  </numIndex>
-                  <numIndex index="7" type="array">
-                    <numIndex index="0">Column Selector</numIndex>
-                    <numIndex index="1">ColumnSelector->show</numIndex>
-                  </numIndex>
-                </items>
-              </config>
-            </TCEforms>
-          </switchableControllerActions>
+        <!--##########################-->
+        <!-- Tab for general settings -->
+        <!--##########################-->
+        <sDefault>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>General Options</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+
+                    <settings.listIdentifier>
+                        <TCEforms>
+                            <label>List Identifier</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">[Please select a defined listConfig]</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <default></default>
+                                <itemsProcFunc>Punktde\PtExtlist\Utility\FlexformDataProvider->getDefinedListConfigs
+                                </itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.listIdentifier>
 
 
-
-    
-    
-    
-    
-    <!--##########################-->
-    <!-- Tab for list settings    -->
-    <!--##########################-->
-    <!--
-    <list>
-      <ROOT>
-        <TCEforms>
-          <sheetTitle>List settings</sheetTitle>
-        </TCEforms>
-        <type>array</type>
-        <el>
-
-          
-
-        </el>
-      </ROOT>
-    </list>
-    -->
-    
-    
-    <!--##########################-->
-    <!-- export settings  -->
-    <!--##########################-->
-
-
-          <settings.exportListIdentifier>
-            <TCEforms>
-              <label>Export List Identifier</label>
-				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
-				<config>
-                <type>select</type>
-                	<items>
-						<numIndex index="0" type="array">
-							<numIndex index="0">[Please select a defined listConfig]</numIndex>
-							<numIndex index="1"></numIndex>
-						</numIndex>
-					</items>
-					<default></default>
-					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedListConfigs</itemsProcFunc>
-              </config>
-            </TCEforms>
-          </settings.exportListIdentifier>
-
-          <settings.controller.Export.download.view>
-            <TCEforms>
-              <label>Export Type</label>
-				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
-              <config>
-                <type>select</type>
-                	<items>
-						<numIndex index="0" type="array">
-							<numIndex index="0">[Please select the export type]</numIndex>
-							<numIndex index="1"></numIndex>
-						</numIndex>
-					</items>
-					<default></default>
-					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedExportConfigs</itemsProcFunc>
-              </config>
-            </TCEforms>
-          </settings.controller.Export.download.view>
-
-          <settings.prototype.export.downloadType>
-            <TCEforms>
-              <label>Download Type</label>
-				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
-				<config>
-                <type>select</type>
-                  <items type="array">
-                    <numIndex index="1" type="array">
-                      <numIndex index="0">(Try to) show in Browser</numIndex>
-                      <numIndex index="1">I</numIndex>
-                    </numIndex>
-                    <numIndex index="2" type="array">
-                      <numIndex index="0">Force Download</numIndex>
-                      <numIndex index="1">D</numIndex>
-                    </numIndex>
-                  </items>
-              </config>
-            </TCEforms>
-          </settings.prototype.export.downloadType>
-
-          <settings.prototype.export.fileName>
-            <TCEforms>
-              <label>Filename (Prefix)</label>
-				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
-				<config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
-              </config>
-            </TCEforms>
-          </settings.prototype.export.fileName>
-          
-          <settings.prototype.export.fileExtension>
-            <TCEforms>
-              <label>File Extension (Suffix without ".")</label>
-				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
-				<config>
-                <type>input</type>
-                <size>4</size>
-                <eval>trim</eval>
-              </config>
-            </TCEforms>
-          </settings.prototype.export.fileExtension>
-          
-          <settings.prototype.export.addDateToFilename>
-            <TCEforms>
-              <label>Add Date to Filename</label>
-				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
-				<config>
-                <type>check</type>
-              </config>
-            </TCEforms>
-          </settings.prototype.export.addDateToFilename>
-
-          <settings.prototype.export.fileFormat>
-            <TCEforms>
-              <label>File Format</label>
-				<displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download</displayCond>
-				<config>
-                  <type>input</type>
-                  <size>20</size>
-                  <eval>trim</eval>
-              </config>
-            </TCEforms>
-          </settings.prototype.export.fileFormat>
+                    <switchableControllerActions>
+                        <TCEforms>
+                            <label>Plugin type</label>
+                            <displayCond>FIELD:settings.listIdentifier:REQ:true</displayCond>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items type="array">
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">List</numIndex>
+                                        <numIndex index="1">List->list;List->sort</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">Export</numIndex>
+                                        <numIndex index="1">Export->showLink;Export->download</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3" type="array">
+                                        <numIndex index="0">Filterbox</numIndex>
+                                        <numIndex index="1">Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4" type="array">
+                                        <numIndex index="0">Pager</numIndex>
+                                        <numIndex index="1">Pager->show</numIndex>
+                                    </numIndex>
+                                    <numIndex index="5" type="array">
+                                        <numIndex index="0">Bookmark</numIndex>
+                                        <numIndex index="1">Bookmark->show;Bookmark->save;Bookmark->delete;Bookmark->restore</numIndex>
+                                    </numIndex>
+                                    <numIndex index="6" type="array">
+                                        <numIndex index="0">Breadcrumbs</numIndex>
+                                        <numIndex index="1">BreadCrumbs->index;BreadCrumbs->resetFilter</numIndex>
+                                    </numIndex>
+                                    <numIndex index="7" type="array">
+                                        <numIndex index="0">Column Selector</numIndex>
+                                        <numIndex index="1">ColumnSelector->show</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </switchableControllerActions>
 
 
-    
-    <!--###############################-->
-    <!-- bookmarks settings    -->
-    <!--###############################-->
-
-        
-          <settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
-            <TCEforms>
-              <label>Bookmarks PID</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>input</type>
-                <size>4</size>
-                <eval>int</eval>
-              </config>
-            </TCEforms>
-          </settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
-
-          <settings.bookmarks.showUserBookmarks>
-            <TCEforms>
-              <label>Show User's Bookmarks</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>check</type>
-              </config>
-            </TCEforms>
-          </settings.bookmarks.showUserBookmarks>
-          
-          <settings.bookmarks.showGroupBookmarks>
-            <TCEforms>
-              <label>Show Group's Bookmarks</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>check</type>
-              </config>
-            </TCEforms>
-          </settings.bookmarks.showGroupBookmarks>
-          
-          <settings.bookmarks.showPublicBookmarks>
-            <TCEforms>
-              <label>Show public Bookmarks</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>check</type>
-              </config>
-            </TCEforms>
-          </settings.bookmarks.showPublicBookmarks>
-          
-          <settings.bookmarks.feUsersAllowedToEditPublic>
-            <TCEforms>
-              <label>FE User IDs that are allowed to create public bookmarks (comma-seperated)</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
-              </config>
-            </TCEforms>
-          </settings.bookmarks.feUsersAllowedToEditPublic>
-          
-          <settings.bookmarks.feGroupsAllowedToEditPublic>
-            <TCEforms>
-              <label>FE Group IDs that are allowed to create public bookmarks (comma-seperated)</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
-              </config>
-            </TCEforms>
-          </settings.bookmarks.feGroupsAllowedToEditPublic>
-          
-          <settings.bookmarks.feUsersAllowedToEdit>
-            <TCEforms>
-              <label>FE User IDs that are allowed to edit bookmarks (comma-seperated)</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
-              </config>
-            </TCEforms>
-          </settings.bookmarks.feUsersAllowedToEdit>
-          
-          <settings.bookmarks.feGroupsAllowedToEdit>
-            <TCEforms>
-              <label>FE Group IDs that are allowed to edit bookmarks (comma-seperated)</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
-              </config>
-            </TCEforms>
-          </settings.bookmarks.feGroupsAllowedToEdit>
-
-          <settings.bookmarks.groupIdsToShowBookmarksFor>
-            <TCEforms>
-              <label>Group IDs for which to show bookmarks (comma-seperated)</label>
-				<displayCond>FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore</displayCond>
-				<config>
-                <type>input</type>
-                <size>30</size>
-                <eval>string</eval>
-              </config>
-            </TCEforms>
-          </settings.bookmarks.groupIdsToShowBookmarksFor>
+                    <!--##########################-->
+                    <!-- Tab for list settings    -->
+                    <!--##########################-->
+                    <!--
+                    <list>
+                      <ROOT>
+                        <TCEforms>
+                          <sheetTitle>List settings</sheetTitle>
+                        </TCEforms>
+                        <type>array</type>
+                        <el>
 
 
 
-    <!--############################-->
-    <!--filterbox settings -->
-    <!--############################-->
-
-          <settings.filterboxIdentifier>
-            <TCEforms>
-              <label>Filterbox Identifier</label>
-				<displayCond>FIELD:switchableControllerActions:=:Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</displayCond>
-				<config>
-					<type>select</type>
-					<items>
-						<numIndex index="0" type="array">
-							<numIndex index="0">[Please select the filter identifier]</numIndex>
-							<numIndex index="1"></numIndex>
-						</numIndex>
-					</items>
-					<default></default>
-					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedFilterConfigs</itemsProcFunc>
-				</config>
-            </TCEforms>
-          </settings.filterboxIdentifier>
-
-          <!-- this is not working generally yet and requires a patch in abstract controller! -->
-          <settings.controller.Filterbox.show.template>
-            <TCEforms>
-              <label>Filterbox Template</label>
-				<displayCond>FIELD:switchableControllerActions:=:Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter</displayCond>
-				<config>
-                <type>input</type>
-                <size>60</size>
-                <eval>string</eval>
-              </config>
-            </TCEforms>
-          </settings.controller.Filterbox.show.template>
-
-    
-    
-    <!--##########################-->
-    <!-- pager settings   -->
-    <!--##########################-->
-
-           <settings.pagerIdentifier>
-            <TCEforms>
-              <label>Pager Identifier</label>
-				<displayCond>FIELD:switchableControllerActions:=:Pager->show</displayCond>
-				<config>
-					<type>select</type>
-					<items>
-						<numIndex index="0" type="array">
-							<numIndex index="0">[Please select the pager config]</numIndex>
-							<numIndex index="1"></numIndex>
-						</numIndex>
-					</items>
-					<default></default>
-					<itemsProcFunc>user_Tx_PtExtlist_Utility_FlexformDataProvider->getDefinedPagerConfigs</itemsProcFunc>
-				</config>
-            </TCEforms>
-          </settings.pagerIdentifier>
+                        </el>
+                      </ROOT>
+                    </list>
+                    -->
 
 
+                    <!--##########################-->
+                    <!-- export settings  -->
+                    <!--##########################-->
 
 
-    <!--#################################-->
-    <!--       breadcrumbs settings      -->
-    <!--#################################-->
+                    <settings.exportListIdentifier>
+                        <TCEforms>
+                            <label>Export List Identifier</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download
+                            </displayCond>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">[Please select a defined listConfig]</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <default></default>
+                                <itemsProcFunc>Punktde\PtExtlist\Utility\FlexformDataProvider->getDefinedListConfigs
+                                </itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.exportListIdentifier>
 
-          <settings.breadCrumbs.showResetLinks>
-            <TCEforms>
-              <label>Show reset links (you have to set this in your filterbox plugin, not in breadcrumbs plugin!)</label>
-				<displayCond>FIELD:switchableControllerActions:=:BreadCrumbs->index;BreadCrumbs->resetFilter</displayCond>
-				<config>
-                <type>check</type>
-              </config>
-            </TCEforms>
-          </settings.breadCrumbs.showResetLinks>
+                    <settings.controller.Export.download.view>
+                        <TCEforms>
+                            <label>Export Type</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download
+                            </displayCond>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">[Please select the export type]</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <default></default>
+                                <itemsProcFunc>Punktde\PtExtlist\Utility\FlexformDataProvider->getDefinedExportConfigs
+                                </itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.controller.Export.download.view>
 
-		</el>
-	  </ROOT>
-	</sDefault>
-    
-    
-    
-  </sheets>
+                    <settings.prototype.export.downloadType>
+                        <TCEforms>
+                            <label>Download Type</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download
+                            </displayCond>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items type="array">
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">(Try to) show in Browser</numIndex>
+                                        <numIndex index="1">I</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">Force Download</numIndex>
+                                        <numIndex index="1">D</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.prototype.export.downloadType>
+
+                    <settings.prototype.export.fileName>
+                        <TCEforms>
+                            <label>Filename (Prefix)</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>string</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.prototype.export.fileName>
+
+                    <settings.prototype.export.fileExtension>
+                        <TCEforms>
+                            <label>File Extension (Suffix without ".")</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>4</size>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.prototype.export.fileExtension>
+
+                    <settings.prototype.export.addDateToFilename>
+                        <TCEforms>
+                            <label>Add Date to Filename</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download
+                            </displayCond>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.prototype.export.addDateToFilename>
+
+                    <settings.prototype.export.fileFormat>
+                        <TCEforms>
+                            <label>File Format</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Export->showLink;Export->download
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.prototype.export.fileFormat>
+
+
+                    <!--###############################-->
+                    <!-- bookmarks settings    -->
+                    <!--###############################-->
+
+
+                    <settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
+                        <TCEforms>
+                            <label>Bookmarks PID</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>4</size>
+                                <eval>int</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.persistence.classes.Tx_PtExtlist_Domain_Model_Bookmarks_Bookmark.newRecordStoragePid>
+
+                    <settings.bookmarks.showUserBookmarks>
+                        <TCEforms>
+                            <label>Show User's Bookmarks</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.bookmarks.showUserBookmarks>
+
+                    <settings.bookmarks.showGroupBookmarks>
+                        <TCEforms>
+                            <label>Show Group's Bookmarks</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.bookmarks.showGroupBookmarks>
+
+                    <settings.bookmarks.showPublicBookmarks>
+                        <TCEforms>
+                            <label>Show public Bookmarks</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.bookmarks.showPublicBookmarks>
+
+                    <settings.bookmarks.feUsersAllowedToEditPublic>
+                        <TCEforms>
+                            <label>FE User IDs that are allowed to create public bookmarks (comma-seperated)</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>string</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.bookmarks.feUsersAllowedToEditPublic>
+
+                    <settings.bookmarks.feGroupsAllowedToEditPublic>
+                        <TCEforms>
+                            <label>FE Group IDs that are allowed to create public bookmarks (comma-seperated)</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>string</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.bookmarks.feGroupsAllowedToEditPublic>
+
+                    <settings.bookmarks.feUsersAllowedToEdit>
+                        <TCEforms>
+                            <label>FE User IDs that are allowed to edit bookmarks (comma-seperated)</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>string</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.bookmarks.feUsersAllowedToEdit>
+
+                    <settings.bookmarks.feGroupsAllowedToEdit>
+                        <TCEforms>
+                            <label>FE Group IDs that are allowed to edit bookmarks (comma-seperated)</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>string</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.bookmarks.feGroupsAllowedToEdit>
+
+                    <settings.bookmarks.groupIdsToShowBookmarksFor>
+                        <TCEforms>
+                            <label>Group IDs for which to show bookmarks (comma-seperated)</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Bookmarks->show;Bookmarks->save;Bookmarks->delete;Bookmarks->restore
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>string</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.bookmarks.groupIdsToShowBookmarksFor>
+
+
+                    <!--############################-->
+                    <!--filterbox settings -->
+                    <!--############################-->
+
+                    <settings.filterboxIdentifier>
+                        <TCEforms>
+                            <label>Filterbox Identifier</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter
+                            </displayCond>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">[Please select the filter identifier]</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <default></default>
+                                <itemsProcFunc>Punktde\PtExtlist\Utility\FlexformDataProvider->getDefinedFilterConfigs
+                                </itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.filterboxIdentifier>
+
+                    <!-- this is not working generally yet and requires a patch in abstract controller! -->
+                    <settings.controller.Filterbox.show.template>
+                        <TCEforms>
+                            <label>Filterbox Template</label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:Filterbox->show;Filterbox->submit;Filterbox->reset;Filterbox->resetFilter
+                            </displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>60</size>
+                                <eval>string</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.controller.Filterbox.show.template>
+
+
+                    <!--##########################-->
+                    <!-- pager settings   -->
+                    <!--##########################-->
+
+                    <settings.pagerIdentifier>
+                        <TCEforms>
+                            <label>Pager Identifier</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Pager->show</displayCond>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">[Please select the pager config]</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <default></default>
+                                <itemsProcFunc>Punktde\PtExtlist\Utility\FlexformDataProvider->getDefinedPagerConfigs
+                                </itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.pagerIdentifier>
+
+
+                    <!--#################################-->
+                    <!--       breadcrumbs settings      -->
+                    <!--#################################-->
+
+                    <settings.breadCrumbs.showResetLinks>
+                        <TCEforms>
+                            <label>Show reset links (you have to set this in your filterbox plugin, not in breadcrumbs
+                                plugin!)
+                            </label>
+                            <displayCond>
+                                FIELD:switchableControllerActions:=:BreadCrumbs->index;BreadCrumbs->resetFilter
+                            </displayCond>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.breadCrumbs.showResetLinks>
+
+                </el>
+            </ROOT>
+        </sDefault>
+
+
+    </sheets>
 </T3DataStructure>

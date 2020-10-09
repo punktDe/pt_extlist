@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\StateAdapter\Storage;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManager;
+use PunktDe\PtExtbase\State\Session\Storage\AdapterInterface;
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 /**
  * Class implements adapter to store the plugins state into the database 
  * 
@@ -33,21 +42,13 @@
  * @package Domain
  * @subpackage StateAdapter\Storage
  */
-class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_PtExtbase_State_Session_Storage_AdapterInterface
+class DBStorageAdapter implements AdapterInterface
 {
+
     /**
-     * @var t3lib_cache_frontend_Cache
-     */
-    protected $stateCache;
-    
-    
-    
-    /**
-     * @var Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager
+     * @var SessionPersistenceManager
      */
     protected $sessionPersistanceManager;
-    
-    
     
     /**
      * MD5 sum identifying the state to load from database 
@@ -56,8 +57,6 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_Pt
      */
     protected $stateHash;
 
-    
-    
     /**
      * Tag the cache entrys with current extension name
      * 
@@ -65,43 +64,25 @@ class Tx_PtExtlist_Domain_StateAdapter_Storage_DBStorageAdapter implements Tx_Pt
      */
     protected $cacheTag = 'untagged';
     
-    
-    
     /**
      * Init the cache storage adapter
      * 
      */
     public function init()
     {
-        $this->cacheTag = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext')->getExtensionName();
+        $this->cacheTag = GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class)->getExtensionName();
     }
-    
-    
-    
-    /**
-     * Inject the state cache
-     * 
-     * @param $stateCache
-     */
-    public function injectStateCache($stateCache)
-    {
-        $this->stateCache = $stateCache;
-    }
-    
-    
-    
+
     /**
      * Inject the sessionPersistanceManager
      * 
-     * @param Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager $sessionPersistanaceManager
+     * @param SessionPersistenceManager $sessionPersistanaceManager
      */
-    public function injectSessionPersistanceManager(Tx_PtExtlist_Domain_SessionPersistence_SessionPersistenceManager $sessionPersistanaceManager)
+    public function injectSessionPersistanceManager(SessionPersistenceManager $sessionPersistanaceManager)
     {
         $this->sessionPersistanceManager = $sessionPersistanaceManager;
     }
-    
-    
-    
+
     /**
      * Set the statehash 
      * 

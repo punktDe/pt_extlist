@@ -49,7 +49,7 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactoryTes
         // TODO: reactivate this test if the BUG in TYPO3 that causes an error is fixed
 
         /*
-        $configurationBuilderMock = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array(), array(), '', FALSE);
+        $configurationBuilderMock = $this->getMock('ConfigurationBuilder', array(), array(), '', FALSE);
         $configurationBuilderMock->expects($this->any())->method('getListIdentifier')->will($this->returnValue('test'));
 
         $instance1 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock);
@@ -57,7 +57,7 @@ class Tx_PtExtlist_Tests_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactoryTes
 
         $this->assertEquals($instance1, $instance2);
         
-        $configurationBuilderMock2 = $this->getMock('Tx_PtExtlist_Domain_Configuration_ConfigurationBuilder', array(), array(), '', FALSE);
+        $configurationBuilderMock2 = $this->getMock('ConfigurationBuilder', array(), array(), '', FALSE);
         $configurationBuilderMock2->expects($this->any())->method('getListIdentifier')->will($this->returnValue('test2'));
         $instance3 = Tx_PtExtlist_Domain_Model_BreadCrumbs_BreadCrumbCollectionFactory::getInstanceByConfigurationBuilder($configurationBuilderMock2);
         

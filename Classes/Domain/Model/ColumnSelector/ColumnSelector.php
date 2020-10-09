@@ -1,4 +1,8 @@
 <?php
+
+namespace PunktDe\PtExtlist\Domain\Model\ColumnSelector;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +30,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\State\GpVars\GpVarsInjectableInterface;
+use PunktDe\PtExtbase\State\Session\SessionPersistableInterface;
+use PunktDe\PtExtlist\Domain\Configuration\ColumnSelector\ColumnSelectorConfig;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\HeaderColumn;
+use PunktDe\PtExtlist\Domain\Model\Lists\Header\ListHeader;
+
 /**
  * Class implements columnSelector for handling dynamic hiding and unhiding of columns
  *
@@ -33,14 +43,14 @@
  * @subpackage Domain\Model\ColumnSelector
  * @author Daniel Lienert
  */
-class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
-    implements Tx_PtExtbase_State_GpVars_GpVarsInjectableInterface,
-    Tx_PtExtbase_State_Session_SessionPersistableInterface
+class ColumnSelector
+    implements GpVarsInjectableInterface,
+    SessionPersistableInterface
 {
     /**
      * Holds configuration
      *
-     * @var Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+     * @var ColumnSelectorConfig
      */
     protected $configuration;
 
@@ -56,9 +66,9 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
     /**
      * Injector for sorter configuration
      *
-     * @param Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig $configuration
+     * @param ColumnSelectorConfig $configuration
      */
-    public function setConfiguration(Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig $configuration)
+    public function setConfiguration(ColumnSelectorConfig $configuration)
     {
         $this->configuration = $configuration;
     }
@@ -126,7 +136,7 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
 
 
     /**
-     * @return \Tx_PtExtlist_Domain_Configuration_ColumnSelector_ColumnSelectorConfig
+     * @return ColumnSelectorConfig
      */
     public function getConfiguration()
     {
@@ -138,12 +148,12 @@ class Tx_PtExtlist_Domain_Model_ColumnSelector_ColumnSelector
     /**
      * Set the visibility of columns
      *
-     * @param Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader
+     * @param ListHeader $listHeader
      */
-    public function setVisibilityOnListHeader(Tx_PtExtlist_Domain_Model_List_Header_ListHeader $listHeader)
+    public function setVisibilityOnListHeader(ListHeader $listHeader)
     {
         foreach ($listHeader as $columnIdentifier => $headerColumn) {
-            /** @var Tx_PtExtlist_Domain_Model_List_Header_HeaderColumn $headerColumn */
+            /** @var HeaderColumn $headerColumn */
             if (in_array($columnIdentifier, $this->selectedColumnIdentifiers)) {
                 $headerColumn->setIsVisible(true);
             } else {

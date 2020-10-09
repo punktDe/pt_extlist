@@ -1,5 +1,7 @@
 <?php
 namespace PunktDe\PtExtlist\ViewHelpers;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,15 +29,19 @@ namespace PunktDe\PtExtlist\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\State\Session\SessionPersistenceManagerBuilder;
+use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper as TYPO3FormViewHelper;
 /**
  * Form Viewhelper Patch
  * This viewhelper patches the original viewhelper which does not work with method GET.
  * Bug filed on 2010-12-22
- * 
+ *  
  * @author Daniel Lienert 
  * @package ViewHelpers
  */
-class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
+class FormViewHelper extends TYPO3FormViewHelper
 {
     /**
      * Holds uri for form action
@@ -47,16 +53,16 @@ class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
     /**
      * Holds instance of session persistence manager builder
      *
-     * @var \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder
+     * @var SessionPersistenceManagerBuilder
      */
     protected $sessionPersistenceManagerBuilder;
 
     /**
      * Injects session persistence manager factory (used by DI)
      *
-     * @param \Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
+     * @param SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder
      */
-    public function injectSessionPersistenceManagerBuilder(\Tx_PtExtbase_State_Session_SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
+    public function injectSessionPersistenceManagerBuilder(SessionPersistenceManagerBuilder $sessionPersistenceManagerBuilder)
     {
         $this->sessionPersistenceManagerBuilder = $sessionPersistenceManagerBuilder;
     }
@@ -71,10 +77,10 @@ class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
         if (array_key_exists('actionUri', $this->arguments) && !empty($this->arguments['actionUri'])) {
             $formActionUri = $this->arguments['actionUri'];
         } else {
-            $uriBuilder = $this->controllerContext->getUriBuilder();
+            $uriBuilder = $this->renderingContext->getControllerContext()->getUriBuilder();
             $formActionUri = $uriBuilder
                 ->reset()
-                ->setTargetPageUid($this->arguments['pageUid'])
+                ->setTargetPageUid((int)$this->arguments['pageUid'])
                 ->setTargetPageType($this->arguments['pageType'])
                 ->setNoCache($this->arguments['noCache'])
                 ->setUseCacheHash(!$this->arguments['noCacheHash'])
@@ -98,10 +104,11 @@ class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
      *
      * @return string Hidden fields with referrer information
      * @todo filter out referrer information that is equal to the target (e.g. same packageKey)
+     * @throws \Exception
      */
     protected function renderHiddenReferrerFields()
     {
-        $request = $this->controllerContext->getRequest();
+        $request = $this->renderingContext->getControllerContext()->getRequest();
         $extensionName = $request->getControllerExtensionName();
         $controllerName = $request->getControllerName();
         $actionName = $request->getControllerActionName();
@@ -119,8 +126,8 @@ class FormViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper
             }
         }
         
-        /** @var \Tx_PtExtlist_Extbase_ExtbaseContext $extBaseContext */
-        $extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_PtExtlist_Extbase_ExtbaseContext');
+        /** @var \PunktDe\PtExtlist\Extbase\ExtbaseContext $extBaseContext */
+        $extBaseContext = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ObjectManager::class)->get(ExtbaseContext::class);
         
         if ($extBaseContext->isInCachedMode()) {
             $listIdentifier = $extBaseContext->getCurrentListIdentifier();

@@ -9,7 +9,7 @@
 plugin.tx_ptextlist.prototype.filter {
 
 	staticValue {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StaticValueFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\StaticValueFilter
 		partialPath = Filter/Special/StaticValue
 		filterValue =
 		filterIdentifier =
@@ -22,7 +22,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 	string {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_StringFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\StringFilter
 		partialPath = Filter/String/StringFilter
 
 		label =
@@ -53,7 +53,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 
     fullText {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FullTextFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\FullTextFilter
 		partialPath = Filter/String/StringFilter
 		defaultValue =
 
@@ -85,7 +85,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 	max {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MaxFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\MaxFilter
 		partialPath = Filter/Range/MaxFilter
 		defaultValue =
 
@@ -112,7 +112,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 	min {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_MinFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\MinFilter
 		partialPath = Filter/Range/MinFilter
 		defaultValue =
 
@@ -139,8 +139,8 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 	dateSelectList {
-	    filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateSelectListFilter
-	    dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_DateIterator
+	    filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\DateSelectListFilter
+	    dataProviderClassName = PunktDe\PtExtlist\Domain\Model\Filter\DataProviderDateIterator
 	    partialPath = Filter/Options/SelectFilter
 
 		label =
@@ -182,8 +182,8 @@ plugin.tx_ptextlist.prototype.filter {
 
 
     datePicker {
-        filterClassName = Tx_PtExtlist_Domain_Model_Filter_DatePickerFilter
-        dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_Dates
+        filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\DatePickerFilter
+        dataProviderClassName = PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\Dates
         partialPath = Filter/Date/DatePickerFilter
 
 		label =
@@ -216,7 +216,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 
     dateRange {
-        filterClassName = Tx_PtExtlist_Domain_Model_Filter_DateRangeFilter
+        filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\DateRangeFilter
         partialPath = Filter/Range/DateRangeFilter
 
 		label =
@@ -248,7 +248,7 @@ plugin.tx_ptextlist.prototype.filter {
 		partialPath = Filter/Options/SelectFilter
 		ajaxPartialPath = Filter/Ajax/Options/SelectFilter
 
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\SelectFilter
 		#dataProviderClassName =
 		defaultValue =
 
@@ -296,7 +296,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 	treeSelect {
 		partialPath = Filter/Options/TreeSelectFilter
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TreeSelectFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\TreeSelectFilter
 		#dataProviderClassName =
 		defaultValue =
 
@@ -342,7 +342,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 	checkbox {
 		partialPath = Filter/Options/CheckBoxFilter
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\OptionsFilter
 		#dataProviderClassName =
 
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
@@ -386,7 +386,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 	button {
 		partialPath = Filter/Options/ButtonFilter
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\OptionsFilter
 		#dataProviderClassName =
 
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
@@ -432,7 +432,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 	radiobutton {
 		partialPath = Filter/Options/RadioButtonFilter
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_OptionsFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\OptionsFilter
 		#dataProviderClassName =
 
 		# defaultValues are defined as array 10 = value, 20 = value or single value 20
@@ -476,8 +476,8 @@ plugin.tx_ptextlist.prototype.filter {
 
 	firstLetter {
 		partialPath = Filter/Options/FirstLetterFilter
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_FirstLetterFilter
-		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_FirstLetter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\FirstLetterFilter
+		dataProviderClassName = PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\FirstLetter
 
 		defaultValue =
 
@@ -520,8 +520,8 @@ plugin.tx_ptextlist.prototype.filter {
 
 	tagCloud {
 		partialPath = Filter/Options/TagCloudFilter
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_TagCloudFilter
-		dataProviderClassName = Tx_PtExtlist_Domain_Model_Filter_DataProvider_TagCloud
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\TagCloudFilter
+		dataProviderClassName = PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\TagCloud
 
 		filterIdentifier =
 
@@ -552,7 +552,7 @@ plugin.tx_ptextlist.prototype.filter {
 
 
 	proxy {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_ProxyFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\ProxyFilter
 		partialPath = Filter/Special/ProxyFilter
 		proxyPath =
 		fieldIdentifier =
@@ -563,7 +563,7 @@ plugin.tx_ptextlist.prototype.filter {
 	}
 
 	pageTree {
-		filterClassName = Tx_PtExtlist_Domain_Model_Filter_SelectFilter
+		filterClassName = PunktDe\PtExtlist\Domain\Model\Filter\SelectFilter
 		partialPath = Filter/Special/PageTreeFilter
 		dataProviderClassName = PunktDe\PtExtlist\Domain\Model\Filter\DataProvider\PageTree
 

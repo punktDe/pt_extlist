@@ -38,7 +38,7 @@ class Tx_PtExtlist_Tests_Domain_Configuration_DataBackend_DataBackendConfigurati
     public function testGetInstance()
     {
         $configurationBuilder = Tx_PtExtlist_Tests_Domain_Configuration_ConfigurationBuilderMock::getInstance();
-        $dataBackendConfig = Tx_PtExtlist_Domain_Configuration_DataBackend_DataBackendConfigurationFactory::getInstance($configurationBuilder);
-        $this->assertTrue(is_a($dataBackendConfig, 'Tx_PtExtlist_Domain_Configuration_DataBackend_DatabackendConfiguration'));
+        $dataBackendConfig = DataBackendConfigurationFactory::getInstance($configurationBuilder);
+        $this->assertTrue(is_a($dataBackendConfig, 'DatabackendConfiguration'));
     }
 }

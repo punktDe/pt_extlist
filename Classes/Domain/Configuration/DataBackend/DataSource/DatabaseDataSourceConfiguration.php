@@ -1,4 +1,10 @@
 <?php
+
+
+namespace PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource;
+
+use PunktDe\PtExtbase\Utility\NamespaceUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,11 +31,10 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Database Datasource configuration class. Holds configuration parameters for database data sources as MySql
  */
-class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourceConfiguration
+class DatabaseDataSourceConfiguration
 {
     /**
      * @var array
@@ -70,9 +75,16 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
      * @var string
      */
     protected $databaseName;
-    
-    
-    
+
+    /**
+     * Name of database used in TYPO3
+     *
+     * @var string
+     */
+    protected $database;
+
+
+
     /**
      * Port number of database to connect to
      *
@@ -96,6 +108,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
         $this->password = $dataSourceSettings['password'];
         $this->databaseName = $dataSourceSettings['databaseName'];
         $this->port = $dataSourceSettings['port'];
+        $this->database = $dataSourceSettings['database'];
     }
 
 
@@ -114,7 +127,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     public function getSettings($key = '')
     {
         if ($key != '') {
-            return \PunktDe\PtExtbase\Utility\NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $key);
+            return NamespaceUtility::getArrayContentByArrayAndNamespace($this->settings, $key);
         } else {
             return $this->settings;
         }
@@ -124,7 +137,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns database name to connect to
-     * 
+     *  
      * @return string
      */
     public function getDatabaseName()
@@ -136,7 +149,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns host name or ip address to connect to
-     * 
+     *  
      * @return string
      */
     public function getHost()
@@ -148,7 +161,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns password for db connection
-     * 
+     *  
      * @return string
      */
     public function getPassword()
@@ -160,7 +173,7 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns port to connect to
-     * 
+     *  
      * @return string
      */
     public function getPort()
@@ -172,11 +185,21 @@ class Tx_PtExtlist_Domain_Configuration_DataBackend_DataSource_DatabaseDataSourc
     
     /**
      * Returns username for db connection
-     * 
+     *  
      * @return string
      */
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Returns database for db connection
+     *
+     * @return string
+     */
+    public function getDatabase()
+    {
+        return $this->database;
     }
 }

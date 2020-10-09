@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Controller;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,18 +30,21 @@
  ***************************************************************/
 
 
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerCollection;
+use PunktDe\PtExtlist\Domain\Model\Pager\PagerInterface;
+
 /**
  * Class Pager Controller
  *
  * @author Christoph Ehscheidt 
  * @package Controller
  */
-class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_AbstractController
+class PagerController extends AbstractController
 {
     /**
      * Holds the pager collection.
-     * 
-     * @var Tx_PtExtlist_Domain_Model_Pager_PagerCollection
+     *  
+     * @var PagerCollection
      */
     protected $pagerCollection;
     
@@ -46,7 +52,7 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
     
     /**
      * The pager identifier of the pager configured for this view.
-     * 
+     *  
      * @var string
      */
     protected $pagerIdentifier;
@@ -55,7 +61,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
     
     /**
      * (non-PHPdoc)
-     * @see Classes/Controller/Tx_PtExtlist_Controller_AbstractController::initializeAction()
+     * @see Classes/Controller/\PunktDe\PtExtlist\Controller\AbstractController::initializeAction()
+     * @throws \Exception
      */
     public function initializeAction()
     {
@@ -89,8 +96,8 @@ class Tx_PtExtlist_Controller_PagerController extends Tx_PtExtlist_Controller_Ab
     
     /**
      * Returns an initialized pager object
-     * 
-     * @return Tx_PtExtlist_Domain_Model_Pager_PagerInterface
+     *  
+     * @return PagerCollection
      */
     protected function getPagerCollectionInstance()
     {

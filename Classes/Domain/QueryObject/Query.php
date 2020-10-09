@@ -1,4 +1,7 @@
 <?php
+namespace PunktDe\PtExtlist\Domain\QueryObject;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +29,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use PunktDe\PtExtbase\Assertions\Assert;
+
 /**
  * Class implements a query
  *
@@ -34,7 +39,7 @@
  * @author Michael Knoll
  * @see Tx_PtExtlist_Tests_Domain_QueryObject_QueryTest
  */
-class Tx_PtExtlist_Domain_QueryObject_Query
+class Query
 {
     /**
      * Holds array of field names to do query upon.
@@ -56,7 +61,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
     
     
     /**
-     * 
+     *  
      * Holds an array of fields to group by
      * @var array
      */
@@ -76,7 +81,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
     /**
      * Holds array of criterias to restrict selection
      *
-     * @var array<Tx_PtExtlist_Domain_QueryObject_Criteria>
+     * @var array<\PunktDe\PtExtlist\Domain\QueryObject\Criteria>
      */
     protected $criterias = [];
     
@@ -120,7 +125,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      */
     public function addField($field)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1279988488']);
+        Assert::isNotEmptyString($field, ['message' => 'Field must not be empty! 1279988488']);
         $this->fields[] = $field;
     }
     
@@ -145,7 +150,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      */
     public function addFrom($from)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($from, ['message' => 'From must not be empty! 1279988763']);
+        Assert::isNotEmptyString($from, ['message' => 'From must not be empty! 1279988763']);
         $this->from[] = $from;
     }
     
@@ -166,9 +171,9 @@ class Tx_PtExtlist_Domain_QueryObject_Query
     /**
      * Adds a criteria to query
      *
-     * @param Tx_PtExtlist_Domain_QueryObject_Criteria $criteria Criteria to be added to query
+     * @param \PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria Criteria to be added to query
      */
-    public function addCriteria(Tx_PtExtlist_Domain_QueryObject_Criteria $criteria)
+    public function addCriteria(\PunktDe\PtExtlist\Domain\QueryObject\Criteria $criteria)
     {
         $this->criterias[] = $criteria;
     }
@@ -177,7 +182,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
     
     /**
      * Add group by clause
-     * 
+     *  
      * @param string $groupBy
      */
     public function addGroupBy($groupBy)
@@ -190,7 +195,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
     /**
      * Returns all criterias from this query
      *
-     * @return array<Tx_PtExtlist_Domain_QueryObject_Criteria>
+     * @return array<\PunktDe\PtExtlist\Domain\QueryObject\Criteria>
      */
     public function getCriterias()
     {
@@ -265,7 +270,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
      */
     public function addSorting($field, $direction = self::SORTINGSTATE_ASC)
     {
-        Tx_PtExtbase_Assertions_Assert::isNotEmptyString($field, ['message' => 'field must not be empty! 1280060692']);
+        Assert::isNotEmptyString($field, ['message' => 'field must not be empty! 1280060692']);
         
         if ($direction == self::SORTINGSTATE_ASC || $direction == self::SORTINGSTATE_DESC) {
             $this->sortings[$field] = $direction;
@@ -278,7 +283,7 @@ class Tx_PtExtlist_Domain_QueryObject_Query
     
     /**
      * Add an array of fields and sorting direction to the array of sortings
-     * 
+     *  
      * @param array $sortingArray
      */
     public function addSortingArray(array $sortingArray)

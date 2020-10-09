@@ -89,7 +89,7 @@ class Tx_PtExtlist_Tests_Domain_Renderer_Default_CellRendererTest extends Tx_PtE
     /** @test */
     public function renderCellReturnsRenderedCell()
     {
-        $row = new Tx_PtExtlist_Domain_Model_List_Row();
+        $row = new Row();
         
         $row->createAndAddCell('val1', 'field1');
         $row->createAndAddCell('val2', 'field2');
