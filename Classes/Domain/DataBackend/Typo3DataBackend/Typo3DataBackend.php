@@ -110,7 +110,7 @@ class Typo3DataBackend extends MySqlDataBackend
             $wherePart = $baseWhereClause.$whereClauseFromFilterBoxes;
         }
 
-        return $wherePart;
+        return $this->processQueryWithFluid($wherePart);
     }
 
 
