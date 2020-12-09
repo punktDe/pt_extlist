@@ -274,16 +274,16 @@ class WkHtml2PdfListView extends AbstractExportView
         }
 
         $wkCommand = '"' . $this->cmd . '"'
-            . ($addFooter ? ' --footer-html ' . $htmlDocument . '.footer.html' : '')
-            . ($addHeader ? ' --header-html ' . $htmlDocument . '.header.html' : '')
-            . (($this->additionalWkhtmlParams !== null) ? ' ' . $this->additionalWkhtmlParams : '')
-            . (($this->copies > 1) ? ' --copies ' . $this->copies : '')        // number of copies
-            . ' --orientation ' . $this->orient                                // orientation
-            . ' --page-size ' . $this->size                                    // page size
+            . ($addFooter ? ' --footer-html ' . escapeshellarg($htmlDocument) . '.footer.html' : '')
+            . ($addHeader ? ' --header-html ' . escapeshellarg($htmlDocument) . '.header.html' : '')
+            . (($this->additionalWkhtmlParams !== null) ? ' ' . escapeshellarg($this->additionalWkhtmlParams) : '')
+            . (($this->copies > 1) ? ' --copies ' . escapeshellarg($this->copies) : '')        // number of copies
+            . ' --orientation ' . escapeshellarg($this->orient)                                // orientation
+            . ' --page-size ' . escapeshellarg($this->size)                                    // page size
             . ($this->toc ? ' --toc' : '')                                        // table of contents
             . ($this->grayscale ? ' --grayscale' : '')                            // grayscale
-            . (($this->title != '') ? ' --title "' . $this->title . '"' : '')    // title
-            . ' "' . $htmlDocument . '" -';
+            . (($this->title != '') ? ' --title "' . escapeshellarg($this->title) . '"' : '')    // title
+            . ' "' . escapeshellarg($htmlDocument) . '" -';
 
 
         $this->pdf = $this->pipeExec($wkCommand);
