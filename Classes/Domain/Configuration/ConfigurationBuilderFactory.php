@@ -30,6 +30,8 @@ namespace PunktDe\PtExtlist\Domain\Configuration;
  ***************************************************************/
 
 use PunktDe\PtExtlist\Extbase\ExtbaseContext;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
@@ -77,6 +79,11 @@ class ConfigurationBuilderFactory
     public function injectConfigurationManager(ConfigurationManager $configurationManager)
     {
         $this->settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+        if (count($this->settings) === 0) {
+            // for cli scripts this might be necessary
+            $completeTS = $configurationManager->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+            $this->settings = GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($completeTS['plugin.']['tx_ptextlist.']['settings.']);
+        }
     }
 
 
