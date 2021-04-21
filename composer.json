@@ -2,6 +2,7 @@
   "name": "punktde/pt_extlist",
   "type": "typo3-cms-extension",
   "description": "List generator for TYPO3 based on Extbase. See http://extlist.punkt.de for further details.",
+  "version": "5.0.3",
   "keywords": [
     "TYPO3",
     "extension"
@@ -35,6 +36,7 @@
   },
   "extra": {
     "typo3/cms": {
+      "extension-key": "pt_extlist",
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
     }
