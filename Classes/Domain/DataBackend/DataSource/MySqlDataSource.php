@@ -29,11 +29,8 @@ namespace PunktDe\PtExtlist\Domain\DataBackend\DataSource;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Doctrine\DBAL\Driver\Mysqli\MysqliStatement;
-use Doctrine\DBAL\Driver\PDOStatement;
-use Doctrine\DBAL\Driver\ResultStatement;
+use Doctrine\DBAL\Driver\Result;
 use Doctrine\DBAL\Statement;
-use PDO;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use PunktDe\PtExtlist\Domain\Configuration\DataBackend\DataSource\DatabaseDataSourceConfiguration;
 
@@ -71,7 +68,7 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
     /**
      * Injector for database connection object
      *
-     * @param PDO $dbObject
+     * @param \PDO $dbObject
      */
     public function injectDbObject($dbObject)
     {
@@ -108,7 +105,7 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
      */
     public function fetchAll()
     {
-        if ($this->statement instanceof MysqliStatement) {
+        if (is_subclass_of($this->statement, Result::class)) {
             return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
         }
         throw new \Exception('No queryBuilder defined to fetch data from. You have to prepare a statement first!', 1347951370);
@@ -122,8 +119,8 @@ class MySqlDataSource extends AbstractDataSource implements IterationDataSourceI
      */
     public function fetchRow(int $index)
     {
-        if ($this->statement instanceof MysqliStatement) {
-            return $this->statement->fetch(\PDO::FETCH_ASSOC, PDO::FETCH_ORI_ABS, $index);
+        if (is_subclass_of($this->statement, Result::class)) {
+            return $this->statement->fetch(\PDO::FETCH_ASSOC, \PDO::FETCH_ORI_ABS, $index);
         }
         throw new \Exception('No statement defined to fetch data from. You have to prepare a statement first!', 1347951371);
     }
