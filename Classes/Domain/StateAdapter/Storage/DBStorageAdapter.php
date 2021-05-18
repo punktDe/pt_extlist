@@ -107,6 +107,9 @@ class DBStorageAdapter implements AdapterInterface
         }
         
         if ($this->stateCache->has($this->stateHash)) {
+            // this unserialize is used to unserialize any session value. we cannot know which objects might be used,
+            // so we cannot define allowed classes. The data is filled via TYPO3 default functions, which should not
+            // be able to be exploited
             $stateData = unserialize($this->stateCache->get($this->stateHash));
         }
         
@@ -145,6 +148,9 @@ class DBStorageAdapter implements AdapterInterface
     public function delete($key)
     {
         if ($this->stateCache->has($this->stateHash)) {
+            // this unserialize is used to unserialize any session value. we cannot know which objects might be used,
+            // so we cannot define allowed classes. The data is filled via TYPO3 default functions, which should not
+            // be able to be exploited
             $stateData = unserialize($this->stateCache->get($this->stateHash));
         }
         

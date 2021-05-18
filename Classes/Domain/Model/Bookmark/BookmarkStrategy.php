@@ -47,7 +47,12 @@ class BookmarkStrategy implements BookmarkStrategyInterface
      */
     public function mergeSessionAndBookmark(Bookmark $bookmark, array $sessionData)
     {
-        $contentArray = unserialize($bookmark->getContent());
+        $contentArray = unserialize(
+            $bookmark->getContent(),
+            [
+                'allowed_classes' => false
+            ]
+        );
         $listIdentifier = $bookmark->getListId();
 
         if (array_key_exists($listIdentifier, $contentArray)) {
