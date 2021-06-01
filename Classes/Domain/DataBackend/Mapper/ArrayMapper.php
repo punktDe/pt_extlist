@@ -155,7 +155,7 @@ class ArrayMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\AbstractM
      *
      * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping Mapping for this field / cell
      * @param array $row   Raw row of list data array
-     * @throws Exception if array key defined in the mapping does not exist in the array
+     * @throws \Exception if array key defined in the mapping does not exist in the array
      * @return string  Value of raw data array field corresponding to given mapping
      */
     protected function getMappedCellValue(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping, array &$row)
@@ -175,11 +175,11 @@ class ArrayMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\AbstractM
     /**
      * @param \PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping
      * @param array $row
-     * @throws Exception
+     * @throws \Exception
      */
     protected function handleMappingError(\PunktDe\PtExtlist\Domain\Configuration\Data\Fields\FieldConfig $mapping, array $row)
     {
-        throw new Exception('Array key ' . $mapping->getIdentifier() . ' does not exist in row. Perhaps wrong mapping configuration?', 1280317751);
+        throw new \Exception('Array key ' . $mapping->getIdentifier() . ' does not exist in row. Perhaps wrong mapping configuration?', 1280317751);
     }
 
 
