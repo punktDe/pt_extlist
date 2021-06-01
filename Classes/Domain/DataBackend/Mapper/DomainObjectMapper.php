@@ -138,7 +138,7 @@ class DomainObjectMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\Ab
 				 *
 				 * @param mixed $object
 				 * @param string $property
-				 * @throws Exception if trying to call a non-existing method on the object to be mapped
+				 * @throws \Exception if trying to call a non-existing method on the object to be mapped
 				 * @return mixed
 				 */
 				protected function getPropertyValueSafely($object, $property)
@@ -152,7 +152,7 @@ class DomainObjectMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\Ab
         if (method_exists($object, $getterMethodName)) {
             return $object->$getterMethodName();
         } else {
-            throw new Exception('Trying to get a property ' . $property . ' on a domain object of type ' . get_class($object) . ' that does not implement a getter for this property.
+            throw new \Exception('Trying to get a property ' . $property . ' on a domain object of type ' . get_class($object) . ' that does not implement a getter for this property.
 			Most likely the configuration for mapper is wrong (wrong data.field configuration) 1281636422');
         }
     }
@@ -168,7 +168,7 @@ class DomainObjectMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\Ab
      *
      * @param mixed $object
      * @param string $objectPath
-     * @throws Exception if trying to call a non-existing method on the object to be mapped
+     * @throws \Exception if trying to call a non-existing method on the object to be mapped
      * @return mixed
      */
     public function resolveObjectPath($object, $objectPath)
@@ -186,13 +186,13 @@ class DomainObjectMapper extends \PunktDe\PtExtlist\Domain\DataBackend\Mapper\Ab
                 array_shift($objectPathParts);
                 return $this->resolveObjectPath($object->$getterMethodName(), implode('.', $objectPathParts));
             } else {
-                throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
+                throw new \Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
             }
         } else {      // Return last object in object path
             if (method_exists($object, $getterMethodName)) {
                 return $object->$getterMethodName();
             } else {
-                throw new Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
+                throw new \Exception('Trying to call non-existing method ' . $getterMethodName . ' on ' . get_class($object) . ' ');
             }
         }
     }
