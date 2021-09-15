@@ -230,6 +230,20 @@ plugin.tx_ptextlist.prototype.filter {
 
 		}
 
+		defaultValue {
+		    // Example: dynamic date
+		    // from.cObject = TEXT
+            // from.cObject {
+            //    strtotime = -1 days
+            //    strftime = %Y-%m-%d
+            //  }
+            // Example: static date
+            // to = 2021-09-15
+
+            from = 
+            to =
+		}
+
 		#fieldIdentifier =
 
 		breadCrumbString = TEXT
