@@ -88,6 +88,7 @@ class DateRangeFilter extends AbstractSingleValueFilter
      */
     protected function buildFilterCriteria(FieldConfig $fieldIdentifier)
     {
+
         $timestampBoundaries = $this->getCalculatedTimestampBoundaries();
         $fieldName = DbUtils::getSelectPartByFieldConfig($fieldIdentifier);
 
@@ -184,8 +185,23 @@ class DateRangeFilter extends AbstractSingleValueFilter
      */
     protected function initFilterByTsConfig()
     {
-        // TODO We don't use this here (so far)
-        // $this->filterValueFrom = $this->filterConfig->getDefaultValue() ? $this->filterConfig->getDefaultValue() : $this->filterValue;
+        $defaultValue = $this->filterConfig->getDefaultValue();
+        if (is_array($defaultValue) && !empty($defaultValue)) {
+
+            if (array_key_exists('from', $defaultValue)) {
+                $this->filterValueFrom = $defaultValue['from'];
+            } else {
+                $this->filterValueFrom = $this->filterValue;
+            }
+
+            if (array_key_exists('to', $defaultValue)) {
+                $this->filterValueTo = $defaultValue['to'];
+            } else {
+                $this->filterValueTo = $this->filterValue;
+            }
+        }
+
+
     }
 
 
