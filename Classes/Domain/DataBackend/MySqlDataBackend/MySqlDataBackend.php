@@ -850,12 +850,15 @@ class MySqlDataBackend extends AbstractDataBackend
         $queryBuilder = $connection->createQueryBuilder();
 
         $queryBuilder->selectLiteral($this->listQueryParts['SELECT'])
-            ->from($this->listQueryParts['FROMTABLE'], $this->listQueryParts['FROMALIAS'] ?? null);
+            ->from(
+                $this->listQueryParts['FROMTABLE'],
+                $this->listQueryParts['FROMALIAS'] ?? null
+            );
 
         if (!empty($this->listQueryParts['JOIN'])) {
             foreach ($this->listQueryParts['JOIN'] as $join) {
                 $method = $join['TYPE'] . 'Join';
-                $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'],$join['ON']);
+                $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'], $join['ON']);
             }
         }
         $queryBuilder->where($this->listQueryParts['WHERE']);
