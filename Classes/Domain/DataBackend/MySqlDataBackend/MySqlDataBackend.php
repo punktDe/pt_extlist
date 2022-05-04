@@ -848,9 +848,30 @@ class MySqlDataBackend extends AbstractDataBackend
 
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $connection->createQueryBuilder();
+
+        $queryBuilder->selectLiteral($this->listQueryParts['SELECT'])
+            ->from(
+                $this->listQueryParts['FROMTABLE'],
+                $this->listQueryParts['FROMALIAS'] ?? null
+            );
+
+        if (!empty($this->listQueryParts['JOIN'])) {
+            foreach ($this->listQueryParts['JOIN'] as $join) {
+                $method = $join['TYPE'] . 'Join';
+                $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'], $join['ON']);
+            }
+        }
+        $queryBuilder->where($this->listQueryParts['WHERE']);
+
+        $queryBuilder->add('groupBy', $this->listQueryParts['GROUPBY'], true);
+
+        $sql = $queryBuilder->getSQL();
+
+        $queryBuilder = $connection->createQueryBuilder();
+
         $queryBuilder->selectLiteral(
             $this->buildAggregateFieldsSQLByConfigCollection($aggregateConfigCollection) .
-            ' FROM (SELECT ' . $this->listQueryParts['SELECT'] . ' FROM ' . $this->listQueryParts['FROMTABLE'] . ' ' . $this->listQueryParts['FROMALIAS'] . ' WHERE ' . $this->listQueryParts['WHERE'] . ' GROUP BY ' . $this->listQueryParts['GROUPBY'] . ')  AS AGGREGATEQUERY'
+            ' FROM (' . $sql . ')  AS AGGREGATEQUERY'
         );
 
         return $queryBuilder;
