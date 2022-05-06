@@ -861,7 +861,10 @@ class MySqlDataBackend extends AbstractDataBackend
                 $queryBuilder->$method($join['FROMALIAS'], $join['TABLE'], $join['ALIAS'], $join['ON']);
             }
         }
-        $queryBuilder->where($this->listQueryParts['WHERE']);
+
+        if (!empty($this->listQueryParts['WHERE'])) {
+            $queryBuilder->where($this->listQueryParts['WHERE']);
+        }
 
         $queryBuilder->add('groupBy', $this->listQueryParts['GROUPBY'], true);
 
